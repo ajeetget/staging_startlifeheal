@@ -1,0 +1,471 @@
+.custom-button{
+  border-color: #30a8f4;
+  background-color: #30a8f4;
+  border-radius: 25px !important;
+  color: #ffffff !important;
+  text-transform: none;
+  font-family: melbourneregular;
+  font-weight: normal;
+  font-size: 20px !important;
+}
+.custom-button:hover{
+  color: #222;
+  background: #52aae2 !important;
+  border-color: transparent !important;
+}
+
+.static-page-data ol > li > ul {
+    padding-left: 25px;
+}
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  z-index: 999;
+  position: fixed;
+  width: 100%;
+  top: 80px;
+  text-align: center;
+}
+
+.alert h4 {
+  margin-top: 0;
+  color: inherit;
+}
+
+.alert .alert-link {
+  font-weight: bold;
+}
+
+.alert > p,
+.alert > ul {
+  margin-bottom: 0;
+}
+
+.alert > p + p {
+  margin-top: 5px;
+}
+
+.alert-dismissable,
+.alert-dismissible {
+  padding-right: 35px;
+}
+
+.alert-dismissable .close,
+.alert-dismissible .close {
+  position: relative;
+  top: -2px;
+  right: -21px;
+  color: inherit;
+}
+
+.alert-success {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #3c763d;
+}
+
+.alert-success hr {
+  border-top-color: #c9e2b3;
+}
+
+.alert-success .alert-link {
+  color: #2b542c;
+}
+
+.alert-info {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #31708f;
+}
+
+.alert-info hr {
+  border-top-color: #a6e1ec;
+}
+
+.alert-info .alert-link {
+  color: #245269;
+}
+
+.alert-warning {
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+  color: #8a6d3b;
+}
+
+.alert-warning hr {
+  border-top-color: #f7e1b5;
+}
+
+.alert-warning .alert-link {
+  color: #66512c;
+}
+
+.alert-danger {
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #a94442;
+}
+
+.alert-danger hr {
+  border-top-color: #e4b9c0;
+}
+
+.alert-danger .alert-link {
+  color: #843534;
+}
+.TestimonialQuotePanel--basic-info, .TestimonialQuotePanel--schedule {
+  background-color: #e1e4e6;
+    background-image: none;
+}
+.TestimonialQuotePanel--schedule .Logo{
+  width: 35%;
+}
+.payment-logo{
+  text-align: center;
+  padding-bottom: 15px;
+}
+.payment-logo img{
+  width: auto !important;
+}
+.payment-description {
+  font-family: inherit;
+  color: #858d9e;
+  font-size: 1.1rem;
+  margin-top: 15px;
+  text-align: center;
+  padding-bottom: 15px;
+}
+.w100 {
+  width: 100% !important;
+}
+.short-form .form-step {
+  margin-bottom: .813rem;
+}
+.short-form .form-section {
+  margin-bottom: 2.364rem;
+}
+/* Display Perticular Logo */
+.Navbar.is-sticky .novique_logo .logo_white,.Navbar.is-opaque .novique_logo .logo_white {
+  display: none;
+}
+.Navbar .novique_logo .logo_white {
+  display: block;
+}
+.Navbar.is-sticky .novique_logo .logo_main,.Navbar.is-opaque .novique_logo .logo_main {
+  display: block;
+}
+.Navbar .novique_logo .logo_main {
+  display: none;
+}
+.novique_logo img{
+  width: auto;
+  margin-top: 15px;
+}
+/* End Logo */
+svg.svg-icon-document {
+  fill: #1aabff;
+  width: 15px;
+}
+.form-field a {
+  padding: 4px 2px;
+  margin-right: 4px;
+  display: inline-block;
+  text-decoration: none;
+}
+.form-field a svg {
+  display: inline-block;
+  vertical-align: middle;
+}
+.payment-amount-time {
+  font-size: 25px;
+  color: #23afff;
+  text-align: center;
+  padding-bottom: 15px;
+}
+.paynow-button {
+  text-align: center;
+}
+.transaction-page {
+  margin: 9% auto;
+}
+
+
+img.ajax-loader {
+    border: none;
+    vertical-align: middle;
+    margin-left: 4px;
+    width: 20px;
+    position: absolute;
+    bottom: 4%;
+    left: 47%;
+    text-align: center;
+    display:none;
+}
+.error_form {
+    color: #e44237;
+    font-size: 1.087rem;
+    font-weight: 500;
+    display: inline-block;
+    width: auto;
+    position: relative;
+    bottom: 40px;
+}
+form input.error {
+  border: 1px solid #dc3545 !important;
+}
+
+.form-field input[type=file]{
+    width: 100%;
+}
+#basic_info_form_test #hear_about_other_div {
+  display: none;
+}
+.custom-flash-message{
+  text-align: left;
+  top: 0;
+}
+.custom-flash-message.hidden {
+  display: none;
+}
+.novique-form .queIcon {
+  position: absolute;
+  margin-top: 56px;
+  margin-left: 40px;
+}
+.novique-form label {
+  margin-bottom: 0;
+  font-family: Whitney A,Whitney B,Helvetica Neue,Helvetica,sans-serif;
+
+    font-size: 16px;
+    font-weight: 400;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    color: #636363;
+    text-transform: uppercase;
+
+}
+
+.Logo {
+    text-indent: 0;
+    width: 125px;
+}
+.modal .body_fat_img_male,.modal .body_fat_img_female {
+  text-align: center;
+}
+.modal .body_fat_img_male img,.modal .body_fat_img_female img {
+  width: 80%;
+}
+
+.password-reset-message{
+    text-align: center;
+}
+.success-sign i,.warning-sign i {
+    text-indent: 0;
+    font-size: 50px;
+    width: auto;
+    height: auto;
+    color: #4aca4a;
+}
+.warning-sign i {    
+    color: #ffc107!important;
+}
+p.success-messge {
+    width: 50%;
+    margin: 0 auto;
+}
+.success-sign,.warning-sign {
+    margin: 30px 0;
+}
+.back-to-home i{
+    text-indent: 0;
+}
+a.back-to-home{
+    font-size: 12px;
+    margin-top: 20px;
+    display: inline-block;
+}
+a.back-to-home i {
+    position: relative;
+    top: 11px;
+    font-size: 12px;
+}
+.password-reset-message-page .payment-logo {
+    width: 200px;
+}
+.treatments_wrapper .home-section.pt6 .circular-icon {
+  height: 5.25em;
+  width: 5.25em;
+  padding: .75em;
+  position: relative;
+  border-radius: 50%;
+  border: 1px solid #e1e1e1;
+}
+.treatments_wrapper .Button--play {
+  background-color: #fff;
+  border-radius: 2em;
+  text-transform: none;
+  font-size: 1.25rem;
+  letter-spacing: 0;
+  color: #5484a4;
+  padding: .75rem 1.25rem;
+  line-height: 1.75;
+}
+.treatments_wrapper .Button--play:hover {
+  background-color: #5484a4;
+  color: #fff;
+  box-shadow: 0 7px 15px 0 rgba(25,94,125,.2);
+}
+.treatments_wrapper .Button--play {
+  background-color: #fff;
+  border-radius: 2em;
+  text-transform: none;
+  font-size: 1.25rem;
+  letter-spacing: 0;
+  color: #5484a4;
+  padding: .75rem 1.25rem;
+}
+.treatments_wrapper .Button--play .icon-hollow-play {
+  font-size: 1.75em;
+  margin-left: .5em;
+}
+.treatments_wrapper .Button--play span {
+  line-height: 2.5rem;
+  vertical-align: top;
+}
+.treatments_wrapper .FAQ > ul > li {
+  border-bottom: 1px solid rgba(88, 133, 164, 0.5);
+  padding: .986rem;
+}
+.treatments_wrapper .Hero {
+  height: auto;
+}
+.treatments_wrapper .Button--transparent:hover {
+  background-color: #fff;
+  box-shadow: 0 7px 15px 0 rgba(25,94,125,.2);
+  color: #5484a4;
+}
+.treatments_wrapper .FAQ li.active .answer {
+  padding: 0 10px;
+}
+.treatments_wrapper .patient-info{
+  display: flex;
+}
+.treatments_wrapper .FAQ li .answer a {
+  word-break: break-word;
+}
+
+
+@media (min-width: 35.5em){
+  .treatments_wrapper .Button--play {
+      padding: 1rem 2.25rem 0.5rem;
+      font-size: 1.437rem;
+  }
+}
+
+@media screen and (min-width : 768px) {
+  .password-reset-message-page .payment-logo {
+      width: 300px;
+      margin: 0 auto;
+      padding: 0;
+  }
+  p.success-messge {
+      font-size: 24px;
+  }
+  a.back-to-home {
+      font-size: 16px;
+  }
+  a.back-to-home i {
+      top: 7px;
+      font-size: 16px;
+  }
+}
+@media screen and ( max-width : 1024px ) and ( min-width : 768px ){
+  .wistia_responsive_wrapper > span > div, .wistia_responsive_wrapper > span > div > div , .wistia_click_to_play > div > img{
+    width: 100% !important;
+  }
+}
+@media screen and (max-width : 991px){
+  .wistia_click_to_play, .wistia_click_to_play > * {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+}
+
+@media screen and (max-width : 767px) {
+  .treatments_wrapper .patient-info {
+    display: block;
+  }
+  .treatments_wrapper .Cell.l7 {
+    position: relative;
+    display: block;
+    width: 100%;
+    float: none;
+    flex-grow: unset;
+  }
+  .treatments_wrapper .Cell.l5.m7.mxAuto.py3 {
+    width: 100%;
+    float: none;
+    display: block;
+  }
+  .treatments_wrapper .mw35 {
+    max-width: 100rem!important;
+  }
+  .mxAuto .wistia_responsive_padding.mb8 {
+    padding: 0 !important;
+    min-height: 265px;
+  }
+}
+
+@media screen and (max-width : 567px){
+  .treatments_wrapper > header > .Wrapper.mw75 {
+    padding: 100px 2rem 2rem;
+  }
+}
+
+@media screen and (max-width : 479px){
+  .wistia_click_to_play > div > img {
+    width: 100% !important;
+    height: auto !important;
+  }
+  #wistia_158.big_play_button_background{
+    height: 55px !important;
+    width: 90px !important;
+    left: calc(50% - 45px) !important;
+    top: calc(50% - 27px) !important;
+  }
+  .wistia_click_to_play, .wistia_click_to_play > * {
+    max-width: 100% !important;
+    width: 100% !important;
+    height: 165px !important;
+  }
+  .wistia_click_to_play>div>div:nth-child(2){
+    /*height: 40px !important;
+    width: 63px !important;*/
+    height: 35px !important;
+    width: 50px !important;
+    left: calc(50% - 25px) !important;
+    top: calc(50% - 17px) !important;
+    background-size: 50px !important;
+  }
+  .wistia_click_to_play>div>div:first-child{
+    height: 40px !important;
+    width: 63px !important;
+    left: calc(50% - 32px) !important;
+    top: calc(50% - 20px) !important;
+  }
+  .mxAuto .wistia_responsive_padding.mb8 {
+    min-height: 165px;    
+  }
+  .treatments_wrapper .Button--play{
+    font-size: 1.0rem;
+  }
+  .FAQ h2.question {
+    font-size: 1.25rem;
+  }
+}
+

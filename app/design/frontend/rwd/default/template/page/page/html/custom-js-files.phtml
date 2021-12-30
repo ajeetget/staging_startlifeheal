@@ -1,0 +1,15 @@
+<?php 
+		$moduleName = Mage::app()->getRequest()->getModuleName(); 
+		$controller=$this->getRequest()->getControllerName();
+        $action = Mage::app()->getRequest()->getActionName();
+		$identifier = Mage::getSingleton('cms/page')->getIdentifier();
+		
+		echo "shailesh";
+?>
+<script src="<?php echo $this->getSkinUrl('js/jquery-min.js') ?>"></script>
+<script src="<?php echo $this->getSkinUrl('js/jquery.counterup.min.js') ?>"></script>
+<script src="<?php echo $this->getSkinUrl('js/jquery.waypoints.min.js') ?>"></script>
+<script src="<?php echo $this->getSkinUrl('js/owl.carousel.js') ?>"></script>
+<script src="<?php echo $this->getSkinUrl('js/aos.js') ?>"></script>
+<script src="<?php echo $this->getSkinUrl('js/main.js') ?>"></script>
+<script src="<?php echo $this->getSkinUrl('js/custom-scripts.js')?>"></script> 	

@@ -1,0 +1,893 @@
+<?php 
+$heart_disease_name =['HSCRP','TriGlycerides','HDL','LDL','Homocysteine'];
+$liver_disease_name =['SGOT','SGPT','Bilirubin','Fatty Liver Ultra Sound Stage','Fatty Liver Firbscan CAP score','Fatty Liver Firbscan E score'];
+$kidney_disease_name =['Creatinine','Urea','Sodium','Potassium','Uric Acid'];
+$Pancreas_tests_name =['HbA1c','HOMA IR','Waist To Height','Fasting Glucose','P P Sugar'];
+$eye_tests_name =['HBA1c','Blood Pressure','Waist To Height','HSCRP'];
+
+$heart =[];
+$liver =[];
+$kidney =[];
+$Pancreas =[];
+$eye =[];
+$datearr =[];
+
+$liver['id'] =1;
+$liver['title'] ='Liver Graph';
+$liver['sname'] = $liver_disease_name;
+
+$kidney['id'] =2;
+$kidney['title'] ='Kidney Graph';
+$kidney['sname'] = $kidney_disease_name;
+
+$heart['id'] =3;
+$heart['title'] ='Heart Graph';
+$heart['sname'] = $heart_disease_name;
+
+$Pancreas['id'] =4;
+$Pancreas['title'] ='Pancreas Graph';
+$Pancreas['sname'] = $Pancreas_tests_name;
+
+$eye['id'] =5;
+$eye['title'] ='Eye Graph';
+$eye['sname'] = $eye_tests_name;
+
+$LoggedIncustomer = Mage::helper('customer')->getCustomer();
+$custId = $LoggedIncustomer->getId();
+$customerName = $LoggedIncustomer->getFirstname();
+$mobileNo = $LoggedIncustomer->getPrimarymobileno();
+$config  = Mage::getConfig()->getResourceConnectionConfig("default_setup");
+$dbinfo = array("host" => $config->host,"user" => $config->username,"pass" => $config->password,"dbname" => $config->dbname);
+$groupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
+    
+$host      = $dbinfo["host"];
+$username  = $dbinfo["user"];
+$password  = $dbinfo["pass"];
+$dbname    = $dbinfo["dbname"]; 
+  
+$con = mysqli_connect($host  , $username,  $password ,$dbname);
+  if ($mysqli -> connect_errno) {
+  	echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
+  	exit();
+	}
+if($groupId == 4 || $groupId == 5){
+    $sql_str = "SELECT * FROM patientintakeform ORDER BY name ASC";
+    $customerCollection = mysqli_query($con, $sql_str);
+    $customerLi='';
+    foreach($customerCollection as $custinfo) {
+        $customerId = $custinfo['custid'];
+        $customerName =  $custinfo['name'];
+        $mobileNo = $custinfo['mobileno']; 
+        $customerName = str_replace("Dear ","",$customerName); 
+        $customerName = str_replace("Dr.","",$customerName);      
+        $customerLi.='<li id="'.$customerId.'" value="'.$customerId.'" onclick="showReportbtn('.$customerId.','.$mobileNo.')">'.$customerName.'<span class="csmall">'.$customerId.'</span></li>';
+    }
+
+    if(isset($_GET["custid"])) {
+        $gcustid = $_GET["custid"];
+        $gmno = $_GET["mno"];
+        $gcudate = $_GET["cudate"];
+        $sql = "SELECT * FROM patientintakeform where custid='".$gcustid."' and mobileno='".$gmno."' ORDER BY date ASC";
+        $sql2 = "SELECT * FROM patientintakeform where custid = '".$gcustid."' and date ='".$gcudate."'";
+
+    }
+
+}else{
+        $sql = "SELECT * FROM patientintakeform where custid='".$custId."' and mobileno='".$mobileNo."' ORDER BY date ASC";
+        if (isset($_GET["patientid"])) {
+            $sql2 = "SELECT * FROM patientintakeform where patientid =".$_GET["patientid"];
+        }else{
+            $sql2 = "SELECT * FROM patientintakeform where custid = '".$custId."' and mobileno='".$mobileNo."' ORDER BY date DESC LIMIT 1";
+            }
+    }
+
+if (isset($_GET["patientid"]) && ($groupId == 4 || $groupId == 5)){
+            $sql = "SELECT * FROM patientintakeform where custid='".$_GET["custId"]."' ORDER BY date ASC";
+            $sql2 = "SELECT * FROM patientintakeform where patientid =".$_GET["patientid"];
+        }           
+
+$result = mysqli_query($con, $sql);
+$result2 = mysqli_query($con, $sql2);
+
+$liver_db_disease =['sgot','sgpt','bilirubin','fattyliverultrasound','fattyliverfirbscan','fattyliverescore'];
+$liver_all_disease =['sgot','sgpt','bilirubin','fattyliverultrasound','fattyliverfirbscan','fattyliverescore'];
+
+$liver_db_tests =['sgot','sgpt','bilirubin','fattyliverultrasound','fattyliverfirbscan','fattyliverescore'];
+$liver_unit =['U/l','U/l','mg/dl','unit','dB/m','kPa'];
+
+$heart_db_disease =['hscrp','triglycerides','hdl','ldl','homocysteine'];
+$heart_unit =['mg/L','mg/dl','mg/dl','mg/dl','mcmol/L'];
+
+$kidney_db_disease =['creatinine','urea','sodium','potassium','uricacid'];
+$kidney_unit =['mg/dl','mg/dl','mEq/L','mmol/L','mg/dl'];
+
+$Pancreas_db_tests =['hba1c','homa','waist','fasting_glucose'];
+$Pancreas_unit =['%','unit','W/H','mg/dl'];
+
+$eye_db_tests =['hba1c','bp_systolic','waist','hscrp'];
+$eye_unit =['%','mmHg','W/H','mg/L'];
+
+$liverstr1=''; $liverstr2=''; $liverstr3=''; $liverstr4=''; 
+$liverstr5=''; $liverstr6='';
+$heartstr1=''; $heartstr2 =''; $heartstr3 =''; $heartstr4 =''; $heartstr5 ='';
+$kidneystr1=''; $kidneystr2 =''; $kidneystr3 =''; 
+$kidneystr4 =''; $kidneystr5 ='';
+$Pancreas1=''; $Pancreas2=''; $Pancreas3=''; $Pancreas4=''; $Pancreas5='';
+$eye1=''; $eye2=''; $eye3=''; $eye4='';
+
+while($row = mysqli_fetch_array($result)) {  
+    $heart['category'][] = $row["date"]; 
+    $liver['category'][] = $row["date"]; 
+    $kidney['category'][] = $row["date"];
+    $Pancreas['category'][] = $row["date"]; 
+    $eye['category'][] = $row["date"];  
+    $datearr[] = $row["date"];
+    
+    $row['hscrp']=='' ? $heartstr1 = $heartstr1.''.' ' : $heartstr1 = $heartstr1.$row['hscrp'].' ';
+    $row['triglycerides']=='' ? $heartstr2 = $heartstr2.''.' ' : $heartstr2 = $heartstr2.$row['triglycerides'].' ';
+    $row['hdl']=='' ? $heartstr3 = $heartstr3.''.' ' : $heartstr3 = $heartstr3.$row['hdl'].' ';
+    $row['ldl']=='' ? $heartstr4 = $heartstr4.''.' ' : $heartstr4 = $heartstr4.$row['ldl'].' ';
+    $row['homocysteine']=='' ? $heartstr5 = $heartstr5.''.' ' : $heartstr5 = $heartstr5.$row['homocysteine'].' ';
+
+    $row['sgot']=='' ? $liverstr1 = $liverstr1.''.' ' : $liverstr1 = $liverstr1.$row['sgot'].' ';
+    $row['sgpt']=='' ? $liverstr2 = $liverstr2.''.' ' : $liverstr2 = $liverstr2.$row['sgpt'].' ';
+    $row['bilirubin']=='' ? $liverstr3 = $liverstr3.''.' ' : $liverstr3 = $liverstr3.$row['bilirubin'].' ';
+    $row['fattyliverultrasound']=='' ? $liverstr4 = $liverstr4.''.' ' : $liverstr4 = $liverstr4.$row['fattyliverultrasound'].' ';
+    $row['fattyliverfirbscan']=='' ? $liverstr5 = $liverstr5.''.' ' : $liverstr5 = $liverstr5.$row['fattyliverfirbscan'].' ';
+    $row['fattyliverescore']=='' ? $liverstr6 = $liverstr6.''.' ' : $liverstr6 = $liverstr6.$row['fattyliverescore'].' ';
+    
+    $row['creatinine']=='' ? $kidneystr1 = $kidneystr1.''.' ' : $kidneystr1 = $kidneystr1.$row['creatinine'].' ';
+    $row['urea']=='' ? $kidneystr2 = $kidneystr2.''.' ' : $kidneystr2 = $kidneystr2.$row['urea'].' ';
+    $row['sodium']=='' ? $kidneystr3 = $kidneystr3.''.' ' : $kidneystr3 = $kidneystr3.$row['sodium'].' ';
+    $row['potassium']=='' ? $kidneystr4 = $kidneystr4.''.' ' : $kidneystr4 = $kidneystr4.$row['potassium'].' ';
+    $row['uricacid']=='' ? $kidneystr5 = $kidneystr5.''.' ' : $kidneystr5 = $kidneystr5.$row['uricacid'].' '; 
+
+    $row['hba1c']=='' ? $Pancreas1 = $Pancreas1.''.' ' : $Pancreas1 = $Pancreas1.$row['hba1c'].' ';
+    $row['homa']=='' ? $Pancreas2 = $Pancreas2.''.' ' : $Pancreas2 = $Pancreas2.$row['homa'].' ';
+    $row['waist']=='' ? $Pancreas3 = $Pancreas3.''.' ' : $Pancreas3 = $Pancreas3.$row['waist'].' ';
+    $row['fasting_glucose']=='' ? $Pancreas4 = $Pancreas4.''.' ' : $Pancreas4 = $Pancreas4.$row['fasting_glucose'].' ';
+    $row['ppsugar']=='' ? $Pancreas5 = $Pancreas5.''.' ' : $Pancreas5 = $Pancreas5.$row['ppsugar'].' '; 
+
+    $row['hba1c']=='' ? $eye1 = $eye1.''.' ' : $eye1 = $eye1.$row['hba1c'].' ';
+    $row['bp_systolic']=='' ? $eye2 = $eye2.''.' ' : $eye2 = $eye2.$row['bp_systolic'].' ';
+    $row['waist']=='' ? $eye3 = $eye3.''.' ' : $eye3 = $eye3.$row['waist'].' ';
+    $row['hscrp']=='' ? $eye4 = $eye4.''.' ' : $eye4 = $eye4.$row['hscrp'].' ';           
+}
+
+$heart['graphdata'][] = substr_replace($heartstr1 ,"",-1);
+$heart['graphdata'][] = substr_replace($heartstr2 ,"",-1);
+$heart['graphdata'][] = substr_replace($heartstr3 ,"",-1);
+$heart['graphdata'][] = substr_replace($heartstr4 ,"",-1);
+$heart['graphdata'][] = substr_replace($heartstr5 ,"",-1);
+
+$liver['graphdata'][] = substr_replace($liverstr1 ,"",-1);
+$liver['graphdata'][] = substr_replace($liverstr2 ,"",-1);
+$liver['graphdata'][] = substr_replace($liverstr3 ,"",-1);
+$liver['graphdata'][] = substr_replace($liverstr4 ,"",-1);
+$liver['graphdata'][] = substr_replace($liverstr5 ,"",-1);
+$liver['graphdata'][] = substr_replace($liverstr6 ,"",-1);
+
+$kidney['graphdata'][] = substr_replace($kidneystr1 ,"",-1);
+$kidney['graphdata'][] = substr_replace($kidneystr2 ,"",-1);
+$kidney['graphdata'][] = substr_replace($kidneystr3 ,"",-1);
+$kidney['graphdata'][] = substr_replace($kidneystr4 ,"",-1);
+$kidney['graphdata'][] = substr_replace($kidneystr5 ,"",-1);
+
+$Pancreas['graphdata'][] = substr_replace($Pancreas1 ,"",-1);
+$Pancreas['graphdata'][] = substr_replace($Pancreas2 ,"",-1);
+$Pancreas['graphdata'][] = substr_replace($Pancreas3 ,"",-1);
+$Pancreas['graphdata'][] = substr_replace($Pancreas4 ,"",-1);
+$Pancreas['graphdata'][] = substr_replace($Pancreas5 ,"",-1);
+
+$eye['graphdata'][] = substr_replace($eye1 ,"",-1);
+$eye['graphdata'][] = substr_replace($eye2 ,"",-1);
+$eye['graphdata'][] = substr_replace($eye3 ,"",-1);
+$eye['graphdata'][] = substr_replace($eye4 ,"",-1);
+
+$newgraphdata[] =   $liver;
+$newgraphdata[] =   $kidney;
+$newgraphdata[] =   $heart;
+$newgraphdata[] =   $Pancreas;
+$newgraphdata[] =   $eye;
+
+/*echo "<br/>";
+echo '<pre>';
+print_r($newgraphdata);
+echo '</pre>';
+echo "<br/>";*/
+
+while($row2 = mysqli_fetch_array($result2)) {
+    $heartdatastr2 ='';
+    $liverdatastr2 ='';
+    $kidneydatastr2 ='';
+    $Pancreasdatastr2 ='';
+    $eyedatastr2 ='';
+    $jsondate = $row2["date"];
+
+    for($i=0; $i < count($heart_db_disease); $i++){
+        $j = $heart_db_disease[$i];
+        $row2[$j]=='' ? $heartdatastr2 = $heartdatastr2.''.' ' : $heartdatastr2 = $heartdatastr2.$row2[$j].' ';
+    }
+
+     for($i=0; $i < count($liver_db_disease); $i++){
+        $j = $liver_db_disease[$i];
+        $row2[$j]=='' ? $liverdatastr2 = $liverdatastr2.''.' ' : $liverdatastr2 = $liverdatastr2.$row2[$j].' ';
+    }
+
+    for($i=0; $i < count($kidney_db_disease); $i++){
+        $j = $kidney_db_disease[$i];
+        $row2[$j]=='' ? $kidneydatastr2 = $kidneydatastr2.''.' ' : $kidneydatastr2 = $kidneydatastr2.$row2[$j].' ';
+    }
+
+    for($i=0; $i < count($Pancreas_db_tests); $i++){
+        $j = $Pancreas_db_tests[$i];
+        $row2[$j]=='' ? $Pancreasdatastr2 = $Pancreasdatastr2.''.' ' : $Pancreasdatastr2 = $Pancreasdatastr2.$row2[$j].' ';
+    }  
+
+    for($i=0; $i < count($eye_db_tests); $i++){
+        $j = $eye_db_tests[$i];
+        $row2[$j]=='' ? $eyedatastr2 = $eyedatastr2.''.' ' : $eyedatastr2 = $eyedatastr2.$row2[$j].' ';
+    }   
+}
+
+$latestliverval = explode(" ",substr_replace($liverdatastr2 ,"",-1));
+$latestheartval = explode(" ",substr_replace($heartdatastr2 ,"",-1));
+$latestkidneyval = explode(" ",substr_replace($kidneydatastr2 ,"",-1));
+$latestPancreasval = explode(" ",substr_replace($Pancreasdatastr2 ,"",-1));
+$latesteyeval = explode(" ",substr_replace($eyedatastr2 ,"",-1));
+
+
+
+
+$mainjsondata =[];
+$liverjsondata['organ'] = "Liver";
+$kidneyjsondata['organ'] = "Kidney";
+$heartjsondata['organ'] = "Heart";
+$Pancreasjsondata['organ'] = "Pancreas";
+$eyejsondata['organ'] = "Eye";
+
+
+
+for($i=0; $i<count($liver_db_disease); $i++){
+    if($latestliverval[$i]!=''){
+        $livertest["life_heal_id"] =$liver_db_disease[$i];
+        $livertest["value"] = floatval($latestliverval[$i]);
+        $livertest["uom"] = $liver_unit[$i];;
+        $livertest["date"]=$jsondate;
+        $liverjsondata['tests'][]=$livertest;
+    }
+}
+
+for($i=0; $i<count($heart_db_disease); $i++){
+    if($latestheartval[$i]!=""){
+        $hearttest["life_heal_id"] = $heart_db_disease[$i];
+        $hearttest["value"] = floatval($latestheartval[$i]);
+        $hearttest["uom"] = $heart_unit[$i];
+        $hearttest["date"]=$jsondate;
+        $heartjsondata['tests'][]=$hearttest;
+    }
+}
+
+for($i=0; $i<count($kidney_db_disease); $i++){
+    if($latestkidneyval[$i]!=""){
+        $kidneytest["life_heal_id"] = $kidney_db_disease[$i];
+        $kidneytest["value"] = floatval($latestkidneyval[$i]);
+        $kidneytest["uom"] = $kidney_unit[$i];
+        $kidneytest["date"]=$jsondate;
+        $kidneyjsondata['tests'][]=$kidneytest;
+    }
+}
+
+for($i=0; $i<count($Pancreas_db_tests); $i++){
+    if($latestPancreasval[$i]!=""){
+        $Pancreastest["life_heal_id"] = $Pancreas_db_tests[$i];
+        $Pancreastest["value"] = floatval($latestPancreasval[$i]);
+        $Pancreastest["uom"] = $Pancreas_unit[$i];
+        $Pancreastest["date"]=$jsondate;
+        $Pancreasjsondata['tests'][]=$Pancreastest;
+    }
+}
+
+for($i=0; $i<count($eye_db_tests); $i++){
+    if($latesteyeval[$i]!=""){
+        $eyetest["life_heal_id"] = $eye_db_tests[$i];
+        $eyetest["value"] = floatval($latesteyeval[$i]);
+        $eyetest["uom"] = $eye_unit[$i];
+        $eyetest["date"]=$jsondate;
+        $eyejsondata['tests'][]=$eyetest;
+    }
+}
+
+$mainjsondata[] = $liverjsondata;
+$mainjsondata[] = $kidneyjsondata;
+$mainjsondata[] = $heartjsondata;
+$mainjsondata[] = $Pancreasjsondata;
+$mainjsondata[] = $eyejsondata;
+
+/*echo "<br/>";
+echo '<pre>';
+print_r($mainjsondata);
+echo '</pre>';
+echo "<br/>";*/
+
+for($i=0; $i<count($mainjsondata); $i++){
+    $jsonDataEncoded = json_encode($mainjsondata[$i]);
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => 'http://15.207.163.47/calculator',
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'POST',
+      CURLOPT_POSTFIELDS =>$jsonDataEncoded,
+      CURLOPT_HTTPHEADER => array(
+        'Content-Type: application/json'
+      ),
+    ));
+
+    $response = curl_exec($curl);
+    curl_close($curl);  
+    $decodeval[] = json_decode($response);
+}
+
+$mydata =[
+    ["id"=>1,"organ"=>"Liver","qty"=>intval($decodeval[0]->data->value),"pic"=>"human-liver.png","desc"=>$decodeval[0]->data->possibility],
+    ["id"=>2,"organ"=>"Kidney","qty"=>intval($decodeval[1]->data->value),"pic"=>"human-kidney.png","desc"=>$decodeval[1]->data->possibility],
+    ["id"=>3,"organ"=>"Heart","qty"=>intval($decodeval[2]->data->value),"pic"=>"human-heart.png","desc"=>$decodeval[2]->data->possibility],
+    ["id"=>4,"organ"=>"Pancreas","qty"=>intval($decodeval[3]->data->value),"pic"=>"human-pancreas.png","desc"=>$decodeval[3]->data->possibility],
+     ["id"=>5,"organ"=>"Eye","qty"=>intval($decodeval[4]->data->value),"pic"=>"human-eye.png","desc"=>$decodeval[4]->data->possibility]              
+];
+
+
+
+$ta1 = count($decodeval[0]->matches);
+$ta2 = count($decodeval[1]->matches);
+$ta3 = count($decodeval[2]->matches);
+$ta4 = count($decodeval[3]->matches);
+$ta5 = count($decodeval[4]->matches);
+$tt1=''; $tv1=''; $ts1=''; $tw1=''; $tr1=''; $tb1='';
+$tt2=''; $tv2=''; $ts2=''; $tw2=''; $tr2=''; $tb2='';
+$tt3=''; $tv3=''; $ts3=''; $tw3=''; $tr3=''; $tb3='';
+$tt4=''; $tv4=''; $ts4=''; $tw4=''; $tr4=''; $tb4='';
+$tt5=''; $tv5=''; $ts5=''; $tw5=''; $tr5=''; $tb5='';
+
+
+for($t1 =0; $t1 < count($decodeval[0]->matches); $t1++){
+    if($t1 < ($ta1-1)){
+        $tt1.=$decodeval[0]->matches[$t1]->name.',';
+        $tv1.=$decodeval[0]->matches[$t1]->value.',';
+        $ts1.=$decodeval[0]->matches[$t1]->scoring.',';
+        $tw1.=$decodeval[0]->matches[$t1]->test_weitage.',';
+        $tr1.=$decodeval[0]->matches[$t1]->range.',';
+        $tb1.=$decodeval[0]->matches[$t1]->behavior.',';
+    }else{
+        $tt1.=$decodeval[0]->matches[$t1]->name;
+        $tv1.=$decodeval[0]->matches[$t1]->value;
+        $ts1.=$decodeval[0]->matches[$t1]->scoring;
+        $tw1.=$decodeval[0]->matches[$t1]->test_weitage;
+        $tr1.=$decodeval[0]->matches[$t1]->range;
+        $tb1.=$decodeval[0]->matches[$t1]->behavior;
+    }
+}
+
+for($t2 =0; $t2 < count($decodeval[1]->matches); $t2++){
+    if($t2 < ($ta2-1)){
+        $tt2.=$decodeval[1]->matches[$t2]->name.',';
+        $tv2.=$decodeval[1]->matches[$t2]->value.',';
+        $ts2.=$decodeval[1]->matches[$t2]->scoring.',';
+        $tw2.=$decodeval[1]->matches[$t2]->test_weitage.',';
+        $tr2.=$decodeval[1]->matches[$t2]->range.',';
+        $tb2.=$decodeval[1]->matches[$t2]->behavior.',';
+    }else{
+        $tt2.=$decodeval[1]->matches[$t2]->name;
+        $tv2.=$decodeval[1]->matches[$t2]->value;
+        $ts2.=$decodeval[1]->matches[$t2]->scoring;
+        $tw2.=$decodeval[1]->matches[$t2]->test_weitage;
+        $tr2.=$decodeval[1]->matches[$t2]->range;
+        $tb2.=$decodeval[1]->matches[$t2]->behavior;
+    }
+}
+
+for($t3 =0; $t3 < count($decodeval[2]->matches); $t3++){
+    if($t3 < ($ta3-1)){
+        $tt3.=$decodeval[2]->matches[$t3]->name.',';
+        $tv3.=$decodeval[2]->matches[$t3]->value.',';
+        $ts3.=$decodeval[2]->matches[$t3]->scoring.',';
+        $tw3.=$decodeval[2]->matches[$t3]->test_weitage.',';
+        $tr3.=$decodeval[2]->matches[$t3]->range.',';
+        $tb3.=$decodeval[2]->matches[$t3]->behavior.',';
+    }else{
+        $tt3.=$decodeval[2]->matches[$t3]->name;
+        $tv3.=$decodeval[2]->matches[$t3]->value;
+        $ts3.=$decodeval[2]->matches[$t3]->scoring;
+        $tw3.=$decodeval[2]->matches[$t3]->test_weitage;
+        $tr3.=$decodeval[2]->matches[$t3]->range;
+        $tb3.=$decodeval[2]->matches[$t3]->behavior;
+    }
+}
+
+for($t4 =0; $t4 < count($decodeval[3]->matches); $t4++){
+    if($t4 < ($ta4-1)){
+        $tt4.=$decodeval[3]->matches[$t4]->name.',';
+        $tv4.=$decodeval[3]->matches[$t4]->value.',';
+        $ts4.=$decodeval[3]->matches[$t4]->scoring.',';
+        $tw4.=$decodeval[3]->matches[$t4]->test_weitage.',';
+        $tr4.=$decodeval[3]->matches[$t4]->range.',';
+        $tb4.=$decodeval[3]->matches[$t4]->behavior.',';
+    }else{
+        $tt4.=$decodeval[3]->matches[$t4]->name;
+        $tv4.=$decodeval[3]->matches[$t4]->value;
+        $ts4.=$decodeval[3]->matches[$t4]->scoring;
+        $tw4.=$decodeval[3]->matches[$t4]->test_weitage;
+        $tr4.=$decodeval[3]->matches[$t4]->range;
+        $tb4.=$decodeval[3]->matches[$t4]->behavior;
+    }
+}
+
+for($t5 =0; $t5 < count($decodeval[4]->matches); $t5++){
+    if($t5 < ($ta5-1)){
+        $tt5.=$decodeval[4]->matches[$t5]->name.',';
+        $tv5.=$decodeval[4]->matches[$t5]->value.',';
+        $ts5.=$decodeval[4]->matches[$t5]->scoring.',';
+        $tw5.=$decodeval[4]->matches[$t5]->test_weitage.',';
+        $tr5.=$decodeval[4]->matches[$t5]->range.',';
+        $tb5.=$decodeval[4]->matches[$t5]->behavior.',';
+    }else{
+        $tt5.=$decodeval[4]->matches[$t5]->name;
+        $tv5.=$decodeval[4]->matches[$t5]->value;
+        $ts5.=$decodeval[4]->matches[$t5]->scoring;
+        $tw5.=$decodeval[4]->matches[$t5]->test_weitage;
+        $tr5.=$decodeval[4]->matches[$t5]->range;
+        $tb5.=$decodeval[4]->matches[$t5]->behavior;
+    }
+}
+
+$tabledata =[
+    ["id"=>1,"tests"=>$tt1,"Test_Value"=>$tv1,"Test_Score"=>$ts1,"Weightage"=>$tw1,"range"=>$tr1,"behavior"=>$tb1,"numerator"=>$decodeval[0]->numerator,"denominator"=>$decodeval[0]->denominator,"alltests"=>"SGOT,SGPT,Bilirubin,Fatty Liver Ultrasound,Fibroscan CAP Score,Fatty Liver Fibroscan E score"],
+
+    ["id"=>2,"tests"=>$tt2,"Test_Value"=>$tv2,"Test_Score"=>$ts2,"Weightage"=>$tw2,"range"=>$tr2,"behavior"=>$tb2,"numerator"=>$decodeval[1]->numerator,"denominator"=>$decodeval[1]->denominator,"alltests"=>"Creatinine,Urea,Sodium,Potassium,Uric Acid"],
+
+    ["id"=>3,"tests"=>$tt3,"Test_Value"=>$tv3,"Test_Score"=>$ts3,"Weightage"=>$tw3,"range"=>$tr3,"behavior"=>$tb3,"numerator"=>$decodeval[2]->numerator,"denominator"=>$decodeval[2]->denominator,"alltests"=>"HsCRP,Triglyceride,HDL,LDL,Homocysteine"],
+
+    ["id"=>4,"tests"=>$tt4,"Test_Value"=>$tv4,"Test_Score"=>$ts4,"Weightage"=>$tw4,"range"=>$tr4,"behavior"=>$tb4,"numerator"=>$decodeval[3]->numerator,"denominator"=>$decodeval[3]->denominator,"alltests"=>"HbA1c,HOMA IR,Waist To Height,Fasting Glucose,P P Sugar"],
+
+     ["id"=>5,"tests"=>$tt5,"Test_Value"=>$tv5,"Test_Score"=>$ts4,"Weightage"=>$tw5,"range"=>$tr5,"behavior"=>$tb5,"numerator"=>$decodeval[4]->numerator,"denominator"=>$decodeval[4]->denominator,"alltests"=>"HBA1c,Blood Pressure,Waist To Height,HSCRP"]            
+];
+
+
+$totalTab = count($newgraphdata);
+$cnt = 1; 
+$gcnt = 1;
+$xaxisnumber = count($datearr);
+
+echo  "<script type=\"text/javascript\">";
+    echo "var dict ={};";
+    echo "var tablecontent ={};";
+    echo "var graphcontent = {};";
+    echo "var currentindex = 1;\n";
+    echo "var totalTab = ".$totalTab.";\n";
+    echo "var xaxisnumber = ".$xaxisnumber.";\n";
+    echo "dict.ids = new Array();\n";
+    echo "tablecontent.ids = new Array();\n";
+echo  "</script>"; 
+
+for($i=0; $i < count($mydata); $i++ ) {
+
+    echo  "<script type=\"text/javascript\">";
+
+        echo "var tempObj = [];"; 
+        echo "var key = '';";   
+        echo "key='".$mydata[$i]['id']."';";
+
+        if($cnt < 2)
+
+        echo "initialkey = '".$mydata[$i]['id']."';";   
+
+        echo "var tempid = '".$mydata[$i]['id']."';";  
+        echo "dict.ids.push(tempid);\n"; 
+        echo "tempObj[\"hiddenid\"] = '".$mydata[$i]['id']."';"; 
+        echo "tempObj[\"questionnum\"] = '".$cnt."';";  
+        echo "tempObj[\"organ\"] = '".$mydata[$i]['organ']."';"; 
+        echo "tempObj[\"qty\"] = '".$mydata[$i]['qty']."';"; 
+        echo "tempObj[\"pic\"] = '".$mydata[$i]['pic']."';";        
+        echo "tempObj[\"desc\"] = '".$mydata[$i]['desc']."';";
+        echo "dict[key] = tempObj;";   
+        //echo "alert(tempObj);";
+        // echo "alert(tempObj['desc']);";
+        //echo "alert('dict== '+dict[key]);";            
+    echo  "</script>"; 
+    $cnt++;
+}
+
+
+for($m=0; $m < count($tabledata); $m++ ) {
+    echo  "<script type=\"text/javascript\">";
+        echo "var tableObj = [];"; 
+        echo "var tablekey = '';";   
+        echo "tablekey='".$tabledata[$m]['id']."';";
+
+        if($tnt < 2)
+        echo "initialTkey = '".$tabledata[$m]['id']."';";   
+
+        echo "var tempTid = '".$tabledata[$m]['id']."';";  
+        echo "tablecontent.ids.push(tempTid);\n";        
+        echo "tableObj[\"tests\"] = '".$tabledata[$m]['tests']."';"; 
+        echo "tableObj[\"Test_Value\"] = '".$tabledata[$m]['Test_Value']."';";  
+        echo "tableObj[\"Test_Score\"] = '".$tabledata[$m]['Test_Score']."';";
+        echo "tableObj[\"Weightage\"] = '".$tabledata[$m]['Weightage']."';";
+        echo "tableObj[\"range\"] = '".$tabledata[$m]['range']."';";
+        echo "tableObj[\"behavior\"] = '".$tabledata[$m]['behavior']."';";
+        echo "tableObj[\"numerator\"] = '".$tabledata[$m]['numerator']."';";
+        echo "tableObj[\"denominator\"] = '".$tabledata[$m]['denominator']."';";
+        echo "tableObj[\"alltests\"] = '".$tabledata[$m]['alltests']."';";
+        echo "tablecontent[tablekey] = tableObj;";                   
+    echo  "</script>"; 
+    $tnt++;
+}
+
+for($i=0; $i < count($newgraphdata); $i++ ) {   
+
+    echo  "<script type=\"text/javascript\">";
+
+        echo "var gtempObj = [];"; 
+
+        echo "var gkey = '';";
+
+        echo "gkey='".$newgraphdata[$i]['id']."';";
+
+        if($gcnt < 2)
+
+        echo "initialgkey = '".$newgraphdata[$i]['id']."';";   
+
+        echo "gtempObj[\"hiddenid\"] = '".$newgraphdata[$i]['id']."';";     
+
+            echo "gtempObj[\"questionnum\"] = '".$gcnt."';";   
+
+            echo "gtempObj[\"title\"] = '".$newgraphdata[$i]['title']."';"; 
+
+            $catstr = implode(" ", $newgraphdata[$i]['category']);
+
+            echo "gtempObj[\"category\"] = '".$catstr."';"; 
+
+            $snamestr = implode("-", $newgraphdata[$i]['sname']); 
+            echo "gtempObj[\"sname\"] = '".$snamestr."';"; 
+
+            $sdatastr = implode(":", $newgraphdata[$i]['graphdata']); 
+            echo "gtempObj[\"sdata\"] = '".$sdatastr."';";                      
+
+            echo "graphcontent[gkey] = gtempObj;"; 
+
+    echo  "</script>"; 
+    $gcnt++;
+}
+
+
+?>
+
+ <link rel="stylesheet"  href="<?php echo $this->getSkinUrl('css/circle.css') ?>">
+<script src="<?php echo $this->getSkinUrl('js/highcharts.js') ?>"></script>
+<script src="https://cdn.jsdelivr.net/npm/animejs@3.0.1/lib/anime.min.js"></script>
+
+
+
+<section class="main-newdashboard">
+    
+    <?php       
+    if($groupId == 4 || $groupId == 5){?> 
+        <div> 
+            <label>Select Customer:</label>              
+            <ul id="my-list"> <?php echo $customerLi;?> </ul>
+            <ul class="report_btn_list" id="report_btn_list">  </ul>
+            <ul id="alldates"></ul>
+        </div>
+    <?php }
+    ?>
+     
+	<section class="main-newdashboard-top">
+
+		<div class="main-newdashboard-top-left">
+			<map name="humanbody">
+    			<area shape="poly" id="spot1"coords="150,302,144,249,164,230,212,231,241,235,231,264,201,278,177,295" href="#">
+    			<area shape="poly" id="lungspot"coords="202,173,181,154,160,181,150,221,152,235,166,229,198,232,198,207" href="#">
+    			<area shape="poly" id="heartspot"coords="257,187,249,158,231,156,228,169,219,185,218,210,227,232,250,238,258,220,253,202" href="#">
+    		</map>
+            <div class="mycheck" id="mycheck">
+			     <img src="<?php echo Mage::getDesign()->getSkinUrl();?>images/dashboard-body.png" usemap="#humanbody"/>
+            </div>
+		</div>
+
+		<div class="main-newdashboard-top-right">
+			<div class="newdashboard-top-head" id="give_shadow">
+				<div class="arrow-box">
+					<div class="arrow-box-inner" id="arrow_box_inner">
+						
+					</div>
+				</div>
+				<div class="newdashboard-top-head-content">
+					<div class="top-head-content-left">
+						<div id="graph_id">
+                            <span id="circle_qty"></span>
+                            <div class="slice">
+                                <div class="bar"></div>
+                                <div class="fill"></div>
+                            </div>
+                        </div>
+					</div>
+					<div class="top-head-content-right">
+						<h2 id="organ_name"></h2>
+                        <span>Know More</span>
+					</div>
+				</div>
+			</div>
+			<div class="newdashboard-top-bottom">
+				<p id="mytxt">If you want to live without disease you need a healthy Liver as it effect the whole of your body functioning.</p>
+			</div>
+		</div>
+	</section>
+
+    <div class="demotable" id="demotable">
+        <table>
+            <thead>
+                <tr>
+                    <td>Test Name</td>
+                    <td>Test Value</td>
+                    <td>Score</td>
+                    <td> Weightage </td>
+                    <td> Range </td>
+                    <td> Interpretation </td>
+                </tr>
+            </thead>
+            <tbody id="tablebody">
+                        
+            </tbody>
+        </table>
+    </div>
+
+	<section class="main-newdashboard-bottom">
+		<div class="newdashboard-bottom-top">
+			<div id="graph_container">	</div>
+		</div>
+	</section>
+	
+</section>
+<script src="<?php echo $this->getSkinUrl('js');?>/jquery.alphaindex.js"></script>
+<!--<script src="<?php //echo $this->getSkinUrl('js/customchart.js') ?>"></script>-->
+<style type="text/css">
+li{	list-style: none;	margin:0;	padding: 0;}
+.main-container.col2-left-layout.newdashboard { background: #faf8f9;
+    width: 100%;    max-width: 100%;}
+.main-newdashboard{	width:96%;	margin-left:4%;}
+.main-newdashboard-top{	margin-bottom: 1px;	display: flex;
+	flex-wrap: wrap;	justify-content: space-between;}
+.main-newdashboard-top-left{	width:350px;	box-sizing: border-box;
+	padding:20px 30px 0 30px;	border-radius: 25px;	background: #fff;}
+.main-newdashboard-top-right{	width: calc(100% - 390px);}
+.newdashboard-top-head{	width:100%;	box-sizing: border-box;
+	margin-bottom: 30px;	border-radius: 20px;	background: #fff;
+	padding: 30px;	position: relative;}
+.top-head-content-left {  margin: 0 auto;    width: 82%;}
+.arrow-box{	position: absolute;	width: 100%;
+	height: 100%;	left:0;	bottom: 0;}
+.arrow-box-inner { display: flex; flex-wrap: wrap; 
+    justify-content: space-between;  align-items: center; height: 100%;}
+.arrow-box-inner li{display: inline-block; font-size: 3.5rem;
+	padding: 0 15px; cursor: pointer;}
+.arrow-box-inner li:nth-child(2){	color:#269a9b;}
+.top-head-content-right{text-align: center;}
+.top-head-content-right h2{	font-size: 2.5rem;	color:#269a9b;	}
+.top-head-content-right span{display: inline-block;	color: #269a9b;
+	font-size: 1.2rem;	cursor: pointer;}
+.newdashboard-top-bottom p{font-size: 1.2rem;}
+.demotable table{box-sizing: border-box;  width:100%; background: #fff;  margin-bottom: 25px;box-shadow: 0 0 9px 2px rgba(0,0,0,0.1);  border: 5px solid #269a9b; }
+.demotable table tr td{padding:8px 20px; border-bottom:1px solid rgba(0,0,0,0.2);}
+.demotable thead{background:#269a9b;  color: #fff;}
+.highlight { color:#fff;  background:#269a9b !important;}
+ul.alpha-index-list li{background:rgba(255,255,255,0.4);}
+.csmall{font-size: 10px; display: inline-block; padding: 0 6px;}
+/*#my-list{border-bottom:1px solid rgba(0,0,0,0.1);}*/
+ul#alldates li{ display: inline-block;  width:auto; margin:15px 25px 5px 0;
+    font-size: 1.1em;    padding: 6px 15px; cursor:pointer;
+    border: 1px solid silver;  background:rgba(255,255,255,0.4);}
+.na{ color: darkgray;  font-size: 13px;}
+.demotable a { display: inline-block;  padding: 8px 10px; background: #fb673f;
+    color: #fff; font-size: 16px;}   
+</style>
+<script type="text/javascript">
+jQuery(document).ready(function() {    
+    jQuery('#my-list').makeAlphaIndex({
+        activateFirstIndex: false,
+        showItemsCount: false
+    });
+}); 
+
+
+function showReportbtn(custId,mobileNo) {    
+    jQuery('li').removeClass("highlight");
+    jQuery('#'+custId).addClass("highlight");  
+    var formData = {
+            'mobileno':mobileNo,            
+            'custid':custId  
+        };
+    jQuery.ajax({
+        url: "<?php echo Mage::getBaseUrl().'override/index/getalldates' ?>",
+        type:'POST',
+        data: formData  
+        })
+        .done(function(data){            
+            jQuery('#alldates').html(data);                      
+            console.log(data);                                          
+        })                  
+        .fail(function(textStatus){
+            alert(textStatus)
+        }); 
+}
+function editScreen(cId,mobiNo,custdate) {                         
+    var redirect = "<?php echo Mage::getBaseUrl().'customer/account/organhealth?custid=' ?>"+cId+"&mno="+mobiNo+"&cudate="+custdate; 
+    window.location.href = redirect;         
+}    
+</script>
+
+<script type="text/javascript"> 
+//gaphCnt(initialgkey);
+function nextclicked(currentindex, initialgkey){
+    //alert('clicked== '+currentindex);
+    if(currentindex < totalTab){  
+        currentindex++; 
+        var mykey = dict['ids'][(currentindex-1)];       
+        changescreen(currentindex, mykey); 
+        }
+    }
+
+ //////////////PREVIOUS CLICKED//////////////////////////////////
+
+function prevclicked(currentindex, initialgkey){
+    if(currentindex > 1){
+        currentindex--;
+        var mykey = dict['ids'][(currentindex - 1)]; 
+        changescreen(currentindex, mykey);
+        }
+    }  
+
+ function  gaphCnt(gkey){
+ 	var snamearr = graphcontent[gkey]['sname'].split("-");  
+    if(xaxisnumber > 1){
+    var sdataarr = graphcontent[gkey]['sdata'].split(":");
+    }else{
+      var sdataarr = graphcontent[gkey]['sdata'];  
+    }
+    var intseries = [];
+    for(var i =0; i <snamearr.length; i++ ){
+        var tempint = {};
+        tempint.name = snamearr[i];
+        tempint.data = sdataarr[i].split(" ").map(Number);     
+        intseries.push(tempint);
+    }
+    //console.log(intseries);
+
+    Highcharts.chart('graph_container', {
+        chart:{
+            type:'line',
+            zoomType:'x'            
+        },
+        credits:{
+            enabled:false
+        },
+        title:{
+            text: graphcontent[gkey]['title']
+        },
+        background: {
+    		color: 'red'   
+		},
+        colors:['#79b4e5','#269a9b','#c31b42','#f5e306'],
+        xAxis: {
+            categories: graphcontent[gkey]['category'].split(" ")
+        },
+        yAxis: {
+            title: {
+                text:'Date Value'
+            }
+        },
+        series:intseries
+    });
+ }      
+</script>
+
+
+<script type="text/javascript">
+	 function emptyClass(){   
+        document.getElementById('graph_id').className ='';
+    }
+
+    function whiteall(){
+    	for(x in dict){
+    	//alert(x+" jjjjjj  "+dict[x]['name']);
+    	document.getElementById(x).style.background="#ccc";
+    	}
+	}
+
+	function changescreen(currentindex, theKey){
+		//alert(dict[theKey]['qty']);
+		gaphCnt(theKey);
+		//whiteall();
+		emptyClass();
+		document.getElementById('graph_id').classList.add("c100", "big", "p"+dict[theKey]['qty']);
+		document.getElementById('organ_name').innerHTML = dict[theKey]['organ'];
+		document.getElementById('mytxt').innerHTML=dict[theKey]['desc'];
+	document.getElementById('circle_qty').innerHTML= dict[theKey]['qty']+"%";
+    document.getElementById('mycheck').innerHTML = "<img src=\"<?php echo Mage::getDesign()->getSkinUrl();?>images/"+dict[theKey]['pic']+"\"/>"; 
+
+	if(theKey==1){
+        document.getElementById('arrow_box_inner').innerHTML = "<li></li>"+
+            "<li onClick=\"nextclicked('"+currentindex+"','"+theKey+"');\">&gt;</li>";
+
+    }else if(theKey==totalTab){
+        document.getElementById('arrow_box_inner').innerHTML = "<li onClick=\"prevclicked('"+currentindex+"','"+theKey+"');\">&lt;</li>"+
+            "<li></li>";
+
+    }else if(theKey>1 && theKey<totalTab){
+        document.getElementById('arrow_box_inner').innerHTML = "<li onClick=\"prevclicked('"+currentindex+"','"+theKey+"');\">&lt;</li>"+
+            "<li onClick=\"nextclicked('"+currentindex+"','"+theKey+"');\">&gt;</li>";
+    }
+
+        var organ_tests = tablecontent[theKey]['tests'].split(",");
+        var tests_value = tablecontent[theKey]['Test_Value'].split(",");
+        var tests_score = tablecontent[theKey]['Test_Score'].split(",");
+        var tests_weightage = tablecontent[theKey]['Weightage'].split(",");
+        var trange = tablecontent[theKey]['range'].split(",");
+        var tbehavior = tablecontent[theKey]['behavior'].split(",");
+        var alltests = tablecontent[theKey]['alltests'].split(",");
+        let difference = alltests.filter(x => organ_tests.indexOf(x) === -1);
+        var trow='';
+
+        for(var k=0; k < organ_tests.length; k++){
+            trow += `<tr><td>${organ_tests[k]}</td><td>${tests_value[k]}</td><td>${tests_score[k]}</td><td>${tests_weightage[k]}</td><td>${trange[k]}</td><td>${tbehavior[k]}</td></tr>`;
+        } 
+
+        if(difference.length!=0){
+            for(var y=0; y < difference.length; y++){
+            trow += `<tr><td>${difference[y]}</td><td><span class="na">N/A</span></td><td><span class="na">N/A</span></td><td><span class="na">N/A</span></td><td><span class="na">N/A</span></td><td><span class="na">N/A</span></td></tr>`;
+            } 
+        } 
+
+        trow += `<tr><td>Numerator = ${tablecontent[theKey]['numerator']}</td> <td>Denominator = ${tablecontent[theKey]['denominator']}</td> <td colspan="2"> <a href="#">Download Report</a></td> <td colspan="2"><a href="https://lifeheal.in/testreport/">Submit Report</a></td> </tr>`; 
+        document.getElementById('tablebody').innerHTML = trow;        
+	}
+	changescreen(currentindex, initialgkey);
+</script>
+
+<script> 
+	const btn1 = document.getElementById('spot1');
+	const mouseHoverAnimation = () => {
+		anime({
+		  targets: '#give_shadow',  
+		  duration: 100,
+		  boxShadow: "0 0 15px 3px rgba(0, 0, 0, 0.1)",
+		   easing: "linear"
+		});
+
+		anime({
+		  targets: '#organ_name',  
+		  color: '#5cab1d',
+		  duration: 800
+		});
+	}
+	const mouseOutAnimation = () => {
+		anime({
+		  targets: '#give_shadow',  
+		  duration: 100,
+		  boxShadow: "0 0 0 0 rgba(0, 0, 0, 0.1)",
+		   easing: "linear"
+		});
+
+		anime({
+		  targets: '#organ_name',  
+		  color: '#269a9b',
+		  duration: 800
+		});	
+	}
+	btn1.addEventListener('mouseover', mouseHoverAnimation);
+	btn1.addEventListener('mouseout', mouseOutAnimation);
+</script>

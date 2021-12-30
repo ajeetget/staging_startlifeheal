@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="163" height="101" viewBox="0 0 163 101">
+    <defs>
+        <style>
+            .a {
+                fill: url(#a);
+            }
+            .b,
+            .f {
+                fill: #fff;
+            }
+            .c {
+                fill: #3a3a3a;
+            }
+            .c,
+            .d {
+                font-size: 24px;
+                font-family: "Poppins", sans-serif;
+                font-weight: 700;
+            }
+            .d {
+                fill: #1fb2ef;
+            }
+            .e,
+            .i {
+                fill: #a7a6a6;
+            }
+            .e,
+            .f {
+                font-size: 14px;
+            }
+            .e {
+                font-family: "Poppins", sans-serif;
+            }
+            .e,
+            .h {
+                opacity: 0.75;
+            }
+            .f {
+                font-family: "Poppins", sans-serif;
+                font-weight: 300;
+            }
+            .g {
+                fill: url(#b);
+            }
+        </style>
+        <linearGradient id="a" x1="1.175" y1="0.167" x2="0" y2="0.193" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#ffda00" />
+            <stop offset="0.466" stop-color="#8ad533" />
+            <stop offset="1" stop-color="#23d160" />
+        </linearGradient>
+        <linearGradient id="b" x1="-0.07" y1="0.626" x2="1.743" y2="0.599" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#fd2a2a" />
+            <stop offset="1" stop-color="#ffda00" />
+        </linearGradient>
+    </defs>
+    <g transform="translate(-311 -2497)">
+        <rect class="a" width="163" height="101" rx="22" transform="translate(311 2497)" />
+        <path class="b" d="M0,0H163a0,0,0,0,1,0,0V46a22,22,0,0,1-22,22H22A22,22,0,0,1,0,46V0A0,0,0,0,1,0,0Z" transform="translate(311 2530)" />
+        <text class="c" transform="translate(337 2560)"><tspan x="0" y="0">116</tspan></text>
+        <text class="d" transform="translate(410 2560)"><tspan x="0" y="0">108</tspan></text>
+        <text class="e" transform="translate(368 2584)"><tspan x="0" y="0">3 months</tspan></text>
+        <text class="f" transform="translate(332 2519)"><tspan x="0" y="0">Blood Sugar Level</tspan></text>
+        <path
+            class="g"
+            d="M14.06,13.4H.537A.537.537,0,0,0,0,13.935v2.508a.537.537,0,0,0,.537.537H14.06v2.063a1.075,1.075,0,0,0,1.835.76L19.75,15.95a1.075,1.075,0,0,0,0-1.52L15.9,10.575a1.075,1.075,0,0,0-1.835.76Z"
+            transform="translate(383.686 2536.311)"
+        />
+        <g class="h" transform="translate(349.672 2572.25)">
+            <path class="i" d="M9.7,3.375A6.328,6.328,0,1,0,16.031,9.7,6.326,6.326,0,0,0,9.7,3.375ZM9.7,14.765A5.062,5.062,0,1,1,14.765,9.7,5.062,5.062,0,0,1,9.7,14.765Z" transform="translate(-3.375 -3.375)" />
+            <path class="i" d="M17.487,10.688h-.949v3.8l3.322,1.993.475-.779L17.487,14.01Z" transform="translate(-10.842 -7.524)" />
+        </g>
+    </g>
+</svg>

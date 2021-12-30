@@ -1,0 +1,175 @@
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+ 
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+	   $("#tooltip-1").tooltip();
+  } );
+  </script>
+	<style>
+		@media print
+{
+	.header-wrapper, .footer-container, .breadcrumbs, .bck-btn{display:none;}
+	header, footer{display:none;}
+	
+.noprint {display:none;}
+}
+
+@media print {
+	.header-wrapper, .footer-container, .breadcrumbs{display:none;}
+	header, footer, .bck-btn{display:none;}
+	 div.print-content article.node .node-blog .clearfix div.item-body p a {
+    display: none;}
+    @page {
+      size: A4; /* DIN A4 standard, Europe */
+      margin:0;
+		font-size:10pt;
+    }
+    html, body {
+       /* width: 210mm;
+         height: 297mm;
+        height: 282mm; */
+        
+        background: #FFF;
+        overflow:visible;
+    }
+    
+		}
+		.main {
+    width: 100%;
+    margin-top: 7rem;
+    height: 100%;
+    margin-bottom: 1.5rem;
+}
+	#myHeaderhead, #oldfooter, .navbar{font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100% !important;
+    margin: 0 !important;
+	}
+	#printdate input[type="text"] {
+    max-width: 100%;
+    background: #f6fcfc;
+    height: 35px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+    border: 0;
+    margin: 10px;
+    width: 80%;
+}	
+#printdate select {
+    font-size: 14px;
+    margin: 10px;
+    width: 80%;
+    max-width: 100%;
+    background: #f6fcfc;
+    height: 35px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+    border: 0;
+}
+.ui-datepicker td {
+    border: 0;
+    padding: 1px;
+    width: 10%;
+}
+
+.outputResult{max-width:1060px;width:100%;}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  max-width:1060px;
+  margin:auto;
+  font-size: 12px;
+}
+input[type=text] {
+font-size: 15px;
+color: #0eb58f; 
+}
+textarea{ font-size: 15px; }
+h2{font-weight: normal;margin: auto;
+width: 1060px;font-size:17px;margin-top: 10px;
+height:30px;color: #000;
+line-height:30px;}
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 4px;
+}
+
+
+</style>
+<?php
+$choosenDate='';
+if (isset($_POST["submit"])&& $_POST['datepicker']!='' ) {
+	  $choosenDate   = $_POST['datepicker'];
+}   
+?>
+<form method="POST" action="<?php echo Mage::getBaseUrl().'heal/index/deliveryreport';?>" >
+<h1 class="noprint" style="text-align: center;font-size: 24px;margin-bottom: 30px;text-transform: capitalize;">Delivery Box Report </h1> 
+<table width="1000" border="1" align="center" id="printdate" style="padding-left: 20px;margin:auto;padding-top:10px;">
+  <tbody class="noprint">
+    <tr>
+      <td style="margin:3px"> 
+        <span style="width:auto;float: left;height: 35px;line-height: 35px;margin:10px auto;">Order Date:</span>
+        <input type="text" id="datepicker"  name="datepicker" value="<?php echo $choosenDate;?>">
+		  <input type="submit" name="submit" value="Submit" style="margin: 10px auto;padding: 0px 10px;background: #0EB58F;border: 1px solid #0EB58F;color: #fff;font-size: 14px;height: 35px;width:auto;line-height: 35px;">
+ 	    </td>
+
+    </tr>
+    
+  </tbody>
+</table>
+</form>
+
+<?php 
+$countResult =0;
+if (isset($_POST["submit"])&& $_POST['datepicker']!='') {
+        // $orderdate   = '06/10/2019';
+     
+     $orderdate2=date_create(trim($_POST['datepicker']));
+     $orderdate1 = date_format($orderdate2,"Y-m-d");
+     $orderdate = "%".$orderdate1."%";
+		 /*$dateInfo = explode("/",$orderdate);
+
+		 $tmpOrderdateToShow = $dateInfo[2]."-".$dateInfo[0]."-".$dateInfo[1];	
+		 $month = date("M",strtotime($tmpOrderdateToShow));
+		 $orderdateToShow = $dateInfo[1]."-".$month."-".$dateInfo[2];*/
+		
+		$dbRead      = Mage::getSingleton('core/resource')->getConnection('core_read');
+		$selectDatewiseOrders= "select * from healpotcount where timestamp like '".$orderdate."' ";
+		$cuisineResult = $dbRead->fetchAll($selectDatewiseOrders);
+		if(count($cuisineResult)>0){ ?>
+<table class="outputResult">
+<tr> <td colspan="8"><span> Note: Reporting here by Submit Date</span></td></tr>
+  <tr>
+    <th style="background-color: #fff;color: #000;text-align: center;border:1px solid #000;">Order Id</th>
+    <th style="background-color: #fff;color: #000;text-align: center;border:1px solid #000;">Order Date</th>
+    <th style="background-color: #fff;color: #000;text-align: center;border:1px solid #000;">Sent Received</th>
+    <th style="background-color: #fff;color: #000;text-align: center;border:1px solid #000;">SS Box</th>
+    <th style="background-color: #fff;color: #000;text-align: center;border:1px solid #000;">Serial No. ssbox</th>
+    <th style="background-color: #fff;color: #000;text-align: center;border:1px solid #000;">Submitted By</th>
+    <th style="background-color: #fff;color: #000;text-align: center;border:1px solid #000;">Submit Time</th>
+    <th style="background-color: #fff;color: #000;text-align: center;border:1px solid #000;">Modified Time</th>
+  </tr>
+<?php foreach($cuisineResult as $row) { ?>
+  <tr>
+    <td><?php echo $row['orderid']; ?> </td>
+    <td><?php echo $row['orderdate'];  ?> </td>
+    <td><?php echo $row['sentreceived']; ?> </td>
+    <td><?php echo $row['ssbox']; ?> </td>
+    <td><?php echo $row['srssbox']; ?> </td>
+    <td><?php echo $row['submittedby']; ?> </td>
+    <td><?php echo $row['timestamp']; ?> </td>
+    <td><?php echo $row['modifiedtimestamp']; ?> </td>
+  </tr>
+<?php } ?>
+ </table>
+<div class="page-break"></div>
+<?php		}
+	} else { ?>
+<span style="text-align: center;font-family: arial, sans-serif;border-collapse: collapse;margin: 20px auto;width: 100%;float: left;font-size: 18px;">
+<?php echo "No Delivery Report found";?></span>
+<?php } ?>

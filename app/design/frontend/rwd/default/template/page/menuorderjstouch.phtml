@@ -1,0 +1,639 @@
+
+  <!-- other head stuff... -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flickity/2.2.0/flickity.css" /> 
+  <!-- all your great html... -->
+  <script src="<?php echo $this->getSkinUrl();?>js/flickity.pkgd.js"></script>
+<!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/flickity/2.2.0/flickity.pkgd.js"></script>
+--><style>
+.flickity-slider {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0px !important;
+}
+.flickity-page-dots {
+    position: absolute;
+    width: 100%;
+    bottom: -25px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-align: center;
+    line-height: 1;
+    display: none;
+}
+.flickity-enabled {
+    position: static !important;
+}
+.flickity-prev-next-button {
+ top: 7%;
+width: 24px;
+height: 24px;
+border-radius: 50%;
+transform: translateY(-50%);
+background: none;
+}
+.flickity-button {
+    position: absolute;
+	background:none !important;
+/*    background: hsla(0, 12.9%, 87.8%, 0.75);
+*/    border: none;
+    color: #333;
+}
+.gallery {
+  background: #EEE;
+}
+.flickity-viewport {
+    overflow: hidden;
+    position: relative;
+    height: 450px !important;
+}
+.gallery-cell {
+  width: 100%;
+height: 500px;
+margin-right: 10px;
+background: #fff;
+margin-left:0px !important;
+list-style: none;
+counter-increment: gallery-cell;
+}
+.btn-info {
+color: #c31f41;
+
+float: left;
+
+width: 30%;
+
+margin: 20px 4px;
+
+background: #fff;
+
+box-shadow: 0px 0px 4px rgba(0,0,0,0.4);
+
+border-color: #c31f41;
+z-index:1;
+position: relative;
+
+}
+.btn-info:hover {
+    color: #fff;
+    background-color: #c31f41;
+    border-color: #c31f41;
+}
+.btn-info.focus, .btn-info:focus {
+    box-shadow: 0 0 0 .2rem rgba(195, 31, 65,0.1);
+    border: 0px;
+}
+.demo1,.demo2, .demo3{width: 100%;
+float: left;}
+</style>
+<!-- Top Navbar -->
+
+<div class="container-fluid imgfood">
+  <img src="http://cure.americanarearugs.com/skin/frontend/rwd/default/images/foodmenu.jpg" alt="food menu" class="desktopbanner"/>
+   <img src="http://cure.americanarearugs.com/skin/frontend/rwd/default/images/CMD-Menu-Mobile-Banner.jpg" alt="food menu" class="mobbanner"/>
+  <div class="calenderarea">
+  <div class="calenderbox">Date: <label id="currentMenuDate" value="<?php echo date("D d F", strtotime("+1 day"));?>">&nbsp; <?php echo date("D d F", strtotime("+1 day"));?></label></div>
+  <div class="pureveg">Order minimum before 24 Hours</div>
+  <div class="result">100% Results</div>
+  </div>
+  </div>
+<section class="container" style="padding: 0;float: left;">
+  <section class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+        
+        <div class="panel-body">
+<div role="tabpanel" id="myScrollspy">
+<ul class="tabs"  data-spy="affix" data-offset-top="205" >
+ <h4 style="font-size: 16px;text-transform: uppercase;color: #000; margin:0px;"><u>Weekly Food Menu</u></h4>
+
+  <li class="nav-item active" rel="tab1" onclick="setCurrentDate('<?php echo date("D d F", strtotime("+1 day"));?>');" >
+    <a class="nav-link" aria-controls="item1" role="tab" data-toggle="tab" href="#item1" onclick="div1()"><?php echo date("D d F", strtotime("+1 day"));?></a>
+  </li>
+  <li class="nav-item" rel="tab2" onclick="setCurrentDate('<?php echo date("D d F", strtotime("+2 day"));?>');">
+    <a class="nav-link" href="#item2" aria-controls="item2" role="tab" data-toggle="tab" onclick="div2()"><?php echo date("D d F", strtotime("+2 day"));?></a>
+  </li>
+  <li class="nav-item" rel="tab3" onclick="setCurrentDate('<?php echo date("D d F", strtotime("+3 day"));?>');">
+    <a class="nav-link" aria-controls="item3" role="tab" data-toggle="tab" href="#item3" onclick="div3()"><?php echo date("D d F", strtotime("+3 day"));?></a>  </li>
+  <li class="nav-item" rel="tab4" onclick="setCurrentDate('<?php echo date("D d F", strtotime("+4 day"));?>');">
+    <a class="nav-link" aria-controls="item4" role="tab" data-toggle="tab" href="#item4" onclick="div4()"><?php echo date("D d F", strtotime("+4 day"));?></a>   </li>
+   <li class="nav-item" rel="tab5" onclick="setCurrentDate('<?php echo date("D d F", strtotime("+5 day"));?>');">
+     <a class="nav-link" aria-controls="item5" role="tab" data-toggle="tab" href="#item5" onclick="div5()"><?php echo date("D d F", strtotime("+5 day"));?></a>    </li>
+                      
+   </ul>
+  <!-- Nav tabs -->
+<ul class="main-gallery">
+ <!--tab1-->
+<?php liContents($tabNumber='tab1',date("D d, F", strtotime("+1 day")));?>
+ <!--tab2-->
+ <?php liContents($tabNumber='tab2',date("D d, F", strtotime("+2 day")));?>
+  <!--tab3-->
+ <?php liContents($tabNumber='tab3',date("D d, F", strtotime("+3 day")));?>
+  <!--tab4-->
+ <?php liContents($tabNumber='tab4',date("D d, F", strtotime("+4 day")));?>
+ <!--tab5-->
+ <?php liContents($tabNumber='tab5',date("D d, F", strtotime("+5 day")));?>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<script>
+ // tabbed content
+    // http://www.entheosweb.com/tutorials/css/tabs.asp
+    jQuery(".tab_content").hide();
+    jQuery(".tab_content:first").show();
+
+  /* if in tab mode */
+    jQuery("ul.tabs li").click(function() {
+		
+      jQuery(".tab_content").hide();
+      var activeTab = jQuery(this).attr("rel"); 
+      jQuery("#"+activeTab).fadeIn();		
+		
+      jQuery("ul.tabs li").removeClass("active");
+      jQuery(this).addClass("active");
+
+
+	  jQuery(".tab_drawer_heading").removeClass("d_active");
+	  jQuery(".tab_drawer_heading[rel^='"+activeTab+"']").addClass("d_active");
+	  
+    });
+	/* if in drawer mode */
+	jQuery(".tab_drawer_heading").click(function() {
+      
+      jQuery(".tab_content").hide();
+      var d_activeTab = jQuery(this).attr("rel"); 
+      jQuery("#"+d_activeTab).fadeIn();
+	  
+	  jQuery(".tab_drawer_heading").removeClass("d_active");
+      jQuery(this).addClass("d_active");
+	  
+	  jQuery("ul.tabs li").removeClass("active");
+	  jQuery("ul.tabs li[rel^='"+d_activeTab+"']").addClass("active");
+    });
+	
+	
+	/* Extra class "tab_last" 
+	   to add border to right side
+	   of last tab */
+	jQuery('ul.tabs li').last().addClass("tab_last");
+  function callController(){
+    jQuery.ajax({
+      url: "<?php echo Mage::getBaseUrl().'heal/index/menuorder' ?>",
+      type: "POST",
+      data: {Name: 'Sant Yadav'},
+      success: function(response){
+          console.log(response);
+      }
+    });
+  }
+	
+</script>
+<?php /*?><!-- jQuery library -->
+<script src="http://cure.americanarearugs.com/skin/frontend/rwd/default/js/jquery-3.1.1.min.js"></script>
+<!-- bxSlider Javascript file -->
+<script src="http://cure.americanarearugs.com/skin/frontend/rwd/default/js/jquery.bxslider.js"></script><?php */?>
+<script>
+var flkty = new Flickity( '.main-gallery', {
+  // options
+  cellAlign: 'left', 
+  contain: true,
+
+});
+
+</script>
+
+
+<script>
+
+jQuery(document).ready(function(){
+  jQuery(".muglai").click(function(){
+    jQuery(".demo1").show();
+	 jQuery(".demo2").hide();
+	 jQuery(".demo3").hide();
+	
+  });
+
+jQuery(".indian").click(function(){
+      jQuery(".demo2").show();
+	 jQuery(".demo1").hide();
+	 jQuery(".demo3").hide();
+ 
+  });
+
+   jQuery(".italian").click(function(){
+	    jQuery(".demo3").show();
+	 jQuery(".demo1").hide();
+	 jQuery(".demo2").hide();
+  });
+  
+ 
+});
+
+ function div1()
+{
+jQuery('.gallery-cell').css('left', '0');
+jQuery('#tab1').css('display', 'block !important');
+ jQuery('#tab2').css('left', '0');
+
+ jQuery('#div1').css('display', 'block');
+ jQuery('#tab2').hide();
+ jQuery('#tab3').hide();
+  jQuery('#tab4').hide();
+   jQuery('#tab5').hide();
+}
+
+function div2()
+{
+jQuery('.gallery-cell').css('left', '0');
+ jQuery('#tab2').css('display', 'block !important');
+ jQuery('#tab2').css('left', '0');
+
+      jQuery('#div2').css('display', 'block');
+
+ jQuery('#tab1').hide();
+ jQuery('#tab3').hide();
+  jQuery('#tab4').hide();
+   jQuery('#tab5').hide();
+}
+
+function div3()
+{
+jQuery('.gallery-cell').css('left', '0'); 
+     jQuery('#tab3').css('left', '0');
+	 	  jQuery('#tab3').css('display', 'block !important');
+
+ jQuery('#div3').css('display', 'block');
+  jQuery('#tab1').hide();
+ jQuery('#tab2').hide();
+  jQuery('#tab4').hide();
+   jQuery('#tab5').hide();
+}
+function div4()
+{
+   jQuery('.gallery-cell').css('left', '0');
+     jQuery('#tab4').css('left', '0');
+	  jQuery('#tab4').css('display', 'block !important');
+
+ jQuery('#div4').css('display', 'block');
+  jQuery('#tab1').hide();
+ jQuery('#tab3').hide();
+  jQuery('#tab2').hide();
+   jQuery('#tab5').hide();
+}
+function div5()
+{
+jQuery('.gallery-cell').css('left', '0');
+ jQuery('#tab5').css('left', '0');
+jQuery('#tab5').css('display', 'block !important');
+ jQuery('#div5').css('display', 'block');
+ jQuery('#tab1').hide();
+ jQuery('#tab3').hide();
+  jQuery('#tab4').hide();
+   jQuery('#tab2').hide();
+}
+</script>
+
+
+<script type="text/javascript">
+function setCurrentDate(value)
+{
+	jQuery('#currentMenuDate').val(value);
+	jQuery('#currentMenuDate').text(value);
+}
+
+function checkFormValues(tabNumber)
+{
+           var breakfast = [];
+            jQuery.each(jQuery("input[name^='"+tabNumber+"-breakfast']:checked"), function(){            
+                breakfast.push("<p><span>"+jQuery(this).val()+"</span></p>");
+				jQuery("#"+tabNumber+"-selectedBreakfast").html(breakfast.join(''));
+            });
+			
+			 //alert("breakfast Items are: " + breakfast.join(", "));
+			
+ var lunch = [];
+            jQuery.each(jQuery("input[name^='"+tabNumber+"-lunch']:checked"), function(){            
+               // lunch.push(jQuery(this).val());
+			   lunch.push("<p><span>"+jQuery(this).val()+"</span></p>");
+				jQuery("#"+tabNumber+"-selectedLunch").html(lunch.join(''));
+            });
+			
+			// alert("lunch Items are: " + lunch.join(", "));
+			
+ var tea = [];
+            jQuery.each(jQuery("input[name^='"+tabNumber+"-tea']:checked"), function(){            
+             //   tea.push(jQuery(this).val());
+			  tea.push("<p><span>"+jQuery(this).val()+"</span></p>");
+				jQuery("#"+tabNumber+"-selectedTea").html(tea.join(''));
+            });
+			// alert("tea Items are: " + tea.join(", "));
+			
+ var dinnerMughlai = [];
+            jQuery.each(jQuery("input[name^='"+tabNumber+"-dinner-mughlai']:checked"), function(){            
+               // dinnerMughlai.push(jQuery(this).val());
+			    dinnerMughlai.push("<p><span>"+jQuery(this).val()+"</span></p>");
+				jQuery("#"+tabNumber+"-selectedDinnerMughlai").html(dinnerMughlai.join(''));
+            });
+			// alert("Dinner Mughlai Items are: " + dinnerMughlai.join(", "));
+			 
+ var dinnerIndian = [];
+            jQuery.each(jQuery("input[name^='"+tabNumber+"-dinner-indian']:checked"), function(){            
+               // dinnerIndian.push(jQuery(this).val());
+			   dinnerIndian.push("<p><span>"+jQuery(this).val()+"</span></p>");
+				jQuery("#"+tabNumber+"-selectedDinnerIndian").html(dinnerIndian.join(''));
+            });
+			// alert("Dinner Indian Items are: " + dinnerIndian.join(", "));
+			
+ var dinnerItalian  = [];
+            jQuery.each(jQuery("input[name^='"+tabNumber+"-dinner-italian']:checked"), function(){            
+               // dinnerItalian.push(jQuery(this).val());
+			    dinnerItalian.push("<p><span>"+jQuery(this).val()+"</span></p>");
+				jQuery("#"+tabNumber+"-selectedDinnerItalian").html(dinnerItalian.join(''));
+            });
+          //  alert("Dinner Italian Items are: " + dinnerItalian.join(", "));
+
+}
+</script>
+
+
+<?php function liContents($tabNumber,$customDate){?>
+
+<li class="gallery-cell tab_content" id="<?php echo $tabNumber;?>">
+<form name="form-<?php echo $tabNumber;?>" id="form-<?php echo $tabNumber;?>">
+  <h3 class="d_active tab_drawer_heading" rel="tab1" ><?php echo $customDate;?></h3>
+  <div id="tab1" class="scrollspy-example"  style="overflow-y: scroll;-webkit-overflow-scrolling:touch!important;" data-spy="scroll"  data-target="#navbar-example" data-offset="0">
+   <div class=" col-xs-6 col-sm-12 col-md-12 col-lg-12">
+       <h4 style="font-size: 16px;color: #000;">Breakfast</h4>
+                <span id="<?php echo $tabNumber;?>-selectedBreakfast"></span>
+                </div> <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12">
+                 <img src="http://cure.americanarearugs.com/skin/frontend/rwd/default/images/brkfast.jpg" alt="">
+    </div>
+       <?php 
+	    $breakFastCategory = Mage::getModel('catalog/category')->load(5);
+		$breakfastCollection = Mage::getModel('catalog/product')->getCollection()
+             			 ->addAttributeToSelect('*')
+						 ->addCategoryFilter($breakFastCategory)
+			 			 ->addAttributeToFilter('status', 1);
+	   
+	   
+	   foreach($breakfastCollection as  $tmpProduct){ ?>         
+      <div class="col-xs-12 col-sm-6 itemmenubox"><div class="itemone" itemscope="">
+   
+    <span class="icon-foodSymbol food-red food-adjust food-green"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/rwd/default/';?>images/vegicon.jpg" alt=""></span>
+    <div class="GaqmA"><div>
+    
+    <div class="btnright">
+ 			 <input type="checkbox" id="<?php echo $tabNumber;?>-breakfast-<?php echo $tmpProduct->getEntityId();?>" name="<?php echo $tabNumber;?>-breakfast-<?php echo $tmpProduct->getEntityId();?>" value="<?php echo $tmpProduct->getName();?>"/>
+	</div> 
+ 
+    
+    <div class="itembox">
+    <div class="itemname">
+    <div class="itemproperty" itemprop="name"><?php echo $tmpProduct->getName();?><br/>
+    <small><?php echo $tmpProduct->getShortDescription();?></small>
+    </div>
+    </div>
+    </div>
+   
+   </div>
+   
+    </div>
+</div>
+               </div>
+   
+      <?php } ?>        
+               
+     <div class="col-xs-12 col-sm-6 itemmenubox"><div class="itemone" itemscope="">
+   </div>
+               </div>
+              <p class="hrline"><small>Note: Condiments come standard (Beetroot chutney, Chatpata tomato & onion)</small></p>
+               <br/>
+               
+               
+                <div class=" col-xs-6 col-sm-12 col-md-12 col-lg-12"><h4 style="font-size: 16px;color: #000;">Lunch</h4>
+                <span id="<?php echo $tabNumber;?>-selectedLunch"></span>
+                </div> <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12">
+                 <img src="http://cure.americanarearugs.com/skin/frontend/rwd/default/images/lunch.jpg" alt="">
+                 </div>
+    <?php 
+	$lunchCategory = Mage::getModel('catalog/category')->load(6);
+    $lunchCollection = Mage::getModel('catalog/product')->getCollection()
+             			 ->addAttributeToSelect('*')
+						 ->addCategoryFilter($lunchCategory)
+			 			 ->addAttributeToFilter('status', 1);
+	
+	foreach($lunchCollection as  $tmpProduct){ ?>         
+      <div class="col-xs-12 col-sm-6 itemmenubox"><div class="itemone" itemscope="">
+    <span class="icon-foodSymbol food-red food-adjust food-green"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/rwd/default/';?>images/vegicon.jpg" alt=""></span>
+    <div class="GaqmA"><div>
+    
+    <div class="btnright">
+ 			 <input type="checkbox" id="<?php echo $tabNumber;?>-lunch-<?php echo $tmpProduct->getEntityId();?>" name="<?php echo $tabNumber;?>-lunch-<?php echo $tmpProduct->getEntityId();?>" value="<?php echo $tmpProduct->getName();?>"/>
+	</div> 
+ 
+    
+            <div class="itembox">
+              <div class="itemname">
+               <div class="itemproperty" itemprop="name"><?php echo $tmpProduct->getName();?><br/>
+                 <small><?php echo $tmpProduct->getShortDescription();?></small>
+               </div>
+             </div>
+            </div>
+  		 </div>
+  		 </div>
+		</div>
+       </div>
+   
+      <?php } ?>      
+            <p class="hrline"><small>Note: Condiments come standard (Beetroot chutney, Chatpata tomato & onion)</small></p>  
+               
+               <br/>
+                   <div class=" col-xs-6 col-sm-12 col-md-12 col-lg-12"><h4 style="font-size: 16px;color: #000;">High Tea</h4>
+                 <span id="<?php echo $tabNumber;?>-selectedTea"></span>
+                </div> <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12">
+                 <img src="http://cure.americanarearugs.com/skin/frontend/rwd/default/images/hightea.jpg" alt="">
+                 </div>
+			   <?php 
+			   
+			   $highTeaCategory = Mage::getModel('catalog/category')->load(8);
+				$highTeaCollection = Mage::getModel('catalog/product')->getCollection()
+             			 ->addAttributeToSelect('*')
+						 ->addCategoryFilter($highTeaCategory)
+			 			 ->addAttributeToFilter('status', 1);
+			   
+			   foreach($highTeaCollection as  $tmpProduct){ ?>         
+                  <div class="col-xs-12 col-sm-6 itemmenubox"><div class="itemone" itemscope="">
+                <span class="icon-foodSymbol food-red food-adjust food-green"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/rwd/default/';?>images/vegicon.jpg" alt=""></span>
+                <div class="GaqmA"><div>
+                
+                <div class="btnright">
+                         <input type="checkbox" id="<?php echo $tabNumber;?>-tea-<?php echo $tmpProduct->getEntityId();?>" name="<?php echo $tabNumber;?>-tea-<?php echo $tmpProduct->getEntityId();?>" value="<?php echo $tmpProduct->getName();?>"/>
+                </div> 
+             
+                
+                        <div class="itembox">
+                          <div class="itemname">
+                           <div class="itemproperty" itemprop="name"><?php echo $tmpProduct->getName();?><br/>
+                             <small><?php echo $tmpProduct->getShortDescription();?></small>
+                           </div>
+                         </div>
+                        </div>
+                     </div>
+                     </div>
+                    </div>
+                   </div>
+               
+                  <?php } ?>      
+               <p class="hrline"><small>Note: Condiments come standard (Beetroot chutney, Chatpata tomato & onion)</small></p>
+               <br/>
+                <div class=" col-xs-6 col-sm-12 col-md-12 col-lg-12"><h4 style="font-size: 16px;color: #000;">Dinner</h4>
+                <!--<p><span>1 Item</span></p>-->
+                </div> <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12">
+                 <img src="http://cure.americanarearugs.com/skin/frontend/rwd/default/images/dinner.jpg" alt="">
+                 </div>
+                 
+           <div class="col-xs-12 col-sm-12">   
+  <button type="button" class="btn btn-info muglai"data-target="#demo">Mughlai</button>
+                
+   
+   <button type="button" class="btn btn-info indian" data-target=".demo2">Indian</button>
+   
+    
+   <button type="button" class="btn btn-info italian" data-target=".demo3">Italian</button>
+ <div class="demo1"> <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12"><h4 style="font-size: 16px;color: #000;">Mughlai
+      <br/><small>Choose 1 Grain, 2 Sides, 1 Appetizer, 1 Dessert</small></h4>
+                <span id="<?php echo $tabNumber;?>-selectedDinnerMughlai"></span>
+                </div>
+               <?php 
+			   
+			    $dinnerMuchlaiCategory = Mage::getModel('catalog/category')->load(9);
+				$dinnerMuchlaiCollection = Mage::getModel('catalog/product')->getCollection()
+             			 ->addAttributeToSelect('*')
+						 ->addCategoryFilter($dinnerMuchlaiCategory)
+			 			 ->addAttributeToFilter('status', 1);	
+			   
+			   foreach($dinnerMuchlaiCollection as  $tmpProduct){ ?>         
+                  <div class="col-xs-12 col-sm-6 itemmenubox"><div class="itemone" itemscope="">
+                <span class="icon-foodSymbol food-red food-adjust food-green"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/rwd/default/';?>images/vegicon.jpg" alt=""></span>
+                <div class="GaqmA"><div>
+                
+                <div class="btnright">
+                         <input type="checkbox" id="<?php echo $tabNumber;?>-dinner-mughlai-<?php echo $tmpProduct->getEntityId();?>" name="<?php echo $tabNumber;?>-dinner-mughlai-<?php echo $tmpProduct->getEntityId();?>" value="<?php echo $tmpProduct->getName();?>"/>
+                </div> 
+             
+                
+                        <div class="itembox">
+                          <div class="itemname">
+                           <div class="itemproperty" itemprop="name"><?php echo $tmpProduct->getName();?><br/>
+                             <small><?php echo $tmpProduct->getShortDescription();?></small>
+                           </div>
+                         </div>
+                        </div>
+                     </div>
+                     </div>
+                    </div>
+                   </div>
+               
+                  <?php } ?>    
+    </div>   
+    <div class="demo2"  style="display:none;">
+       <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12"><h4 style="font-size: 16px;color: #000;">Indian      
+<br/><small>Choose 1 Grain, 2 Sides, 1 Appetizer, 1 Dessert</small></h4>
+                 <span id="<?php echo $tabNumber;?>-selectedDinnerIndian"></span>
+                </div>
+    <?php 
+			   
+			    $dinnerIndianCategory = Mage::getModel('catalog/category')->load(10);
+$dinnerIndianCollection = Mage::getModel('catalog/product')->getCollection()
+             			 ->addAttributeToSelect('*')
+						 ->addCategoryFilter($dinnerIndianCategory)
+			 			 ->addAttributeToFilter('status', 1);	
+			   
+			   foreach($dinnerIndianCollection as  $tmpProduct){ ?>         
+                  <div class="col-xs-12 col-sm-6 itemmenubox"><div class="itemone" itemscope="">
+                <span class="icon-foodSymbol food-red food-adjust food-green"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/rwd/default/';?>images/vegicon.jpg" alt=""></span>
+                <div class="GaqmA"><div>
+                
+                <div class="btnright">
+                         <input type="checkbox" id="<?php echo $tabNumber;?>-dinner-indian-<?php echo $tmpProduct->getEntityId();?>" name="<?php echo $tabNumber;?>-dinner-indian-<?php echo $tmpProduct->getEntityId();?>"  value="<?php echo $tmpProduct->getName();?>"/>
+                </div> 
+             
+                
+                        <div class="itembox">
+                          <div class="itemname">
+                           <div class="itemproperty" itemprop="name"><?php echo $tmpProduct->getName();?><br/>
+                             <small><?php echo $tmpProduct->getShortDescription();?></small>
+                           </div>
+                         </div>
+                        </div>
+                     </div>
+                     </div>
+                    </div>
+                   </div>
+               
+                  <?php } ?>    
+   </div>
+   
+     <div class="demo3" style="display:none;">
+      <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12"><h4 style="font-size: 16px;color: #000;">Italian
+      <br/><small>Choose 1 Grain, 2 Sides, 1 Appetizer, 1 Dessert</small></h4>
+                <span id="<?php echo $tabNumber;?>-selectedDinnerItalian"></span>
+                </div>
+                 
+     
+   <?php 
+			   
+			   $dinnerItalinCategory = Mage::getModel('catalog/category')->load(5);
+$dinnerItalinCollection = Mage::getModel('catalog/product')->getCollection()
+             			 ->addAttributeToSelect('*')
+						 ->addCategoryFilter($dinnerItalinCategory)
+			 			 ->addAttributeToFilter('status', 1);
+						 
+			   foreach($dinnerItalinCollection as  $tmpProduct){ ?>         
+                  <div class="col-xs-12 col-sm-6 itemmenubox"><div class="itemone" itemscope="">
+                <span class="icon-foodSymbol food-red food-adjust food-green"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/rwd/default/';?>images/vegicon.jpg" alt=""></span>
+                <div class="GaqmA"><div>
+                
+                <div class="btnright">
+                         <input type="checkbox" id="<?php echo $tabNumber;?>-dinner-italian-<?php echo $tmpProduct->getEntityId();?>" name="<?php echo $tabNumber;?>-dinner-italian-<?php echo $tmpProduct->getEntityId();?>"  value="<?php echo $tmpProduct->getName();?>"/>
+                </div> 
+             
+                
+                        <div class="itembox">
+                          <div class="itemname">
+                           <div class="itemproperty" itemprop="name"><?php echo $tmpProduct->getName();?><br/>
+                             <small><?php echo $tmpProduct->getShortDescription();?></small>
+                           </div>
+                         </div>
+                        </div>
+                     </div>
+                     </div>
+                    </div>
+                   </div>
+               
+                  <?php } ?>    
+   
+   
+                  </div>
+  </div>
+            <p class="hrline"><small>Note: Condiments come standard (Beetroot chutney, Chatpata tomato & onion)</small></p>  
+              
+               <br/>
+                <div class="preference"><h4 style="font-size: 16px;color: #000;">Preference</h4>
+    <p class="col-xs-6 col-sm-6"><small>Extra Instructions</small></p><p class="col-xs-6 col-sm-6 p2"><small>List any special requests</small></p>
+    <textarea rows="4" cols="50" class="input-text"  id="<?php echo $tabNumber;?>-comment" name="<?php echo $tabNumber;?>-comment" ></textarea><br/>
+    
+     <button type="button" class="button submit" onClick="checkFormValues('<?php echo $tabNumber;?>')"><span>Submit</span></button> 
+           
+             </div>
+</div>
+  <!-- #tab1 -->
+  </form>
+  
+  </li>
+<?php }

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Cmd1_NoOnion>
+      <active>true</active>
+      <codePool>local</codePool>
+      <version>0.1.0</version>
+    </Cmd1_NoOnion>
+  </modules>
+</config>

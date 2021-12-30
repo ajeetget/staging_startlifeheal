@@ -1,0 +1,198 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ */
+/* @var $this Mage_Catalog_Block_Product_List */
+?>
+    <style>
+span {cursor:pointer; }
+		.multichoice{border: 1px solid #000;
+width: 100%;
+float: left;
+}
+		.mainboxlist {
+ width: 31%;
+float: left;
+margin: 0% .8% 0% 1.2%;
+
+}
+	.insidebox {
+ width:100%; float:left;
+}
+.insideboxpic{width:2.3em;
+margin: .5em auto;
+height: 2.3em;
+background-repeat: no-repeat;
+float: left;
+background-size: 100% 100%;}
+.insideboxname{width:82%;
+float: left;
+text-align: left;
+font-size: 12px;
+margin: 1.1em.5em;}
+.insideboxlike{background-image: url("https://lifeheal.in/skin/frontend/rwd/default/images/favorite.svg");
+min-width: 2em;
+margin: .5em auto;
+min-height: 2em;
+background-repeat: no-repeat;
+float: left;
+background-size: 100% 100%;}
+.insideboxselect{width:auto;
+float: right;
+text-align: center;}
+		.submithsbtn{float: left;
+width: 100%;
+margin: 3% auto;}
+		.hs-button {
+cursor: pointer;
+display: block;
+font-weight: 700;
+line-height: 12px;
+text-align: center;
+background-color:#269a9b;
+border-color:#269a9b;
+color:#fff;
+border-radius: 3px;
+border-style: solid;
+border-width: 1px;
+font-size: 14px;
+padding: 12px 24px;
+margin: auto;
+}
+.loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}       
+		@media screen and (min-width:260px) and (max-width:767px){
+			
+.mainboxlist {
+ width:98%;
+float: left;
+margin:1%;
+}
+.insideboxselect {
+    width: auto;
+    float: left;
+    text-align: center;
+}
+.insideboxname {
+    width: 80%;
+    float: left;
+    text-align: left;
+    font-size: 12px;
+    margin: .5em;
+}
+.insideboxpic {
+    width: 2em;
+    margin: .5em auto;
+    height: 2em;
+    background-repeat: no-repeat;
+    float: left;
+    background-size: 100% 100%;
+}
+		}
+</style>
+<?php 
+$catid = 94;
+$category = Mage::getModel('catalog/category')->load($catid);
+
+
+  $_productCollection = Mage::getModel('catalog/product')->getCollection()
+              ->addAttributeToSelect('*')
+  	      ->addCategoryFilter($category)
+              ->addAttributeToFilter('visibility', 4)
+              ->addAttributeToFilter('type_id','simple')
+	      ->addAttributeToFilter('status', 1);
+			  
+
+     $_collectionSize = $_productCollection->count() ;
+     echo 'collection size='.$_collectionSize;
+     $_columnCount = $this->getColumnCount(); ?>
+  
+          
+     
+	<div class="container-fluid">
+		<div class="multichoice">
+		<?php $i=0; foreach ($_productCollection as $_product): if($_product->getTypeId()=='simple') { 
+                    
+                    ?>
+		<div class="mainboxlist">
+	<div class="insidebox">
+<div class="insideboxpic"><img id="product-collection-image-<?php echo $_product->getId(); ?>"  class="img-wrpr__img"
+                         src="<?php echo Mage::helper('catalog/image')->init($_product, 'small_image')->constrainOnly(FALSE)->keepAspectRatio(TRUE)->keepFrame(FALSE)->resize($_imgSize); ?>"
+                          />
+						</div>
+<div class="insideboxname"><span class="itm-dsc__nm"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></span></div>
+
+<div class="insideboxselect">
+	<label class="checkbox-inline">
+	      <input type="checkbox" value="">
+    </label>
+	</div>
+		</div>
+		
+	
+</div>
+		
+                <?php  } endforeach ?>
+			</div>
+	</div>
+			<!--submit-->
+				<div class="submithsbtn">
+			<button type="submit" value="Submit" class="hs-button primary large">Submit</button>
+				</div>
+				<!--submit-->
+   
+   
+</div>
+
+
+<div class="loader" style="display: none;"></div>
+<script>
+
+$(document).ready(function() {
+     $(".myAddsingle").click(function(){
+        $("."+$(this).attr('data') +" .numberadd").show();
+        $(this).toggle();
+  });
+ 
+});
+</script>
+</script>

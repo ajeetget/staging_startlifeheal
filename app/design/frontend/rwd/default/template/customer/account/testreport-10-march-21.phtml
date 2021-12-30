@@ -1,0 +1,657 @@
+<style type="text/css">
+.loader {
+  position: fixed;
+  left: 40%;
+  top: 50%;
+  z-index: 9999;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #a61d3f;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+.testreport-wrapper{
+	margin: 10px 0 30px 0;
+	background: #269a9b;
+	box-sizing: border-box;
+	padding: 20px;
+}
+.testreport-inner{
+	background: #fff;
+	box-sizing: border-box;
+	padding: 20px;
+}
+.breadcrumbs {
+	position: absolute;
+	top:30px;
+}
+
+.base-select{
+	width: 60%;
+margin: 0 auto 35px auto;
+}
+
+ label{
+    display: block;  
+    font-size: 13px;
+ }
+.testreport-inner ul,.disto-sisto{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+} 
+.testreport-inner ul li{
+    width: 31%;
+    margin-bottom: 15px;
+}
+.testreport-inner ul.alpha-index-bar, .testreport-inner ul.alpha-index-list,
+.testreport-inner ul.report_btn_list{
+    display: block;
+}
+.testreport-inner ul.report_btn_list{
+    margin-bottom: 30px;
+}
+.testreport-inner ul.alpha-index-bar li{
+    display: inline-block;
+    width:auto;
+    font-size: 0.9em; 
+    cursor:pointer;
+}
+.testreport-inner ul.alpha-index-list li{
+    display: inline-block;
+    width:auto;   
+    margin:0 25px 20px 0;
+    font-size: 1.1em;    
+    padding: 4px 15px;    
+    cursor:pointer;
+    border: 1px solid silver;
+}
+.testreport-inner ul.report_btn_list li{
+    display:inline-block;
+    width:240px;
+    margin:0 auto;
+    border: 0;
+    outline:none;
+    background: #269a9b;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1.3rem;
+    box-shadow: 0 6px 3px 0px rgba(0,0,0,0.05);
+    color: #fff;
+}
+.testreport-inner ul.cust_alphabet li:hover,
+.testreport-inner ul.customer-index-list li:hover{
+    background: #d2d2d2;
+}
+
+.testreport-inner input[type="text"]{
+    display: inline-block;
+    width:100%;
+    box-sizing: border-box;
+    padding: 10px 15px;
+    margin:0;
+    border: 0;
+    outline: 0;
+    border:1px solid rgba(0,0,0,0.2);
+    background: #fff;
+}
+.testreport-inner .bptext{
+	width:47% !important;
+}
+.testreport-inner .date_field input[type="date"]{
+    display: block;
+    width:23%;
+    box-sizing: border-box;
+    padding: 6px 15px;
+    margin:0;
+    border: 0;
+    outline: 0;
+    border:1px solid rgba(0,0,0,0.2);
+    background: #f6fcfc;
+}
+.testreport-inner input[type="submit"]{
+    display: block;
+    width:240px;
+    margin:0 auto;
+    border: 0;
+    outline:none;
+    background: #c21f42;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1.3rem;
+    box-shadow: 0 6px 3px 0px rgba(0,0,0,0.05);
+    color: #fff;
+}
+.testreport-inner input[type="submit"]:hover{
+    box-shadow: 0 3px 2px 0px rgba(0,0,0,0.05);
+}
+.testreport-inner input[type="submit"].submit_1{
+    height: 40px;
+    line-height: 40px;
+}
+
+.testreport-inner li span{
+    display: inline-block;
+    width:80px;
+}
+.testreport-inner input[type="radio"]{
+    display: inline-block;
+    width: 40px;
+    position: relative;
+    top:5px;
+}
+h2{
+	text-align: center;
+    font-size: 1.5rem;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding-bottom: 10px;
+}
+.p_height, .height_1, .height_1_bottom{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.height_1{
+    width:75%;
+}
+.height_1_bottom{
+    width:60%;
+}
+.height_2{
+    width:35%;
+}
+.testreport-inner .height_1 input[type="text"],
+.testreport-inner .height_1_bottom input[type="text"] {
+    display: inline-block;
+    width: 46%;
+    box-sizing: border-box;
+    padding: 10px width: 46%;15px;
+    margin: 0;
+    border: 0;
+    outline: 0;
+    border: 1px solid rgba(0,0,0,0.2);
+    background: #fff;
+}
+.testreport-inner .height_1_bottom input[type="text"] {
+width: 50%;
+}
+.edit_table{
+    width:100%;
+}
+.edit_table table{
+    width:100%;
+    border:1px solid silver;
+}
+.edit_table table tr td, .edit_table table tr th{
+    padding: 5px 10px;
+    border:1px solid silver;
+}
+.edit_table table tr{
+    border:1px solid silver;
+}
+#myedit1, #myedit2{
+    cursor: pointer;
+}
+.highlight {
+    color: #fff;
+    background: #269a9b;
+}
+#previous_report_body span{
+    display: inline-block;
+    padding: 5px 15px;
+    margin:10px 15px 10px 0;
+    border:1px solid rgba(0,0,0,0.12);
+}
+.edit_table table tr td:first-child{
+    width:110px;
+}
+.csmall{font-size: 10px;}
+.date_field{position: relative;}
+.date_loader{position:absolute; right:30px; top:-30px;}
+.date_msg{position:absolute; right:30px; top: 0px; color: #269a9b;}
+.submit_msg{text-align: center; color: #269a9b; margin-top: 20px;}
+.date_msg h2, .submit_msg h2{ font-size: 1.2rem; color: green;}
+.date_loader, .date_msg, .submit_msg, .form-loader {display: none;}
+</style>						
+<?php  
+$LoggedIncustomer = Mage::helper('customer')->getCustomer();
+$custId = $LoggedIncustomer->getId();
+$customerName = $LoggedIncustomer->getFirstname();
+$mobileNo = $LoggedIncustomer->getPrimarymobileno();
+$groupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
+
+$config  = Mage::getConfig()->getResourceConnectionConfig("default_setup");
+$dbinfo = array("host" => $config->host,"user" => $config->username,"pass" => $config->password,"dbname" => $config->dbname);
+  
+$host      = $dbinfo["host"];
+$username  = $dbinfo["user"];
+$password  = $dbinfo["pass"];
+$dbname    = $dbinfo["dbname"];
+
+$con = mysqli_connect($host  , $username,  $password ,$dbname);
+  if ($mysqli -> connect_errno) {
+    echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
+    exit();
+    }
+
+//$sql = "SELECT * FROM patientintakeform ORDER BY name ASC";
+$sql = "SELECT DISTINCT custid, name, mobileno FROM patientintakeform  ORDER BY name ASC";
+$customerCollection = mysqli_query($con, $sql);
+        $customerLi='';
+        foreach($customerCollection as $custinfo) {
+            $customerId = $custinfo['custid'];
+            $customerName =  $custinfo['name'];
+            $mobileNo = $custinfo['mobileno']; 
+            $customerName = str_replace("Dear ","",$customerName); 
+            $customerName = str_replace("Dr.","",$customerName);      
+            $customerLi.='<li id="'.$customerId.'" value="'.$customerId.'" onclick="showReportbtn(\''.$customerId.'\',\''.$mobileNo.'\',\''.$customerName.'\')">'.$customerName.'<span class="csmall">'.$customerId.'</span></li>';
+        }
+       
+?>
+<div class="container">	
+	<div class="testreport-wrapper">
+		<div class="testreport-inner">
+			<h2>Test Submit Form</h2>
+            <?php 
+            if($groupId == 4 || $groupId == 5){?>  
+                 <label>Select Customer:</label>              
+                <ul id="my-list">                   
+                    <?php echo $customerLi;?>
+                </ul>
+
+                <ul class="report_btn_list" id="report_btn_list">
+                   
+                </ul>
+           <?php }
+             ?>
+            
+			<form id="testreport_form" action="liver.php" method="post" enctype="multipart/form-data">
+                <div class="date_field">
+                    <label>Date In MM-DD-YYYY Format</label>                    
+                    <input type="date" name="date" id="date" placeholder="dd-mm-yyyy" required="required" />
+
+                    <div class="date_loader" style="text-align: center;"><img style="width:100px; display: inline-block; margin-top: 15px;" src="<?php echo Mage::getBaseUrl() ?>skin/frontend/rwd/default/images/testform-loading.gif"></div>
+
+                    <div class="date_msg">
+                        <h2>Form has been submitted successfully</h2>
+                    </div>
+                </div>
+
+                <ul>
+                    <li>
+                        <label>Weight in Kg</label>
+                        <input  type="text" name="weight" id="weight" placeholder="weight" />
+                    </li> 
+                    <li>
+                        <label>Waist In Inch or cm</label>
+                        <div class="p_height">
+                            <div class="height_1">
+                                <input  type="text" name="waist" id="waist" placeholder="In Inch" />
+                                <input  type="text" name="waist_cm" id="waist_cm" placeholder="In cm" />
+                            </div>
+                        </div>
+                    </li> 
+                    <li>
+                        <label>&nbsp;</label>
+                        <input  type="submit" class="submit_1" name="" value="Submit Report" />
+                    </li>
+                    <li>
+                        <label>Bilirubin</label>
+                        <input  type="text" name="bilirubin" id="bilirubin" placeholder="Bilirubin Value" />
+                    </li>
+                    <li>
+                        <label>Blood Pressure</label>
+                        <div class="disto-sisto">
+                            <input  type="text" class="bptext" name="bp_systolic" id="bp_systolic" placeholder="Systolic" />
+                        	<input  type="text" class="bptext" name="bp_diastolic" id="bp_diastolic" placeholder="Diastolic" />
+                        </div>
+                    </li>
+                    <li>
+                        <label>Creatinine Value</label>
+                        <input  type="text" name="creatinine" id="creatinine" placeholder="Creatinine Value" />
+                    </li>
+                    <li>
+                        <label>Fatty Liver Ultra Sound Stage Value</label>
+                        <input  type="text" name="fattyliverultrasound" id="fattyliverultrasound" placeholder="Fatty Liver Ultra Sound Stage Value" />
+                    </li>
+                    <li>
+                        <label>Fatty Liver Fibroscan CAP score Value</label>
+                        <input  type="text" name="fattyliverfirbscan" id="fattyliverfirbscan" placeholder="Fatty Liver Fibroscan CAP score Value" />
+                    </li>
+                    <li>
+                        <label>Fatty Liver Fibroscan E score Value</label>
+                        <input  type="text" name="fattyliverescore" id="fattyliverescore" placeholder="Fatty Liver Fibroscan E score Value" />
+                    </li>
+                    <li>
+                       <label>HBA1c Value</label>
+                       <input  type="text" name="hba1c" id="hba1c" placeholder="HBA1c Value" />
+                    </li>
+                    <li>
+                       <label>HOMA IR</label>
+                       <input  type="text" name="homa" id="homa" placeholder="HBA1c Value" />
+                    </li>
+                    <li>
+                        <label>Homocysteine Value</label>
+                        <input  type="text" name="homocysteine" id="homocysteine" placeholder="Homocysteine Value " />
+                    </li>
+                    <li>                
+                        <label>HSCRP Value</label>               
+                        <input  type="text" name="hscrp" id="hscrp" placeholder="HSCRP Value" />
+                    </li>                    
+                    <li>
+                        <label>HDL Value</label>
+                        <input  type="text" name="hdl" id="hdl" placeholder="HDL Value" />
+                    </li>
+                    <li>
+                        <label>LDL Value</label>
+                        <input  type="text" name="ldl" id="ldl" placeholder="LDL Value" />
+                    </li>
+                    <li>
+                        <label>TriGlycerides Value</label>
+                        <input  type="text" name="triglycerides" id="triglycerides" placeholder="TriGlycerides Value" />
+                    </li>
+                    <li> 
+                        <label>SGOT Value</label>
+                        <input  type="text" name="sgot" id="sgot" placeholder="SGOT Value" />
+                    </li>
+                    <li>
+                        <label>SGPT Value</label>
+                        <input  type="text" name="sgpt" id="sgpt" placeholder="SGPT Value" />
+                    </li> 
+                    
+                    <li>
+                        <label>Sodium Value</label>
+                        <input  type="text" name="sodium" id="sodium" placeholder="Sodium Value" />
+                    </li>
+                    <li>
+                        <label>Potassium Value</label>
+                        <input  type="text" name="potassium" id="potassium" placeholder="Potassium Value" />
+                    </li>
+                    <li>
+                        <label>TSH Value</label>
+                        <input  type="text" name="tsh" id="tsh" placeholder="TSH Value " />
+                    </li>
+                     <li>
+                        <label>T3 Value</label>
+                        <input  type="text" name="t3" id="t3" placeholder="T3 Value " />
+                    </li>
+                     <li>
+                        <label>T4 Value</label>
+                        <input  type="text" name="t4" id="t4" placeholder="T4 Value " />
+                    </li>
+                    
+                    <li>
+                        <label>Uric Acid Value</label>
+                        <input  type="text" name="uricacid" id="uricacid" placeholder="Uric Acid Value" />
+                    </li>  
+
+
+                    <li>
+                        <label>Urea Value</label>
+                        <input  type="text" name="urea" id="urea" placeholder="urea Value" />
+                    </li> 
+
+
+                    <li>
+                        <label>Fasting Glucose</label>
+                        <input  type="text" name="fasting_glucose" id="fasting_glucose" placeholder="Fasting Glucose Value" />
+                    </li> 
+
+                    <li>
+                        <label>P P Sugar</label>
+                        <input  type="text" name="ppsugar" id="ppsugar" placeholder="p p sugar Value" />
+                    </li>                        
+
+                    <li>
+                        <label>Height in feet and Inch or cm</label>
+                        <div class="p_height">
+                            <div class="height_1_bottom">
+                                <input  type="text" name="height_ft" id="height_ft" placeholder="In Feet" />
+                                <input  type="text" name="height" id="height" placeholder="In Inch" />
+                            </div>
+                            <div class="height_2">
+                               <input  type="text" name="height_cm" id="height_cm" placeholder="In cm" />
+                            </div>
+                        </div> 
+                    </li>
+
+                    <li>
+                        <label>Vitamin D</label>
+                        <input  type="text" name="vitamin_d" id="vitamin_d" placeholder="Vitamin D Value" />
+                    </li>
+
+                    <li>
+                        <label>Vitamin B12</label>
+                        <input  type="text" name="vitb12" id="vitb12" placeholder="Vitamin B12 Value" />
+                    </li>
+
+                    <li>
+                        <label>Family History of Diabetes</label>
+                        <span>
+                            <input type="radio" name="family_history" id="h1" value="1"> Yes
+                        </span>
+                        <span>
+                            <input type="radio" name="family_history" id="h2" value="0"> No
+                        </span>
+                    </li> 
+
+                     <li>
+                        <label>Diabetes </label>
+                        <span>
+                            <input type="radio" name="diabetes" id="d1" value="on"> Yes
+                        </span>
+                        <span>
+                            <input type="radio" name="diabetes" id="d2" value="0"> No
+                        </span>
+                    </li> 
+
+                    <li>
+                        <label>Upload Test Repot</label>                      
+                        <input type="file" name="report_file" id="report_file">
+                    </li> 
+
+                    <li id="hidden_input">                                   
+                        <input  type="hidden" name="custid" id="custid" value="<?php echo $custId; ?>" />
+                         <input  type="hidden" name="name" id="name" value="<?php echo $customerName; ?>" />
+                          <input  type="hidden" name="mobileno" id="mobileno" value="<?php echo $mobileNo; ?>" />
+                    </li>
+                </ul>                   
+                <input  type="submit" name="" value="Submit Report" />
+                <div class="form-loader" style="text-align: center;">
+                    <img style="width:100px; display: inline-block; margin-top: 15px;" src="<?php echo Mage::getBaseUrl() ?>skin/frontend/rwd/default/images/testform-loading.gif">
+                </div>
+                <div class="submit_msg"><h2>Form has been submitted successfully</h2></div>
+
+
+            </form>
+            <div class="edit_table" id="edit_table">
+                <h2>Previous Reports</h2>
+                <table>
+                    <thead>
+                        <th>Date</th>
+                        <th>Data</th>                        
+                        <th>File</th>
+                        <th>Action</th>
+                    </thead>
+                    <tbody id="previous_report_body">
+                        <tr>
+                           <td>09-01-2021</td>
+                           <td>5</td>                          
+                           <td>PDF</td> 
+                           <td id="myedit1">Edit</td>
+                        </tr>
+                        <tr>
+                           <td>09-01-2020</td>
+                           <td></td>                           
+                           <td>PDF</td> 
+                           <td id="myedit2">Edit</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+		</div>
+	</div>
+</div>
+<script src="<?php echo $this->getSkinUrl('js');?>/jquery.alphaindex.js"></script>
+<script>
+jQuery(document).ready(function() {
+    var loginhandler = "<?php echo $groupId ?>";  
+    jQuery('#my-list').makeAlphaIndex({
+        activateFirstIndex: false,
+        showItemsCount: false
+    }); 
+
+    if(loginhandler==4 || loginhandler==5){
+         jQuery("#testreport_form").css("display", "none");
+          jQuery("#edit_table").css("display", "none");          
+     }else{
+        jQuery("#edit_table").css("display", "none");
+     }
+});
+
+function hideForm(){
+        jQuery("#testreport_form").css("display", "none");
+        jQuery("#edit_table").css("display", "none");
+    } 
+
+function showReportbtn(custId,mobileNo,custName) {
+    //alert(`id = ${custId} Mobile= ${mobileNo} Name = ${custName}`);
+    hideForm();
+    jQuery('li').removeClass("highlight");
+    jQuery('#'+custId).addClass("highlight");
+jQuery('#report_btn_list').html(` <li class="reportnew_btn" id="reportnew_btn" onclick="showTestform(${custId},${mobileNo},'${custName}')">Submit New Report</li> <li class="reportexisting_btn" id="reportexisting_btn" onclick="showEdittable(${custId},${mobileNo},'${custName}')">Existing Report</li>`); 
+    }
+       
+   
+    function showTestform(custId,mobileNo,custName){
+        //alert(`${custId} ${mobileNo} ${custName}`);
+        hideForm();
+        jQuery('#hidden_input').html(`<input  type="hidden" name="custid" id="custid" value="${custId}" /><input  type="hidden" name="name" id="name" value="${custName}" /><input  type="hidden" name="mobileno" id="mobileno" value="${mobileNo}" />`);        
+        jQuery("#testreport_form").css("display", "block");   
+    }
+
+    function showEdittable(custId,mobileNo,custName){                
+        var custid = custId;   
+        var mobileno = mobileNo;
+        var custName = custName;
+        var FormData = {
+            'mobileno':mobileno, 
+            'custName':custName,           
+            'custid':custid  
+        };
+
+        jQuery.ajax({
+            url: "<?php echo Mage::getBaseUrl().'override/index/getpreviousreport' ?>",
+            type:'POST',
+            data: FormData  
+            })
+            .done(function(data){
+                hideForm();       
+                //alert(data);
+                jQuery('#previous_report_body').html(data);
+                jQuery("#edit_table").css("display", "block");             
+                //console.log(data);                                          
+            })                  
+            .fail(function(textStatus){
+                alert(textStatus)
+            }); 
+    }
+
+    function editForm(cId,mNo,cdate,custName) {
+        var custid = cId;   
+        var mobileno = mNo;
+        var cdate = cdate;
+        var FormData = {
+            'mobileno':mobileno,            
+            'custid':custid,
+            'cdate':cdate  
+        };
+        
+        jQuery('#testreport_form').find(':input').val('');
+        jQuery(":submit").val('Submit Report');
+        jQuery('#hidden_input').html(`<input  type="hidden" name="custid" id="custid" value="${cId}" /><input  type="hidden" name="name" id="name" value="${custName}" /><input  type="hidden" name="mobileno" id="mobileno" value="${mNo}" />`); 
+        jQuery.ajax({
+            url: "<?php echo Mage::getBaseUrl().'override/index/editpreviousreport' ?>",
+            type:'POST',
+            data: FormData  
+            })
+            .done(function(data){
+                hideForm(); 
+                var x = Object.keys(JSON.parse(data));               
+                var d = JSON.parse(data);
+                
+                jQuery("#testreport_form").css("display", "block"); 
+                document.getElementById("date").value = cdate;
+                for(var y=0; y < x.length; y++){                     
+                    var myid = String(x[y]);                
+                    document.getElementById(myid).value = d[x[y]];
+                }  
+            })                  
+            .fail(function(textStatus){
+                alert(textStatus)
+            }); 
+    } 
+    
+    jQuery("#myedit1").click(function() {
+        hideForm();
+        jQuery("#testreport_form").css("display", "block");   
+        });
+
+    jQuery("#testreport_form").submit(function(event){   
+        event.preventDefault(); 
+        jQuery('.date_loader').css('display','block');
+        jQuery('.form-loader').css('display','block');
+        var custid = jQuery("#custid").val();
+        jQuery.ajax({
+    url: "<?php echo Mage::getBaseUrl().'override/index/getapitestreport' ?>",
+            type: "POST",
+            data:  new FormData(this),
+            contentType: false,
+            cache: false,
+            processData:false,
+            success: function(data){             
+                jQuery('.date_loader').css('display','none');
+                jQuery('.form-loader').css('display','none');
+                jQuery('.date_msg').css('display','block');
+                jQuery('.submit_msg').css('display','block');               
+                jQuery("#testreport_form").trigger("reset"); 
+                jQuery(".submit_msg").delay(8000).fadeOut(500); 
+                jQuery(".date_msg").delay(8000).fadeOut(500);                
+                //alert(data);
+                /*var redirect = "<?php //echo Mage::getBaseUrl().'customer/account/organhealth?patientid=' ?>"+data+"&custId="+custid;
+                window.location.href = redirect;*/
+            },
+            error: function(){}             
+        }); 
+    });
+
+
+
+    function downloadPdf(pdf){
+        //alert("hiii");
+        var baseUrl = window.location.origin;
+        var pdfPath = baseUrl+'/media/upload/'+pdf;
+        //alert(pdfPath);
+
+        var req = new XMLHttpRequest();
+        req.open("GET", pdfPath, true);
+        req.responseType = "blob";
+
+        req.onload = function (event) {
+        var blob = req.response;
+        //console.log(blob.size);
+        var link=document.createElement('a');
+        link.href=window.URL.createObjectURL(blob);
+        link.download=pdf;
+        link.click();
+        };
+
+        req.send();
+    }
+</script>

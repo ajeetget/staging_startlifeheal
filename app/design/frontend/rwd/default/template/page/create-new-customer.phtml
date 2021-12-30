@@ -1,0 +1,467 @@
+<?php
+/*
+https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform#maps_places_autocomplete_addressform-typescript
+https://codesandbox.io/embed/github/googlemaps/js-samples/tree/sample-places-autocomplete-addressform
+*/
+	$LoggedIncustomer = Mage::helper('customer')->getCustomer();
+	$custId = $LoggedIncustomer->getId();
+	$customerName = $LoggedIncustomer->getFirstname();
+	$mobileNo = $LoggedIncustomer->getPrimarymobileno();
+	$config  = Mage::getConfig()->getResourceConnectionConfig("default_setup");
+	$dbinfo = array("host" => $config->host,"user" => $config->username,"pass" => $config->password,"dbname" => $config->dbname);
+	$groupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
+
+	$host      = $dbinfo["host"];
+	$username  = $dbinfo["user"];
+	$password  = $dbinfo["pass"];
+	$dbname    = $dbinfo["dbname"];
+
+	$con = mysqli_connect($host  , $username,  $password ,$dbname);
+  	if ($mysqli -> connect_errno) {
+  		echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
+  		exit();
+	}
+
+	  
+    	/*echo $sql_str = "SELECT DISTINCT custid, name, mobileno FROM patientintakeform  WHERE custid !='' and name !='' and mobileno !='' ORDER BY name ASC";
+    	//$customerCollection = mysqli_query($con, $sql_str);*/
+		
+		$customerCollection = Mage::getModel('customer/customer')->getCollection()
+         ->addAttributeToSelect('*')
+        ->addAttributeToSort('firstname','ASC')
+        ->addAttributeToSort('lastname','ASC')
+         ->addFieldToFilter('mealstatus', array("eq" => 1));
+		
+		//echo "count=".count($customerCollection);
+		
+    	$customerLi='';
+    	foreach($customerCollection as $custinfo) {
+			
+        	$customerId = $custinfo->getEntityId();
+			$customer = Mage::getModel('customer/customer')->load($customerId);
+			$customerMealstatus = $customer->getMealstatus();
+        			
+			$firstName =  ucfirst( trim( $custinfo->getFirstname()));
+			$lastName =  ucfirst( trim($custinfo->getLastname()));
+			$mobileNo = $custinfo->getPrimarymobileno();
+			$encryptedMobileno=base64_encode($mobileNo);
+			$customerName = $firstName." ".$lastName;
+			
+			
+        	$customerName = str_replace("Dear ","",$customerName); 
+        	$customerName = str_replace("Dr.","",$customerName);      
+		 	if($customerMealstatus==1){      
+        		$customerLi.='<li id="'.$customerId.'" value="'.$customerId.'" onclick="showLink(\''.$customerName.'\',\''.$encryptedMobileno.'\')">'.$customerName.'</li>';
+		 	}
+    	}
+
+    
+      $msg='';
+	  
+      if(isset($_POST['submit'])) 
+	  {		
+	     
+			$email = trim($_POST['email']);
+			$primarymobileno='';
+		  	$customer = Mage::getModel('customer/customer');
+		  	$customer->setWebsiteId(Mage::app()->getWebsite()->getId());
+		  	$customer->loadByEmail($email);
+		  
+		  	if(!$customer->getEntityId())
+ 			{
+				
+					$websiteId = Mage::app()->getWebsite()->getId();
+					$store = Mage::app()->getStore();
+					
+					$firstName = $_POST['firstname'];
+					$lastName =  $_POST['lastname'];
+					$password = $_POST['password'];
+					$repassword = $_POST['repassword'];
+					$primarymobileno =  $_POST['primarymobileno'];
+				    $email = trim($_POST['email']);
+					$gender = $_POST['gender'];
+					$prefixofmobileno = trim($_POST['prefixofmobileno']);
+					
+					
+					if($firstName=='' || $lastName=='' ||  $primarymobileno=='' || $email=='')
+					{
+						
+						$msgNo=1; Mage::app()->getResponse()->setRedirect(Mage::getBaseUrl().'newcustomer?msgno='.$msgNo);   
+					}
+					
+					else if(!preg_match('/^[0-9]{10}+$/', $primarymobileno))
+					{ $msgNo=2; Mage::app()->getResponse()->setRedirect(Mage::getBaseUrl().'newcustomer?msgno='.$msgNo);   }
+				
+				    else if (!preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $email))
+					{ $msgNo=3; Mage::app()->getResponse()->setRedirect(Mage::getBaseUrl().'newcustomer?msgno='.$msgNo);   }
+				    else if(trim($password)=='' && ($password!=$repassword) )
+					{
+				    	$msgNo=4;
+						Mage::app()->getResponse()->setRedirect(Mage::getBaseUrl().'newcustomer?msgno='.$msgNo);   
+					}
+				    else {
+								 
+							try{
+								
+								$customer = Mage::getModel("customer/customer");
+								$customer   ->setWebsiteId($websiteId)
+										->setStore($store)
+										->setFirstname($firstName)
+										->setLastname($lastName)
+										->setEmail($email)
+										->setPassword($password)
+										->setMealstatus(1)
+										->setPrefixofmobileno($prefixofmobileno)
+										->setPrimarymobileno($primarymobileno);
+								if($msg=='')
+								{		
+								   $customer->save();
+									
+								   
+									$customer = Mage::getModel('customer/customer');
+									$customer->setWebsiteId(Mage::app()->getWebsite()->getId());
+									$customer->loadByEmail($email);
+									$config  = Mage::getConfig()->getResourceConnectionConfig("default_setup");
+									$dbinfo = array("host" => $config->host,"user" => $config->username,"pass" => $config->password,"dbname" => $config->dbname);    
+									$host      = $dbinfo["host"];
+									$username  = $dbinfo["user"];
+									$password  = $dbinfo["pass"];
+									$dbname    =  $dbinfo["dbname"]; 
+
+									$con = mysqli_connect($host, $username,$password,$dbname);
+
+									if (mysqli_connect_errno()) {
+										printf("Connect failed: %s\n", mysqli_connect_error());
+										exit();
+									  } 
+								 $custid = $customer->getEntityId();
+								 $firstName =  ucfirst( trim( $customer->getFirstname()));
+								 $lastName =  ucfirst( trim($customer->getLastname()));
+								$customerName = $firstName." ".$lastName;
+								
+								
+								$customerName = str_replace("Dear ","",$customerName); 
+								$customerName = str_replace("Dr.","",$customerName);  
+                                $date = date('Y-m-d');								
+								$query="insert into patientintakeform(mobileno,custid,name,date) values('".$primarymobileno."','".$custid."','".$customerName."','".$date."')";
+								$last_insert_id=''; 
+								if (mysqli_query($con, $query)) {
+								   $last_insert_id = mysqli_insert_id($con); 
+								}
+								$msgNo=5;
+								//echo "last inserted id=".$last_insert_id;
+														   
+								Mage::app()->getResponse()->setRedirect(Mage::getBaseUrl().'newcustomer?msgno='.$msgNo."&custid=".$custid);   
+								   
+								   
+								}
+							}
+							catch (Exception $e) {
+								Zend_Debug::dump($e->getMessage());
+							}
+			   }
+		  }
+		  else
+		  {
+			  
+			  $msgNo=6;
+			  Mage::app()->getResponse()->setRedirect(Mage::getBaseUrl().'newcustomer?msgno='.$msgNo);   
+		  }
+		  
+	  }
+	  
+	  if(isset($_GET['msgno']) && $_GET['msgno']>0)
+	  {
+		  $msgNo = $_GET['msgno'];
+		  
+		  if($msgNo==1){ $msg="Please enter the required values."; }
+		  else if($msgNo==2){ $msg="Please enter 10 digit mobile number.";  }
+		  else if($msgNo==3){$msg="Please enter correct email address.";  }
+		  else if($msgNo==4){ $msg="Please confirm your password."; }
+		  else if($msgNo==5){ 
+  		    $customerId = $_GET['custid'];
+			$customer = Mage::getModel('customer/customer')->load($customerId);
+			$encryptedPrimarymobileno = base64_encode($customer->getPrimarymobileno());
+			$customerName = $customer->getFirstname()." ".$customer->getLastname();
+			$msg="New customer <b>".$customerName."</b> created, patientintakeform link is below</br>";
+			$msg.="<a href='".Mage::getBaseUrl()."patientintakeform?ctrl=".$encryptedPrimarymobileno."' target='_blank'>".Mage::getBaseUrl()."patientintakeform?ctrl=".$encryptedPrimarymobileno."</a>";
+						   
+			
+			}
+		  else if($msgNo==6){  $msg="This customer already registered"; }
+	  }
+?>
+	  
+<style>
+.main {
+    width: 100%;
+    margin-top: 7rem;
+    height: 100%;
+    margin-bottom: 1.5rem;
+}
+</style>
+<div class="clearfix"></div>
+<div class="container">
+	<div class="main-wrapper">
+		<div class="select-patient">
+		    <div> 
+		        <label>Select Patient:</label>              
+		        <ul id="my-list"> <?php echo $customerLi;?> </ul>
+		        <div class="clearfix"></div>		                        
+		    </div>
+		</div>
+		<div id="message" class="message"><?php echo $msg; ?></div>
+		<div class="new-customer-wrapper">		
+			<div class="new-customer-inner-wrapper">
+				<form name="newcustomer" method="post" action="<?php echo Mage::getBaseUrl().'newcustomer';?>">
+					<h1>Create New Customer</h1>
+					<ul>
+						<li>
+							<label for="firstname">First Name*</label>					
+							<input type="text" name="firstname" id="firstname" placeholder="First Name" required="required" />
+						</li>
+						<li>
+							<label for="firstname">Last Name*</label>
+							<input type="text" name="lastname" id="lastname" placeholder="Last Name"/>
+						</li>
+						<li>
+							<label for="email">Email*</label>
+							<input type="email" name="email" id="email" placeholder="Email" required="required" onblur="javascript:checkEmailAddress(this.id,this.value);" />
+						    <div id="emailerr"></div>
+						</li>
+						<li>
+							<label for="phone">Mobile No.*</label>
+							<div class="mobile-inner">
+								<div class="country-code">
+									<input type="text" name="prefixofmobileno" id="prefixofmobileno" placeholder="Country Code"  />
+								</div>
+								<div class="mobile-content">
+									<input type="text" name="primarymobileno" id="primarymobileno" placeholder="Mobile No." required="required" onblur="checkMobileNo(this.id,this.value)" />
+								</div>
+							</div>
+                            <div id="primarymoberr"></div>
+						</li>
+						<li>
+							<label for="Password">Password*</label>
+							<input type="password" name="password" id="password"  placeholder="Password" required="required"/>
+						</li>
+						<li>
+							<label for="repassword">Confirm Password</label>
+							<input type="password" name="repassword" id="repassword"  placeholder="Conform Password" required="required"/>
+						</li>
+											
+						<input type="submit" name="submit" value="Create" />
+					</ul>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<style type="text/css">
+	.breadcrumbs ul{margin-top: 20px;}
+	.clearfix{clear:both;}
+	.main-wrapper{
+		margin: 35px 0;
+	}
+	.select-patient{
+		margin-bottom: 10px;
+	}
+	.message, .patientintakeform_link{
+		margin-bottom: 25px;
+	}
+	.message{
+		text-align: center;
+	}
+	.new-customer-wrapper{		
+    	background: #269a9b;
+    	box-sizing: border-box;
+    	padding: 25px;
+	}
+	.new-customer-inner-wrapper{
+		background: #fff;
+		width: 100%;
+		box-sizing: border-box;
+		padding: 25px;
+	}
+	.new-customer-inner-wrapper form h1{
+		text-align: center;
+		color:#269a9b;
+		margin-bottom: 20px;
+		padding-bottom: 15px;
+		border-bottom: 1px solid rgba(0,0,0,0.1);
+		font-size: 1.8rem;
+	}
+	.new-customer-inner-wrapper form ul{
+		margin:0;
+		padding: 0;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content:space-between;
+		
+	}
+	.new-customer-inner-wrapper form ul li{
+		width:48%;
+		margin-bottom: 15px;
+	}
+	.new-customer-inner-wrapper form ul li label{
+		display: block;
+		font-size: 0.8rem;
+	}
+	.new-customer-inner-wrapper form ul li span{
+		display: inline-block;
+		width:120px;
+	}
+	.new-customer-inner-wrapper form ul li input[type=email], 	 
+	.new-customer-inner-wrapper form ul li input[type=password], 
+	.new-customer-inner-wrapper form ul li input[type=tel], 
+	.new-customer-inner-wrapper form ul li input[type=text]{
+		width:100%;
+		border-radius: 0;
+		background:#fff;
+		border:0;
+		outline: none;
+		border:1px solid rgba(0,0,0,0.3);
+		box-shadow: 0;
+		box-shadow:none;
+	}
+	.new-customer-inner-wrapper form ul li input[type=radio]{
+		position: relative;
+    	top: 6px;
+    	display: inline-block;
+    	margin-right: 10px;
+	}
+	.new-customer-inner-wrapper input[type="date"]{
+    display: block;  width:100%;  box-sizing: border-box;
+    padding: 6px 15px; margin:0;  border: 0;   outline: 0;
+    border:1px solid rgba(0,0,0,0.2); background: #f6fcfc;}
+.new-customer-inner-wrapper input[type="submit"] {
+    display: block;
+    width: 240px;
+    margin: 25px auto 0 auto;
+    border: 0;
+    outline: none;
+    background: #269a9b;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1.3rem;
+    box-shadow: 0 6px 3px 0px rgb(0 0 0 / 5%);
+    color: #fff;
+    text-transform: uppercase;
+}
+.mobile-inner{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+.mobile-inner .country-code{
+	width:22%;
+}
+.mobile-inner .mobile-content{
+	width:75%;
+}
+.message{
+
+}
+::placeholder{
+	font-size: 12px;
+}
+</style>
+<script src="<?php echo $this->getSkinUrl('js');?>/jquery.alphaindex.js"></script>
+
+<script type="text/javascript">
+jQuery(document).ready(function() {    
+    jQuery('#my-list').makeAlphaIndex({
+        activateFirstIndex: false,
+        showItemsCount: false
+    });
+}); 
+ 
+ 
+ function showLink(customerName,encryptedMobileno) {
+	
+	var base_url = window.location.origin;
+	var Link = base_url+"/patientintakeform?ctrl="+encryptedMobileno;
+	
+	 var PatientIntakeformUrl = customerName+" patientintakeform link <br>  <a href='"+Link+"' target='_blank'>"+Link+"</a>";
+	 jQuery("#message").html(PatientIntakeformUrl);
+ }
+
+function checkEmailAddress(id,value)
+{ 
+	var Url = "<?php echo Mage::getBaseUrl();?>override/index/checkemail/email/"+value;
+	
+	var st= jQuery.noConflict();
+	st( "#emailerr").hide();
+	var filter = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if (value!='' && !filter.test(value)) {
+       //alert( "wrong email "+value);
+		  st( "#emailerr" ).html("Please enter correct email." );
+		  st( "#emailerr").show();
+		  st( "#email").val('');
+		  st( "#email").focus();
+		  return false;
+    }
+       
+	
+	
+        st.post( Url, function( returntext ) 
+		{ //alert(returntext);
+			if(returntext=='exist')
+			{ 
+			  st( "#emailerr" ).html("<strong>"+value+"</strong> already registered." );
+			  st( "#emailerr").show();
+			  st( "#email").val('');
+			  st( "#email").focus();
+			  return false;
+			}
+			else
+			{
+				st( "#emailerr").html('');
+				st( "#emailerr").hide();
+				 return true;
+			}
+		});
+}
+
+function checkMobileNo(id,value)
+{
+	var Url = "<?php echo Mage::getBaseUrl();?>override/index/checkprimarymobileno/primarymobileno/"+value;
+	var st= jQuery.noConflict();
+	st( "#primarymoberr").hide();
+
+	var phone = value.replace(/[^0-9]/g,'');
+	//alert(phone.length );
+        if(phone.length != 10)
+        {
+		  st( "#primarymoberr" ).html("Mobile number must be of 10 digits." );
+		  st( "#primarymoberr").show();
+		  st( "#primarymobileno").val('');
+		 
+		  return false;
+        }
+	
+	
+	
+    st.post( Url, function( returntext ) { //alert(returntext);
+		if(returntext=='exist')
+		{ 
+		  
+		  st( "#primarymoberr" ).html("<strong>"+value+"</strong> already registered." );
+		  st( "#primarymoberr").show();
+		  st( "#primarymobileno").val('');
+		 
+		  return false;
+		}
+		else
+		{
+			st( "#primarymoberr").html('');
+			st( "#primarymoberr").hide();
+		}
+});
+}
+</script>
+ 

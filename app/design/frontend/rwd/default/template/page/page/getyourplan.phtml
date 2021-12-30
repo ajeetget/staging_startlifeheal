@@ -1,0 +1,779 @@
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl();?>css/viewpagebootstrap.css" type="text/css"/>
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl();?>css/silverform.css" type="text/css"/>
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl();?>css/ratecard_min.css" type="text/css"/>
+
+<style>
+	.btn-group{display:block;}
+		.btn.primary:not(.outline) {
+    color: #fff;
+	font-size:14px;
+    box-shadow: 0px 0px 5px rgba(0,0,0,.2);
+    background: #ff8d59;
+    background: -moz-linear-gradient(left,#ff8d59 0%,#ffb053 100%);
+    background: -webkit-linear-gradient(left,#ff8d59 0%,#ffb053 100%);
+    background: linear-gradient(to right,#ff8d59 0%,#ffb053 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff8d59',endColorstr='#ffb053',GradientType=1);
+}
+	.anh-quote, .kris-quote {
+    padding: 0px 0;
+    float: left;
+    width: 100%;
+		padding-top: 0px;
+}
+input[type="checkbox"] {
+    position: relative;
+    margin: 2px 0 0;
+        margin-left: 0px;
+    float: left;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    left: 20px;
+    top: 1px;
+}
+	.btn-block {
+    display: block;
+    width: 100% !important;
+}
+	
+	.cross-sell-product-name{font-size:1.5em;}
+	legend {
+		font-size: 1em;}
+	@media screen and (min-width:260px) and (max-width:760px)
+	{
+	.requestquote{display:block !important;}
+	.text-medium {
+  margin-top: 4%;
+display: block;
+float: left;
+font-size: 1em;
+margin-right: 1%;  
+}
+		.page-homepage .analysis-block .form-group span {
+    font-size: 1em;
+}
+		.cross-sell-product-name{font-size:1em;}
+	}
+	.requestquote{display:none;}
+	
+</style>
+
+<main id="content" tabindex="-1" class=" silver-plan  page-homepage">
+<div id="pane">
+
+<section class="hero full-img" id="orderOptions"> 
+<div class="container">
+<div class="intro-text-wrapper"> 
+<img src="<?php echo $this->getSkinUrl('images/individualplan.png') ?>" class="silver-icon" alt="" style="width:100px;display:none;"> 
+<h1 class="h2 fw-600 text-center">Lose Weight and Feel Great</h1> <br>
+<h2 class="text-center h3"><em>Get Back on Track with Scientific Weight Loss</em></h2>
+</div> 
+<div id="product-pane" class="requestbox">	
+<div class="product-image individual-image no-float full-img col-xs-12 col-md-12 col-sm-12 col-xl-7">
+<p class="text-center text-uppercase"  style="display:none;"><strong>Because Every One Has Different Needs</strong></p> 
+</div>
+<div class="product-info no-float bmi-calculator analysis-block drop-shadow no-float text-center center-block col-xs-12 col-sm-12 col-md-12 col-xl-5"> 	
+           <div class="bmi-border">
+     <h2 class="page-level-error"><strong>Get Your Plan In</strong> 
+		 <img src="<?php echo $this->getSkinUrl('images/seconds-bmi.svg') ?>"
+		class="seconds-img" alt="seconds">
+			   </h2> 
+			   <form method="POST" name="BMI_assessment_home_2020_form" action="body-assessment" id="bmi-form" class="form-horizontal"
+			   action="<?php echo Mage::getBaseUrl();?>body-assessment" >
+				 <!--body-assessment-->
+				   <!-- height-div   	 -->
+<fieldset class="form-group"> 
+	<legend for="height" class="col-xs-3 control-label">Height </legend> 
+	<div class="col-xs-9"><input maxlength="1" max="7" pattern="[0-9]*" title="Numbers only" type="tel" required="true" min="3" size="3" aria-labelledby="height-in-Feet" name="height" id="height" value="" class="form-control height">
+		
+		<!-- ft-span   	 -->
+<span class="sr-only" id="height-in-Feet" aria-required="true">Height - Feet</span>
+		<label for="height-in-Feet" class="text-medium">ft&nbsp;&nbsp;</label>
+		<input maxlength="2" max="11" pattern="[0-9]*" title="Numbers only" type="tel" required="true" min="0" size="3" aria-labelledby="height-in-Inches" name="inches" id="inches" value="" class="form-control  inches">
+		
+		<!-- in-span   	 -->
+<span class="sr-only" id="height-in-Inches" aria-required="true">Height - Inches</span>
+		<label for="height-in-Inches" class="text-medium">in</label> </div> 
+</fieldset>
+ <!-- weight-div   	 -->
+<fieldset class="form-group"> 
+	<span class="sr-only" id="current-weight">Weight - Pounds</span> 
+	<legend for="weight" class="col-xs-3 control-label">
+		Weight <span class="sr-only">in pounds</span> 
+	</legend> 
+	<div class="col-xs-9 "><input minlength="2" min="91" size="3" maxlength="3" name="weight" pattern="[0-9]*" id="weight" title="Numbers only" type="tel" value="" class="weight form-control" required="true">
+		
+		<!-- lbs-span    -->
+<span class="text-medium" style="font-weight:600;margin-top:3%;float: left;">Kgs</span> 
+	</div> 
+</fieldset>
+<!-- gender-div   	 -->
+<fieldset class="form-group"> 
+	<legend class="col-xs-3 control-label">Gender</legend> 
+	<div class="col-xs-9"> 
+		<div class="radio"> 
+		<label for="female">
+<input name="gender" checked="" id="female" type="radio" value="female"><input name="_D:gender" type="hidden" value=" ">
+			<!-- female-label   	 -->
+<span class="sr-only">Gender - </span>female </label> 
+<label for="male"><input name="gender" id="male" type="radio" value="male"><input name="_D:gender" type="hidden" value=" ">
+	<!-- male-label   	 -->
+<span class="sr-only">Gender - </span>male </label> 
+		</div> 
+	</div> 
+</fieldset>
+<!-- email-div   	 -->
+<div class="form-group"> 
+	<label for="email" class="col-xs-3 control-label" style="font-weight: normal;font-size: 1em;margin: 0;">Email </label> 
+	<div class="col-xs-9"><input name="email" id="email" placeholder="enter email" type="email" value="" class="email form-control" required="true">
+		<!-- tooltip-span   	 -->
+</div> 
+</div>
+<!-- isDiabetic-start   	 -->
+<fieldset class="form-group">
+<div class="col-xs-offset-3 col-xs-9">
+<input name="diabetes" id="diabetes" type="checkbox" value="true">
+<input name="_D:diabetes" type="hidden" value=" ">
+<!-- isDiabetic-end   	 -->
+<label for="diabetes" class="control-label text-medium" style="padding-top: 0px;margin-top:2px;">&nbsp;I'm living with diabetes</label>
+</div>
+ </fieldset>
+<input id="bmiFormSubmit" type="submit" value="get your results" class="btn btn-default">
+				 
+</form>
+<!-- module-closing-div   	 -->
+<p>Sign up for free tips &amp; weight loss info!</p>
+</div> 		
+</div> 	
+</div> 
+</section>
+
+<div class="anh-quote">
+ <div class="container">
+    <div class="">
+       <div class="col-sm-5 col-lg-4">
+          <img src="<?php echo $this->getSkinUrl('images/anh-quote-2020.jpg') ?>" class="img-responsive center-block" alt="Anh in a bathing suit smiling on the beach">
+          <p class="small hidden-xs" style="display:none;">Average weight loss expected 6 Kgs per month.</p>
+       </div>
+       <div class="col-sm-7 col-lg-offset-1"><h2 class="fw-400 h6">ADITYA LOST 24 KGS .</h2>
+          <hr>
+		   <br>
+          <h3>“I NEVER THOUGHT I WOULD BE ABLE TO LOSE WEIGHT AND HAD TRIED EVERYTHING BEFORE. I DIDN'T EVEN HAVE TO EXERCISE”</h3>
+          
+          <p class="small" style="display:none;">Average weight loss expected 6 Kgs per month.</p>
+		    <div class="text-left" style="margin: 20px auto auto auto;">
+                <a class="bg-white btn btn-default btn-lg scroll-to" style="color: #fff;background-color: #f28424  !important;">Get Started</a>
+             </div>
+       </div>
+    </div>
+ </div>
+</div>
+
+<div class="typical-day">
+ <div class="container">
+    
+    <div class="text-center collapse-link">
+       <a role="span" class="read-more-link collapsed" data-toggle="collapse" href="#typicalDayCollapse" aria-expanded="false" aria-controls="typicalDayCollapse" onclick="omni_track('SeeWhatsCooking');" style="display:none;">
+          <img src="<?php echo $this->getSkinUrl('images/plus-circle-icon.svg') ?>" class="center-block plus-circle" alt="open">
+          <img src="<?php echo $this->getSkinUrl('images/x-circle-icon.svg') ?>" class="center-block x-circle" alt="close">
+          <strong>Example Dishes</strong></a></div>
+    <div id="typicalDayCollapse">
+       <div class=""></div> 
+       <!-- breakfast -->
+          <div class="col-sm-push-6 breakfast-text">
+             <hr class="meal-time">
+             <h3 class="text-uppercase">We Are All Different</h3>
+             <p>Our plan is optimized for your specific needs</p>
+			  <h3 class="text-uppercase">Metabolic Analysis</h3>
+             <p>We look to the root source of your excess weight and begin the journey from there</p>			 
+		   
+		   </div>
+          <div class="col-sm-pull-6 breakfast">
+             <img src="<?php echo $this->getSkinUrl('images/meta1.jpg') ?>" class="img-responsive center-block" alt="">
+          </div>
+		 <div class="clearfix"></div>
+          <!-- lunch -->
+          <div class="lunch-text">
+             <hr class="meal-time lunch-rule">
+             <div class="clearfix"></div>
+             <h3 class="text-uppercase">Scientific Approach</h3>
+             <p>We look beyond just calories to
+physical and physiological balance and wellbeing</p>  
+			    <h3 class="text-uppercase">Results Oriented</h3>
+             <p>We tailor a diet that will help you to adjust your lifestyle choices based on your needs</p>
+		   </div>
+          <div class="lunch">
+             <img src="<?php echo $this->getSkinUrl('images/meta2.jpg') ?>" class="img-responsive center-block" alt="">
+          </div>
+          <!-- dinner -->
+          <div class="clearfix"></div>
+          <div class="col-sm-push-6 dinner-text">
+             <hr class="meal-time customized-rule">
+             <h3 class="text-uppercase">Dedicated Nutritionist</h3>
+             <p>A dedicated nutritionist will call twice a week to review success and problems</p> 
+			  <h3 class="text-uppercase">Metabolism Repair</h3>
+             <p>In addition to offering nutritional advice, we guide you to create healthy lifestyle habits and achieve healthy balance of your metabolism</p> 
+		   </div>
+          <div class="dinner col-sm-pull-6">
+             <img src="<?php echo $this->getSkinUrl('images/meta3.jpg') ?>" class="img-responsive center-block" alt="">
+          </div>
+          <div class="container  hidden-xs hidden-lg hidden-md hidden-sm">
+            <div class="col-xs-12 text-center">
+              <a data-target="#moreMenuModal" data-toggle="modal" href="#moreMenuModal" id="moremenu-modal-mob" onclick="omni_track('MoreMenuMbl')" class="btn btn-default bg-white btn-menu">Example Dishes</a>
+            </div>
+         </div>
+       </div>
+  
+ </div>
+</div>
+<div class="plus-sect">
+ <div class="container">
+ <div class="plus-sect-wrap">
+    <div class="plus-bg">
+       <div class="plus-wrap"><span class="caveat">Add On!</span></div>
+       <h3 class="text-uppercase fw-700 h5">RECIPES AND TECHNIQUES</h3>
+    </div>
+    <div class="desc plus-bg">
+       <h4 class="fw-400 h6">From our very own kitchen, we will give you needed recipes and all our healthy cooking techniques</h4>
+    </div>
+ </div>
+ </div>
+ <div class="container hidden-xs hidden-lg hidden-md hidden-sm">
+   <div class="col-xs-12 text-center">
+     <a data-target="#moreMenuModal" data-toggle="modal" href="#moreMenuModal" id="moremenu-modal" onclick="omni_track('MoreMenu')" class="btn btn-default bg-white btn-menu">Example Dishes</a>
+   </div>
+ </div>
+</div>
+	<div class="more-menu-modal modal fade" id="moreMenuModal" tabindex="-1" role="dialog" aria-labelledby="reboot-modal" style="display: none;">
+   <div class="modal-dialog" role="document">
+       <div class="modal-content">
+           <div class="modal-header">
+               <span type="span" class="close" data-dismiss="modal" aria-label="Close">
+                   <span aria-hidden="true">
+                      <img src="https://lifeheal.in/skin/frontend/rwd/default/images/x-circle-icon.svg" class="center-block x-circle" alt="close" style="width: 30px;">
+                   </span>
+               </span>
+               <h4 class="modal-title">Delicious Meals. Delicious Variety!</h4>
+           </div>
+           <div class="modal-body">
+               <p class="ms-margin-btm" style="display:none;">Check out some of the delicious menu variety you’ll enjoy on the Gold and Platinum Plan:</p>
+               <p><strong>Breakfasts</strong><br>
+               <ul>
+			   <li>Red Rice Idli with Sambhar + Chutney</li>
+			    <li>Egg White Frittata</li>
+			    <li>Dal chilla with Vegetable Stuffing</li>
+			    <li>Red Rice Poha</li>
+			    <li>Vegan Keema Parantha with Green Vegetable & Oil Free Pickle</li>
+			   </ul>
+			   </p>
+			   <p><strong>Beverages</strong><br>
+				  <ul>
+		         <li> Almond Milk, Turkish Kefir, Green Smoothie</li>
+		        </ul>
+			   </p>			   
+               <p><strong>Lunches</strong><br>
+               <ul>
+			   <li>Mixed Greens with Seeds and Fresh Dressing, Mushroom Soup, Jalfrezi, Shahi Paneer, Lauki Roti, Probiotic</li>
+			    <li>Kuchumber Salad, Dal Soup, Beetroot & Tofu Kebab</li>
+			    <li>Minestrone Soup, Sauteed Herbed Vegetables, Tofu Steak with Bar-be-que Sauce</li>
+			    <li>Apple & Arugula Salad, Tomato Shorba, Nizami Handi Sabji, Vegan Kadhi, Lauki Roti, Probiotic</li>
+			    <li>Shredded Bokchoy Salad, Clear Lemon & Coriander Soup, Vegetable in Garlic Sauce,  Quinoa and Brown Fried Rice</li>			   
+			   </ul>	  
+               </p>
+			    <p><strong>Snacks</strong><br>
+			    <ul>
+			   <li>Wholegrain Momos</li>
+			    <li>Matara Chaat</li>
+			    <li>Ragi Nachos with Fresh Salsa Dip</li>
+			    <li>Multigrain Cookies</li>
+			    <li>Savory Namkeens</li>			    
+			   </ul>	
+			   </p>
+               <p><strong>Dinners</strong><br>
+               <ul>
+			   <li>Italian Vegetable Soup, Sauteed Vegetable, Homemade Fresh Pasta with Pesto Sauce</li>
+			    <li>Spiralized Salad, Tom Yum Soup, Red Thai Curry, Steamed Rice with Quinoa</li>
+			    <li>Cucumber & Tomato Salad, Cream of Carrot Soup, Bhindi Takatak, Dal Makhani, Brown Rice & Quinoa Biryani</li>
+			    <li>Som Tam Salad, Manchow Soup, Manchurian with Gravy, Veggie Noodles, Wholegrain Momos</li>
+			    <li>Pickled Vegetable Salad, Spinach Soup, Cauliflower Mash, Garlic Herb Chicken with Redwine Sauce</li>
+			   </ul>
+	           </p>
+           </div>
+           <div class="modal-footer">
+               <span type="span" class="btn btn-info btn-block visible-xs" aria-label="Close" data-dismiss="modal">
+                   <span class="mobile-close" aria-hidden="true">×</span> Close
+               </span>
+           </div>
+       </div>
+   </div>
+</div>
+<div class="faqs">
+<div class="container">
+ <h2 class="h4 text-center fw-600"><strong class="highlight"><span>Frequently Asked Questions</span></strong></h2>
+ <div class="">
+   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+     <div class="panel-group" id="faq-accordion" role="tablist" aria-multiselectable="true">
+       <div class="panel panel-default">
+         <div class="panel-heading accordion" role="tab" id="faq-headingOne">
+           <h3 class="panel-title"> <a class="collapsed" role="span" data-toggle="collapse" data-parent="#faq-accordion" href="#faq-collapseOne" aria-expanded="false" aria-controls="faq-collapseOne" onclick="omni_track('Faq1');">Will I be hungry on the Plan?</a></h3>
+         </div>
+         <div id="faq-collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq-headingOne">
+           <div class="panel-body">
+			   <p>On any of our Plans, you will be recommended a variety of nutrient dense—high in protein and healthy fat—foods throughout the day to help keep you feeling full. Our portion suggestions are also surprisingly large, and most clients say they are unable to finish their entire meals. If you feel that you are still hungry after eating, you have the flexibility to enjoy additional servings of snacks recommended by your dedicated nutritionist.</p>
+             </ul>
+           </div>
+         </div>
+       </div>
+       <div class="panel panel-default">
+         <div class="panel-heading accordion" role="tab" id="faq-headingTwo">
+           <h3 class="panel-title"> <a class="collapsed" role="span" data-toggle="collapse" data-parent="#faq-accordion" href="#faq-collapseTwo" aria-expanded="false" aria-controls="faq-collapseTwo" onclick="omni_track('Faq2');">Do the suggested foods taste good?</a></h3>
+         </div>
+         <div id="faq-collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq-headingTwo">
+           <div class="panel-body">
+             <p>Our Plans offers a wide variety of delicious, healthy breakfast, lunch, and dinner options, and sweet and savory snacks, in a range of globally inspired flavors that you’ll love, including Indian, Mughlai, Chinese, Continental, and Italian. Our consulting chefs are previously from 5-star hotel kitchens; we know our Food Plans must be delicious to be successful!</p>
+           </div>
+         </div>
+       </div>
+       <div class="panel panel-default">
+         <div class="panel-heading accordion" role="tab" id="faq-headingThree">
+           <h3 class="panel-title"> <a class="collapsed" role="span" data-toggle="collapse" data-parent="#faq-accordion" href="#faq-collapseThree" aria-expanded="false" aria-controls="faq-collapseThree" onclick="omni_track('Faq3');">Is this a Keto diet?</a></h3>
+         </div>
+         <div id="faq-collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq-headingThree">
+           <div class="panel-body">
+             <ul>
+			   <li>As keto continues to be a growing trend in the health and wellness world, we’ve created some Keto options in our Plans to help people lose weight.</li>
+				 <li>Depending on your requirements, we recommend different levels of Keto-Friendly foods. This means you’ll enjoy more quality carbs, higher protein levels and more food variety, including foods that are off-limits on the keto diet like milk, whole grains and beans.</li>
+				 <li>Our keto–friendly approach to weight loss delivers below 50 grams of net carbs per day. (Net carbs are the total carbohydrates in a food or beverage, minus dietary fiber and erythritol, a type of sugar alcohol.)</li>
+				 <li>While our's is a low-carb, good-fat approach, it’s not “strictly keto” or intended to allow individuals to achieve or maintain nutritional ketosis.</li>
+				 
+			   </ul>
+           </div>
+         </div>
+       </div>
+       <div class="panel panel-default">
+         <div class="panel-heading accordion" role="tab" id="faq-headingFour">
+           <h3 class="panel-title"> <a class="collapsed" role="span" data-toggle="collapse" data-parent="#faq-accordion" href="#faq-collapseFour" aria-expanded="false" aria-controls="faq-collapseFour" onclick="omni_track('Faq4');">Are the Plans gluten-free?</a></h3>
+         </div>
+         <div id="faq-collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq-headingFour">
+           <div class="panel-body">
+             <p>If required, we can suggest gluten free ingredients, and you can customize further with your dedicated nutritionist.</p>
+           </div>
+         </div>
+       </div>
+       <div class="panel panel-default">
+         <div class="panel-heading accordion" role="tab" id="faq-headingFive">
+           <h3 class="panel-title"> <a class="collapsed" role="span" data-toggle="collapse" data-parent="#faq-accordion" href="#faq-collapseFive" aria-expanded="false" aria-controls="faq-collapseFive" onclick="omni_track('Faq5');">Can a vegan be on the Plan?</a></h3>
+         </div>
+         <div id="faq-collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq-headingFive">
+           <div class="panel-body">
+             <p>Yes, our Plans are very aligned with a Vegan diet and can be further customized with your dedicated nutritionist.</p>
+           </div>
+         </div>
+       </div>  
+	      </div>
+   </div>
+ </div>	
+	 
+    <div class="collapse" id="faqCollapse">
+       <div class="" style="padding-top:0px;"> 
+		      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+     <div class="panel-group" id="faq-accordion" role="tablist" aria-multiselectable="true">
+	   <div class="panel panel-default">
+         <div class="panel-heading accordion" role="tab" id="faq-headingSix">
+           <h3 class="panel-title"> <a class="collapsed" role="span" data-toggle="collapse" data-parent="#faq-accordion" href="#faq-collapseSix" aria-expanded="false" aria-controls="faq-collapseFive" onclick="omni_track('Faq6');">What to do if I cheat or feel like cheating on the Plan?
+</a></h3>
+         </div>
+         <div id="faq-collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq-headingSix">
+           <div class="panel-body">
+             <ul>
+			   <li>We understand cravings occur. If you do “cheat” please inform your dedicated nutritionist. She will adjust your calories for the day to help you stay within your health goals. She can also offer advice on how to avoid cheating again in the future or substitute options to satiate the same craving. Don’t worry, you will not be reprimanded, rather coached to discourage the same thing happening too often.</li>
+				 <li>If you feel like “cheating”, let your nutritionist know which craving you have, and she will offer you healthier substitute options or even customize your plan to include a healthier version of your craving.</li>
+			   </ul>
+           </div>
+         </div>
+       </div> 	   
+	   <div class="panel panel-default">
+         <div class="panel-heading accordion" role="tab" id="faq-headingSeven">
+           <h3 class="panel-title"> <a class="collapsed" role="span" data-toggle="collapse" data-parent="#faq-accordion" href="#faq-collapseSeven" aria-expanded="false" aria-controls="faq-collapseSeven" onclick="omni_track('Faq7');">Am I only allowed to the eat the recommended foods?</a></h3>
+         </div>
+         <div id="faq-collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq-headingSeven">
+           <div class="panel-body">
+             <p>To maximize disease reversal and weight loss, yes, you should ideally only be eating the suggested foods from your Plan. Even with the best of intentions, unplanned meals tend to be too high in carbohydrates or unhealthy fats. So to truly achieve your goals, please stick as close to the plan as possible.</p>
+           </div>
+         </div>
+       </div> 
+	   <div class="panel panel-default">
+         <div class="panel-heading accordion" role="tab" id="faq-headingEight">
+           <h3 class="panel-title"> <a class="collapsed" role="span" data-toggle="collapse" data-parent="#faq-accordion" href="#faq-collapseEight" aria-expanded="false" aria-controls="faq-collapseEight" onclick="omni_track('Faq8');">What if I have to attend a social event or want to eat out?</a></h3>
+         </div>
+         <div id="faq-collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq-headingEight">
+           <div class="panel-body">
+             <ul>
+			   <li>We understand social commitments will happen as well as the desire to eat from outside once in a while. If you do eat out please inform your dedicated nutritionist. She will adjust your calories to help you stay within your health goals. She can also offer advice on how to make healthy choices while eating out in a restaurant or at a social event.</li>
+				 <li>Your dedicated nutritionist can also share healthy recipes for your favorite dishes so you can occasionally cook at home.</li>
+			   </ul>
+           </div>
+         </div>
+       </div>
+	   
+	   <div class="panel panel-default">
+         <div class="panel-heading accordion" role="tab" id="faq-headingNine">
+           <h3 class="panel-title"> <a class="collapsed" role="span" data-toggle="collapse" data-parent="#faq-accordion" href="#faq-collapseNine" aria-expanded="false" aria-controls="faq-collapseNine" onclick="omni_track('Faq9');">What are probiotics and why should I consume them?</a></h3>
+         </div>
+         <div id="faq-collapseNine" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq-headingNine">
+           <div class="panel-body">
+             <p>Probiotics are live microorganisms that may be able to help prevent and treat some illnesses. Promoting a healthy digestive tract and a healthy immune system are their most widely studied benefits. These are also commonly known as friendly, good, or healthy bacteria. LHF incorporates probiotics into our meals to keep your body, specifically your gut, as healthy as possible, which is now known to play a very important role in overall health.</p>
+           </div>
+         </div>
+       </div>
+	   
+	    <div class="panel panel-default">
+         <div class="panel-heading accordion" role="tab" id="faq-headingTen">
+           <h3 class="panel-title"> <a class="collapsed" role="span" data-toggle="collapse" data-parent="#faq-accordion" href="#faq-collapseTen" aria-expanded="false" aria-controls="faq-collapseTen" onclick="omni_track('Faq10');">Can I drink alcohol on the Plan?</a></h3>
+         </div>
+         <div id="faq-collapseTen" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq-headingTen">
+           <div class="panel-body">
+             <p>Our principles do allow minimal alcohol: it is recommended to limit consumption to 2 servings per week and pay attention to portion sizes. Choose only dry wines and avoid sweet wines and wine coolers, as they provide more sugar and carbohydrates. Limit beer to light beers to keep the carbohydrates lower and avoid serving liquor with high sugar mixers. Also discuss with your dedicated nutritionist so she may adjust your calories to maintain your health goals.</p>
+           </div>
+         </div>
+       </div>
+	   
+	    <div class="panel panel-default">
+         <div class="panel-heading accordion" role="tab" id="faq-heading11">
+           <h3 class="panel-title"> <a class="collapsed" role="span" data-toggle="collapse" data-parent="#faq-accordion" href="#faq-collapse11" aria-expanded="false" aria-controls="faq-collapse11" onclick="omni_track('Faq11');">How many times can I eat non-veg?</a></h3>
+         </div>
+         <div id="faq-collapse11" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq-heading11">
+           <div class="panel-body">
+             <p>For patients on insulin, we do not recommend consuming non-veg, but if you are truly craving it, speak with your dedicated nutritionist so she may coach you and offer some more options. If you are not diabetic, we recommend having non-veg not more than 1-2 times a week.</p>
+           </div>
+         </div>
+       </div>
+	   
+	    <div class="panel panel-default">
+         <div class="panel-heading accordion" role="tab" id="faq-heading12">
+           <h3 class="panel-title"> <a class="collapsed" role="span" data-toggle="collapse" data-parent="#faq-accordion" href="#faq-collapse12" aria-expanded="false" aria-controls="faq-collapse12" onclick="omni_track('Faq12');">Are there restrictions on who can be on the Plans?</a></h3>
+         </div>
+         <div id="faq-collapse12" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq-heading12">
+           <div class="panel-body">
+             <ul>
+			   <li>Under 18 years of age without parental supervision</li>
+				 <li>Allergies: NUTS, SOY, LATEX</li>
+				 <li>Anorexia, Bulimia Nervosa</li>
+				 <li>Breastfeeding an Infant under 4 month of age</li>
+				 <li>Celiac disease</li>
+				 <li>Congestive Heart Failure</li>
+				 <li>Dialysis</li>
+				 <li>Hypoglycemia</li>
+				 <li>Kidney Disease, Renal Disease, Renal Failure</li>
+			   <li>Pregnancy without OB supervision	</li>
+				 <p>*This list is not exhaustive. Other medical conditions exist that may restrict you from following the LHF Program. You should consult with your healthcare provider before beginning this or any diet program.</p>
+			   </ul>
+           </div>
+         </div>
+       </div>	   
+	   
+	   
+	    <div class="panel panel-default">
+         <div class="panel-heading accordion" role="tab" id="faq-heading13">
+           <h3 class="panel-title"> <a class="collapsed" role="span" data-toggle="collapse" data-parent="#faq-accordion" href="#faq-collapse13" aria-expanded="false" aria-controls="faq-collapse13" onclick="omni_track('Faq13');">What do the Plans Include?</a></h3>
+         </div>
+         <div id="faq-collapse13" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq-heading13">
+           <div class="panel-body">
+             <p>Depending on which Plan you choose, a nutritionist will guide you appropriately to a more healthful state of life. You may be suggested specific foods to boost immunity or specific meal items. Each person is unique and we design each Plan with that in mind. We share your journey and are committed to your success.</p>
+           </div>
+         </div>
+       </div>
+	   
+	    <div class="panel panel-default">
+         <div class="panel-heading accordion" role="tab" id="faq-heading14">
+           <h3 class="panel-title"> <a class="collapsed" role="span" data-toggle="collapse" data-parent="#faq-accordion" href="#faq-collapse14" aria-expanded="false" aria-controls="faq-collapse14" onclick="omni_track('Faq14');">How does the Plan work?</a></h3>
+         </div>
+         <div id="faq-collapse14" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq-heading14">
+           <div class="panel-body">
+             <p>Our passion is to help as many people as possible reverse their disease, lose weight, and stay healthy and fit. We also aim to teach our clients how to live a high-quality, healthy life, without hunger or deprivation. The LHF Program is a safe, effective method of disease remission, weight loss, and introduces easy-to-follow principles that allow people to enjoy eating and achieve optimal health. LHF will deliver your customized meals for FREE. You have to simply heat and eat!</p>
+           </div>
+         </div>
+       </div>
+	   
+	   
+	    <div class="panel panel-default">
+         <div class="panel-heading accordion" role="tab" id="faq-heading15">
+           <h3 class="panel-title"> <a class="collapsed" role="span" data-toggle="collapse" data-parent="#faq-accordion" href="#faq-collapse15" aria-expanded="false" aria-controls="faq-collapse15" onclick="omni_track('Faq15');">Can I follow one of your Plans if I have diabetes?</a></h3>
+         </div>
+         <div id="faq-collapse15" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq-heading15">
+           <div class="panel-body">
+             <p>Yes, this is actually our most popular program. please choose the Diabetes Program (this should be a clickable link) to begin your journey to better health.</p>
+           </div>
+         </div>
+       </div>	   
+	   
+	     
+	   <div class="panel panel-default">
+         <div class="panel-heading accordion" role="tab" id="faq-heading17">
+           <h3 class="panel-title"> <a class="collapsed" role="span" data-toggle="collapse" data-parent="#faq-accordion" href="#faq-collapse17" aria-expanded="false" aria-controls="faq-collapse17" onclick="omni_track('Faq17');">How is "Stay Fit" different from the other Plans?</a></h3>
+         </div>
+         <div id="faq-collapse17" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq-heading17">
+           <div class="panel-body">
+             <p>Yes, this is actually our most popular program. please choose the Diabetes Program (this should be a clickable link)  from the disease reversal program options. </p>
+           </div>
+         </div>
+       </div>
+	   
+	 
+	   <div class="panel panel-default">
+         <div class="panel-heading accordion" role="tab" id="faq-heading18">
+           <h3 class="panel-title"> <a class="collapsed" role="span" data-toggle="collapse" data-parent="#faq-accordion" href="#faq-collapse18" aria-expanded="false" aria-controls="faq-collapse18" onclick="omni_track('Faq18');">How is "Stay Fit" different from the other LHF Programs?</a></h3>
+         </div>
+         <div id="faq-collapse18" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq-heading18">
+           <div class="panel-body">
+             <p>Our Stay Fit Program (clickable link) is ideal for those clients who want to maintain a healthful diet. Stay fit is also recommended for people who want to stay as healthy as possible and maintain their weight and maximize nutrition levels.</p>
+           </div>
+         </div>
+       </div>
+	   
+	   <div class="panel panel-default">
+         <div class="panel-heading accordion" role="tab" id="faq-heading19">
+           <h3 class="panel-title"> <a class="collapsed" role="span" data-toggle="collapse" data-parent="#faq-accordion" href="#faq-collapse19" aria-expanded="false" aria-controls="faq-collapse19" onclick="omni_track('Faq19');">Do I have to exercise while on the Plans?</a></h3>
+         </div>
+         <div id="faq-collapse19" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq-heading19">
+           <div class="panel-body">
+             <p>Exercise is encouraged on any Plan for optimal health, but is not required. We recommend at least 30 minutes of activity each day as it is important to move your body and stay active. This can even be light yoga or evening walks.</p>
+           </div>
+         </div>
+       </div>
+	   
+	   
+	   <div class="panel panel-default">
+         <div class="panel-heading accordion" role="tab" id="faq-heading20">
+           <h3 class="panel-title"> <a class="collapsed" role="span" data-toggle="collapse" data-parent="#faq-accordion" href="#faq-collapse20" aria-expanded="false" aria-controls="faq-collapse20" onclick="omni_track('Faq20');">How much weight will I lose on the Plan?</a></h3>
+         </div>
+         <div id="faq-collapse20" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq-heading20">
+           <div class="panel-body">
+             <ul>
+			   <li>Experts agree that losing 0.5-1 kg per week is a healthy and sustainable weight loss range, and you can expect to lose weight within this range on the Weight Loss Plan .(clickable link)</li>
+			   <li>On average, participants on the LHF Program lose an average of 6 kg per month.</li>
+			   </ul>
+           </div>
+         </div>
+       </div>
+	   
+	    <div class="panel panel-default">
+         <div class="panel-heading accordion" role="tab" id="faq-heading21">
+           <h3 class="panel-title"> <a class="collapsed" role="span" data-toggle="collapse" data-parent="#faq-accordion" href="#faq-collapse21" aria-expanded="false" aria-controls="faq-collapse21" onclick="omni_track('Faq21');">Is there a maintenance program?</a></h3>
+         </div>
+         <div id="faq-collapse21" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq-heading21">
+           <div class="panel-body">
+             <p>Yes. After you have reached your disease reversal or weight loss goal, you can transition to the Stay Fit (clickable link) Program. </p>
+           </div>
+         </div>
+       </div>
+	   
+	    <div class="panel panel-default">
+         <div class="panel-heading accordion" role="tab" id="faq-heading22">
+           <h3 class="panel-title"> <a class="collapsed" role="span" data-toggle="collapse" data-parent="#faq-accordion" href="#faq-collapse22" aria-expanded="false" aria-controls="faq-collapse22" onclick="omni_track('Faq22');">What is the cancellation policy?</a></h3>
+         </div>
+         <div id="faq-collapse22" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq-heading22">
+           <div class="panel-body">
+             <ul>
+			   <li>A Trial Plan is non refundable.</li>
+			   <li>A 1-Month Plan is non refundable.</li>
+			<li>After 10 days of a 3-Month, the Plan can be cancelled and the remaining balance can be used as store credit towards any purchase from Life Heal. Reimbursements are not possible at this time.</li>
+		    <li>Any balance store credit can be used towards any plan, product or service in case the client wants to change their plan.</li>
+				 <li>Store credit can be transferred to another client for a Rs 500 administrative fee.</li>
+				 <li>Your services can be cancelled by us for any reason.</li>
+				 <li>Prices subject to change.</li>
+			   </ul>
+           </div>
+         </div>
+       </div>   
+	   
+	   
+	    <div class="panel panel-default">
+         <div class="panel-heading accordion" role="tab" id="faq-heading23">
+           <h3 class="panel-title"> <a class="collapsed" role="span" data-toggle="collapse" data-parent="#faq-accordion" href="#faq-collapse23" aria-expanded="false" aria-controls="faq-collapse23" onclick="omni_track('Faq23');">How much weight will I lose on the LHF Program?</a></h3>
+         </div>
+         <div id="faq-collapse23" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq-heading23">
+           <div class="panel-body">
+             <ul>
+			   <li>Experts agree that losing 0.5-1 kg per week is a healthy and sustainable weight loss range, and you can expect to lose weight within this range on the LHF Weight Loss Program (clickable link)</li>
+			   
+			   </ul>
+           </div>
+         </div>
+       </div>
+	   
+	   
+	   
+	   
+	   
+	    <div class="panel panel-default">
+         <div class="panel-heading accordion" role="tab" id="faq-heading25">
+           <h3 class="panel-title"> <a class="collapsed" role="span" data-toggle="collapse" data-parent="#faq-accordion" href="#faq-collapse25" aria-expanded="false" aria-controls="faq-collapse25" onclick="omni_track('Faq25');">Is there a referral program?</a></h3>
+         </div>
+         <div id="faq-collapse25" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq-heading25">
+           <div class="panel-body">
+          <ul>
+		      <li>Yes, Get a Referral to Join and both you and they will save 20%</li>	   
+			 <li>Terms & Conditions:</li>	
+			  <li>Referrals save 20% on sign up</li>	
+			  <li>Referee's earn store credit in the same amount of savings as their referral to apply towards next renewal or extra days</li>	
+			  <li>Offer valid only for new sign ups to the program</li>			 
+			  <li>If new sign up cancels then store credit to the referee is also withdrawn.</li>
+			  <li>Cannot be combined with any other promotions or discounts</li>
+	     </ul>
+           </div>
+         </div>
+       </div>
+	   
+	    <div class="panel panel-default">
+         <div class="panel-heading accordion" role="tab" id="faq-heading26">
+           <h3 class="panel-title"> <a class="collapsed" role="span" data-toggle="collapse" data-parent="#faq-accordion" href="#faq-collapse26" aria-expanded="false" aria-controls="faq-collapse26" onclick="omni_track('Faq26');">Is there a referral program?</a></h3>
+         </div>
+         <div id="faq-collapse26" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq-heading26">
+           <div class="panel-body">
+			    <p>Yes, Get a Referral to Join and both you and they will save 20% </p>	
+			   <p>Terms & Conditions:</p>	
+          <ul>		        
+			  <li>Referrals save 20% on sign up</li>	
+			  <li>Referee's earn store credit in the same amount of savings as their referral to apply towards next renewal or extra days</li>	
+			  <li>Offer valid only for new sign ups to the program</li>			 
+			  <li>If new sign up cancels then store credit to the referee is also withdrawn.</li>
+			  <li>Cannot be combined with any other promotions or discounts</li>
+	     </ul>
+           </div>
+         </div>
+       </div>
+	   
+	   
+	    <div class="panel panel-default">
+         <div class="panel-heading accordion" role="tab" id="faq-heading27">
+           <h3 class="panel-title"> <a class="collapsed" role="span" data-toggle="collapse" data-parent="#faq-accordion" href="#faq-collapse27" aria-expanded="false" aria-controls="faq-collapse27" onclick="omni_track('Faq27');">How is delivery done? </a></h3>
+         </div>
+         <div id="faq-collapse27" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq-heading27">
+           <div class="panel-body">
+		
+          <ul>		        
+			  <li>For any of our subscriptions, all meals will be delivered together.</li>	
+			  <li>Our delivery person can only wait at your door for 5 minutes to not cause delay in other deliveries. Please be aware and respectful of that time limit.</li>	
+			  <li>At this same time, please give our delivery person your bag and dishes from the previous day. (Remember, to stay cost effective and eco-friendly, we reuse/recycle all containers. There is also a Rs100 charge for any stainless steel container which is not returned.)</li>	 
+			  <li>Please place your food in the refrigerator asap.</li>
+	     </ul>
+           </div>
+         </div>
+       </div>
+	   
+	   
+	   <div class="panel panel-default">
+         <div class="panel-heading accordion" role="tab" id="faq-heading28">
+           <h3 class="panel-title"> <a class="collapsed" role="span" data-toggle="collapse" data-parent="#faq-accordion" href="#faq-collapse28" aria-expanded="false" aria-controls="faq-collapse28" onclick="omni_track('Faq28');">What will happen when I leave the LHF Program completely ?
+</a></h3>
+         </div>
+         <div id="faq-collapse28" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq-heading28">
+           <div class="panel-body">
+		<p>After you have reached your disease reversal or weight loss goal, you can transition to the Stay Fit (clickable link) Program. Also, throughout your full plan, your dedicated nutritionist will have helped you to understand how to make good food choices, how to prepare healthful meals at home and will also offer you to stay on a consulting only package. You can also purchase some products (Clickable link) directly from LHF to aid you in food preparation at home.</p>
+           </div>
+         </div>
+       </div>
+	   
+	   
+	   
+	   <div class="panel panel-default">
+         <div class="panel-heading accordion" role="tab" id="faq-heading29">
+           <h3 class="panel-title"> <a class="collapsed" role="span" data-toggle="collapse" data-parent="#faq-accordion" href="#faq-collapse29" aria-expanded="false" aria-controls="faq-collapse29" onclick="omni_track('Faq29');">Will I get any discounts ?</a></h3>
+         </div>
+         <div id="faq-collapse29" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq-heading29">
+           <div class="panel-body">
+		<p>Yes, Get a Referral to Join and both you and they will save 20%</p>
+			   <p>Terms & Conditions:</p>
+          <ul>		        
+			  <li>Referrals save 20% on sign up</li>	
+			  <li>Referee's earn store credit in the same amount of savings as their referral to apply towards next renewal or extra days</li>	
+			  <li>Offer valid only for new sign ups to the program</li>			 
+			  <li>If new sign up cancels then store credit to the referee is also withdrawn.</li>
+			  <li>Cannot be combined with any other promotions or discounts</li>
+	     </ul>
+           </div>
+         </div>
+       </div>
+	   
+	   
+	   <div class="panel panel-default">
+         <div class="panel-heading accordion" role="tab" id="faq-heading30">
+           <h3 class="panel-title"> <a class="collapsed" role="span" data-toggle="collapse" data-parent="#faq-accordion" href="#faq-collapse30" aria-expanded="false" aria-controls="faq-collapse30" onclick="omni_track('Faq30');">Will LHF help me to get 6 pack abs ?
+</a></h3>
+         </div>
+         <div id="faq-collapse30" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq-heading30">
+           <div class="panel-body">
+		<p>With the LHF plan and dedicated fitness goals, you may be able to achieve the fittest, healthy body possible. To achieve “6 pack” abdominals, you may also need to include a fitness instructor into your health regimine who can guide you specifically to shape the body parts you want. We have numerous athletes on our program who have achieved and even surpassed their fitness goals.+
+			   </p>
+           </div>
+         </div>
+       </div>
+	   
+		</div>
+	   </div>
+	 </div>
+	</div>
+	  <div class="text-center collapse-link">
+       <a role="span" class="read-more-link collapsed" data-toggle="collapse" href="#faqCollapse" aria-expanded="false" aria-controls="faqCollapse" onclick="omni_track('SeeWhatsCooking');">
+          <img src="<?php echo $this->getSkinUrl('images/plus-circle-icon.svg') ?>" class="center-block plus-circle" alt="open">
+          <img src="<?php echo $this->getSkinUrl('images/x-circle-icon.svg') ?>" class="center-block x-circle" alt="close">
+          <strong>See more FAQ's</strong></a></div>
+	 <!--morefaqs-->
+	 
+	 </div>
+	</div>
+
+<div class="bg-secondary closer">
+ <div class="container">
+    <div class="">
+       <div class="col-xs-12 center-block no-float text-white">
+          <div class="row">
+             <div class="col-xs-12 col-lg-7 col-lg-offset-1 col-md-6 col-md-offset-1 col-sm-7 text-wrapper"  style="padding:0px;">
+                <h3 class="text-white">Lose weight fast with <br>the Weight Loss Individual Health!</h3></div>
+             <div class="col-xs-12 span-wrapper col-md-3 col-sm-5">
+                <a class="bg-white btn btn-default btn-lg scroll-to">Get Started</a>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+</div>
+<div class="btn primary get-btn requestquote" style="width:100%;float:left;position:fixed;bottom:0;z-index:2;">Buy Plan</div>
+	</div>
+</main>
+
+<script>
+jQuery(document).ready(function () {
+  jQuery('.requestquote').click(function() {
+ jQuery('html, body').animate({
+    scrollTop: jQuery(".requestbox").offset().top
+  }, 1000)
+})
+	});
+
+ 
+/*
+	function myFunctionedit() {
+  var x = document.getElementsById("delivery-options-collapse");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+	*/
+	jQuery(document).ready(function () {
+  jQuery('.scroll-to').click(function() {
+ jQuery('html, body').animate({
+    scrollTop: jQuery("#orderOptions").offset().top
+  }, 1000)
+})
+	});
+jQuery(document).ready(function(){
+ jQuery("#choose-delivery").click(function(){
+   jQuery(".delivery-options-collapse").toggle();
+  });
+});
+</script>
+

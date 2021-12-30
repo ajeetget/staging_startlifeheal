@@ -1,0 +1,1061 @@
+/*detail plan*/
+@-webkit-keyframes bounce {
+    0,
+    100%,
+    20%,
+    50%,
+    80% {
+        -webkit-transform: translateY(0)
+    }
+    40% {
+        -webkit-transform: translateY(-5px)
+    }
+    60% {
+        -webkit-transform: translateY(-3px)
+    }
+}
+
+@-moz-keyframes bounce {
+    0,
+    100%,
+    20%,
+    50%,
+    80% {
+        -moz-transform: translateY(0)
+    }
+    40% {
+        -moz-transform: translateY(-5px)
+    }
+    60% {
+        -moz-transform: translateY(-3px)
+    }
+}
+
+@-o-keyframes bounce {
+    0,
+    100%,
+    20%,
+    50%,
+    80% {
+        -o-transform: translateY(0)
+    }
+    40% {
+        -o-transform: translateY(-5px)
+    }
+    60% {
+        -o-transform: translateY(-3px)
+    }
+}
+
+@keyframes bounce {
+    0,
+    100%,
+    20%,
+    50%,
+    80% {
+        transform: translateY(0)
+    }
+    40% {
+        transform: translateY(-5px)
+    }
+    60% {
+        transform: translateY(-3px)
+    }
+}
+    .plan-claim {
+        background: url(../images/Claim-Gold-2020.jpg) center no-repeat;
+     background-size: 100% !important;
+height: 400px;
+text-align: right;
+padding-top: 100px;
+width: 100%;
+float: left;
+position: relative;
+z-index: 2;
+display: block;
+    }
+ .familyclaim {
+        background: url(../images/familyclaim.png) center no-repeat !important;
+   background-size: 100% !important;
+height: 400px;
+text-align: right;
+padding-top: 100px;
+width: 100%;
+float: left;
+position: relative;
+z-index: 2;
+display: block;
+    }
+#payPalButton img,
+#payPalCreditButton img {
+    padding: 10px 35px;
+    border-radius: 5px;
+    background: #eee;
+    text-align: center;
+    height: 45px;
+    display: inline-block;
+}
+
+#payPalCreditButton img {
+    background: #013087
+}
+
+nav.main-navigation ul.plans-sub-nav-dt {
+        position: absolute;
+    background: #1acccd;
+    min-width: 100%;
+    top:4em;
+    height: 40px;
+    padding: 0;
+    margin: 0 -15px 0 0;
+}
+nav.main-navigation ul.list-inline.plans-sub-nav-dt>li{display: inline-block;
+padding-left: 0px;padding:0px;
+padding-right: 0px;}
+nav.main-navigation ul.list-inline.plans-sub-nav-dt>li a {
+    text-decoration: none;
+    font-size: 13px;
+    display: inline-block;
+    line-height: 40px;
+    padding: 0 0 0 8px
+}
+
+.breadcrumb {
+    top: 14.5em;
+    right: 10px
+}
+
+.caveat {
+    font-family: 'Caveat', cursive
+}
+
+.plans-sub-nav-dt #silver a {
+    font-weight: 300
+}
+
+.gutter-0 {
+    padding-right: 0;
+    padding-left: 0
+}
+
+.silver-plan .hero {
+    padding:8em 0 0;
+    background: url(../images/palm-bg-mob.jpg)no-repeat right top
+}
+
+.silver-plan .hero .intro-text-wrapper {
+    text-align: center;
+    padding: 0 15px
+}
+
+.silver-plan .hero img.silver-icon {
+    display: inline-block;
+    width: 50px;
+    height:50px
+}
+
+.silver-plan .hero h1 {
+    max-width: 20em;
+    margin: 0 auto;
+    color: #222;
+    display: inline-block;
+    vertical-align: middle
+}
+.price-container #pricediv {
+    font-size: 11px;
+    float: left;
+    width: 100%;
+    text-align: left !important;
+}
+.silver-plan .hero .intro-text-wrapper h2 {
+    margin: .2em auto 1em;font-size:16px;
+}
+
+.silver-plan .hero .material-icons {
+    vertical-align: middle
+}
+
+.silver-plan hr {
+    margin-top: 1em;
+    margin-bottom: 1em
+}
+
+.silver-plan .product-image p {
+    padding: 10px 5px;
+    line-height: 1;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0px;
+    font-size: 1em;
+    background-color: #f6f6f6;
+    color: #000;
+    border-top: 5px solid #10cfc9;
+}
+.silver-plan .product-info {
+    border: 15px solid #1acccd;
+}
+
+.silver-plan .product-info h3 span.highlight {
+    background-image: url(../images/copy-highlight-silver.jpg);
+    background-repeat: repeat-x;
+    background-position: center 11px;
+    padding: 0 6px 3px
+}
+
+.anh-quote,
+.kris-quote {
+    padding: 24px 0
+}
+
+.anh-quote img,
+.kris-quote img {
+    padding-bottom: 20px
+}
+
+.anh-quote hr,
+.kris-quote hr {
+    border-top: 5px solid #10cfc9;
+    margin: 0 0 12px;
+    width: 65px;
+    text-align: left
+}
+
+.anh-quote .btn-default:after,
+.kris-quote .btn-default:after {
+    content: '\005E'
+}
+
+.anh-quote p.small,
+.kris-quote p.small {
+    margin-top: 24px
+}
+.faqs {
+    padding: 12px 0 0px;
+}
+.plus-sect {
+    padding: 12px 0 24px
+}
+
+.plus-sect .callout {
+    padding-right: 40px;
+    text-align: center
+}
+
+.plus-sect .plus-sect-wrap .plus-bg {
+    background-color: #cff6f4;
+float: left;
+width: 100%;
+}
+
+.plus-sect span.caveat {
+    font-size:1.9em;
+   color: #c21f42;
+}
+
+.plus-sect .plus-wrap {
+    display: inline-block;
+    -ms-transform: rotate(-15deg);
+    -webkit-transform: rotate(-15deg);
+    transform: rotate(-15deg);
+    position: relative;
+    top: -15px
+}
+
+.plus-sect h3 {
+    display: inline-block;
+    margin: 16px 0;
+    font-size: 21px;
+    width: 100%;
+    padding-left: 10px
+}
+
+.plus-sect h4 {
+    margin-top: 0px;
+    padding: 0px 10px;
+}
+
+.plus-sect .btn.btn-menu,
+.typical-day .btn.btn-menu {
+    margin-top: 30px;
+    border-color: #f25153
+}
+
+.typical-day .btn.btn-menu {
+    margin: 30px 0 16px
+}
+
+.plus-sect .btn.btn-menu:focus,
+.plus-sect .btn.btn-menu:hover,
+.typical-day .btn.btn-menu:focus,
+.typical-day .btn.btn-menu:hover {
+    background-color: #f25153 !important;
+    color: #fff;
+}
+
+.panel-default>.panel-heading {
+    background-color: #fff
+}
+
+.panel-default {
+    border-color: #707070
+}
+
+.closer .btn-default:after {
+    content: '\005E'
+}
+
+.typical-day .highlight {
+    border-bottom: 22px solid #ebfbfa;
+    position: relative;
+    top: -15px;
+    padding: 0 6px
+}
+
+.typical-day .highlight span {
+    position: relative;
+    top: 18px
+}
+
+.typical-day hr {
+    margin-top: .5em;
+    margin-bottom: 2em;
+    border-top: 3px solid #49c5b1
+}
+
+.typical-day hr.meal-time {
+    width: 100%;
+    border-top: 6px solid #1acccd;
+    text-align: left;
+    margin: 1.5em 0 1.5em
+}
+
+.typical-day h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #f25153;
+    padding-top: 10px
+}
+
+.typical-day h3 strong {
+    font-size: 36px
+}
+
+.breakfast img,
+.lunch img {
+    margin-bottom: 36px
+}
+
+.breakfast,
+.dinner,
+.lunch {
+    padding: 0
+}
+
+.typical-day a.read-more-link.collapsed, .faqs a.read-more-link.collapsed{
+    text-decoration: none
+}
+
+.typical-day a.read-more-link[aria-expanded=false] .plus-circle,
+.typical-day a.read-more-link[aria-expanded=false] strong,
+.typical-day a.read-more-link[aria-expanded=true] .x-circle, .faqs a.read-more-link[aria-expanded=false] .plus-circle,
+.faqs a.read-more-link[aria-expanded=false] strong,
+.faqs a.read-more-link[aria-expanded=true] .x-circle {
+    display: inline-block;
+    transition: 10s
+}
+
+.typical-day a.read-more-link[aria-expanded=false] .x-circle,
+.typical-day a.read-more-link[aria-expanded=true] .plus-circle,
+.typical-day a.read-more-link[aria-expanded=true] strong, .faqs a.read-more-link[aria-expanded=false] .x-circle,
+.faqs a.read-more-link[aria-expanded=true] .plus-circle,
+.faqs a.read-more-link[aria-expanded=true] strong {
+    display: none;
+    transition: 10s
+}
+
+.typical-day a.read-more-link[aria-expanded=false] .plus-circle,
+.typical-day a.read-more-link[aria-expanded=false] strong,
+.typical-day a.read-more-link[aria-expanded=true] .x-circle, 
+.faqs a.read-more-link[aria-expanded=false] .plus-circle,
+.faqs a.read-more-link[aria-expanded=false] strong,
+.faqs a.read-more-link[aria-expanded=true] .x-circle {
+    display: inline-block;
+    transition: 10s
+}
+
+.typical-day .read-more-link img, .faqs .read-more-link img {
+    display: inline-block;
+    width: 24px;
+    height:24px
+}
+
+.typical-day .collapse-link{
+    margin-bottom: 24px
+}
+.faqs .collapse-link {
+margin-top: 14px;
+margin-bottom: 14px;
+float: left;
+width: 100%;
+}
+.faqs .row {
+    padding-top:40px
+}
+
+.faqs .highlight {
+    border-bottom: 18px solid #ebfbfa;
+    position: relative;
+    top: -20px;
+    padding: 0 6px
+}
+
+.faqs .highlight span {
+    position: relative;
+    top: 13px
+}
+.plan-claim .textbox{width:50%;}
+.plan-claim {
+    text-align: center;float:left; width:100%;
+}
+
+.typical-day{float:left; width:100%;}
+.plus-sect {
+    width: 100%;
+    float: left;
+}
+
+@media screen and (min-width:260px) and (max-width:767px) 
+{.familyclaim {padding-top:0px !important;
+height: auto;
+margin-bottom: 10px;}
+.anh-quote, .kris-quote {
+    padding: 24px 0 0 0px!important;}
+}
+@media screen and (min-width:768px) and (max-width: 999px) {
+.faqs .highlight {
+    border-width: 25px;
+    top: -20px !important;
+    margin: 0px;
+}
+.plus-sect span.caveat {
+    font-size: 1.9em;
+    color: #c21f42;
+    margin-top: -20px;
+    display: block;
+}
+.plus-sect h3 {
+    border-right: 3px solid #c21f42;
+    margin-bottom: 0;
+    display: inline-block;
+    margin-top: 0px !important;
+    width: 220px;
+    padding: 14px 15px 14px 15px;
+    font-weight: 600;
+}
+.plus-sect .plus-sect-wrap .plus-bg {
+    background-color: #cff6f4;
+    width: 50%;
+}
+.plus-sect .desc {
+    padding: 8px 15px 8px 0;
+    width: 50%;
+}
+    .silver-plan .hero {
+        background: url(../images/palm-bg-dt.jpg)no-repeat center top;
+        padding:8em 0 1em
+    }
+.anh-quote img,
+    .kris-quote img {
+        margin-top:4px
+    }
+.anh-quote img, .kris-quote img {
+    padding-bottom: 10px !important;
+}
+.familyclaim {
+    background: url(../images/familyclaim.png) center no-repeat !important;
+        background-size: auto;
+    background-size: 100% !important;
+    height: 200px;
+    text-align: right;
+    padding-top: 50px;
+    width: 100%;
+    float: left;
+    position: relative;
+    z-index: 2;
+    display: block;
+}
+.plan-claim {
+    background: url(../images/Claim-Gold-2020.jpg) center no-repeat;
+    background-size: 100% !important;
+    height: 200px;
+    text-align: right;
+    padding-top:40px;
+    width: 100%;
+    float: left;
+    position: relative;
+    z-index: 2;
+    display: block;
+}
+.plan-claim .textbox{width:50%;}
+.plan-claim .h1 {
+    font-size:1.4em;
+    line-height: 1.3em;
+}
+.familyclaim .claim-img-mob{
+     background-size: cover !important;
+        background-repeat: no-repeat;
+        min-height: 400px !important;
+        margin: 0 -15px;
+}
+    .plan-claim .claim-img-mob {
+        background-size: cover;
+        background-repeat: no-repeat;
+        min-height: 320px;
+        margin: 0 -15px;
+    }
+.typical-day h2{
+    font-size: 1.5em;
+}
+
+.plan-claim .h3 {
+    z-index: 1;
+    position: relative;
+    margin-top: 0%;
+    float: left;
+    width: auto;
+    text-align: right;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+.familyclaim .h3 {
+z-index: 1;
+    position: absolute;
+    float: left;
+    width: 45%;
+    text-align:right;
+    font-weight: 400;
+    margin-top:0% !important;
+}
+}
+
+@media(max-width:767px) {
+.plan-claim .textbox{width:100%;}
+.plus-sect h3 {
+    display: inline-block;
+    margin: 0px 0;
+    font-size: 21px;
+    width: 100%;
+    padding-left: 10px;
+}
+.typical-day h2{
+    font-size: 1.4em;
+}
+.plan-claim .claim-img-mob{     
+ background: url(../images/Claim-Gold-2020-mbl.jpg);
+     background-size: cover;
+        background-repeat: no-repeat;
+        min-height: 320px;
+        margin: 0 -15px;
+}
+.familyclaim, .plan-claim{background:none !important;height:auto;padding-top:0px;}
+.familyclaim .claim-img-mob{
+      background: url(../images/familyclaim-mob.png);
+     background-size: cover;
+        background-repeat: no-repeat;
+        min-height: 320px;
+        margin: 0 -15px;
+}
+.plan-claim .highlight {
+    border-bottom: 22px solid #ebfbfa;
+    position: relative;
+    top: -15px;
+    padding: 0 6px;
+}
+.plan-claim .highlight span {
+    position: relative;
+    top: 18px;
+}
+    .plan-claim .claim-img-mob {
+        min-height: 200px;
+    }
+    .hero.full-img .container {
+        padding-left: 0;
+        padding-right: 0
+    }
+.silver-plan .intro-text-wrapper h1{
+    max-width: 30em;
+    font-size: 18px;
+}
+    .anh-quote p.small,
+    .kris-quote p.small {
+        padding-left: 0
+    }
+    .silver-plan .product-image {
+        background-image: url(../images/silver-rc-mob.jpg);
+        background-position: center center;
+        position: relative;
+        height: 16em;
+        display: block;
+        border-radius: 4px 4px 0 0
+    }
+.silver-plan .individual-image { background-image: url(../images/mobindividual.png);
+        background-position: center center;
+        position: relative;
+        height: 16em;
+        display: block;
+        border-radius: 4px 4px 0 0}
+.silver-plan .health-image { background-image: url(../images/img14-mob.png);
+        background-position: center center;
+        position: relative;
+        height: 16em;
+        display: block;
+        border-radius: 4px 4px 0 0}
+.plus-sect .plus-wrap {
+    display: inline-block;
+    -ms-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    position: relative;
+    top: 0px;
+    left: 10px;
+}
+.silver-plan .family-image {
+ background-image: url(../images/familyimg-mob.png);
+background-position: bottom center;
+position: relative;
+height:19em;
+display: block;
+border-radius: 4px 4px 0 0;
+background-size: contain;
+    }
+.silver-plan .lean-image {
+        background-image: url(../images/lean-mob.jpg);
+        background-position: center center;
+        position: relative;
+        height: 16em;
+        display: block;
+        border-radius: 4px 4px 0 0
+    }
+#typicalDayCollapse p{margin-bottom:1rem;}
+#typicalDayCollapse h3 {
+    width: 100%;
+}
+.typical-day hr.meal-time {
+    width: 100%;
+    border-top: 6px solid #1acccd;
+    text-align: left;
+    margin: 0em 0 0em;
+}
+.breakfast img, .lunch img {
+    margin-bottom: 15px;
+}
+.faqs .row {
+    padding-top: 20px;
+}
+
+}
+
+@media(max-width:360px) {
+    nav.main-navigation ul.list-inline.plans-sub-nav-dt>li a {
+        font-size: 12px
+    }
+    .typical-day h2 {
+        font-size: 1.6em
+    }
+    .typical-day .btn.btn-menu {
+        font-size: 17px;
+        padding: .5em .7em .7em 1.2em
+    }
+    .plus-sect h3 {
+        width: 100%;
+        font-size: 16px;margin: 0px !important;
+    }
+    .plus-sect .plus-wrap {
+     top: -8px;
+font-size: 14px;
+float: left;
+height: 30px;
+    }
+}
+
+@media(max-width:320px) {
+    nav.main-navigation ul.list-inline.plans-sub-nav-dt>li a {
+        font-size: 11px
+    }
+}
+
+@media(min-width:768px) {
+nav.main-navigation ul.plans-sub-nav-dt {
+    position: absolute;
+    background: #269a9b;
+    min-width: 100%;
+    top: 4.1em;
+    height: 40px;
+    padding: 0;
+    margin: 0 -15px 0 0;
+}
+    .silver-plan .intro-text-wrapper h1,
+    .silver-plan .intro-text-wrapper p {
+        max-width: 30em;
+    }
+    
+    .silver-plan .lean-image {
+        background-image: url(../images/lean-desktop.jpg)!important;
+        height: 21em
+    }
+.silver-plan .health-image {
+        background-image: url(../images/img14.png)!important;
+        height: 21em
+    }
+.silver-plan .family-image {
+        background-image: url(../images/familyimg1.png)!important;
+        height: 21em
+    }
+.silver-plan .individual-image {
+        background-image: url(../images/desktopindividual.jpg)!important;
+        height: 21em
+    }
+    .silver-plan .product-image {
+        background-image: url(../images/Salad-image-for-plan.jpg);
+        height: 21em
+    }
+   
+    .kris-quote p.small,
+    .anh-quote p.small {
+        padding-left: 20px
+    }
+    .plus-sect {
+        padding: 30px 0 30px;
+        float: left;
+        width: 100%;
+    }
+    .faqs {
+      padding:0px 0 0px;
+float: left;
+width: 100%;
+    }
+    .plus-sect .plus-sect-wrap {
+        display: flex;
+        display: -webkit-flex
+    }
+    .plus-sect .plus-wrap {
+        vertical-align: top;
+        padding-top: 0;
+        top: 44px;
+        left: -1px
+    }
+    .plus-sect .callout {
+        text-align: right;
+        padding: 0 15px 0 0
+    }
+    .plus-sect .desc {
+        padding: 8px 15px 8px 0
+    }
+    .plus-sect h3 {
+        border-right: 3px solid #c21f42;
+        margin-bottom: 0;
+        display: inline-block;
+        margin-top: 30px;
+        width: 220px;
+        padding: 14px 15px 14px 15px;
+        font-weight: 600
+    }
+    .plus-sect h4 {
+        font-size: 1em
+    }
+    .silver-bg {
+        background-color: #fff
+    }
+    .faqs .highlight {
+        border-width: 25px;
+        top: 2px
+    }
+    .faqs .highlight span {
+        top: 18px
+    }
+    .silver-plan .closer .btn {
+        margin-top: 14px
+    }
+    .typical-day .collapse-link {
+        display: none
+    }
+    #typicalDayCollapse {
+        display: block;visibility: visible;margin-top: 1em;
+    }
+    .breakfast,
+    .lunch,
+    .dinner {
+        padding-left: 15px;
+        padding-right: 15px
+    }
+}
+
+@media(min-width:992px) {
+.plan-claim .textbox{width:50%;}
+nav.main-navigation ul.plans-sub-nav-dt {
+    position: absolute;
+    background: #269a9b;
+    min-width: 100%;
+    top: 4.1em;
+    height: 40px;
+    padding: 0;
+    margin: 0 -15px 0 0;
+}
+.plan-claim .h3{text-align: right;}
+    nav.main-navigation ul.plans-sub-nav-dt {
+      min-width: 0;
+top: 0em;
+padding: 0;
+margin: 0 0px 0 0;
+height: 40px;
+    }
+.plan-claim .small {
+text-align:right;
+    margin: 0 0 .5em !important;
+    font-size: 0.8875em !important;
+}
+    nav.main-navigation ul.list-inline.plans-sub-nav-dt>li a {
+        line-height: 1;
+        padding: 13px 12px
+    }
+.plans-sub-nav-dt #silver a {
+    font-weight: 500;
+}
+    .silver-plan .nav-upper a {
+        color: #222
+    }
+
+.plan-claim .h1 {
+    font-size: 1.8em;
+    line-height: 1.3em;text-align: right;
+}
+
+    .plan-claim .col-md-6 {
+        padding: 0
+    }
+    .silver-plan .product-image p {
+width: auto;
+font-size: 1.5em;
+left: 0;
+top: 0px;
+    }
+    .silver-plan .hero {
+        padding: 4em 0 1em
+    }
+    .silver-plan .hero .intro-text-wrapper {
+        margin-bottom: 24px
+    }
+    .silver-plan .hero .intro-text-wrapper h2 {
+        display: inline-block;
+        font-size: 1.625em;
+        vertical-align: bottom;
+        margin: 0 0 5px 5px
+    }
+    .silver-plan .hero img.silver-icon {
+        width: 55px;
+        height: 55px
+    }
+   .silver-plan .product-image {
+        height: 100%;
+        display: table-cell;
+        border-radius: 4px 0 0 4px
+    }
+    .anh-quote h2,
+    .kris-quote h2 {
+        margin: 2em auto .5em
+    }
+    .kris-quote p.small,
+    .anh-quote p.small {
+        padding-left: 25px
+    }
+    .typical-day {
+        background: url(../images/typ-day-bg-2020_v2.jpg) repeat-x 0 0;
+        height: 100%;
+        margin-bottom: 20px;
+        float: left;
+        width: 100%;
+    }
+    .typical-day .highlight {
+        border-bottom: 32px solid #fff;
+        position: relative;
+        top: -24px;
+        padding: 0 15px
+    }
+    .typical-day .highlight span {
+        position: relative;
+        top: 24px
+    }
+    .typical-day h2 {
+        margin-top: 30px;
+        font-size: 2em
+    }
+    .typical-day p.sub-head {
+        margin-bottom: 50px
+    }
+    .breakfast img,
+    .lunch img,
+    .dinner img {
+        border: 20px solid #fff
+    }
+    .typical-day hr.meal-time.lunch-rule {
+        margin: 3em 0 1.5em;
+        float: right
+    }
+    .typical-day hr.meal-time.dinner-rule {
+        margin: 3em 0 1.5em
+    }
+.typical-day hr.meal-time.customized-rule {
+    margin: 10em 0 1.5em;
+}
+    .typical-day .lunch-text {
+        text-align: right
+    }
+    .typical-day .lunch img {
+        margin-bottom: 0
+    }
+    .plus-sect {
+        background-color: #ebfbfa
+    }
+    .plus-sect .plus-wrap {
+        left:6px;
+        top: 36px
+    }
+    .plus-sect h3 {
+        margin-top: 22px !important;
+width:340px;
+    }
+.silver-plan .hero {
+       background: url(../images/palm-bg-dt.jpg)no-repeat center top;
+padding: 10em 0 1em;
+margin-top: -4%;
+    }
+ .anh-quote img,
+    .kris-quote img {
+        margin-top: 24px
+    }
+}
+
+@media screen and (min-width:800px) and (max-width:1200px){
+
+.silver-plan .hero .intro-text-wrapper h2 {
+    display: inline-block;
+    font-size: 1.25em;
+    vertical-align: bottom;
+    margin: 0 0 5px 5px;
+}
+.faqs .highlight {
+    border-width: 25px;
+    top:0px;
+    margin: 0px;
+}
+.plus-sect span.caveat {
+    font-size: 1.9em;
+    color: #c21f42;
+    margin-top: -20px;
+    display: block;
+}
+.plus-sect h3 {
+    border-right: 3px solid #c21f42;
+    margin-bottom: 0;
+    display: inline-block;
+    margin-top: 0px !important;
+    width: 220px;
+    padding: 14px 15px 14px 15px;
+    font-weight: 600;
+}
+.plus-sect .plus-sect-wrap .plus-bg {
+    background-color: #cff6f4;
+    width: 50%;
+}
+.plus-sect .desc {
+    padding: 18px 15px 18px 0;
+    width: 50%;
+}
+.silver-plan .hero {
+        background: url(../images/palm-bg-dt.jpg)no-repeat center top;
+        padding:5em 0 1em
+    }
+ .anh-quote img,
+    .kris-quote img {
+        margin-top: 24px
+    }
+.plan-claim {
+    padding: 24px 0 12px;
+    text-align: right;
+    float: left;
+    width: 100%;
+}
+    .plan-claim {
+        background: url(../images/Claim-Gold-2020.jpg) center no-repeat;
+     background-size: 100% !important;
+height: 220px;
+text-align: right;
+padding-top:40px;
+width: 100%;
+float: left;
+position: relative;
+z-index: 2;
+display: block;
+    }
+ .familyclaim {
+        background: url(../images/familyclaim.png) center no-repeat !important;
+   background-size: 100% !important;
+height:220px;
+text-align: right;
+padding-top:40px;
+width: 100%;
+float: left;
+position: relative;
+z-index: 2;
+display: block;
+    }
+}
+@media(min-width:1200px) {
+
+.plan-claim .textbox{width:50%;}
+    .silver-plan .closer .btn {
+        margin-top: 0
+    }
+    .plus-sect .callout {
+        width: 30%;
+        margin-left: 8.5%
+    }
+    .plus-sect .desc {
+        width: 53%
+    }
+    .plus-sect .plus-wrap {
+        padding-top:28px;
+        position: static
+    }
+    .plus-sect h3 {
+        width: 73%;
+       margin-top: 20px !important;
+    }
+    .plus-sect .desc {
+        padding: 20px 10px 20px 3px
+    }
+}
+
+
+@media not print {
+  .shrinkToFit {
+    cursor: zoom-in;
+  }
+
+  .overflowingVertical, .overflowingHorizontalOnly {
+    cursor: zoom-out;
+  }
+}
+
+@media print {
+  /* We must declare the image as a block element. If we stay as
+  an inline element, our parent LineBox will be inline too and
+  ignore the available height during reflow.
+  This is bad during printing, it means tall image frames won't know
+  the size of the paper and cannot break into continuations along
+  multiple pages. */
+  img {
+    display: block;
+  }
+}

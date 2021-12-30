@@ -1,0 +1,809 @@
+<?php
+
+          $mobileNo='';
+	      $custId = '';
+	      $customerName='';
+    
+         $msg='';
+		 $mobileNo = $_GET['mobileno'];
+		 	
+		$customerCollection= Mage::getModel('customer/customer')
+		->getCollection()
+		->addAttributeToSelect('*')
+		->addAttributeToFilter('primarymobileno', $mobileNo) //replace your attribute of mobile
+		->load();
+
+        
+		
+		   if(isset($customerCollection) && count($customerCollection)==1 )
+			{
+			    foreach($customerCollection as $customer)
+				{
+					$custId = $customer->getEntityId();
+					$customer = Mage::getModel('customer/customer')->load($custId);
+					$customerName = $customer->getFirstname()." ".$customer->getLastname();
+				}
+										
+			}
+			else
+			{
+				
+				 $url = Mage::getBaseUrl()."foodpreference?mobileno=".$mobileNo; 
+				header("Location:'".$url."'"); 
+			}
+			
+	
+
+	 
+if(isset($_POST['submit']))
+{
+	
+	
+	
+	
+	$fields="";
+	$values="";
+	$size= sizeof($_POST);
+	
+	$config  = Mage::getConfig()->getResourceConnectionConfig("default_setup");
+$dbinfo = array("host" => $config->host,"user" => $config->username,"pass" => $config->password,"dbname" => $config->dbname);
+  
+  $host      = $dbinfo["host"];
+  $username  = $dbinfo["user"];
+  $password  = $dbinfo["pass"];
+  $dbname    = $dbinfo["dbname"]; 
+  
+  $con = mysqli_connect($host  , $username,  $password ,$dbname);
+
+  if ($mysqli -> connect_errno) {
+  echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
+  exit();
+}
+     
+
+    $count=0;
+	foreach($_POST as $key=>$value)
+	{
+		$count++;
+		if($key!='submit')
+		{
+			//$key= str_replace("-","_",$key);
+			$fields.=$key;
+			$values.="'".$value."'";
+			if($count<($size-1) )
+			{
+				$fields.=',';   		
+			    $values.=','; 
+			 }
+			
+			
+		}
+		
+	}
+	
+	$custId = $_POST['custid'];
+	$mobileNo = $_POST['mobileno'];
+	$date = date('Y-m-d');
+	$param = $_POST['param'];
+	
+	 $checkQuery = "select * from foodpreference where custid='".$custId."' and mobileno='".$mobileNo."' and param='".$param."'";
+	$checkRowResult = mysqli_query($con,$checkQuery);
+	 $countExisting = mysqli_num_rows($checkRowResult); 
+	$last_id ='';
+	if($countExisting==0)
+	{	
+	
+	$query="insert into foodpreference(";
+	$query.=$fields.") values(".$values.")";
+	//echo $query; die;
+	
+	
+            
+            if (mysqli_query($con, $query)) {
+				$last_insert_id = mysqli_insert_id($con);
+				$last_id=base64_encode($last_insert_id);
+               //echo "New record created successfully";
+			   
+            } else {
+               echo "Error: " . $query . "" . mysqli_error($conn); 
+            }
+			
+			//die;
+	}
+	else
+	{
+		
+		 $row   = '';
+		 while ($rowInfo = mysqli_fetch_assoc($checkRowResult)) {
+            
+			 $row = $rowInfo;
+         }
+		// print_r($row); die;
+		 $last_id=base64_encode($row['patientid'] );
+		 $count=0;
+		foreach($_POST as $key=>$value)
+		{
+			$count++;
+			if($key!='submit' && $key!='param')
+			{
+				//$key= str_replace("-","_",$key);
+				$updateFields.=$key."='".$value."'";
+				
+				if($count<($size-2) )
+				{
+					$updateFields.=',';   		
+					
+				 }
+				
+				
+			}
+			
+		}
+		$query="update foodpreference ";
+		$query.="set ".$updateFields." where patientid=".$row['patientid'];
+		
+		//echo $query; die;
+		if (mysqli_query($con, $query)) {
+				   //echo "Record updated successfully";
+				} else {
+				   echo "Error: " . $query . "" . mysqli_error($con);
+				}
+				
+				//die;
+	}
+	
+	$msg ="Thank you, our dietician will contact you soon";
+	
+	// $url = Mage::getBaseUrl()."patientintake-2?pid=".$last_id; //die;
+	//header("Location:".$url); 
+	//die;
+}
+
+?>
+<style>
+	.formbluebox tbody tr span{float: left;
+width: 33%;
+padding-left: 10px;
+font-size: 14px;}
+	.whitebox{background:#fff; width:100%; padding:40px;float:left;}
+	.callbutton{padding: 5px 10px;background: #269a9b;font-size: 1.4em;font-weight:bold;color: #fff;text-transform: uppercase;margin: 2% 0px;}
+	.whitebox .form-group{float:left; width:50%;}
+	.whitebox .one{float:left; width:75%;border: 1px solid #000;border-right:0px;}
+	.whitebox .two{float:left; width:25%;border: 1px solid #000;height: 2.6em;padding: 0px 1em;}
+	.form-group label{margin:5px 5px;justify-content: left;}
+	.form-inline label{margin: 5px 5px;float: left;
+justify-content: left;
+text-align: left;
+align-items: baseline;} 
+	.form-inline .form-control{border:0;height: 40px;float: left;}
+	input[type="text"] {width: 100%;max-width: 100%;background: none;}
+	.formbluebox{margin: auto;width: 100%;background: #269a9b;padding: 40px;float: left;margin-top: 4%;}
+	.formbluebox tbody tr th p{padding: 5px 10px;background: #269a9b;font-size: 1.4em;font-weight:bold;color: #fff;text-transform: uppercase;}
+	.formbluebox tbody{padding: 40px;float: left;width: 100%; padding-bottom:0px;}
+	.formbluebox tbody tr{width: 100%;float: left;}
+	.formbluebox .inputclient{width: 23%;float: left;margin: auto 10px;}
+.formbluebox tbody tr td p{background:#40b8b9;color: #fff;text-align: center;padding: 5px 10px;font-size: 1.5em;text-transform: uppercase;font-weight: bold;}
+	input[type="email"], input[type="number"], input[type="password"], input[type="text"] {
+    width: auto;
+    max-width: 100%;
+    background: none;
+    height: 36px;
+		border: 1px solid #000;}
+	.suggestionbox tbody{padding-bottom:40px;}
+	.suggestionbox tbody tr td textarea{border: 1px solid #000 !important;}
+	.suggestionbox tbody tr .ths1{width:30%; float:left;margin: 10px auto;text-align:left;}
+	.suggestionbox tbody tr .ths2{width:30%; float:left;margin:10px;text-align:center;}
+	.suggestionbox tbody tr .ths3{width:30%; float:left;margin:10px;text-align:center;}
+	.suggestionbox th {font-weight: bold;font-style: normal;font-size: 15px;text-transform: capitalize;}
+	.suggestionbox textarea{background: #edf3f3 !important;box-shadow: none;resize: initial;}
+
+	.form-inline .nameclass{width: 90%;}
+	.form-inline .addressclass{border: 0px;resize:inherit;background:none !important;padding: 8px;width:88%;box-shadow: none;border-radius: 0;}
+	.form-inline .address2{width:99%;}
+	.form-inline .prof{width:32%;}
+	.form-inline .weight{width:55%;}
+	.form-inline .height{width:55%;}
+	.form-inline .marital{width:35%;}
+	.form-inline .bloodg{width:52%;}
+	.form-inline .dob{width:75%;}
+	.form-inline .waist, .form-inline .lastvisit{width:73%;}
+	.form-inline .primdoc{border: 0px;resize:inherit;background:none !important;padding:5px;width:25%;box-shadow: none;border-radius: 0;}
+	.form-inline .howdid{border: 0px;resize:inherit;background:none !important;padding:5px;width:24%;box-shadow: none;border-radius: 0;}
+	.thankyoumsg {
+    width: 100%;
+    float: left;
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+		background:rgba(0,0,0,0.4)
+}
+	.thankyoumsg p {
+    position: fixed;
+    top: 40%;
+    width: 50%;
+    float: none;
+    margin: auto;
+    left: 25%;
+    background: #40b8b9;
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+	@media screen and (min-width:768px) and (max-width:999px)
+{
+	.form-inline .waist, .form-inline .lastvisit{width:100%;}
+		.form-inline .primdoc{width:100%;}
+		.form-inline .marital{width:100%;}
+		.address2{width:99%;display:none;}
+		.form-inline .weight{width:100%;}
+		.form-inline .height{width:100%;}
+		.form-inline .bloodg{width:100%;}
+		.form-inline .dob{width:100%;}
+		.form-inline .howdid{width:100%;}
+		.form-inline .prof{width:100%;}
+		.form-inline .addressclass{border: 1px;background:#f7f5f5 !important;resize:inherit;padding: 0px;
+width:100%;box-shadow: none;border-radius: 0;}
+		.form-inline .nameclass{width:100%;}
+	input[type="email"], input[type="number"], input[type="password"], input[type="text"] {
+    width: 100%;
+    max-width: 100%;
+    background: none;
+    height: 40px;
+    border: 1px solid #000;
+    float: left;
+}
+	.whitebox .one {
+    float: left;
+    width: 75%;border-bottom:0px !important;
+    border: 1px solid #000;
+		}
+	.form-inline label {
+    margin: 5px 5px;
+    float: left;
+		font-size:14px;
+    justify-content: left;
+    text-align: left;
+    align-items: baseline;
+}
+	
+		.formbluebox tbody tr td p {
+    background: #40b8b9;
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px;
+    font-size: 1em;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+		.suggestionbox tbody tr .ths1 {
+    width: 32%;
+    float: left;
+    margin: 10px auto;
+    text-align: left;
+}
+		.suggestionbox tbody tr .ths2 {
+    width: 32%;
+    float: left;
+    margin: 10px auto;
+    text-align: left;
+}
+		.suggestionbox tbody tr .ths3 {
+    width: 32%;
+    float: left;
+    margin: 10px auto;
+    text-align: left;
+}
+		 input[type="radio"] {
+    box-sizing: border-box;
+    padding: 0;
+    box-sizing: border-box;
+    padding: 0;
+    width: 14px;
+    height: 14px !important;
+    float: left;
+    margin-top: 6px;
+}
+		.whitebox {
+    background: #fff;
+    width: 100%;
+    padding: 10px;
+    float: left;
+}
+	.whitebox .two {
+    float: left;
+    width: 100%;
+    border: 1px solid #000;
+    height: auto;
+    padding: 0px 0em;
+}
+		.whitebox .form-group {
+    float: left;
+    width: 100%;margin:0px;
+}
+		.whitebox .form-group img{display:none;}
+		.callbutton {
+    padding: 5px 10px;
+    background: #269a9b;
+    font-size: 1em;
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+    margin: 2% 0px 0px 0px;
+    text-align: center;
+}
+	.form-inline {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -ms-flex-align: center;
+    align-items: center;
+    position: relative;
+    margin-top: 10%;
+}
+	}
+	@media screen and (min-width:260px) and (max-width:767px)
+{
+	.formbluebox {
+    margin: auto;
+        margin-top: auto;
+    width: 100%;
+    background: #269a9b;
+    padding: 20px 20px;
+    float: left;
+    margin-top: 22%;
+}
+		.formbluebox tbody tr span{float: left;
+width: 100%;
+padding-left: 10px;
+font-size: 13px;}
+	.suggestionbox tbody tr td textarea {
+    border: 1px solid #000 !important;
+    width: 100% !important;
+}
+	
+	
+	.form-inline .prof {
+    width: 100%;
+}
+	.form-inline .waist, .form-inline .lastvisit{width:100%;}
+		.form-inline .primdoc{width:100%;}
+		.form-inline .marital{width:100%;}
+		.form-inline .address2{width:99%;display:none;}
+		.form-inline .weight{width:100%;}
+		.form-inline .height{width:100%;}
+		.form-inline .bloodg{width:100%;}
+		.form-inline .dob{width:100%;}
+		.form-inline .howdid{width:100%;}
+		.form-inline .addressclass{border: 1px;background:#f7f5f5 !important;resize:inherit;padding: 0px;
+width:100%;box-shadow: none;border-radius: 0;}
+		.form-inline .nameclass{width:100%;}
+	
+	tr td b, strong {
+    font-weight: 700;
+    font-size: 12px;
+}
+	input[type="number"], input[type="password"], input[type="text"] {
+		width: 100% !important;}
+	input[type="checkbox"]{margin-top: 3px !important;}
+	input[type="email"], input[type="number"], input[type="password"], input[type="text"] {
+    width: 100%;
+    max-width: 100%;
+    background: none;
+    height: 40px;
+    border: 1px solid #000;
+    float: left;
+}
+	.formbluebox tbody {
+    padding: 10px;
+    float: left;
+    width: 100%;
+		}
+		.whitebox .one {
+    float: left;
+    width: 75%;border-bottom:0px !important;
+    border: 1px solid #000;
+		}
+		.formbluebox tbody tr td p {
+    background: #40b8b9;
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px;
+    font-size: 1em;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+		.suggestionbox tbody tr .ths1 {
+    width: 100%;
+    float: left;
+    margin: 10px auto;
+    text-align: left;
+}
+		.suggestionbox tbody tr .ths2 {
+    width: 100%;
+    float: left;
+    margin: 10px auto;
+    text-align: left;
+}
+		.suggestionbox tbody tr .ths3 {
+    width: 100%;
+    float: left;
+    margin: 10px auto;
+    text-align: left;
+}
+	.form-inline label {
+    margin: 0 5px;
+    float: left;
+    justify-content: left;
+    text-align: left;
+    align-items: baseline;
+    font-size: 12px;
+}
+		 input[type="radio"] {
+    box-sizing: border-box;
+    padding: 0;
+    box-sizing: border-box;
+    padding: 0;
+    width: 14px;
+    height: 14px !important;
+    float: left;
+   margin-top:3px !important;
+}
+		.whitebox {
+    background: #fff;
+    width: 100%;
+    padding: 10px;
+    float: left;
+}
+	.whitebox .two {
+    float: left;
+    width: 100%;
+    border: 1px solid #000;
+    height: auto;
+    padding: 0px 0em;border-bottom:0px;
+}
+		.whitebox .form-group {
+    float: left;
+    width: 100%;margin:0px;
+}
+		.whitebox .form-group img{display:none;}
+		.callbutton {
+   padding: 10px 7px;
+background: #269a9b;
+font-size: 1em;
+font-weight: bold;
+color: #fff;
+text-transform: uppercase;
+margin: 3% 0px 0px 0px;
+text-align: center;
+}
+	}
+	@media screen and (min-width:800px) and (max-width:1200px)
+		{
+			.form-inline label {
+    margin: 0 5px;
+    float: left;
+    justify-content: left;
+    text-align: left;
+    align-items: baseline;
+    font-size: 14px;
+}
+			.form-inline .nameclass{width: 90%;}
+	.form-inline .addressclass{border: 0px;background:#f7f5f5 !important;resize:inherit;padding: 0px;
+width:88%;box-shadow: none;border-radius: 0;}
+	.form-inline .address2{width:100%;}
+	.form-inline .weight{width:51%;}
+		.form-inline .height{width:51%;}
+	.form-inline .marital{width:29%;}
+	.form-inline .bloodg{width:47%;}
+	.form-inline .dob{width:74%;}
+	.form-inline .waist, .form-inline .lastvisit{width:71%;}
+	.form-inline .primdoc{border: 0px;background: #f7f5f5 !important;resize:inherit;padding:5px;
+width:21%;box-shadow: none;border-radius: 0;}
+	.form-inline .howdid{border: 0px;background: #f7f5f5 !important;resize:inherit;padding:5px;
+width:24%;box-shadow: none;border-radius: 0;}
+		}
+</style>
+
+<form name="contactform" method="post" action="<?php echo Mage::getBaseUrl();?>foodpreference?mobileno=<?php echo $mobileNo;?>" class="form-inline" >
+	<div class="container">
+		<div class="formbluebox">
+			<div class="whitebox">
+			 <div class="form-group">
+		<p class="callbutton">LIFESTYLE ASSESMENT</p>
+				</div>
+				<div class="form-group">
+	<p><img src="https://lifeheal.in/skin/frontend/rwd/default/images/logo.png" style="width:60%;float: right;"></p>	
+	<?php if($msg!='') { ?>
+					<div class="thankyoumsg"><p>  <?php echo $msg; ?> </p></div> 
+	<?php } ?>
+	</div>
+			</div>
+		
+<div class="table-responsive"> 
+
+		
+<table style="background: #fff;width: 100%;" class="suggestionbox">
+<tr><td style="float:left;margin: 10px auto;width:100%;" colspan="2"><label>Name</label>
+	<input type="text" class="form-control" style="margin:0px 5px;border: 1px solid #000;background: none !important;padding: 5px;box-shadow: none;border-radius: 0;width: 50%;float: right;" value="<?php echo $customerName;?>">
+	</td>
+	</tr>
+<tr>
+	<td style="background: #fff;width: 100%;float:left;" colspan="2"><label for="health_goal">What is your Health Goal?</label>
+		<textarea name="health_goal" class="form-control" style="margin: 0px 5px 10px 5px;border: 1px solid #000;background: none !important;padding: 0px;box-shadow: none;border-radius: 0;width: 50%;float: right;" cols="60" rows="1"></textarea></td>
+	<td  style="float:left;margin: 10px auto;display:none;">
+	<label for="email">Email-ID</label><input type="email" id="email" name="email">
+		</td>
+	</tr>
+
+	
+	<tr style="display:none;">
+<td style="margin: auto;float: left;text-align: center;width: 100%;" colspan="6"><p>which veggies does you eat:</p></td>
+</tr>
+
+<tr style="display:none;">
+		<td class="ths1"> <label for="Tomatoes">
+      <input type="checkbox"  name="tomato" style="margin:0px 5px"> Tomatoes 
+    </label>
+</td>
+		<td class="ths2">  <label for="Onions">
+      <input type="checkbox"  name="onion" style="margin:0px 5px"> Onions
+    </label>
+</td>
+		<td class="ths3">  <label for="Cucumber">
+      <input type="checkbox"  name="cucumber" style="margin:0px 5px"> Cucumber
+    </label>
+</td>
+	</tr>	
+	
+	<tr style="display:none;">
+		<td class="ths1"> <label for="bell_pepper">
+      <input type="checkbox"  name="bellpepper" style="margin:0px 5px"> Bell Pepper 
+    </label>
+</td>
+		<td class="ths2">  <label for="Mushrooms">
+      <input type="checkbox"  name="mushroom" style="margin:0px 5px"> Mushrooms
+    </label>
+</td>
+		<td class="ths3">  <label for="Eggplant">
+      <input type="checkbox"  name="eggplant" style="margin:0px 5px"> Eggplant
+    </label>
+</td>
+	</tr>	
+	
+	
+	<tr style="display:none;">
+		<td class="ths1"> <label for="spinach">
+      <input type="checkbox"  name="spinach" style="margin:0px 5px"> Spinach/ Green Leafies 
+    </label>
+</td>
+		<td class="ths2">  <label for="cabbage">
+      <input type="checkbox"  name="cabbage" style="margin:0px 5px"> Cabbage
+    </label>
+</td>
+		<td class="ths3">  <label for="karela">
+      <input type="checkbox"  name="karela" style="margin:0px 5px"> Karela
+    </label>
+</td>
+	</tr>	
+	
+	
+	<tr style="display:none;">
+		<td class="ths1"> <label for="bhindi">
+      <input type="checkbox"  name="bhindi" style="margin:0px 5px"> Bhindi 
+    </label>
+</td>
+		<td class="ths2">  <label for="carrot">
+      <input type="checkbox"  name="carrot" style="margin:0px 5px"> Carrot
+    </label>
+</td>
+		<td class="ths3">  <label for="beetroot">
+      <input type="checkbox"  name="beetroot" style="margin:0px 5px"> Beetroot
+    </label>
+</td>
+	</tr>	
+	
+	<tr style="display:none;">
+		<td class="ths1"> <label for="peas">
+      <input type="checkbox"  name="peas" style="margin:0px 5px"> Peas 
+    </label>
+</td>
+		<td class="ths2">  <label for="greenbeans">
+      <input type="checkbox"  name="greenbeans" style="margin:0px 5px"> Green Beans
+    </label>
+</td>
+		<td class="ths3">
+</td>
+	</tr>	
+	
+
+	<tr style="display:none;">
+<td colspan="3"> <b style="float: left;margin: 3px 5px;">Willing to go vegan ?</b> 
+			<label style="float: left;" for="veganyes">
+      <input type="radio"  name="vegan" style="margin:0px 5px" value="yes" checked> Yes
+    </label>
+			 <label style="float: left;" for="veganno">
+      <input type="radio"  name="vegan" style="margin:0px 5px" value="no"> No
+    </label>
+</td>
+</tr>
+	<tr style="display:none;">
+		<td colspan="3"> <b style="float: left;margin: 3px 5px;">Veg or Non Veg?</b> 
+			<label style="float: left;" for="vegyes">
+      <input type="radio"  name="step3_veg_nonveg" style="margin:0px 5px" value="veg" checked> Veg
+    </label>
+			 <label style="float: left;" for="vegno">
+      <input type="radio"  name="step3_veg_nonveg" style="margin:0px 5px" value="non-veg"> Non Veg
+    </label>
+</td>
+		
+	</tr>
+	<tr style="display:none;"><td class="ths1"> <b style="float: left;margin: 3px 5px;">Egg</b> 
+			<label style="float: left;" for="eggyes">
+      <input type="radio"  name="egg" style="margin:0px 5px" value="yes" checked> Yes
+    </label>
+			 <label style="float: left;" for="eggno">
+      <input type="radio"  name="egg" style="margin:0px 5px" value="no"> No
+    </label>
+</td>
+	</tr>
+	<tr style="display:none;">
+<td coslpan="3"> <label for="need_chicken"><b style="float: left;">If Non Veg, How many times needs chicken per week?</b></label>
+		 <input type="number" name="chicken_per_week" step="0.01"  style="width: 60px;"> 
+		
+</td>
+</tr>
+	<tr style="display:none;">
+				
+		<td coslpan="3"> <b style="float: left;margin: 3px 5px;">Tofu(Yes/No)?</b> 
+			<label style="float: left;" for="tofuyes">
+      <input type="radio"  name="tofu" style="margin:0px 5px" value="yes" checked> Yes
+    </label>
+			 <label style="float: left;" for="tofuno">
+      <input type="radio"  name="tofu" style="margin:0px 5px" value="no"> No
+    </label>
+</td>
+		
+	</tr>
+	
+		<tr style="display:none;">
+<td coslpan="3"> <b style="float: left;margin: 3px 5px;">If No, Willing to Try Tofu(yes/no)</b>
+	
+		<label style="float: left;" for="tryyes">
+      <input type="radio"  name="try_tofu" style="margin:0px 5px" value="yes" checked> Yes
+    </label>
+			 <label style="float: left;" for="tryno">
+      <input type="radio"  name="try_tofu" style="margin:0px 5px" value="no"> No
+    </label>
+</td>
+</tr>
+	<tr>
+		<td  style="float:left;margin:0px auto 10px auto;width:100%;" colspan="2"><label for="food_allergies">Food allergies</label>
+		<textarea name="food_allergies" class="form-control"  style="margin:0px 5px;border: 1px solid #000;background: none !important;padding: 5px;box-shadow: none;border-radius: 0;width: 50%;float: right;"  cols="60" rows="1"></textarea></td>
+	</tr>
+	
+	
+	<tr style="display:none;">
+<td style="margin: auto;float: left;text-align: center;width: 100%;" colspan="6"><p>Challenges faced in eating habits</p></td>
+</tr>
+	<tr>
+		<td class="ths1"> <label for="late_night_snacks">
+      <input type="checkbox"  name="late_night_snacks" style="margin:0px 5px"> Late Night Snacks 
+    </label>
+</td>
+		<td class="ths2">  <label for="afternoon_snacks">
+      <input type="checkbox"  name="afternoon_snacks" style="margin:0px 5px"> High Tea Afternoon Snacks
+    </label>
+</td>
+		<td class="ths3">  <label for="frequent_snacking">
+      <input type="checkbox"  name="frequent_snacking" style="margin:0px 5px"> Frequent Snacking
+    </label>
+</td>
+	</tr>
+	<tr>
+		<td class="ths1"> <label for="mirch_masala">
+      <input type="checkbox" name="mirch_masala" style="margin:0px 5px"> Needs Mirch Masala
+    </label>
+</td>
+		<td class="ths2">  <label for="sweet_tooth">
+      <input type="checkbox"  name="sweet_tooth" style="margin:0px 5px"> Sweet Tooth
+    </label>
+</td>
+		<td class="ths3">  <label for="need_carbs">
+      <input type="checkbox"  name="need_carbs" style="margin:0px 5px"> Needs Carbs
+    </label>
+</td>
+	</tr>
+	
+	<tr>
+		<td class="ths1"> <label for="too_much_food">
+      <input type="checkbox" name="too_much_food" style="margin:0px 5px"> Too much food with Drinks
+    </label>
+</td>
+		<td class="ths2">  <label for="fried_food">
+      <input type="checkbox"  name="fried_food" style="margin:0px 5px"> Needs Fried Foods
+    </label>
+</td>
+
+	</tr>
+	
+	
+	<tr>
+		<td  style="float:left;margin: 10px auto;width:100%;" colspan="3"><label for="sleephour">Sleep- How Many Hours do you Sleep</label>
+		<input type="number" step="0.01" class="form-control"  name="sleephour" style="margin:0px 5px;border: 1px solid #000;background: none !important;padding: 0px;box-shadow: none;border-radius: 0;width: 100px;float: right;text-align: center;">
+		</td>
+	</tr>
+	
+	<tr>
+		<td  style="float:left;margin: 10px auto;width:100%;" colspan="3"><label for="stresslevel">How is your stress level on scale of 0-10</label>
+		<input type="number" step="0.01" class="form-control"  name="stresslevel" style="margin:0px 5px;border: 1px solid #000;background: none !important;padding: 0px;box-shadow: none;border-radius: 0;width: 100px;float: right;text-align: center;">
+		</td>
+	</tr>
+	
+	<tr>
+		<td  style="float:left;margin: 10px auto;width:100%;" colspan="3"><label for="exercisemin">How many minutes a day do you exercise?</label>
+		<input type="number" step="0.01" class="form-control"  name="exercisemin" style="margin:0px 5px;border: 1px solid #000;background: none !important;padding: 0px;box-shadow: none;border-radius: 0;width: 100px;float: right;text-align: center;">
+		</td>
+	</tr>
+	
+	<tr>
+		<td  style="float:left;margin: 10px auto;width:100%;" colspan="3"><label for="stillleft">FOOD CRAVING (If any other still left)</label>
+		<input type="text" class="form-control"  name="stillleft" style="margin:0px 5px;border: 1px solid #000;background: none !important;padding: 0px;box-shadow: none;border-radius: 0;width: 50%;float: right;">
+		</td>
+	</tr>
+	
+	<tr>
+		<td  style="float:left;margin: 10px auto;width:100%;" colspan="3"><label for="litre">Water intake per day, in litres</label>
+		<input type="number" step="0.01" class="form-control"  name="litre" style="margin:0px 5px;border: 1px solid #000;background: none !important;padding: 0px;box-shadow: none;border-radius: 0;width: 100px;float: right;text-align: center;">
+		</td>
+	</tr>
+	
+	<tr>
+		<td  style="float:left;margin: 10px auto;width:100%;" colspan="3"><label for="medication">List Current Medications</label>
+		<input type="text" class="form-control"  name="medication" style="margin:0px 5px;border: 1px solid #000;background: none !important;padding: 0px;box-shadow: none;border-radius: 0;width:50%;float: right;text-align: center;">
+		</td>
+	</tr>
+	
+<tr>
+		<td  style="float:left;margin: 10px auto;width:100%;" colspan="3"><label for="bloodtest">Kindly share your blood test reports on
+			WhatsApp :<a href="tel:+919999-11-4772" style="color:blue">+919999-11-4772</a>&nbsp;Or E-mail : <a href="mailto:diet@lifeheal.in"  style="color:blue">diet@lifeheal.in</a></label>
+	</tr>
+	<tr>
+			<td  style="float:left;width:100%;" colspan="3"><label for="bloodtest">Typical Blood Tests We Like To See: </label>
+				</td>
+		</tr>
+		<tr>
+	<td style="width: 100%;float: left;">
+		<span>a. Fasting Glucose</span>
+				<span>b. Lipid Profile</span>
+				<span>c. HbA1c</span>
+			<span>d. Vitamin D & B12</span>
+			<span>e. HsCRP</span>
+			
+            <span>f. HOMA IR</span>
+			</td>
+	</tr>
+		
+		
+	
+	
+	<!--submit-->
+<tr>
+
+ 
+ <td coslpan="4" style="float: left;width: auto;text-align: center;margin: 20px 5px auto;" valign="top">
+ 	<input type="hidden" name="param" value="<?php  echo $_GET['param'];?>" />
+  <input style="background-color: #f28424;border: none;color: white;padding: 10px 25px;text-align: center;text-decoration: none;font-size: 18px;
+border-radius: 4px;width:100%;" type="submit" name="submit" value="Save">
+ </td>
+
+</tr>
+</table>
+		</div>
+	</div>
+		</div>
+</form>

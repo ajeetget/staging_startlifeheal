@@ -1,0 +1,1316 @@
+<?php
+      $ctrl = $_GET['ctrl']; 
+	$decodeCtrl =  base64_decode($ctrl);
+     $mobileNo='';
+	 $custId = '';
+	 $customerName='';
+     $param = $_GET['param'];
+     $msg='';
+	 $mobileNo = $decodeCtrl; 	 
+		// $email    = $mobileNo."@lifeheal.in";						
+		$customerCollection= Mage::getModel('customer/customer')
+		->getCollection()
+		->addAttributeToSelect('*')
+		->addAttributeToFilter('primarymobileno', $mobileNo) 
+		//->addAttributeToFilter('email', $email)
+		->load();
+		
+		   if(isset($customerCollection) && count($customerCollection)==1 )
+			{
+			    foreach($customerCollection as $customer)
+				{
+					$custId = $customer->getEntityId();
+					$customer = Mage::getModel('customer/customer')->load($custId);
+					$customerName = $customer->getFirstname()." ".$customer->getLastname();
+					$customerName = str_replace("Dear ","",$customerName);
+				}
+										
+			}
+			else
+			{
+				
+				$url = Mage::getBaseUrl()."patientintakeform?mobile=".$mobileNo."&error=customernotexist"; 
+				header("Location:'".$url."'"); 
+			}
+	
+?>
+<style>	
+    .formbluebox{margin-top:3rem;}
+    .heading-top{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-bottom: 2px solid #e4f4f5;
+    }    
+    .heading-top img{
+        width:14%;
+    }
+    .heading-top p{
+        color:#5ac5c7;
+        font-size: 1.4rem;
+    }
+
+    .subheading{
+        padding: 8px 0;
+        border-bottom: 2px solid #e4f4f5; 
+        margin-bottom: 3rem; 
+    }
+    .subheading p {
+        font-size: 1.8rem;
+        font-weight:bold;color: #00ae8e;
+        text-transform: uppercase;
+    }
+    .whitebox{
+        background:#fff; 
+        width:100%;
+    }
+    .formbluebox input[type="submit"]{
+        background:#0eb58f;
+        color:#fff;
+        width:210px;
+        display: block;
+        margin:0 auto 25px auto;
+        border:0;
+        outline: 0;
+        font-size: 1.6rem;
+        text-transform: capitalize;
+        height:60px;
+        line-height: 60px;
+        text-align: center;
+    }
+    .form-personal, .form-personal-left, 
+    .form-personal-right, .gender, 
+    .form-personal-long,
+    .form-personal-long-left,
+    .form-personal-long-right,
+    .preferred-inner, .form-lifestyle,
+    .form-personal-veg-left, 
+    .form-personal-veg-right,
+    .chicken_per_week, .tofu-left, .tofu-left-inner,
+    .tofu-right, .tofu-right-inner{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;       
+    }
+   
+    .form-personal, .form-personal-long, .form-lifestyle{       
+        margin-bottom: 15px;
+    }
+    .form-personal > label, 
+    .form-personal-left > label, 
+    .gender > label,
+    .waist > label, 
+    .form-personal-long-right > label {
+        width:125px;
+    }
+
+    .form-personal-veg-right > label {
+        width:35px;
+    }
+    .form-personal-right > label{
+        width:145px;
+    }
+    .form-personal-long-right2 > label{
+        width:180px;
+    }
+    .form-chicken-long > label{
+        width: 300px;
+    }
+    .tofu-right > label{
+        width:250px;
+    }
+    .weight > label, .height > label{
+        width:115px;
+        text-align: right;
+        box-sizing: border-box;
+        padding-right: 12px;
+    }
+    .form-personal-long > label,
+    .form-personal-long-left > label {
+        width:225px;
+    }
+    .form-personal > input[type="text"],
+    .form-personal-left > input[type="text"],
+    .form-personal-right > input[type="text"],
+    .weight > input[type="text"],
+    .height > input[type="text"],
+    .waist > input[type="text"],
+    .weight > input[type="date"],
+    .form-personal-long > input[type="text"],
+    .form-personal-long-right >  input[type="text"],
+    .form-personal-long-left >  input[type="text"],
+    .form-personal-long-right2 > input[type="date"],
+    .form-lifestyle > input[type="text"],    
+    .chicken_per_week > input[type="number"],
+    .nutritional-history-top > input[type="text"], 
+.water-intake > input[type="text"],
+.bottom-sec-top-left input[type="text"],
+.bottom-sec-top-right input[type="date"] {
+        width: calc(100% - 130px);
+        border:0;
+        outline: 0;
+        height: 45px;
+        background: #e4f4f5;
+        border-radius: 5px;
+        box-sizing: border-box;
+        padding: 0 20px;
+        box-shadow: none;
+    }
+    .gender-inner, .egg-inner, .veg-inner{
+        width: calc(100% - 130px);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .egg-inner{
+        width: calc(100% - 40px);
+    }
+    .form-personal-right > input[type="text"]{
+        width: calc(100% - 145px);
+    }
+    .form-personal-long > input[type="text"],
+    .preferred-inner, 
+    .form-personal-long-left >  input[type="text"] {
+        width: calc(100% - 230px);
+    }
+     .form-personal-long-right2 > input[type="date"] {
+         width: calc(100% - 185px);
+     }
+     .form-chicken-long > input[type="text"]{
+        width: calc(100% - 305px);
+     }
+    .weight > input[type="text"],
+    .height > input[type="text"],
+    .weight > input[type="date"]{
+        width: calc(100% - 120px);
+    }
+    .form-personal > textarea, .form-lifestyle > textarea,
+    .medication-textarea textarea{
+        width: calc(100% - 130px);
+        border:0;
+        outline: 0;
+        height: 110px;
+        background: #e4f4f5 !important;
+        border-radius: 5px;
+        box-sizing: border-box;
+        padding: 0 20px;
+        box-shadow: none;
+    }
+    .form-personal-left, .form-personal-right{
+        width:45%;
+    }
+    .gender, .weight, .height, .waist{
+        width:31%;
+    }
+    .tofu-left{
+        width:35%;
+    }
+    .tofu-right{
+        width:45%;
+    }
+    .form-personal-long-left,
+    .form-personal-long-right{
+        width:45%;
+    }
+
+    .form-personal-veg-left {
+        width:35%;
+    }
+
+    .form-personal-veg-right {
+        width:18%;
+    }
+    .chicken_per_week{
+        width:40%;
+    }
+
+    .personal-fields{
+        margin-bottom: 50px;
+    }
+
+    .lifestyle-section, .challenges{
+        margin-bottom: 35px;
+    }
+    .lifestyle-section h3, .symptoms h3, .challenges h3{
+        color:#08515c;
+        font-size: 1.6rem;
+        font-weight: 700;
+        text-transform: capitalize;
+        margin-bottom: 15px;
+    }
+    .form-lifestyle{}
+    .form-lifestyle > label,
+    .form-personal-veg-left > label,
+    .chicken_per_week > label, .tofu-left > label {
+        width: 195px;
+    }
+    .form-lifestyle > input[type="text"], .form-lifestyle > textarea,
+    .veg-inner, .chicken_per_week > input[type="number"],
+    .tofu-left-inner {
+        width: calc(100% - 200px);
+    }
+    .tofu-right-inner{
+        width: calc(100% - 255px);
+    }
+
+/*============RADIO CONTAINER ==================*/
+    .radio_container {
+      display: block;
+      position: relative;
+      padding-left: 35px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      font-size: 14px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+/* Hide the browser's default radio button */
+.radio_container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 22px;
+  width: 22px;
+  background-color: #fff;
+  border-radius: 50%;
+  border:2px solid #c1e6eb;
+}
+
+/* On mouse-over, add a grey background color */
+.radio_container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.radio_container input:checked ~ .checkmark {
+  background-color: #bcf4fc;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radio_container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.radio_container .checkmark:after {
+    top: 5px;
+    left: 5px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: white;
+}
+
+.challenges{}
+.challenges-top, .symptoms-inner{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background: #e4f4f5;
+    padding:25px;
+    box-sizing: border-box;
+    width:100%;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+.challenges-checkbox{
+    width:30%;
+}
+/* The container */
+.checkbox_container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.checkbox_container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmarks {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #fff;
+  border: 2px solid #c1e6eb;
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox_container:hover input ~ .checkmarks {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox_container input:checked ~ .checkmarks {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmarks:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbox_container input:checked ~ .checkmarks:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkbox_container .checkmarks:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.challenges-bottom{}
+.challenges-bottom-inner{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+.challenges-bottom-inner-left,
+.challenges-bottom-inner-right,
+.health_goals_left, .health_goals_right,
+.bottom-sec-top-left, .bottom-sec-top-right{
+    width:48%;
+}
+.challenges-bottom-inner-left > label,
+.challenges-bottom-inner-right > label{
+    width:270px;
+}
+.challenges-bottom-inner-left > input[type="number"],
+ .challenges-bottom-inner-right > input[type="number"],
+ .challenges-bottom-inner-left > input[type="text"],
+ .challenges-bottom-inner-right > input[type="text"]{
+        width: calc(100% - 275px);
+        border:0;
+        outline: 0;
+        height: 45px;
+        background: #e4f4f5;
+        border-radius: 5px;
+        box-sizing: border-box;
+        padding: 0 20px;
+        box-shadow: none;
+    }
+.medication-history,
+.medication-left-checkbox,
+.nutritional-history-top, 
+.nutritional-history-middle,
+.water-intake, .water-intake-inner,
+.health_goals, .plan_action, .bottom-sec-top,
+.bottom-sec-top-left, .bottom-sec-top-right {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.health_goals, .plan_action, .bottom-section{
+    width:100%;
+    margin-bottom: 15px;
+}
+.medication-history{
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+}  
+.medication-history h3{
+    color: #08515c;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-transform: capitalize;
+}
+.medication-history-left p{
+    margin:25px 0 25px 0;
+}
+.medication-history-left,
+.medication-history-right{
+    width:47%;
+}  
+.nutritional-history-top > label, .water-intake > label {
+    width:285px;
+}
+.bottom-sec-top-left > label, .bottom-sec-top-right > label {
+    width: 100px;
+}
+.bottom-sec-top-left input[type="text"],
+.bottom-sec-top-right input[type="date"] {
+        width: calc(100% - 105px);
+        }
+.nutritional-history-top > input[type="text"], 
+.water-intake > input[type="text"], .water-intake-inner {
+    width:calc(100% - 290px);
+}
+.nutritional-history-top, .nutritional-history-middle, .water-intake,
+.high_risk, .medication-left-checkbox, .medication-textarea{
+    margin-bottom: 15px;
+}
+.medication-textarea textarea{
+    width:100%;
+    height: 135px;
+}
+.comment-textarea{
+    width:100%;
+}
+.bottom-section p{
+    margin-bottom: 15px;
+}
+.health_goals_left > textarea, 
+.health_goals_right > textarea, 
+.plan_action > textarea, 
+.comment-textarea > textarea{
+    width: 100%;
+    border:0;
+    outline: 0;
+    height: 110px;
+    background: #e4f4f5 !important;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 0 20px;
+    box-shadow: none;
+}
+.patient-summary a{
+    color:#00ae8e;
+}
+label{
+    color: #58595b;
+    font-size: 14px;
+}
+
+/*=================END OF NEW CSS ====================*/
+
+input[type="password"]{
+        width: auto;
+         max-width: 100%;
+        background: none;
+         height: 36px;
+        border: 1px solid #000;
+        
+    }
+	
+.thankyoumsg {
+    width: 100%;
+    float: left;
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+	background:rgba(0,0,0,0.4)
+}
+.thankyoumsg p {
+    position: fixed;
+    top: 40%;
+    width: 50%;
+    float: none;
+    margin: auto;
+    left: 25%;
+    background: #40b8b9;
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+	
+	
+@media screen and (min-width:260px) and (max-width:767px){
+	
+}
+		
+
+.thankyoumsg p {
+    position: fixed;
+    top: 40%;
+    width: 96%;
+    float: none;
+    margin: auto;
+    left: 2%;
+    background: #40b8b9;
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+		
+		
+		
+}
+	
+@media screen and (min-width:768px) and (max-width:999px) {
+			
+    }	
+		
+	
+@media only screen and (min-width:310px) and (max-width:641px)	{
+    b, strong {
+        font-weight: 700;
+        font-size: 13px;
+    }
+    .formbluebox{
+        width: 95%;
+        margin:3rem auto 0 auto;
+        padding:20px;
+        box-sizing: border-box;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    }
+
+    .form-personal > label, .form-personal-left > label, 
+    .gender > label, .waist > label, .form-personal-veg-right > label,
+    .form-personal-right > label, .form-personal-long-right > label,
+    .form-personal-long-right2 > label, .form-chicken-long > label,
+    .tofu-right > label, .weight > label, .height > label,
+     .form-personal-long > label, .form-personal-long-left > label,
+     .form-lifestyle > label, .form-personal-veg-left > label,
+    .chicken_per_week > label, .tofu-left > label {
+        display: block;
+        width:100%;
+        margin-bottom: 8px;
+    }
+.form-personal > input[type="text"],
+.form-personal-left > input[type="text"],
+.form-personal-right > input[type="text"],
+.weight > input[type="text"], .height > input[type="text"],
+.waist > input[type="text"], .weight > input[type="date"],
+.form-personal-long > input[type="text"],
+.form-personal-long-right >  input[type="text"],
+.form-personal-long-left >  input[type="text"],
+.form-personal-long-right2 > input[type="date"],
+.form-lifestyle > input[type="text"],    
+.chicken_per_week > input[type="number"],
+.nutritional-history-top > input[type="text"], 
+.water-intake > input[type="text"],
+.bottom-sec-top-left input[type="text"],
+.bottom-sec-top-right input[type="date"],
+.form-chicken-long > input[type="text"],
+.weight > input[type="text"],    .height > input[type="text"],
+.weight > input[type="date"] {
+    width:100%;
+    }
+
+.gender-inner, .egg-inner, .veg-inner{
+        width: 100%;        
+    }      
+
+.form-personal > textarea, .form-lifestyle > textarea,
+.medication-textarea textarea{
+        width: 100%;        
+    }
+
+.form-personal-left, .form-personal-right, .gender, .weight, 
+.height, .waist,  .tofu-left, .tofu-right, .form-personal-long-left,
+.form-personal-long-right, .form-personal-veg-left, 
+.form-personal-veg-righ, .chicken_per_week{
+        width:100%;
+    }
+.weight > label, .height > label {  
+    text-align: left;    
+}
+.form-personal-long-right2 > input[type="date"] {
+    width: 100%;
+}
+.challenges-checkbox {
+    width: 50%;
+}
+.challenges-bottom-inner-left, .challenges-bottom-inner-right, .health_goals_left, .health_goals_right, .bottom-sec-top-left, .bottom-sec-top-right {
+    width: 100%;
+}
+.challenges-bottom-inner-left > input[type="number"], 
+.challenges-bottom-inner-right > input[type="number"], 
+.challenges-bottom-inner-left > input[type="text"], 
+.challenges-bottom-inner-right > input[type="text"] {
+    width: 100% ;    
+}
+
+.subheading p {
+    font-size: 1.4rem;
+}
+.lifestyle-section h3, .symptoms h3, .challenges h3 {   
+    font-size: 1.2rem;    
+}
+label {    
+    font-size: 12px;
+}
+.checkbox_container, .radio_container {   
+    font-size: 12px;   
+}
+.subheading {   
+    margin-bottom: 1rem;
+}
+
+}
+
+</style>
+
+
+<form name="contactform" method="post" action="<?php echo Mage::getBaseUrl();?>thankyoupatient?mobileno=<?php echo $mobileNo;?>" >
+	
+	<div class="container">
+		<div class="formbluebox">
+			<div class="heading-top">	      			
+	           <img src="https://lifeheal.americanarearugs.com/skin/frontend/rwd/default/images/lifeheal-logo-new.png">	
+               <p>Experience the difference</p>	
+	           <?php if($msg!='') { ?>
+			        <div class="thankyoumsg">
+                        <p> <?php echo $msg; ?></p>
+                    </div> 
+	           <?php } ?>	           
+			</div>
+            <div class="subheading">
+             <p>PATIENT INTAKE FORM:</p>  
+            </div>
+			<div class="whitebox">
+			    <div class="personal-fields">				
+	                <div class="form-personal">
+                        <label for="nameone">Name :</label>			
+                        <input type="text" name="name" id="name" value="<?php  echo $customerName;?>">
+                    </div>
+               
+		            <div class="form-personal">
+                        <label for="address1">Address :</label>
+	                    <textarea name="address1" id="address1"></textarea>			
+                    </div>			           
+
+                    <div class="form-personal">
+                        <div class="form-personal-left">
+                            <label for="profession">Profession:</label> 
+                            <input type="text"  name="profession" id="profession">
+                        </div>
+                        <div class="form-personal-right">
+                            <label for="mobileno">Contact Number:</label>
+                            <input type="text" name="mobileno" id="mobileno" value="<?php echo $mobileNo;?>" >
+                        </div>
+                    </div>
+
+                    <div class="form-personal">
+                        <div class="gender">
+                            <label for="nameone">Gender:</label> 
+                            <div class="gender-inner">                   
+                                <label class="radio_container">Male
+                                    <input type="radio" name="gender" value="male"  />
+                                    <span class="checkmark"></span>
+                                </label>
+
+                                <label class="radio_container">Female
+                                    <input type="radio" name="gender" value="female" />
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div> 
+                        </div>
+                        <div class="weight">
+                            <label for="weight">Weight (kg): </label>
+                            <input type="text" name="weight" id="weight">
+                        </div>
+                        <div class="height">
+                            <label for="height">Height (cm): </label>
+                            <input type="text" name="height" id="height" >
+                        </div>
+                    </div>
+
+                    <div class="form-personal">
+                        <div class="waist">
+                            <label for="waist">Waist : </label>
+                            <input type="text" name="waist" placeholder="at neval" >
+                        </div>
+                        <div class="dob">
+                            <label for="date">DOB:</label>      
+                            <input type="date" name="dob" id="dob" >
+                        </div>
+                        <div class="height">
+                            <label for="age">Age :</label>
+                            <input type="text" name="age" >
+                        </div>
+                    </div>
+
+                    <div class="form-personal-long">
+                        <div class="form-personal-long-left">
+                            <label for="preffered_language">Preferred Language:</label> 
+                            <div class="preferred-inner">
+                                <label class="radio_container">Hindi
+                                    <input type="radio" name="preffered_language" value="hindi" >  
+                                    <span class="checkmark"></span>
+                                </label>
+
+                                <label class="radio_container">English
+                                    <input type="radio" name="preffered_language" value="english" >
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div> 
+                        </div>
+                        <div class="form-personal-long-right">
+                            <label for="marital_status">Marital Status:</label>  
+                            <input type="text" name="marital_status" id="marital_status">
+                        </div>                
+                    </div>
+
+                    <div class="form-personal-long"> 
+                        <label for="hearabout">How did you hear about us ?</label>
+                        <input type="text" name="how_did_you_hear" >      
+                    </div>
+
+                    <div class="form-personal-long">
+                        <div class="form-personal-long-left">
+                            <label for="primary_docotr">Primary Doctor Name:</label>   
+                            <input type="text" name="primary_docotr" id="primary_docotr" >
+                        </div>
+                        <div class="form-personal-long-right2">
+                            <label for="last_visit_to_doctor">Last visit to the Doctor:</label> 
+                            <input type="date" name="last_visit_to_doctor" id="last_visit_to_doctor">
+                        </div>                
+                    </div>                    
+                </div>
+            </div>
+
+
+            <div class="whitebox">
+                <div class="lifestyle-section">
+                    <h3>Lifestyle Assesment</h3>
+                    <?php if($msg!='') { ?>
+                    <div class="thankyoumsg">
+                        <p>  <?php echo $msg; ?> </p>
+                    </div> 
+                    <?php } ?>
+                    <div class="form-lifestyle">
+                        <label for="health_goal">What is your Health Goal?</label>
+                        <input type="text" name="health_goal" >
+                    </div>
+               
+                    <div class="form-lifestyle">
+                        <div class="form-personal-veg-left">
+                            <label for="vegyes">Veg or Non Veg? </label> 
+                            <div class="veg-inner">
+                                <label class="radio_container">Veg
+                                    <input type="radio"  name="step3_veg_nonveg" value="veg">  
+                                    <span class="checkmark"></span>
+                                </label>
+
+                                <label class="radio_container">Non Veg
+                                    <input type="radio"  name="step3_veg_nonveg" value="non-veg" > 
+                                    <span class="checkmark"></span>
+                                </label>                   
+                            </div>
+                        </div>
+                        <div class="form-personal-veg-right">
+                            <label for="eggyes">Egg:</label>
+                            <div class="egg-inner">
+                                <label class="radio_container">Yes
+                                    <input type="radio"  name="egg" value="yes"> 
+                                    <span class="checkmark"></span>
+                                </label>
+
+                                <label class="radio_container">No
+                                    <input type="radio"  name="egg" value="no" > 
+                                    <span class="checkmark"></span>
+                                </label>    
+                            </div>
+                        </div>
+
+                        <div class="chicken_per_week">
+                            <label for="chicken_per_week" >If Non Veg, How many times needs chicken per week?</label>
+                            <input type="number" step="0.01" name="chicken_per_week" id="chicken_per_week" > 
+                        </div>
+                    </div>              
+
+                    <div class="form-lifestyle">
+                        <div class="tofu-left">
+                            <label for="tofu">Tofu(Yes/No)?</label>
+                            <div class="tofu-left-inner">
+                                <label class="radio_container">Yes
+                                    <input type="radio"  name="tofu" value="yes">  
+                                    <span class="checkmark"></span>
+                                </label>
+
+                                <label class="radio_container">No
+                                    <input type="radio"  name="tofu" value="no">  
+                                    <span class="checkmark"></span>
+                                </label> 
+                            </div>
+                        </div>
+                        <div class="tofu-right">
+                            <label for="try_tofu">If No, Willing to Try Tofu(yes/no)</label>
+                            <div class="tofu-right-inner">
+                                <label class="radio_container">Yes
+                                    <input type="radio"  name="try_tofu" value="yes"> 
+                                    <span class="checkmark"></span>
+                                </label>
+
+                                <label class="radio_container">No
+                                    <input type="radio"  name="try_tofu" value="no">  
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-lifestyle">
+                        <label for="food_allergies">Food allergies</label>
+                        <textarea name="food_allergies" id="food_allergies"></textarea>
+                    </div>
+                </div><!--end of lifestyle-section -->
+
+
+                <div class="challenges">
+                    <h3>Challenges faced in eating habit</h3>
+                    <div class="challenges-top">
+                        <div class="challenges-checkbox"> 
+                            <label class="checkbox_container">Late Night Snacks 
+                                <input type="checkbox"  name="late_night_snacks" > 
+                                <span class="checkmarks"></span>
+                            </label> 
+                        </div>
+
+                        <div class="challenges-checkbox">
+                          <label class="checkbox_container">Needs Mirch Masala
+                            <input type="checkbox" name="mirch_masala"> 
+                            <span class="checkmarks"></span> 
+                          </label>
+                        </div>
+
+                        <div class="challenges-checkbox">
+                          <label class="checkbox_container">Too much food with Drinks
+                            <input type="checkbox" name="too_much_food" >
+                            <span class="checkmarks"></span>
+                          </label>
+                        </div>
+
+                        <div class="challenges-checkbox">
+                         <label class="checkbox_container">High Tea Afternoon Snacks
+                            <input type="checkbox"  name="afternoon_snacks">
+                            <span class="checkmarks"></span> 
+                          </label>
+                        </div>
+
+                        <div class="challenges-checkbox">
+                          <label class="checkbox_container">Sweet Tooth
+                            <input type="checkbox"  name="sweet_tooth"> 
+                            <span class="checkmarks"></span>
+                            </label>
+                        </div>
+
+                        <div class="challenges-checkbox">
+                          <label class="checkbox_container">Needs Fried Foods
+                            <input type="checkbox"  name="fried_food" > 
+                            <span class="checkmarks"></span>
+                        </div>
+
+                        <div class="challenges-checkbox">
+                          <label class="checkbox_container">Frequent Snacking
+                            <input type="checkbox"  name="frequent_snacking" > 
+                            <span class="checkmarks"></span>
+                          </label>
+                        </div>
+
+                        <div class="challenges-checkbox">
+                          <label class="checkbox_container">Needs Carbs
+                            <input type="checkbox"  name="need_carbs"> 
+                            <span class="checkmarks"></span>
+                            </label>
+                        </div>
+                    </div><!--end of challenges-top -->
+
+                    <div class="challenges-bottom">
+                        <div class="challenges-bottom-inner">
+                            <div class="challenges-bottom-inner-left">
+                                <label for="sleephour">Sleep- How Many Hours do you Sleep</label>
+                                <input type="number" step="0.01" name="sleephour" >
+                            </div>
+                            <div class="challenges-bottom-inner-right">
+                                <label for="stresslevel">How is your stress level on scale of 0-10</label>
+                                <input type="number" step="0.01" name="stresslevel" >
+                            </div>
+                        </div>
+
+                        <div class="challenges-bottom-inner">
+                            <div class="challenges-bottom-inner-left">
+                                <label for="exercisemin">How many minutes a day do you exercise?</label>
+                                <input type="number" step="0.01" name="exercisemin" >
+                            </div>
+                            <div class="challenges-bottom-inner-right">
+                                <label for="stillleft">FOOD CRAVING (If any other still left)</label>
+                                <input type="text" name="stillleft" >
+                            </div>
+                        </div>
+
+                        <div class="challenges-bottom-inner">
+                            <div class="challenges-bottom-inner-left">
+                                <label for="litre">Water intake per day, in litres</label>
+                                <input type="number" step="0.01" name="litre" >
+                            </div>
+                            <div class="challenges-bottom-inner-right">
+                                <label for="medication">List Current Medications</label>
+                                <input type="text" name="medication">
+                            </div>
+                        </div>
+                    </div><!--end of challenges-bottom -->
+                </div><!--end of challenges -->
+
+
+
+                <div class="symptoms">
+                    <h3>please check any of the symptoms which apply</h3>
+                    <div class="symptoms-inner">
+                        <div class="symptoms-inner-left">
+                            <div class="symptoms-checkbox"> 
+                                <label class="checkbox_container">Acid Reﬂux 
+                                    <input type="checkbox"  name="acid" >
+                                    <span class="checkmarks"></span> 
+                                </label>
+                            </div>
+                            <div class="symptoms-checkbox"> 
+                                <label class="checkbox_container">Alzheimers disease
+                                    <input type="checkbox"  name="alzheimers">
+                                    <span class="checkmarks"></span>   
+                                </label>
+                            </div>  
+
+                            <div class="symptoms-checkbox"> 
+                                <label class="checkbox_container">Asthma
+                                    <input type="checkbox"  name="asthama" >
+                                    <span class="checkmarks"></span> 
+                                </label>
+                            </div>  
+                            <div class="symptoms-checkbox"> 
+                                <label class="checkbox_container">Bloating
+                                    <input type="checkbox"  name="bloating" >
+                                    <span class="checkmarks"></span>  
+                                </label>
+                            </div>
+                            <div class="symptoms-checkbox"> 
+                                <label class="checkbox_container">Blood pressure
+                                    <input type="checkbox"  name="bp" >
+                                    <span class="checkmarks"></span> 
+                                </label>
+                            </div>
+                            <div class="symptoms-checkbox"> 
+                                <label class="checkbox_container">Blurred vision
+                                    <input type="checkbox"  name="blurred_vision" >
+                                    <span class="checkmarks"></span>  
+                                </label>
+                            </div>
+                            <div class="symptoms-checkbox"> 
+                                <label class="checkbox_container">Body Pains
+                                    <input type="checkbox"  name="body_pains" >
+                                    <span class="checkmarks"></span>  
+                                </label>
+                            </div>
+                            <div class="symptoms-checkbox"> 
+                                <label class="checkbox_container">Cardiac Diseases
+                                    <input type="checkbox"  name="cardiac_disease" >
+                                    <span class="checkmarks"></span> 
+                                </label>
+                            </div>
+                            <div class="symptoms-checkbox"> 
+                                <label class="checkbox_container">Cervical Pain
+                                    <input type="checkbox"  name="cervical" > 
+                                    <span class="checkmarks"></span> 
+                                </label>
+                            </div>
+                            <div class="symptoms-checkbox"> 
+                                <label class="checkbox_container">Cholesterol
+                                    <input type="checkbox"  name="cholestrol" >
+                                    <span class="checkmarks"></span>  
+                                </label>
+                            </div>
+                            <div class="symptoms-checkbox">  
+                                <label class="checkbox_container">Constipation
+                                    <input type="checkbox"  name="constipation" >
+                                    <span class="checkmarks"></span>  
+                                </label>
+                            </div>
+                            <div class="symptoms-checkbox">  
+                                <label class="checkbox_container">COPD
+                                    <input type="checkbox"  name="copd" >
+                                    <span class="checkmarks"></span>
+                                </label>
+                            </div>
+                  <div class="symptoms-checkbox">
+                    <label class="checkbox_container">Dental Health complications
+                      <input type="checkbox"  name="dental_health_complication" >
+                      <span class="checkmarks"></span>   
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container">Depression
+                      <input type="checkbox"  name="depression" > 
+                      <span class="checkmarks"></span> 
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox">   
+                    <label class="checkbox_container">Diabetes
+                      <input type="checkbox"  name="diabetes" >
+                      <span class="checkmarks"></span> 
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox">   
+                    <label class="checkbox_container">Eating disorders
+                      <input type="checkbox"  name="eating_disorders" > 
+                      <span class="checkmarks"></span>
+                    </label>
+                  </div>
+                </div><!--end of symptoms-inner-left-->
+
+                <div class="symptoms-inner-middle">
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container">Erectile Dysfunction
+                      <input type="checkbox" name="erectile_dysfunction" >
+                      <span class="checkmarks"></span>  
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container">Fatigue
+                      <input type="checkbox"  name="fatigue"> 
+                      <span class="checkmarks"></span> 
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container">Fatty Liver
+                      <input type="checkbox"  name="fatty_liver"> 
+                      <span class="checkmarks"></span>
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container">Frequent Stomach Infections 
+                      <input type="checkbox"  name="frequent_stomach_infections"> 
+                      <span class="checkmarks"></span>
+                    </label>
+                  </div>
+                  
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container">Frequent Colds 
+                      <input type="checkbox"  name="frequent_colds">
+                      <span class="checkmarks"></span> 
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container"> Frequent urination
+                      <input type="checkbox"  name="frequent_urination" > 
+                      <span class="checkmarks"></span> 
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container"> Frozen shoulder 
+                      <input type="checkbox"  name="frozen_shoulder"> 
+                      <span class="checkmarks"></span>
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container"> Fungal Infections
+                      <input type="checkbox"  name="fungal_infections"> 
+                      <span class="checkmarks"></span>
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container"> Headaches
+                      <input type="checkbox"  name="headaches"> 
+                      <span class="checkmarks"></span> 
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container"> Hearing impairment 
+                      <input type="checkbox"  name="hearing_impairment" > 
+                      <span class="checkmarks"></span>
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container"> IBS
+                      <input type="checkbox"  name="ibs">
+                      <span class="checkmarks"></span>  
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container">Infertility
+                      <input type="checkbox"  name="infertility">
+                      <span class="checkmarks"></span>  
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container">Insomnia
+                      <input type="checkbox"  name="insomnia"> 
+                      <span class="checkmarks"></span> 
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container"> Itching or yeast infections
+                      <input type="checkbox"  name="itching_or_yiest_infections">  
+                      <span class="checkmarks"></span>
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox"> 
+                    <label class="checkbox_container"> Joints Aches
+                      <input type="checkbox"  name="joint_aches">
+                      <span class="checkmarks"></span>
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container"> Kidney Disease  
+                      <input type="checkbox"  name="kidney_disease" >
+                      <span class="checkmarks"></span> 
+                    </label>
+                  </div>
+                </div><!--end of symptoms-inner-middle-->
+
+                <div class="symptoms-inner-right">
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container"> Migraines
+                      <input type="checkbox"  name="migranes">
+                      <span class="checkmarks"></span> 
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container"> Muscular spasms
+                      <input type="checkbox"  name="muscular_spasms"> 
+                      <span class="checkmarks"></span>
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container"> Neuropsychological problems 
+                      <input type="checkbox"  name="neuropsychological_problems"> 
+                      <span class="checkmarks"></span>
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container">Patches of Dark Skin 
+                      <input type="checkbox" name="patches_of_dark_skin"  > 
+                      <span class="checkmarks"></span>
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container">PCOD / PCOS
+                      <input type="checkbox"  name="pcod_pcos"> 
+                      <span class="checkmarks"></span>
+                    </label>
+                  </div>
+      
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container"> Poor wound healing 
+                      <input type="checkbox"  name="poor_wound_healing" > 
+                      <span class="checkmarks"></span>
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container"> Pre diabetic
+                      <input type="checkbox"  name="pre_diabetic"> 
+                      <span class="checkmarks"></span>
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container"> Sinusitis
+                      <input type="checkbox"  name="sinusitis">
+                      <span class="checkmarks"></span>  
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container"> Sleep Apnea
+                      <input type="checkbox"  name="sleep_apnea"> 
+                      <span class="checkmarks"></span>
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container"> Smoking
+                      <input type="checkbox"  name="smoking" >
+                      <span class="checkmarks"></span>  
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container"> Spine issues 
+                      <input type="checkbox"  name="spine_issues">
+                      <span class="checkmarks"></span> 
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container"> Stress
+                      <input type="checkbox"  name="stress"> 
+                      <span class="checkmarks"></span> 
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container"> Thyroid
+                      <input type="checkbox"  name="thyroid">
+                      <span class="checkmarks"></span>  
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container"> Tingling, numbness or pain in hands & feet
+                      <input type="checkbox"  name="tingling_numbness">  
+                      <span class="checkmarks"></span>
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox"> 
+                    <label class="checkbox_container"> UTI's
+                      <input type="checkbox"  name="uti">
+                      <span class="checkmarks"></span> 
+                    </label>
+                  </div>
+                  <div class="symptoms-checkbox">  
+                    <label class="checkbox_container"> Low Immunity 
+                      <input type="checkbox"  name="low_immunity"> 
+                      <span class="checkmarks"></span>
+                    </label>
+                  </div>
+                </div><!--end of symptoms-inner-right-->
+
+              </div><!--end of symptoms inner -->
+            </div>  <!--end of symptoms -->   
+
+            <input type="hidden" name="mobileno" value="<?php echo $mobileNo;?>" />
+            <input type="hidden" name="custid" value="<?php  echo $custId;?>" />
+            <input type="hidden" name="date" value="<?php  echo date('Y-m-d');?>" />
+            <input  type="submit" name="submit" value="Save">  
+            <!---==============end of form=================---->
+	
+	    </div>
+	<!--submit-->
+    
+    </div>
+</div> 	
+</form>
+<script>
+jQuery(document).ready(function(){
+  jQuery(".btncancel").click(function(){
+    jQuery(".thankyoumsg").toggle();
+  });
+ 
+});
+</script>

@@ -1,0 +1,855 @@
+.below-hero .panel-heading.accordion .panel-title a:after,
+.fast-results-tab .nav-tabs.nav-justified>li.active a:after,
+.fast-results-tab .nav-tabs.nav-justified>li>a:after,
+.fast-results-tab-content h4.accordion>a:after,
+.fast-results-tab-content h4.accordion>a:not(.collapsed):after {
+ content:""
+}
+.caveat {
+ font-family:Caveat,cursive
+}
+.yellow {
+ color:#e8e85a
+}
+.page-how-it-works .hero {
+ height:auto;
+ padding:4em 0 0;
+ background-color:#ebfbfa
+}
+.page-how-it-works .hero p {
+ font-size:16px
+}
+.page-how-it-works .hero h1.h2 {
+ margin:0 auto 6px
+}
+.below-hero {
+ margin-top:20px
+}
+.below-hero .panel-heading.accordion .panel-title a {
+ padding:10px 0 0
+}
+.below-hero .panel-heading.accordion p.strong {
+ font-weight:500
+}
+.below-hero .panel-default>.panel-heading {
+ background-color:transparent;
+ border-color:transparent;
+ padding:0 2px
+}
+.below-hero .panel-default>.panel-heading+.panel-collapse>.panel-body {
+ border-top:0
+}
+.below-hero .panel-group .panel {
+ border:0;
+ background-color:transparent;
+ padding-bottom:30px;width:33%;
+}
+.below-hero .panel-group .panel p {
+ margin-bottom:6px
+}
+.col6w{width:50%;float:left;}
+.quote1 .col7q{width:58%;float:left;}
+.quote1 .col5q{width:42%;float:left;}
+.below-hero p.panel-title {
+ color: #f25153
+}
+.below-hero .panel-heading h2.h4 {
+ margin:10px auto
+}
+.below-hero img.bolt-icon,
+.below-hero img.head-icon,
+.below-hero img.heart-icon {
+ height:58px;
+ width:58px
+}
+.below-hero .panel-title img,
+.fast-results-tab .nav-tabs img,
+.fast-results-tab-content .accordion img {
+ display:inline-block;
+ width:30px;
+ height:30px
+}
+.below-hero .panel-title img.x-circle,
+.fast-results-tab .nav-tabs img.x-circle,
+.fast-results-tab-content .accordion img.x-circle {
+ display:none;
+ width:30px;
+ height:30px
+}
+.below-hero .panel-title strong {
+ vertical-align:middle
+}
+.below-hero a.read-more-link[aria-expanded=false] .plus-circle,
+.below-hero a.read-more-link[aria-expanded=false] strong,
+.below-hero a.read-more-link[aria-expanded=true] .x-circle,
+.fast-results-tab-content a[aria-expanded=false] span.results-read-more strong .fast-results-tab-content a[aria-expanded=false] .plus-circle,
+.fast-results-tab-content a[aria-expanded=true] .x-circle {
+ display:inline-block;
+ transition:2s
+}
+.below-hero a.read-more-link[aria-expanded=false] .x-circle,
+.below-hero a.read-more-link[aria-expanded=true] .plus-circle,
+.below-hero a.read-more-link[aria-expanded=true] strong,
+.fast-results-tab-content a[aria-expanded=false] .x-circle,
+.fast-results-tab-content a[aria-expanded=true] .plus-circle,
+.fast-results-tab-content a[aria-expanded=true] span.results-read-more strong {
+ display:none;
+ transition:2s
+}
+.below-hero hr {
+ margin:1.5em auto
+}
+.page-how-it-works blockquote {
+ text-transform:none;
+ padding:2em 1.5em 1em;
+ font-size:1.35em
+}
+.no-padding-mob {
+ padding:0
+}
+.quote1 {
+ background-color:#ebfbfa
+}
+.quote1 .list-checked>li:before,
+blockquote .hang-quote {
+ position:absolute;
+ left:20px
+}
+.quote1 p.h3 {
+ padding-top:22px
+}
+.quote1 .cta-wrapper,
+.quote2 .cta-wrapper {
+ margin:1.4em auto
+}
+.faqs h2,
+.fast-results-tab h2,
+.what-you-do h2,
+.what-you-get h2 {
+ margin-top:1em
+}
+.faqs hr,
+.fast-results-tab hr,
+.what-you-do hr,
+.what-you-get hr {
+ margin-top:0;
+ margin-bottom:1.875em;
+ border-top:5px solid #edce1d;
+ width:6em;margin-left: auto;
+margin-right: auto;
+float: none;
+}
+.faqs hr,
+.what-you-do hr {
+ border-top:5px solid #edce1d
+}
+.what-you-get {
+ background-color:#ebfbfa
+}
+.what-you-get .container {
+ background-color:#fff
+}
+.what-you-get ul {
+ margin:1em auto 2em;
+ font-size:1.2em
+}
+.what-you-get .list-checked.check-primary>li {
+ margin-top:40px
+}
+.what-you-get .list-checked.check-primary>li:before {
+ top:2px;
+ color:#edce1d
+}
+.what-you-do {
+ background-color:#ebfbfa
+}
+.what-you-do h3.h4 {
+ font-size:30px
+}
+h3.offset-bg span {
+ display:inline-block;
+ position:relative;
+ z-index:1
+}
+h3.offset-bg span:before {
+ content:"";
+ position:absolute;
+ width:101%;
+ height:60%;
+ top:.36em;
+ left:-2px;
+ background:#ebfbfa;
+ z-index:-1
+}
+.what-you-do p.h6 {
+ font-size:18px
+}
+.what-you-do .bg-white {
+ padding:25px 15px 15px
+}
+.what-you-do .flexibility h4,
+.what-you-do .nutrition h4,
+.what-you-do .times-day h4 {
+ margin-bottom:0
+}
+.times-day .btn-link:after {
+ line-height:.5
+}
+.what-you-do .times-day hr {
+ margin:1.25em 0 .625em;
+ border-top:5px solid #edce1d;
+ width:4.688em
+}
+.what-you-do .claim p:first-of-type,
+.what-you-do .nutrition p {
+ margin-bottom:0
+}
+.what-you-do .claim .bg-white,
+.what-you-do .flexibility .bg-white,
+.what-you-do .nutrition .bg-white {
+ margin-top:30px
+}
+.what-you-do .nutrition img {
+ width:100%;
+ padding:15px 0
+}
+.what-you-do .claim .bg-white {
+ height:305px;
+ padding:25px 20px;
+ border:16px solid #10cfc9
+}
+.what-you-do .claim {
+ font-size:20px;
+ padding-bottom:30px
+}
+.what-you-do .claim p {
+ padding-top:20px
+}
+.what-you-do .claim h3 {
+ font-family:Raleway,sans-serif;
+ font-size:30px;
+ line-height:1.2;
+ margin-bottom:0
+}
+.what-you-do .claim p.text-white.fw-600 {
+ font-size:14px;
+ line-height:1.19em;
+ margin-top:1.1em;
+ margin-bottom:1.6em
+}
+.what-you-do .claim p.small {
+ margin-bottom:0
+}
+.quote2.bg-primary {
+ padding-top:150px;
+ margin-top:-10em
+}
+.tab-content img.phase1-arrow,
+.tab-content img.phase2-arrow,
+.tab-content img.phase3-arrow {
+ margin:0 auto
+}
+.fast-results-tab-content {
+ background-color:#ddf1ec;
+ margin-bottom:1.5em
+}
+.fast-results-tab-content .container {
+ padding:0
+}
+.fast-results-tab-content .tab-content h4.accordion a {
+ border:0;
+ padding:.65em .938em
+}
+.fast-results-tab-content h4.accordion>a:not(.collapsed) {
+ color:#222
+}
+.fast-results-tab-content h4.accordion span {
+ font-size:1.25em
+}
+.fast-results-tab hr {
+ margin-bottom:1em
+}
+.fast-results-tab-content h4.accordion>a {
+ padding:.65em 0
+}
+.fast-results-tab-content a span.text-phase1,
+.fast-results-tab-content a span.text-phase2,
+.fast-results-tab-content a span.text-phase3 {
+ font-size:1.2em;
+ font-family:'Open Sans',Verdana,sans-serif
+}
+.fast-results-tab-content .tab-pane {
+ border:0;
+ border-top:0;
+ padding:0 .938em .938em;
+ background-color:transparent;
+ position:relative
+}
+.fast-results-tab-content .tab-pane h4 {
+ text-align:center;
+ padding-top:.5em
+}
+.fast-results-tab-content h4.accordion {
+ background-color:#fff
+}
+.fast-results-tab-content h4.accordion span.results-read-more {
+ vertical-align:middle;
+ color: #f25153;
+ font-size:1em;
+ font-family:'Open Sans',Verdana,sans-serif
+}
+.fast-results-tab-content .border-arrow-wrap {
+ background-color:#fff;
+ height:36px
+}
+.fast-results-tab-content img.border-arrow {
+ width:184px;
+ padding:1em 0
+}
+.fast-results-tab-content .tab-pane ul {
+ list-style-type:none
+}
+.fast-results-tab-content .tab-pane ul li::before {
+ content:"\2022";
+ color:#54b8a2;
+ display:inline-block;
+ width:.8em;
+ height:.8em;
+ margin-left:-1em
+}
+.fast-results-tab-content div#phase2.tab-pane ul li::before {
+ content:"\2022";
+ color:#765792
+}
+.fast-results-tab-content div#phase3.tab-pane ul li::before {
+ content:"\2022";
+ color:#ff585d
+}
+.faqs .panel-group {
+ border:1px solid #ccc
+}
+.faqs .panel.panel-default {
+ border-bottom:0;
+ border-right:0;
+ border-left:0
+}
+.faqs .panel.panel-default:nth-child(1) {
+ border-top:0
+}
+.faqs .panel-default>.panel-heading {
+ color:#222;
+ background-color:#fff;
+ border-color:#999
+}
+.page-how-it-works .closer h3 {
+ margin:0 0 .5em
+}
+.fw-700 {
+ font-weight:700
+}
+.faqs .col8f{width:60%; float:none;margin:auto;}
+@media(max-width:767px) {
+.what-you-get .food-cutout {
+    position: absolute;
+    top: auto;
+    left: -10px;
+    z-index: 1;
+    width: 140px;
+    bottom: 0px;display:none;
+}
+.what-you-do h3.h4 {font-size: 20px;}
+.page-how-it-works .closer h3 {margin: 0 0 0em;}
+.faqs{margin-bottom: 40px;}
+.faqs .col8f{width:100%; float:left;}
+.col6w{width:100%;float:left;}
+.quote1 .col7q{width:100%;float:left;}
+.quote1 .col5q{width:100%;float:left;text-align: center;margin-bottom: 10px;}
+ div#phase2.panel {
+  background-color:#e4dde9
+ }
+ div#phase3.panel {
+  background-color:#ffdedf
+ }
+.below-hero .panel-group .panel {
+border: 0;
+background-color: transparent;
+padding-bottom: 10px;
+width: 100%;
+padding-top: 10px;
+}
+.page-how-it-works .hero h1.h2 {
+    margin: 6px auto 6px;
+    font-size: 1.725rem;
+}
+.panel-heading.accordion .panel-title a {
+    font-family: 'Open Sans', Verdana, sans-serif;
+    padding: 5px 15px 5px 15px !important;
+}
+}
+@media(max-width:320px) {
+ .what-you-do .claim h3 {
+  font-size:26px
+ }
+}
+@media(min-width:768px) {
+ .page-how-it-works .hero {
+  background:url(/images/sbd/how-it-works/hiw-hero2-dt.jpg) center top no-repeat;
+  background-size:100% auto;
+  height:auto;
+  background-color:#ebfbfa;
+  padding:4em 0 0
+ }
+ .page-how-it-works .hero h1.h2 {
+  font-size:2.8em
+ }
+ .page-how-it-works .hero p {
+  font-size:1.9em
+ }
+ .page-how-it-works .below-hero p {
+  font-size:18px
+ }
+ .below-hero .panel-heading h2.h4 {
+  line-height:1.1;
+  font-weight:600;
+  margin-bottom:6px;
+  font-size:1.3em;
+  margin-top:18px
+ }
+ .below-hero .panel-heading p {
+  font-size:13px;
+ }
+ .page-how-it-works blockquote {
+  text-align:right;
+  text-transform:none;
+  padding:3em 0 3em .5em;
+  font-size:.9em
+ }
+ .page-how-it-works blockquote p.h4 {
+  font-weight:600
+ }
+ .quote1 .no-padding-mob {
+  padding:0 15px
+ }
+ .quote1 p.h3 {
+  font-size:1.75em;
+  padding-top:0
+ }
+ .quote1 p.h4 {
+  font-size:16px
+ }
+ .quote1 blockquote .hang-quote {
+  left:139px
+ }
+ .quote2 blockquote .hang-quote {
+  left:36px
+ }
+ .what-you-get {
+  padding:40px 0
+ }
+ .what-you-get .container {
+  padding-bottom:40px
+ }
+ .what-you-get .no-padding-mob {
+  padding-left:15px
+ }
+ .what-you-get .food-cutout-top {
+  position:relative;
+  z-index:1;
+  width:94%
+ }
+ .what-you-get .food-cutout {
+  position:absolute;
+  top:178px;
+  left:-72px;
+  z-index:1;
+display:none;
+  width:140px
+ }
+ .what-you-do .container {
+  position:relative
+ }
+ .faqs h2,
+ .fast-results-tab h2,
+ .what-you-do h2,
+ .what-you-get h2 {
+  margin-top:.7em;
+  margin-bottom:.2em
+ }
+ .faqs hr,
+ .fast-results-tab hr,
+ .what-you-do hr,
+ .what-you-get hr {
+  margin-top:0;
+  margin-bottom:1.875em;
+  border-top:5px solid #edce1d;
+  width:7em;
+margin-left: auto;
+float: none;
+margin-right: auto;
+ }
+ .what-you-do .flexibility .bg-white,
+ .what-you-do .nutrition .bg-white {
+  margin-top:4px
+ }
+ .what-you-do img.wavy-lines {
+  position:absolute;
+  width:69px;
+  height:42px;
+  bottom:311px;
+  right:0
+ }
+ .faqs hr,
+ .what-you-do hr {
+  border-top:5px solid #edce1d
+ }
+ .what-you-do .nutrition .bg-white {
+  margin-top:0;
+  padding:50px 20px 15px;
+  min-height:560px
+ }
+ .page-how-it-works .fixed-height {
+  height:initial
+ }
+ .what-you-do h4 {
+  line-height:1.1
+ }
+ .what-you-do .times-day {
+  background:url(../images/live-healthy-dt.jpg) 0 50% no-repeat;
+  padding:36px 36px 48px;
+  background-size:cover;
+  min-height:560px
+ }
+ .what-you-do .nutrition img {
+  width:300px;
+  height:255px
+ }
+ .what-you-do .flexibility {
+  background:url(../images/554x560-2ndbanner.png) 0 50% no-repeat;
+  background-size:cover;
+  min-height:470px;
+  margin-top:30px;
+  padding:20px 20px
+ }
+ .what-you-do .claim .bg-white {
+  min-height:468px;
+  padding:25px 10px
+ }
+ .what-you-do .claim h3 {
+  font-size:1.5em;
+  padding-top:70px
+ }
+ .what-you-do .claim {
+  font-size:1.1em
+ }
+ .what-you-do .claim p {
+  padding-top:24px
+ }
+ .fast-results-tab-content {
+  display:none;
+  min-height:275px
+ }
+ .fast-results-tab .nav>li>a {
+  padding:0 25px 10px;
+  color:#222
+ }
+ .fast-results-tab-content .container {
+  padding-left:15px;
+  padding-right:15px
+ }
+ .fast-results-tab .nav-tabs>li>a:hover {
+  color:#222
+ }
+ .fast-results-tab .nav-tabs>li.active>a,
+ .fast-results-tab .nav-tabs>li.active>a:focus,
+ .fast-results-tab .nav-tabs>li.active>a:hover {
+  color:#222;
+  font-weight:300
+ }
+ .fast-results-tab .nav-tabs>li.active>a {
+  border-bottom:0
+ }
+ .fast-results-tab .nav-tabs {
+  border-bottom:0;
+  margin-bottom:2em
+ }
+ .fast-results-tab .nav-tabs a span {
+  font-size:1.3em
+ }
+ .fast-results-tab .nav-tabs a span.text-phase1,
+ .fast-results-tab .nav-tabs a span.text-phase2,
+ .fast-results-tab .nav-tabs a span.text-phase3 {
+  font-size:1.3em;
+  font-family:'Open Sans',Verdana,sans-serif
+ }
+ .tab-content img.phase1-arrow {
+  margin:0 0 16px 81px
+ }
+ .tab-content img.phase2-arrow {
+  margin:0 auto 16px
+ }
+ .tab-content img.phase3-arrow {
+  margin:0 0 16px 559px
+ }
+ .fast-results-tab .nav-tabs>li.active>a strong,
+ .fast-results-tab .nav-tabs>li.active>a:focus strong,
+ .fast-results-tab .nav-tabs>li.active>a:hover strong,
+ .fast-results-tab .nav-tabs>li>a strong {
+  color: #f25153
+ }
+ .fast-results-tab .nav-tabs li.active img.x-circle {
+  display:block
+ }
+ .fast-results-tab .nav-tabs li img.x-circle,
+ .fast-results-tab .nav-tabs li.active img.plus-circle,
+ .fast-results-tab .nav-tabs>li.active a strong,
+ .fast-results-tab .navtabs>li.active a img.plus-circle {
+  display:none
+ }
+ .fast-results-tab-content .tab-pane h4 {
+  font-size:1.875em;
+  text-align:right
+ }
+ .faqs {
+  margin-top:24px;margin-bottom: 24px;
+ }
+ .faqs .panel-heading.accordion .panel-title a {
+  font-weight:600
+ }
+ .closer .button-wrapper {
+  margin-top:1em
+ }
+}
+@media(min-width:992px) {
+.faqs .col8f{width:80%; float:none;margin:auto;}
+ .what-you-do .claim p.text-white.fw-600 {
+  font-size:1.32em;
+  line-height:1.19em;
+  position:relative;
+  top:12px
+ }
+ .page-how-it-works .hero h1.h2 {
+  font-size:3.375em
+ }
+ .page-how-it-works .hero p {
+  font-size:36px
+ }
+ .page-how-it-works .below-hero p {
+  font-size:18px
+ }
+ .below-hero .panel-default>.panel-heading+.panel-collapse>.panel-body {
+  font-size:16px;
+ }
+ .below-hero img.bolt-icon,
+ .below-hero img.head-icon,
+ .below-hero img.heart-icon {
+  height:80px;
+  width:80px
+ }
+ .quote1 p.h3 {
+  font-size:1.8em;
+  padding-top:.6em
+ }
+ .quote1 p.h4 {
+  font-size:21px
+ }
+ .what-you-get .food-cutout {
+  top:240px;
+  left:-80px;
+  width:160px;
+display:none;
+ }
+ .what-you-get ul {
+  margin-bottom:4em;
+  margin-top:1.2em;
+  font-size:1em;
+  line-height:2em;
+  padding-left:15px
+ }
+ .what-you-get ul li {
+  font-size:1em
+ }
+ .what-you-get .list-checked>li:before {
+  left:-19px;
+  font-size:1.4em;
+  top:0
+ }
+ .tab-content img.phase1-arrow {
+  margin:0 0 40px 116px
+ }
+ .tab-content img.phase2-arrow {
+  margin:0 auto 40px
+ }
+ .tab-content img.phase3-arrow {
+  margin:0 0 40px 745px
+ }
+ .what-you-do img.wavy-lines {
+  bottom:361px;
+  right:-12px
+ }
+ .what-you-do .nutrition .bg-white,
+ .what-you-do .times-day {
+  min-height:470px
+ }
+ .what-you-do .flexibility {
+  min-height:520px
+ }
+ .what-you-do .flexibility h4,
+ .what-you-do .nutrition h4,
+ .what-you-do .times-day h4 {
+  margin-bottom:6px
+ }
+ .what-you-do .nutrition img {
+  width:332px;
+  height:255px
+ }
+ .what-you-do .flexibility .bg-white {
+  padding:50px 35px 40px
+ }
+ .what-you-do .claim .bg-white {
+  min-height:520px;
+  padding:58px 10px 40px
+ }
+ .what-you-do .claim {
+  font-size:1.3em;
+  margin-top:.2em
+ }
+ .what-you-do .claim h3 {
+  font-size:44px
+ }
+ .what-you-do .claim p {
+  padding-top:24px
+ }
+ .quote1 blockquote .hang-quote {
+  left:44px
+ }
+ .fast-results-tab .nav-tabs a span {
+  font-size:1.875em
+ }
+ .fast-results-tab p {
+  font-size:1.05em
+ }
+ .fast-results-tab .nav-tabs a span.text-phase1,
+ .fast-results-tab .nav-tabs a span.text-phase2,
+ .fast-results-tab .nav-tabs a span.text-phase3 {
+  font-size:1.8em
+ }
+ .fast-results-tab .nav>li>a {
+  padding:0 15px 10px
+ }
+ .quote2.bg-primary {
+  padding-top:160px
+ }
+ .quote2 blockquote .hang-quote {
+  left:147px
+ }
+ .faqs {
+  padding-bottom:50px
+ }
+ .move-down {
+  top:-7px;
+  position:relative;
+  left:2px
+ }
+}
+@media(min-width:1200px) {
+.faqs .col8f{width:60%; float:none;margin:auto;}
+ .page-how-it-works .hero {
+  padding:6em 0 0
+ }
+ .page-how-it-works blockquote {
+  padding:4em 0 4em .5em;
+  font-size:1em
+ }
+ .quote1 p.h3 {
+  font-size:2.25em;
+  padding-top:26px
+ }
+ .quote1 p.h4 {
+  font-size:23px
+ }
+ .what-you-get .food-cutout {
+  top:300px;
+  left:-92px;
+  width:180px;display:none;
+ }
+ .what-you-get ul {
+  padding-right:32px;
+  margin-top:15px;
+  margin-bottom:4.15em;
+  font-size:1.2em
+ }
+ .what-you-do img.wavy-lines {
+  bottom:406px;
+  right:-18px
+ }
+ .what-you-do .times-day {
+  min-height:560px
+ }
+ .what-you-do .bg-white {
+  padding:40px
+ }
+ .what-you-do .nutrition .bg-white {
+  min-height:560px;
+  padding:75px 40px 15px
+ }
+ .what-you-do .nutrition p {
+  padding-right:100px
+ }
+ .what-you-do .nutrition img {
+  width:425px;
+  height:302px
+ }
+ .what-you-do .flexibility {
+  min-height:560px
+ }
+ .what-you-do .flexibility .bg-white {
+  padding:30px 15px;
+  margin:36px 26px
+ }
+ .what-you-do .claim .bg-white {
+  min-height:560px;
+  padding:54px 26px 40px
+ }
+ .what-you-do .claim h3 {
+  font-size:45px
+ }
+ .what-you-do .claim .border-white {
+  padding:70px 0 100px
+ }
+ .quote2 blockquote .hang-quote {
+  left:211px
+ }
+ .fast-results-tab-content {
+  min-height:280px
+ }
+ .fast-results-tab p {
+  font-size:1.125em
+ }
+ .tab-content img.phase1-arrow {
+  margin:0 0 40px 147px
+ }
+ .tab-content img.phase2-arrow {
+  margin:0 0 40px 525px
+ }
+ .tab-content img.phase3-arrow {
+  margin:0 0 40px 907px
+ }
+ .faqs h2 {
+  margin-top:1.2em
+ }
+}
+@media(min-width:1024px) and (orientation:landscape) {
+ .what-you-do .claim p.yellow {
+  font-size:1.1em;
+  margin-top:.5em
+ }
+ .what-you-do .claim p.text-white.fw-600 {
+  font-size:1.1em;
+  line-height:1.19em;
+  position:relative;
+  top:12px
+ }
+ .what-you-do .claim .border-white {
+  padding-bottom:6em
+ }
+}

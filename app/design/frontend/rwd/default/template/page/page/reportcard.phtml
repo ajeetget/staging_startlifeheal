@@ -1,0 +1,197 @@
+<style>
+.max-w-500 {
+    max-width: 500px;
+}
+.immunity__card--okay {
+    background: url(../images/organic-pattern.svg) 0 100% no-repeat,linear-gradient(90deg,#00c8d1 0,#36a7a1);
+}
+	.right0 {
+    right: 0;
+}
+.top0 {
+    top: 0;
+}
+.position-absolute {
+    position: absolute;
+}
+	.font-weight-normal {
+    font-weight: 400;
+}
+	.align-items-center {
+    align-items: center;
+}
+.d-flex {
+    display: flex;
+}
+	.font-philosopher {
+    font-family: Philosopher;
+}
+.font-weight-normal {
+    font-weight:600;
+}
+.text-capitalize {
+    text-transform: capitalize !important;
+}
+.ml-2, .mx-2 {
+    margin-left: .5rem;
+	}
+    .mt-3, .my-3 {
+    margin-top: 1rem;
+}
+	.font14 {
+    font-size: 14px;
+}
+.font-weight-light {
+    font-weight: 300;
+}
+.mr-2, .mx-2 {
+    margin-right: .5rem;
+}
+.mb-0, .my-0 {
+    margin-bottom: 0;
+}
+	img {
+    max-width: 100%;
+}
+	.immunity__score .donut-segment {
+    stroke: #f4d936;
+}
+.donut-segment {
+    stroke: url(#linear);
+    stroke-linecap: round;
+}
+	.immunity__score .donut-ring {
+    stroke: #fff;
+    stroke-width: 2px;
+}
+	.donut-ring {
+    stroke: #549c98;
+    stroke-width: 4px;
+}
+	.donut-text {
+    font-size: 8px;
+    font-weight: 500;
+    fill: #fff;
+}
+	.pb-3, .py-3 {
+    padding-bottom: 1rem;
+}
+.pt-2, .py-2 {
+    padding-top: .5rem;
+}
+	.underline {
+   border-bottom: 2px solid #f3d936 !important;
+background: none;
+border: 0px;
+}
+	.reportcenter{float: left;
+width: 100%;
+margin: auto;}
+	.underlinebtn{margin: -9% auto auto 3%;
+float: right;
+position: absolute;
+background: #5ca157;
+padding: 10px;
+color: #fff;
+border-bottom: 4px solid #f3d936 !important;}
+	.underlinelist ul{margin: 0;
+padding: 0;
+float: left;
+width: 100%;
+text-align: left;
+list-style: disc inside;}
+	.grayfooter{background: grey;float: left;width: 100%;}
+	@media screen and (min-width:260px) and (max-width:767px)
+	{
+		.topimage{margin-top:18%;}
+		.topimage img{display:none;}
+.max-w-500 {
+    max-width: 100%;
+}
+	
+.pb-3, .py-3 {
+    padding-bottom: 1rem;
+}
+.pt-2, .py-2 {
+    padding-top: .5rem;
+}
+.ml-2, .mx-2, .mb-4 {
+    margin-left:0 !important;
+	}
+.mt-3, .my-3 {
+    margin-top: 1rem;
+}
+.font14 {
+    font-size: 14px;
+}
+.font-weight-light {
+    font-weight: 300;
+}
+.mr-2, .mx-2, .mx-3 {
+    margin-right:0 !important;
+}
+.mb-0, .my-0 {
+    margin-bottom: 0;
+}
+	}
+	@media screen and (min-width:768px) and (max-width:999px)
+	{
+		.topimage{margin-top:10%;}
+		.topimage img{display:none;}
+	}
+</style>
+<div class="text-center pb-3 pt-2 topimage">
+	<img src="<?php echo $this->getSkinUrl('images/logo.png') ?>" alt="Logo" style="width:200px; margin:auto;">
+</div>
+<div id="immunity-result-card" class="max-w-500 mx-auto">
+	<section class="card immunity__card position-relative rounded-16 py-3 pl-3 pr-4 mb-4 mx-3 text-white immunity__card--okay">
+		<img class="position-absolute right0 top0" src="<?php echo $this->getSkinUrl('images/immunity-icon.svg') ?>"style="width: 104px;float: right;" alt="immunity">
+		<h5 class="font-weight-normal" style="color:#fff;font-size: 1.25rem;text-transform: full-size-kana;">Your Immunity Score is</h5>
+		<div class="immunity__score d-flex align-items-center"><div style="width: 70px;"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 40 40" class="donut"><defs><linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#78c7af"></stop><stop offset="100%" stop-color="#ffae04"></stop></linearGradient></defs><circle class="donut-hole" cx="20" cy="20" r="15.91549430918954" fill="transparent"></circle><circle class="donut-ring" cx="20" cy="20" r="15.91549430918954" fill="transparent" stroke-width="3.5"></circle><circle class="donut-segment donut-segment-2" cx="20" cy="20" r="15.91549430918954" fill="transparent" stroke-width="3.5" stroke-dasharray="57 100" stroke-dashoffset="0"></circle><g class="donut-text"><text y="57%"><tspan x="50%" text-anchor="middle">57%</tspan></text></g></svg></div><h2 class="ml-2 font-weight-normal font-philosopher text-capitalize" data-gtm-vis-recent-on-screen-30562428_40="154356" data-gtm-vis-first-on-screen-30562428_40="154356" data-gtm-vis-total-visible-time-30562428_40="100" data-gtm-vis-has-fired-30562428_40="1" style="color:#fff;margin-left: 0.5em !important;">Okay</h2>
+		</div>
+		<div class="mt-3 d-flex align-items-center"><p class="mr-2 mb-0 font-weight-light font14">Your immunity score is Medium. You should work on it</p><img style="width: 60px;" src="<?php echo $this->getSkinUrl('images/ai-avatar.svg') ?>" alt="Doctor AI">
+	</div>
+	</section>
+</div>
+
+<div class="my-3 text-center reportcenter" data-html2canvas-ignore="true">
+	<a name="content-box-button" style="margin: 10px auto;background: #f25153;color: #fff;" class="button" href="https://lifeheal.in/healthrepairplan">Download Report</a>
+<button class="no-btn underline" style="margin: auto auto auto 3%;display:none;">Few Tips to Improve Immunity</button>
+</div>
+
+<div data-html2canvas-ignore="true" class="text-center max-w-500 mx-auto">
+	<section class=" position-relative rounded-16 mb-4 mx-3 my-3">
+ <img src="<?php echo $this->getSkinUrl('images/beforeafter.jpeg') ?>" style="width:100%;">	
+</section>
+</div>
+<div data-html2canvas-ignore="true" class="text-center max-w-500 mx-auto">
+	<section class=" position-relative rounded-16 mb-4 mx-3 my-3">
+<article class="l-hundred green center didyouknow contentBoxID-42086"  style="background: #5ca157;padding: 1rem;">
+			<h2 class="didyouknow__head" style="color:#fff;">Did you know?</h2>
+			<p class="didyouknow__text selectionShareable">Studies have shown that fruits and vegetables provide nutrients—like beta-carotene, vitamin C, and vitamin E—that can boost immune function</p>
+			<a name="content-box-button" style="margin: 10px auto;background: #f25153;color: #fff;" class="button" href="https://lifeheal.in/email-collect-page">Enhancing Your Immunity</a>		
+</section>
+</div>
+<div data-html2canvas-ignore="true" class="text-center max-w-500 mx-auto">
+	<section class=" position-relative rounded-16 mb-4 mx-3 my-3">
+<div class="underlinelist pl-3 pr-4">
+	<h3 style="float: left;color: #000;font-size: 1.25rem;text-transform: full-size-kana;font-weight: 600;margin: 0px auto 10px auto;text-align: left;"  class="no-btn underline">Checklist of our plans</h3>
+	<ul>
+	<li>Get Fit Without Doing Exercise</li>
+	<li>Includes Immunity Assessment</li>
+	<li>Dedicated Nutritionist</li>
+		<li>Secret Recipes from our Metabolic Kitchen</li>
+		<li>Guided Video Education Package Included</li>
+<li>Easy Meal Planning</li></ul>
+</div>
+	</section>
+</div>
+	<div data-html2canvas-ignore="true" class="text-center max-w-500 mx-auto">
+	<section class="position-relative rounded-16 mb-4 mx-3 my-3">
+		<span class="grayfooter py-3 pl-3 pr-4">
+	<h3 style="float: left;color: #000;font-size: 1.25rem;text-transform: full-size-kana;width:100%;margin: 0px auto 10px auto;text-align: left;font-weight: 600;" class="no-btn">Contact Us</h3>
+	<button class="no-btn underline" style="margin: auto 3% auto auto;color:#fff;float:left; font-size:14px;">Call: <a href="tel:+91-9999-84-6622" style="color:#fff">+91-9999-84-6622</a></button>
+	<button class="no-btn underline" style="margin: auto auto auto 3%;color:#fff;float:right; font-size:14px;">Email: <a href="mailto:Team@LifeHeal.in" style="color:#fff">Team@LifeHeal.in</a></button>
+			</span>
+	</section>
+</div>

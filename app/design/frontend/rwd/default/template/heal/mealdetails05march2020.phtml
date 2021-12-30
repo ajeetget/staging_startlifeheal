@@ -1,0 +1,476 @@
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+ <link href="css/singlePageTemplate.css" rel="stylesheet" type="text/css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
+  <script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+  </script>
+	<style>
+* {box-sizing: border-box}
+
+	.hero_header{text-align:center}	
+		 
+	
+.ui-datepicker td {
+    border: 0;
+    padding: 1px;
+    width: 10%;
+}
+
+.hasDatepicker{width: 78% !important;
+
+max-width: 100%;
+
+background: #f6fcfc;
+
+height: 35px;
+
+box-shadow: 0px 0px 2px rgba(0,0,0,0.3);
+
+border: 0px;
+
+float: left;
+margin:10px;
+margin-right: 15px;}
+
+@media print
+{
+.noprint {display:none;}
+}
+
+@media print 
+{
+    @page {
+      size: A4; /* DIN A4 standard, Europe */
+      margin:0;
+    }
+    html, body {
+        width: 210mm;
+        /* height: 297mm; */
+        height: 282mm;
+        font-size: 11px;
+        background: #FFF;
+        overflow:visible;
+    }
+    body {
+        padding-top:15mm;
+    }
+}
+@media screen and (min-width:260px) and (max-width:760px){
+.hasDatepicker{width: 100% !important;
+
+max-width: 100%;
+
+background: #f6fcfc;
+
+height: 35px;
+
+box-shadow: 0px 0px 2px rgba(0,0,0,0.3);
+
+border: 0px;
+
+float: left;
+margin:10px auto;}	
+}
+
+	table{border-collapse: separate;
+   }
+	.table td, .table th {
+    padding: .75rem;
+    vertical-align: inherit;
+    border-top: 1px solid #dee2e6;
+}
+	th{font-style: normal;
+text-align: left;
+display: table-cell;
+vertical-align: inherit;
+font-weight: bold;}
+	td{text-align: left;
+display: table-cell;
+vertical-align: inherit;
+font-weight: 200;
+font-style: normal;}
+	</style>
+	<?php  
+	$orderdate='';
+ if(isset($_POST))
+ {
+	 $orderdate   = $_POST['datepicker'];
+ }
+	 ?>
+
+
+
+<!-- Main Container -->
+
+       
+  
+<!-- Main Container Ends -->
+
+
+
+
+	 <div class="container"> 
+<form method="POST" action="<?php echo Mage::getBaseUrl();?>heal/index/mealdetails" style="margin-bottom: 20px;">
+<div class="loader" style="display: none;"></div>
+<table width="800" style="border:0px; margin: auto;width: 100%;" border="1" align="center" style="padding-left: 20px;padding-top:10px;margin: 25px;margin-right: 50px" class="noprint">
+  <tbody>
+    <tr >
+     
+     <td style="margin:3px"> <p style="margin-bottom: 0px;float: left;width: 100%;padding: 5px;">
+      <span style="width:auto;float: left;height: 35px;line-height: 35px;margin:10px auto;">Order Date:</span>
+      <input type="text" id="datepicker" name="datepicker" value="<?php echo $orderdate;?>">
+      <input type="submit" name="submit" value="Get Meal Details"  style="margin: 10px auto;padding: 0px 10px;background: #c31f41;border: 1px solid #a61d3f;color: #fff;font-size: 14px;height: 35px;width:auto;line-height: 35px;float: left;"> </button></p></td>
+	  
+    </tr>
+   
+   
+   
+  </tbody>
+</table>
+</form>
+<?php 
+ if(isset($_POST['submit']))
+ {
+	 $orderdate   = $_POST['datepicker'];
+     $dateInfo    = explode("/",$orderdate);
+       
+       $tmpOrderdateToShow = $dateInfo[2]."-".$dateInfo[0]."-".$dateInfo[1];
+       $month = date("M",strtotime($tmpOrderdateToShow));
+       $orderdateToShow = $dateInfo[1]."-".$month."-".$dateInfo[2];
+	 ?>
+  <!-- Hero Section -->
+  <section class="" id="hero">
+    <h2 class="hero_header">Meal Details Of <?php echo $orderdateToShow;?></h2>
+	  <div class="table-responsive">
+   <table width="100%" border="1" class="table">
+  <tbody>
+    <tr>
+      <th scope="col">S.No</th>
+      <th scope="col" style="width:20%;">Item Name</th>
+      <th scope="col">Qty(gm)</th>
+      <th scope="col">Dinner</th>
+      <th scope="col">Breakfast</th>
+      <th scope="col">Lunch</th>
+      <th scope="col">Hi-Tea</th>
+      <th scope="col">Time</th>
+      <th scope="col">Testing</th>
+      <th scope="col">Stored</th>
+    </tr>
+   
+	 <?php
+	   
+       
+       
+       $dbRead      = Mage::getSingleton('core/resource')->getConnection('core_read');
+       
+       $QueryGetItems = "select distinct(hid.productid) as itemid from healitemdetails hid join healorder ho on hid.orderid=ho.id and  ho.orderdate= '$orderdate'";
+       $itemResult = $dbRead->fetchAll($QueryGetItems);
+       
+       
+       $selectDatewiseOrders= "select * from healorder where status =0 and orderdate='$orderdate'";
+       $cuisineResult = $dbRead->fetchAll($selectDatewiseOrders);
+       
+       $orderResult = '';
+       $result = '';
+       
+      
+       
+       $dinnerItemsArray = array();
+       $breakfastItemsArray = array();
+       $linchItemsArray = array();
+       $highteaItemsArray = array();
+       
+       $finalMealInfo = array();
+       
+       if(count($itemResult)>0)
+       {
+		   $mealItemInfo = array();
+		   
+		   $mealItemCount=0;
+		   $finalProductName ='';
+		   
+		   $countItemRecords=0;
+        foreach($itemResult as $itemInfo)
+        {
+			$dinnerOrderItemsArray 		= array();
+			$breakfastOrderItemsArray   = array();
+			$lunchOrderItemsArray       = array();
+			$highteaOrderItemsArray     = array(); 	
+			
+			$finalQty =0;
+			++$countItemRecords;
+         if(count($cuisineResult)>0)
+         {
+            $mealItemInfo['itemId']=$itemInfo['itemid'];
+			
+			 $itemid = $itemInfo['itemid'];
+             $breakfastInfo = array();
+             $lunchInfo = array();
+             $dinnerInfo = array();
+             $highteaInfo = array();
+			 
+			 $cuisineItemsDesc = array();
+            
+			
+           foreach($cuisineResult as $row)
+           {
+               $orderId               =     $row['id'];
+               $dinner_items_desc     = 	$row['dinner_items_desc'];    $cuisineItemsDesc['dinner'] = $dinner_items_desc;
+               $breakfast_items_desc  = 	$row['breakfast_items_desc']; $cuisineItemsDesc['breakfast'] = $breakfast_items_desc;
+               $lunch_items_desc      = 	$row['lunch_items_desc'];     $cuisineItemsDesc['lunch'] = $lunch_items_desc;
+               $hightea_items_desc    = 	$row['hightea_items_desc'];	  $cuisineItemsDesc['hightea'] = $hightea_items_desc;
+               
+               $customerEmail = $row['email'];
+               
+               $customer='';
+               $customer = Mage::getModel("customer/customer");
+               $customer->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
+               $customer->loadByEmail($customerEmail);
+               $customerName = 	$customer->getFirstname();
+               
+               foreach($cuisineItemsDesc as $cuisine=>$itemDesc)
+               {
+				 $orderItemsArray = array();
+				 $cuisineDescItems = explode(",",$itemDesc);
+				  
+				 if(count($cuisineDescItems)>0)
+				 {	 
+				   foreach($cuisineDescItems as $singleItem)
+					{
+					  $singleItemInfo = explode("_",$singleItem);
+					
+					  if($singleItemInfo[1]==$itemid)
+					  {       
+						    //echo "<br>start<br>";
+						   //echo "<br>-------------$itemid---$orderId-------<br>"; 
+							
+						//echo "<pre>";  print_r($singleItemInfo);
+					    $productid = $singleItemInfo[1]; 
+
+					    $QgetOrderItemsDetails = "select * from  healitemdetails where orderid='$orderId' and cuisine='$cuisine' and productid='$productid'" ;
+					
+					    $orderItems = $dbRead->fetchAll($QgetOrderItemsDetails) ;
+					    if(count($orderItems) >0)
+					    {
+                          $countQtyOfCuisineItem =0; 
+						  foreach($orderItems as $orderdetailitem)
+						  {
+							  
+							  $itemId   =  trim($orderdetailitem['productid']);
+							  $qty      =  trim($orderdetailitem['qty']);
+							  $mealItemInfo['itemName'] =  trim($orderdetailitem['itemname']);
+							
+							  $productIdValue = array();
+							  
+							  if($cuisine=='dinner')
+							  {     
+								  
+									if(!array_key_exists($qty,$dinnerOrderItemsArray) ) 
+									{
+									   
+									   $dinnerOrderItemsArray[$qty] = 1;
+									   $finalQty+=$qty;
+									}
+									else 
+									{  
+										if(array_key_exists($qty,$dinnerOrderItemsArray) )
+										{  
+									
+									
+											$alreadyCountedQty                     = $dinnerOrderItemsArray[$qty];
+
+										    $newQtyCount                           = $alreadyCountedQty + 1;
+										    $dinnerOrderItemsArray[$qty]  = $newQtyCount;
+											$finalQty+=$qty;
+									    }
+										else
+										{
+										  $dinnerOrderItemsArray[$qty] = 1;
+										  $finalQty+=$qty;
+										}
+										
+
+									}
+									//print_r($dinnerOrderItemsArray); 
+									//echo $finalQty;  //die;
+							  }
+							  
+							
+							 if($cuisine=='breakfast')
+							  {
+									if(!array_key_exists($qty,$breakfastOrderItemsArray) ) 
+									{
+									   
+									   $breakfastOrderItemsArray[$qty] = 1;
+									   $finalQty+=$qty;
+									}
+									else 
+									{
+										if(array_key_exists($qty,$breakfastOrderItemsArray) )
+										{
+										    $alreadyCountedQty       = $breakfastOrderItemsArray[$qty];
+										    $newQtyCount         = $alreadyCountedQty + 1;
+										    $breakfastOrderItemsArray[$qty]  = $newQtyCount;
+											 $finalQty+=$qty;
+										}
+										else
+										{
+										  $breakfastOrderItemsArray[$qty] = 1;
+										  $finalQty+=$qty;
+										}
+										
+
+									}
+							  }
+							
+							  if($cuisine=='lunch')
+							  {
+									if(!array_key_exists($qty,$lunchOrderItemsArray) ) 
+									{
+									   
+									   $lunchOrderItemsArray[$qty] = 1;
+									   $finalQty+=$qty;
+									}
+									else 
+									{
+										if(array_key_exists($qty,$lunchOrderItemsArray) )
+										{
+										    $alreadyCountedQty                    = $lunchOrderItemsArray[$qty];
+										    $newQtyCount                          = $alreadyCountedQty + 1;
+										    $lunchOrderItemsArray[$qty]  = $newQtyCount;
+											$finalQty+=$qty;
+										}
+										else
+										{
+										   $lunchOrderItemsArray[$qty] = 1;
+										   $finalQty+=$qty;
+										}
+										
+
+									}
+							  }
+							 
+							 if($cuisine=='hightea')
+							  {
+									if(!array_key_exists($qty,$highteaOrderItemsArray) ) 
+									{
+									   
+									   $highteaOrderItemsArray[$qty] = 1;
+									   $finalQty+=$qty;
+									}
+									else 
+									{
+										if(array_key_exists($qty,$highteaOrderItemsArray) )
+										{
+										    $alreadyCountedQty                    = $highteaOrderItemsArray[$qty];
+										    $newQtyCount                          = $alreadyCountedQty + 1;
+										    $highteaOrderItemsArray[$qty]  = $newQtyCount;
+											$finalQty+=$qty;
+										}
+										else
+										{
+										   $highteaOrderItemsArray[$qty] = 1;
+										   $finalQty+=$qty;
+										}
+										
+
+									}
+							  }
+							  
+							 
+
+						  }
+						  
+
+					    }
+					 
+					}
+				}
+			}
+				
+			 
+               }
+               
+           }
+         }  
+		 $product=Mage::getModel("catalog/product")->load($mealItemInfo['itemid']);
+		 $mealItemInfo['finalQty'] = $finalQty;
+		
+			 $mealItemInfo['dinnerArray'] = $dinnerOrderItemsArray;
+			 $mealItemInfo['breakfastArray'] = $breakfastOrderItemsArray;
+			 $mealItemInfo['lunchArray'] = $lunchOrderItemsArray;
+			 $mealItemInfo['highteaArray'] = $highteaOrderItemsArray;	
+			 
+			 ksort($mealItemInfo['dinnerArray']);
+			 ksort($mealItemInfo['breakfastArray']);
+			 ksort($mealItemInfo['lunchArray']);
+			 ksort($mealItemInfo['highteaArray']);
+			 ?>
+		  <tr>
+      <td><?php echo $countItemRecords;?></td>
+      <td style="width:20%;"><?php echo $mealItemInfo['itemName'];?></td>
+      <td><?php echo $mealItemInfo['finalQty'];?> gm</td>
+      <td style="valign:top" ><?php if(count($mealItemInfo['dinnerArray'])>0){
+		            foreach($mealItemInfo['dinnerArray'] as $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+       <td style="valign:top"><?php if(count($mealItemInfo['breakfastArray'])>0){
+		            foreach($mealItemInfo['breakfastArray'] as  $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+       <td style="valign:top"><?php if(count($mealItemInfo['lunchArray'])>0){
+		            foreach($mealItemInfo['lunchArray'] as  $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+       <td style="valign:top"><?php if(count($mealItemInfo['highteaArray'])>0){
+		            foreach($mealItemInfo['highteaArray'] as  $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+		<td> </td>
+        <td> </td> 
+        <td> </td> 
+
+    </tr>
+		<?php    
+
+            // echo "<pre>"; print_r($mealItemInfo); echo "<hr>";	//die;	 
+       }
+	 	
+     }
+	 ?>
+	   </tbody>
+      </table>
+	 </div>
+	  
+	 <div class="noprint" style="text-align:right;"><input type="button" onclick="javascript:print()" style="margin: 10px auto;padding: 0px 10px;background: #c31f41;border: 1px solid #a61d3f;color: #fff;font-size: 14px;height: 35px;width:auto;line-height: 35px;float: none;margin:auto;" value="Print" /></div>
+  </section>
+</div>
+ <?php 
+ }
+?>
+
+

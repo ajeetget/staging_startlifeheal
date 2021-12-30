@@ -1,0 +1,777 @@
+<style>
+h2{text-align: center;
+font-size: 36px;
+color:#269a9b !important;
+margin: 40px auto;}
+	.weightlossbanner{margin:40px auto;}
+
+.button {
+background-color:#269a9b;
+border: none;
+	color:#fff !important;
+padding: 10px 40px;
+text-align: center;
+font-size: 18px;
+border-top-left-radius: 10px;
+border-top-right-radius: 10px;
+box-shadow: 0 2px 10px rgba(0, 0, 0, .4);
+text-transform: uppercase;
+}</style>
+<div class="container">
+	<div class="weightlossbanner">
+	<img src="<?php echo $this->getSkinUrl('images/weight-loss.jpg') ?>" 
+		 </div> 
+		
+<h2 style="border-bottom:  1px solid #999;padding-bottom:  20px;">PLANS</h2>
+
+<div class="columns weightlossprogram">
+  <ul class="price">
+    <li class="header">WEIGHT LOSS</li>
+    <li class="grey">Estimate 2 kgs for every 10 Days On Full Plan* </li> <hr> 
+    <li class="planame">Name Of Plans</li>
+<span style="height:90px;display: block;">
+    <?php $weightloss =59;
+  $weightlosscollection = Mage::getModel('catalog/category')->load($weightloss)
+    ->getProductCollection()
+    ->addAttributeToSelect('*') // add all attributes - optional
+    ->addAttributeToFilter('status', 1) // enabled
+    //->addAttributeToFilter('visibility', 4) //visibility in catalog,search
+    ->setOrder('price', 'ASC'); 
+?>
+
+<?php $i=1; foreach ($weightlosscollection as $key => $value) { ?>
+  <li><?php echo $value->getName(); ?>
+   <!-- Modal -->
+<?php if($i==1) { ?>
+  <span id="hm">  
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+   viewBox="0 0 496.158 496.158" style="enable-background:new 0 0 496.158 496.158;width:16px; height:16px;" xml:space="preserve">
+<path style="fill: orange;" d="M496.158,248.085c0-137.022-111.069-248.082-248.075-248.082C111.07,0.003,0,111.063,0,248.085
+  c0,137.001,111.07,248.07,248.083,248.07C385.089,496.155,496.158,385.086,496.158,248.085z"/>
+<g>
+  <path style="fill:#FFFFFF;" d="M315.249,359.555c-1.387-2.032-4.048-2.755-6.27-1.702c-24.582,11.637-52.482,23.94-57.958,25.015
+    c-0.138-0.123-0.357-0.348-0.644-0.737c-0.742-1.005-1.103-2.318-1.103-4.015c0-13.905,10.495-56.205,31.192-125.719
+    c17.451-58.406,19.469-70.499,19.469-74.514c0-6.198-2.373-11.435-6.865-15.146c-4.267-3.519-10.229-5.302-17.719-5.302
+    c-12.459,0-26.899,4.73-44.146,14.461c-16.713,9.433-35.352,25.41-55.396,47.487c-1.569,1.729-1.733,4.314-0.395,6.228
+    c1.34,1.915,3.825,2.644,5.986,1.764c7.037-2.872,42.402-17.359,47.557-20.597c4.221-2.646,7.875-3.989,10.861-3.989
+    c0.107,0,0.199,0.004,0.276,0.01c0.036,0.198,0.07,0.5,0.07,0.933c0,3.047-0.627,6.654-1.856,10.703
+    c-30.136,97.641-44.785,157.498-44.785,182.994c0,8.998,2.501,16.242,7.432,21.528c5.025,5.393,11.803,8.127,20.146,8.127
+    c8.891,0,19.712-3.714,33.08-11.354c12.936-7.392,32.68-23.653,60.363-49.717C316.337,364.326,316.636,361.587,315.249,359.555z"/>
+  <path style="fill:#FFFFFF;" d="M314.282,76.672c-4.925-5.041-11.227-7.597-18.729-7.597c-9.34,0-17.475,3.691-24.176,10.971
+    c-6.594,7.16-9.938,15.946-9.938,26.113c0,8.033,2.463,14.69,7.32,19.785c4.922,5.172,11.139,7.794,18.476,7.794
+    c8.958,0,17.049-3.898,24.047-11.586c6.876-7.553,10.363-16.433,10.363-26.393C321.646,88.105,319.169,81.684,314.282,76.672z"/>
+</g>
+</svg>
+  <div id="halfmeal" style="display:none;">
+	<!-- Modal -->
+  <div class="modalsvg" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div>
+        <div class="modal-body">
+			       <?php echo $value->getDescription(); ?>
+        </div>
+       
+      </div>
+      
+    </div>
+  </div>
+</div>
+<?php } else { ?>
+  <span id="fm">  
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+   viewBox="0 0 496.158 496.158" style="enable-background:new 0 0 496.158 496.158;width:16px; height:16px;" xml:space="preserve">
+<path style="fill: orange;" d="M496.158,248.085c0-137.022-111.069-248.082-248.075-248.082C111.07,0.003,0,111.063,0,248.085
+  c0,137.001,111.07,248.07,248.083,248.07C385.089,496.155,496.158,385.086,496.158,248.085z"/>
+<g>
+  <path style="fill:#FFFFFF;" d="M315.249,359.555c-1.387-2.032-4.048-2.755-6.27-1.702c-24.582,11.637-52.482,23.94-57.958,25.015
+    c-0.138-0.123-0.357-0.348-0.644-0.737c-0.742-1.005-1.103-2.318-1.103-4.015c0-13.905,10.495-56.205,31.192-125.719
+    c17.451-58.406,19.469-70.499,19.469-74.514c0-6.198-2.373-11.435-6.865-15.146c-4.267-3.519-10.229-5.302-17.719-5.302
+    c-12.459,0-26.899,4.73-44.146,14.461c-16.713,9.433-35.352,25.41-55.396,47.487c-1.569,1.729-1.733,4.314-0.395,6.228
+    c1.34,1.915,3.825,2.644,5.986,1.764c7.037-2.872,42.402-17.359,47.557-20.597c4.221-2.646,7.875-3.989,10.861-3.989
+    c0.107,0,0.199,0.004,0.276,0.01c0.036,0.198,0.07,0.5,0.07,0.933c0,3.047-0.627,6.654-1.856,10.703
+    c-30.136,97.641-44.785,157.498-44.785,182.994c0,8.998,2.501,16.242,7.432,21.528c5.025,5.393,11.803,8.127,20.146,8.127
+    c8.891,0,19.712-3.714,33.08-11.354c12.936-7.392,32.68-23.653,60.363-49.717C316.337,364.326,316.636,361.587,315.249,359.555z"/>
+  <path style="fill:#FFFFFF;" d="M314.282,76.672c-4.925-5.041-11.227-7.597-18.729-7.597c-9.34,0-17.475,3.691-24.176,10.971
+    c-6.594,7.16-9.938,15.946-9.938,26.113c0,8.033,2.463,14.69,7.32,19.785c4.922,5.172,11.139,7.794,18.476,7.794
+    c8.958,0,17.049-3.898,24.047-11.586c6.876-7.553,10.363-16.433,10.363-26.393C321.646,88.105,319.169,81.684,314.282,76.672z"/>
+</g>
+</svg>
+<div id="fullmeal" style="display:none;">
+  <!-- Modal -->
+  <div class="modalsvg" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div>
+        <div class="modal-body">
+             <?php echo $value->getDescription(); ?>
+        </div>
+       
+      </div>
+      
+    </div>
+  </div>
+</div>
+<?php } ?>		
+  
+		 <!-- Modal -->
+</span>
+<label class="containercheckbox"> 
+	
+  <?php echo number_format($value->getSpecialPrice()); ?> per day<input <?php if($i ==1){ echo "checked";   } $i++; ?> type="radio" entityId="<?php echo $value->getId();?>" name="weightradio" price="<?php echo $value->getSpecialPrice();?>" value="<?php echo $value->getId() ?>">
+  <span class="checkmark"></span>
+</label>
+	
+</li>
+<?php } ?>
+	 
+	  </span> <hr>
+	 <span class="mealperarea">
+	  <li style="width: 100%;float: left;"><span style="float: left;">Days</span>
+		  <div class="weightloss-select" style="float: left;margin-left:10px;">
+                  <select class="weightloss-day-select select-selected">
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+    <option value="11">11</option>
+    <option value="12">12</option>
+    <option value="13">13</option>
+    <option value="14">14</option>
+    <option value="15">15</option>
+    <option value="16">16</option>
+    <option value="17">17</option>
+    <option value="18">18</option>
+    <option value="19">6</option>
+    <option value="20">19</option>
+    <option value="21">21</option>
+    <option value="22">22</option>
+    <option value="23">23</option>
+    <option value="24">24</option>
+    <option value="25">25</option>
+    <option value="26">26</option>
+    <option value="27">27</option>
+    <option value="28">28</option>
+    <option value="29">29</option>
+    <option value="30">30</option>
+  </select>
+</div></li>
+	  </span>
+	  <hr>
+              <li class="planame" style="width:auto;">Total <input value="" readonly id="weightTotalId" type="text" style="color:#000;padding: 0px 0px;border: 0px solid #269a9b;cursor: pointer;user-select:none;background: #fff;box-shadow: none;width:  80px;max-width: 100%;text-align: center;font-weight: bold;font-size: 18px;"> </li>
+		<input type ="hidden" id="hidWeight" qty="" entityId="" totalprice="" />
+	 
+    <li style="padding: 0px !important;text-align: center;"><a  class="button weightlosssubmit">BUY</a></li>
+  </ul>
+	<small style="float:left; width:100%;font-weight: bold;padding: 10px;">* Individual Result May Vary</small>
+</div>
+
+<div class="columns stayfit">
+  <ul class="price">
+    <li class="header">STAY FIT</li>
+    <li class="grey">Help You Maintain Your weight </li><hr>
+   <li class="planame">Select Meal</li>
+	  <span style="height:90px;display: block;">
+    <li>Simple Meal		
+					<span id="sm">	
+						<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 496.158 496.158" style="enable-background:new 0 0 496.158 496.158;width:16px; height:16px;" xml:space="preserve">
+<path style="fill: orange;" d="M496.158,248.085c0-137.022-111.069-248.082-248.075-248.082C111.07,0.003,0,111.063,0,248.085
+	c0,137.001,111.07,248.07,248.083,248.07C385.089,496.155,496.158,385.086,496.158,248.085z"/>
+<g>
+	<path style="fill:#FFFFFF;" d="M315.249,359.555c-1.387-2.032-4.048-2.755-6.27-1.702c-24.582,11.637-52.482,23.94-57.958,25.015
+		c-0.138-0.123-0.357-0.348-0.644-0.737c-0.742-1.005-1.103-2.318-1.103-4.015c0-13.905,10.495-56.205,31.192-125.719
+		c17.451-58.406,19.469-70.499,19.469-74.514c0-6.198-2.373-11.435-6.865-15.146c-4.267-3.519-10.229-5.302-17.719-5.302
+		c-12.459,0-26.899,4.73-44.146,14.461c-16.713,9.433-35.352,25.41-55.396,47.487c-1.569,1.729-1.733,4.314-0.395,6.228
+		c1.34,1.915,3.825,2.644,5.986,1.764c7.037-2.872,42.402-17.359,47.557-20.597c4.221-2.646,7.875-3.989,10.861-3.989
+		c0.107,0,0.199,0.004,0.276,0.01c0.036,0.198,0.07,0.5,0.07,0.933c0,3.047-0.627,6.654-1.856,10.703
+		c-30.136,97.641-44.785,157.498-44.785,182.994c0,8.998,2.501,16.242,7.432,21.528c5.025,5.393,11.803,8.127,20.146,8.127
+		c8.891,0,19.712-3.714,33.08-11.354c12.936-7.392,32.68-23.DIABETES653,60.363-49.717C316.337,364.326,316.636,361.587,315.249,359.555z"/>
+	<path style="fill:#FFFFFF;" d="M314.282,76.672c-4.925-5.041-11.227-7.597-18.729-7.597c-9.34,0-17.475,3.691-24.176,10.971
+		c-6.594,7.16-9.938,15.946-9.938,26.113c0,8.033,2.463,14.69,7.32,19.785c4.922,5.172,11.139,7.794,18.476,7.794
+		c8.958,0,17.049-3.898,24.047-11.586c6.876-7.553,10.363-16.433,10.363-26.393C321.646,88.105,319.169,81.684,314.282,76.672z"/>
+</g>
+
+</svg>
+				
+   <!-- Modal -->
+<div id="SimpleMeal" style="display:none;">
+	<!-- Modal -->
+  <div class="modalsvg" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div>
+        <div class="modal-body">
+			<ul>
+          <li>Soup and Salad Combo</li>
+			<span style="text-align: center;width: 100%;float: left;">Or</span>
+			<li>2 Subji with Roti/Rice Combo</li>
+			</ul>
+        </div>
+       
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+		
+  
+		 <!-- Modal -->
+</span> 
+		<label class="containercheckbox"> 
+			
+	
+
+ Rs 250/- <input type="radio" value="stayfit1" name="stayfit" checked="checked">
+  <span class="checkmark"></span>
+</label>
+	</li>
+    <li>Deluxe Meal
+		
+				
+		<span id="dm">	
+						<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 496.158 496.158" style="enable-background:new 0 0 496.158 496.158;width:16px; height:16px;" xml:space="preserve">
+<path style="fill: orange;" d="M496.158,248.085c0-137.022-111.069-248.082-248.075-248.082C111.07,0.003,0,111.063,0,248.085
+	c0,137.001,111.07,248.07,248.083,248.07C385.089,496.155,496.158,385.086,496.158,248.085z"/>
+<g>
+	<path style="fill:#FFFFFF;" d="M315.249,359.555c-1.387-2.032-4.048-2.755-6.27-1.702c-24.582,11.637-52.482,23.94-57.958,25.015
+		c-0.138-0.123-0.357-0.348-0.644-0.737c-0.742-1.005-1.103-2.318-1.103-4.015c0-13.905,10.495-56.205,31.192-125.719
+		c17.451-58.406,19.469-70.499,19.469-74.514c0-6.198-2.373-11.435-6.865-15.146c-4.267-3.519-10.229-5.302-17.719-5.302
+		c-12.459,0-26.899,4.73-44.146,14.461c-16.713,9.433-35.352,25.41-55.396,47.487c-1.569,1.729-1.733,4.314-0.395,6.228
+		c1.34,1.915,3.825,2.644,5.986,1.764c7.037-2.872,42.402-17.359,47.557-20.597c4.221-2.646,7.875-3.989,10.861-3.989
+		c0.107,0,0.199,0.004,0.276,0.01c0.036,0.198,0.07,0.5,0.07,0.933c0,3.047-0.627,6.654-1.856,10.703
+		c-30.136,97.641-44.785,157.498-44.785,182.994c0,8.998,2.501,16.242,7.432,21.528c5.025,5.393,11.803,8.127,20.146,8.127
+		c8.891,0,19.712-3.714,33.08-11.354c12.936-7.392,32.68-23.653,60.363-49.717C316.337,364.326,316.636,361.587,315.249,359.555z"/>
+	<path style="fill:#FFFFFF;" d="M314.282,76.672c-4.925-5.041-11.227-7.597-18.729-7.597c-9.34,0-17.475,3.691-24.176,10.971
+		c-6.594,7.16-9.938,15.946-9.938,26.113c0,8.033,2.463,14.69,7.32,19.785c4.922,5.172,11.139,7.794,18.476,7.794
+		c8.958,0,17.049-3.898,24.047-11.586c6.876-7.553,10.363-16.433,10.363-26.393C321.646,88.105,319.169,81.684,314.282,76.672z"/>
+</g>
+
+</svg>
+				
+  <!-- Modal -->
+<div id="DeluxeMeal" style="display:none;">
+	<!-- Modal -->
+  <div class="modalsvg" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div>
+        <div class="modal-body">
+          <ul>
+			  <li>Soup, Salad, Subjis, Roti/Rice</li>
+			</ul>
+        </div>
+       
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+		
+  
+		 <!-- Modal -->
+</span> 
+
+		<label class="containercheckbox">
+			
+ Rs 350/- <input type="radio"  name="stayfit" value="stayfit2">
+  <span class="checkmark"></span>
+</label>
+	
+	  </li>
+	   
+	  </span>
+	  <hr> 
+	  <span class="mealperarea">
+    <li  style="width: 100%;float: left;"><span style="float: left;">Select Meals</span> 
+		<div class="day-select" style="float: left;margin-left:10px;">
+  <select class="styfit-day-select select-selected">
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+    <option value="11">11</option>
+    <option value="12">12</option>
+    <option value="13">13</option>
+
+    <option value="14">14</option>
+    <option value="15">15</option>
+    <option value="16">16</option>
+    <option value="17">17</option>
+    <option value="18">18</option>
+    <option value="19">6</option>
+    <option value="20">19</option>
+    <option value="21">21</option>
+    <option value="22">22</option>
+    <option value="23">23</option>
+    <option value="24">24</option>
+    <option value="25">25</option>
+    <option value="26">26</option>
+    <option value="27">27</option>
+    <option value="28">28</option>
+    <option value="29">29</option>
+    <option value="30">30</option>
+  </select>
+</div></li>
+<?php $simplemealcat =57;
+  $simplemealcollection = Mage::getModel('catalog/category')->load($simplemealcat)
+    ->getProductCollection()
+    ->addAttributeToSelect('*') // add all attributes - optional
+    ->addAttributeToFilter('status', 1) // enabled
+    //->addAttributeToFilter('visibility', 4) //visibility in catalog,search
+    ->setOrder('price', 'ASC'); 
+?>
+	  <li class="simplemeal" style="width: 100%;float: left;"><span style="float: left;">Select Frequency</span> <div class="styfit-frequency-select" style="float: left;margin-left:10px;">
+  <select class="styfit-simple-frequency-select select-selected">
+    <?php foreach ($simplemealcollection as $key => $value) { ?>
+      <option value="<?php echo $value->getId(); ?>" data="<?php echo $value->getSpecialPrice(); ?>"><?php echo $value->getMealLabel(); ?></option>
+    <?php } ?>
+  </select>
+</div></li>
+<?php $deluxmealcat =58;
+  $deluxemealcollection = Mage::getModel('catalog/category')->load($deluxmealcat)
+    ->getProductCollection()
+    ->addAttributeToSelect('*') // add all attributes - optional
+    ->addAttributeToFilter('status', 1) // enabled
+    //->addAttributeToFilter('visibility', 4) //visibility in catalog,search
+    ->setOrder('price', 'ASC'); 
+?>
+	 
+<li class="deluxmeal" style="display: none;float: left;width: 100%;">
+	<span style="float: left;">Select Frequency </span>
+  <div class="frequency-select " style="float: left;margin-left:10px;">
+  <select class="styfit-delux-frequency-select  select-selected">
+    <?php foreach ($deluxemealcollection as $key => $value) { ?>
+      <option value="<?php echo $value->getId(); ?>" data="<?php echo $value->getSpecialPrice(); ?>"><?php echo $value->getMealLabel(); ?></option>
+    <?php } ?>
+  </select>
+</div></li>
+	  </span>
+	  <hr>
+	  <li class="planame" style="width:auto;">Total <input readonly class="stayfitfinalvalue" type="text" style="color:#000;padding: 0px 0px;border: 0px solid #269a9b;cursor: pointer;font-size: 18px;
+		  user-select:none;background: #fff;box-shadow: none;width:  80px;max-width: 100%;text-align: center;font-weight: bold;"></li>
+    <li style="padding: 0px !important;text-align: center;"><a class="button stayfitsubmit">Buy</a></li>
+  </ul>
+	
+</div>
+
+<div class="columns diabetes">
+  <ul class="price">
+    <li class="header">DIABETES</li>
+    <li class="grey">Insulin Dependent Diabetics Will Achieve 60% Insulin Reduction In First Week* </li> <hr> 
+    <li class="planame">Name Of Plans</li>
+	  <span style="height:90px;display: block;">
+    <?php $diabetes =60;
+  $diabetescollection = Mage::getModel('catalog/category')->load($diabetes)
+    ->getProductCollection()
+    ->addAttributeToSelect('*') // add all attributes - optional
+    ->addAttributeToFilter('status', 1) // enabled
+    //->addAttributeToFilter('visibility', 4) //visibility in catalog,search
+    ->setOrder('price', 'ASC'); 
+?>
+
+<?php $i=1; foreach ($diabetescollection as $key => $value) { ?>
+  <li><?php echo $value->getName(); ?>
+  <?php if($i ==1) { ?>
+ 	<span id="b1">  
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+   viewBox="0 0 496.158 496.158" style="enable-background:new 0 0 496.158 496.158;width:16px; height:16px;" xml:space="preserve">
+<path style="fill: orange;" d="M496.158,248.085c0-137.022-111.069-248.082-248.075-248.082C111.07,0.003,0,111.063,0,248.085
+  c0,137.001,111.07,248.07,248.083,248.07C385.089,496.155,496.158,385.086,496.158,248.085z"/>
+<g>
+  <path style="fill:#FFFFFF;" d="M315.249,359.555c-1.387-2.032-4.048-2.755-6.27-1.702c-24.582,11.637-52.482,23.94-57.958,25.015
+    c-0.138-0.123-0.357-0.348-0.644-0.737c-0.742-1.005-1.103-2.318-1.103-4.015c0-13.905,10.495-56.205,31.192-125.719
+    c17.451-58.406,19.469-70.499,19.469-74.514c0-6.198-2.373-11.435-6.865-15.146c-4.267-3.519-10.229-5.302-17.719-5.302
+    c-12.459,0-26.899,4.73-44.146,14.461c-16.713,9.433-35.352,25.41-55.396,47.487c-1.569,1.729-1.733,4.314-0.395,6.228
+    c1.34,1.915,3.825,2.644,5.986,1.764c7.037-2.872,42.402-17.359,47.557-20.597c4.221-2.646,7.875-3.989,10.861-3.989
+    c0.107,0,0.199,0.004,0.276,0.01c0.036,0.198,0.07,0.5,0.07,0.933c0,3.047-0.627,6.654-1.856,10.703
+    c-30.136,97.641-44.785,157.498-44.785,182.994c0,8.998,2.501,16.242,7.432,21.528c5.025,5.393,11.803,8.127,20.146,8.127
+    c8.891,0,19.712-3.714,33.08-11.354c12.936-7.392,32.68-23.653,60.363-49.717C316.337,364.326,316.636,361.587,315.249,359.555z"/>
+  <path style="fill:#FFFFFF;" d="M314.282,76.672c-4.925-5.041-11.227-7.597-18.729-7.597c-9.34,0-17.475,3.691-24.176,10.971
+    c-6.594,7.16-9.938,15.946-9.938,26.113c0,8.033,2.463,14.69,7.32,19.785c4.922,5.172,11.139,7.794,18.476,7.794
+    c8.958,0,17.049-3.898,24.047-11.586c6.876-7.553,10.363-16.433,10.363-26.393C321.646,88.105,319.169,81.684,314.282,76.672z"/>
+</g>
+</svg>
+  <!-- Modal -->
+<div id="id01" style="display:none;">
+	<!-- Modal -->
+  <div class="modalsvg" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div>
+        <div class="modal-body">
+			     <?php echo $value->getDescription(); ?>
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+</div><!-- Modal -->
+</span>
+<?php } else { ?>
+<span id="b2">  
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+   viewBox="0 0 496.158 496.158" style="enable-background:new 0 0 496.158 496.158;width:16px; height:16px;" xml:space="preserve">
+<path style="fill: orange;" d="M496.158,248.085c0-137.022-111.069-248.082-248.075-248.082C111.07,0.003,0,111.063,0,248.085
+  c0,137.001,111.07,248.07,248.083,248.07C385.089,496.155,496.158,385.086,496.158,248.085z"/>
+<g>
+  <path style="fill:#FFFFFF;" d="M315.249,359.555c-1.387-2.032-4.048-2.755-6.27-1.702c-24.582,11.637-52.482,23.94-57.958,25.015
+    c-0.138-0.123-0.357-0.348-0.644-0.737c-0.742-1.005-1.103-2.318-1.103-4.015c0-13.905,10.495-56.205,31.192-125.719
+    c17.451-58.406,19.469-70.499,19.469-74.514c0-6.198-2.373-11.435-6.865-15.146c-4.267-3.519-10.229-5.302-17.719-5.302
+    c-12.459,0-26.899,4.73-44.146,14.461c-16.713,9.433-35.352,25.41-55.396,47.487c-1.569,1.729-1.733,4.314-0.395,6.228
+    c1.34,1.915,3.825,2.644,5.986,1.764c7.037-2.872,42.402-17.359,47.557-20.597c4.221-2.646,7.875-3.989,10.861-3.989
+    c0.107,0,0.199,0.004,0.276,0.01c0.036,0.198,0.07,0.5,0.07,0.933c0,3.047-0.627,6.654-1.856,10.703
+    c-30.136,97.641-44.785,157.498-44.785,182.994c0,8.998,2.501,16.242,7.432,21.528c5.025,5.393,11.803,8.127,20.146,8.127
+    c8.891,0,19.712-3.714,33.08-11.354c12.936-7.392,32.68-23.653,60.363-49.717C316.337,364.326,316.636,361.587,315.249,359.555z"/>
+  <path style="fill:#FFFFFF;" d="M314.282,76.672c-4.925-5.041-11.227-7.597-18.729-7.597c-9.34,0-17.475,3.691-24.176,10.971
+    c-6.594,7.16-9.938,15.946-9.938,26.113c0,8.033,2.463,14.69,7.32,19.785c4.922,5.172,11.139,7.794,18.476,7.794
+    c8.958,0,17.049-3.898,24.047-11.586c6.876-7.553,10.363-16.433,10.363-26.393C321.646,88.105,319.169,81.684,314.282,76.672z"/>
+</g>
+</svg>
+  <!-- Modal -->
+<div id="id02" style="display:none;">
+  <!-- Modal -->
+  <div class="modalsvg" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div>
+        <div class="modal-body">
+           <?php echo $value->getDescription(); ?>
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+</div><!-- Modal -->
+</span>
+
+<?php }  ?>
+<label class="containercheckbox"> 
+
+	Rs
+  <?php echo number_format($value->getSpecialPrice()); ?>/- <input <?php if($i ==1){ echo "checked"; } $i++ ?> type="radio" name="radio" value="<?php echo $value->getId() ?>" price="<?php echo $value->getSpecialPrice() ?>">
+  <span class="checkmark"></span>
+</label>
+	 
+</li>
+<?php } ?>
+	
+	  </span> <hr style="border-color: white;"> 
+	
+	   <span class="mealperarea"></span>
+	  <hr>
+	  <li class="planame" style="width:auto;">Total <input class="diabetesTotal" readonly type="text" style="color:#000;padding: 0px 0px;border: 0px solid #269a9b;cursor: pointer;font-size: 18px;
+		  user-select:none;background: #fff;box-shadow: none;width:  80px;max-width: 100%;text-align: center;font-weight: bold;"></li>
+    <li style="padding: 0px !important;text-align: center;"><a class="button diabetessubmit">BUY</a></li>
+  </ul>
+		<small style="float:left; width:100%;font-weight: bold;padding: 10px;">* Individual Result May Vary</small>
+</div>
+
+</div>
+<script>
+jQuery(document).ready(function(){
+  jQuery("#b1").click(function(){
+    jQuery("#id01").toggle();
+  });
+	
+jQuery("#b2").click(function(){
+    jQuery("#id02").toggle();
+  });
+	
+  jQuery("#dm").click(function(){
+    jQuery("#DeluxeMeal").toggle();
+  });
+	
+	jQuery("#sm").click(function(){
+    jQuery("#SimpleMeal").toggle();
+  });
+	
+	jQuery("#hm").click(function(){
+    jQuery("#halfmeal").toggle();
+  });
+	jQuery("#fm").click(function(){
+    jQuery("#fullmeal").toggle();
+  });
+});
+</script>
+<script type="text/javascript">
+    
+    function checkCalculation(entityId,price,mealQtyId,TotalId,changetype)
+    { alert('2');
+       /* var qty ='';
+        var total='';
+        var entityId='';
+        
+        if(changetype=='radio')
+        {
+         qty = jQuery('#'+mealQtyId+' :selected').text();
+         total = parseInt(price) * parseInt(qty);
+        
+        }
+       else if(changetype=='selectbox') //qty change
+        {  
+               var weightradio = jQuery("input[name='weightradio']:checked");
+             var itemPrice = parseInt(weightradio.attr("price"));
+             alert("itemPrice"+itemPrice);
+           
+             entityId = weightradio.attr("entityId");
+             qty = jQuery('#mealQtyId :selected').text();
+             total = itemPrice * parseInt(jQuery('#mealQtyId :selected').text());
+             
+             alert("itemPrice"+itemPrice);
+              alert("entityId"+entityId);
+               alert("total"+total);
+             
+        }
+       /* jQuery("#"+TotalId).val(total);
+        jQuery("#hidWeight").attr("qty",qty);
+        jQuery("#hidWeight").attr("entityId",entityId);
+        jQuery("#hidWeight").attr("totalprice",total);*/
+       
+    }
+jQuery(document).ready(function(){
+
+var mealplanprice = 250;
+var productprice = 250;
+var productID = 1724;
+var qty = 3;
+ 
+var weightradio = jQuery("input[name='weightradio']:checked");
+
+var itemPrice = parseInt(weightradio.attr("price"));
+var totalPrice = itemPrice * parseInt(jQuery('#mealQtyId :selected').text());
+
+jQuery("#hidWeight").attr("qty",jQuery('#mealQtyId :selected').text());
+jQuery("#hidWeight").attr("entityId",weightradio.attr("entityId"));
+jQuery("#hidWeight").attr("totalprice", totalPrice ); 
+        
+        
+
+jQuery(".stayfit input:radio").change(function () {
+     if(jQuery('.stayfit input:radio:checked').val() == "stayfit1"){
+         mealplanprice = 250;
+         jQuery('.simplemeal').show();
+         jQuery('.deluxmeal').hide();
+         var productprice = jQuery('.styfit-simple-frequency-select option:selected').attr('data');
+     }if(jQuery('.stayfit input:radio:checked').val() == "stayfit2"){
+        mealplanprice = 350;
+        jQuery('.simplemeal').hide();
+        jQuery('.deluxmeal').show();
+        var productprice = jQuery('.styfit-delux-frequency-select option:selected').attr('data');
+     }
+     var qty = jQuery('.styfit-day-select').val();
+     jQuery(".stayfitfinalvalue").val(productprice*qty);
+});
+
+jQuery('.styfit-day-select').change(function(){ 
+    var qty = jQuery('.styfit-day-select').val();
+    if(jQuery('.stayfit input:radio:checked').val() == "stayfit1"){
+      var productprice = jQuery('.styfit-simple-frequency-select option:selected').attr('data');
+    }if(jQuery('.stayfit input:radio:checked').val() == "stayfit2"){
+      var productprice = jQuery('.styfit-delux-frequency-select option:selected').attr('data');
+    } 
+    jQuery(".stayfitfinalvalue").val(productprice*qty);
+});
+
+jQuery('.styfit-simple-frequency-select').change(function(){ 
+    var productID = jQuery('.styfit-simple-frequency-select').val();
+    var productprice = jQuery('option:selected', this).attr('data');
+    var qty = jQuery('.styfit-day-select').val();
+    jQuery(".stayfitfinalvalue").val(productprice*qty);
+});
+
+jQuery('.styfit-delux-frequency-select').change(function(){ 
+    var productID = jQuery('.styfit-delux-frequency-select').val();
+    var productprice = jQuery('option:selected', this).attr('data');
+    var qty = jQuery('.styfit-day-select').val();
+    jQuery(".stayfitfinalvalue").val(productprice*qty);
+});
+
+jQuery(".stayfitfinalvalue").val(productprice*qty);
+
+jQuery(".stayfitsubmit").click(function(){
+    if(jQuery('.stayfit input:radio:checked').val() == "stayfit1"){
+      var productID = jQuery('.styfit-simple-frequency-select').val();
+    }if(jQuery('.stayfit input:radio:checked').val() == "stayfit2"){
+      var productID = jQuery('.styfit-delux-frequency-select').val();
+    }  
+    var qty = jQuery('.styfit-day-select').val();
+    var productdata = 'id='+productID+'&qty='+qty;
+    var url = "<?php echo Mage::getBaseUrl().'checkout/cart/custom?' ?>"+productdata;
+    //console.log(url);
+    window.location.href = url; 
+});
+
+
+});
+
+
+
+jQuery(".weightlossprogram input:radio").change(function () {
+     var qty = jQuery('.weightloss-day-select').val();
+    var itemPrice = parseInt(jQuery('.weightlossprogram input:radio:checked').attr("price"));
+     jQuery("#weightTotalId").val(itemPrice*qty);
+});
+jQuery('.weightloss-day-select').change(function(){ 
+    var qty = jQuery('.weightloss-day-select').val();
+    var itemPrice = parseInt(jQuery('.weightlossprogram input:radio:checked').attr("price"));
+    jQuery("#weightTotalId").val(itemPrice*qty);
+});
+
+var weightqty = jQuery('.weightloss-day-select').val();
+var weightitemPrice = parseInt(jQuery('.weightlossprogram input:radio:checked').attr("price"));
+console.log(weightqty);
+console.log(weightitemPrice);
+jQuery("#weightTotalId").val(weightitemPrice*weightqty);
+
+
+jQuery(".weightlosssubmit").click(function(){
+  var productID =jQuery('.weightlossprogram input:radio:checked').val();
+  var qty = jQuery('.weightloss-day-select').val();
+  var productdata = 'id='+productID+'&qty='+qty;
+  if (productID != null) {
+    var url = "<?php echo Mage::getBaseUrl().'checkout/cart/custom?' ?>"+productdata;
+    console.log(url);
+    window.location.href = url; 
+  }
+});
+
+
+jQuery(".diabetes input:radio").change(function () {
+    var itemPrice = parseInt(jQuery('.diabetes input:radio:checked').attr("price"));
+     jQuery(".diabetesTotal").val(itemPrice);
+});
+
+var itemPrice = parseInt(jQuery('.diabetes input:radio:checked').attr("price"));
+jQuery(".diabetesTotal").val(itemPrice);
+
+jQuery(".diabetessubmit").click(function(){
+  var productID =jQuery('.diabetes input:radio:checked').val();
+  //console.log(productID);
+  var qty = 1;// jQuery('.diabetes-day-select').val();
+  var productdata = 'id='+productID+'&qty='+qty;
+  if (productID != null) {
+    var url = "<?php echo Mage::getBaseUrl().'checkout/cart/custom?' ?>"+productdata;
+    console.log(url);
+    window.location.href = url; 
+  }
+});
+</script>
+
+<script>
+var x, i, j, selElmnt, a, b, c;
+/*look for any elements with the class "custom-select":*/
+x = document.getElementsByClassName("custom-select");
+for (i = 0; i < x.length; i++) {
+  selElmnt = x[i].getElementsByTagName("select")[0];
+  /*for each element, create a new DIV that will act as the selected item:*/
+  a = document.createElement("DIV");
+  a.setAttribute("class", "select-selected");
+  a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+  x[i].appendChild(a);
+  /*for each element, create a new DIV that will contain the option list:*/
+  b = document.createElement("DIV");
+  b.setAttribute("class", "select-items select-hide");
+  for (j = 1; j < selElmnt.length; j++) {
+    /*for each option in the original select element,
+    create a new DIV that will act as an option item:*/
+    c = document.createElement("DIV");
+    c.innerHTML = selElmnt.options[j].innerHTML;
+    c.addEventListener("click", function(e) {
+        /*when an item is clicked, update the original select box,
+        and the selected item:*/
+        var y, i, k, s, h;
+        s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+        h = this.parentNode.previousSibling;
+        for (i = 0; i < s.length; i++) {
+          if (s.options[i].innerHTML == this.innerHTML) {
+            s.selectedIndex = i;
+            h.innerHTML = this.innerHTML;
+            y = this.parentNode.getElementsByClassName("same-as-selected");
+            for (k = 0; k < y.length; k++) {
+              y[k].removeAttribute("class");
+            }
+            this.setAttribute("class", "same-as-selected");
+            break;
+          }
+        }
+        h.click();
+    });
+    b.appendChild(c);
+  }
+  x[i].appendChild(b);
+ a.addEventListener("click", function(e) {
+      /*when the select box is clicked, close any other select boxes,
+      and open/close the current select box:*/
+      e.stopPropagation();
+      closeAllSelect(this);
+      this.nextSibling.classList.toggle("select-hide");
+      this.classList.toggle("select-arrow-active");
+    });
+}
+function closeAllSelect(elmnt) {
+  /*a function that will close all select boxes in the document,
+  except the current select box:*/
+  var x, y, i, arrNo = [];
+  x = document.getElementsByClassName("select-items");
+  y = document.getElementsByClassName("select-selected");
+  for (i = 0; i < y.length; i++) {
+    if (elmnt == y[i]) {
+      arrNo.push(i)
+    } else {
+      y[i].classList.remove("select-arrow-active");
+    }
+  }
+  for (i = 0; i < x.length; i++) {
+    if (arrNo.indexOf(i)) {
+      x[i].classList.add("select-hide");
+    }
+  }
+}
+/*if the user clicks anywhere outside the select box,
+then close all select boxes:*/
+document.addEventListener("click", closeAllSelect);
+</script>

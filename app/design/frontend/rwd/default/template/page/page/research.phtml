@@ -1,0 +1,399 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl('');?>css/basic-page.css" /> 
+<script src="<?php echo $this->getSkinUrl();?>js/basic.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+.basic__article {
+    margin-bottom: 50px;
+    font-size: 16px;
+    line-height: 30px;
+    padding: 10px;
+	width:70%;
+}
+	p{font-size: 15px !important;
+line-height: 1.7 !important;}
+	p a{text-decoration: none;color: #2483DA;transition: all 0.15s ease-out;font-weight: bold;font-size: 18px;}
+	.accordion {
+		border-left: 3px solid #2483DA;
+  background-color: #eee;
+  color: #444;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+padding: 15px 15px;
+color:#2483DA;
+cursor: pointer;
+}
+
+.activepanel, .accordion:hover { color: #000;
+}
+a:active, a:hover {
+
+    outline: 0;
+    color: #000;
+
+}
+.accordion:after {
+  content: '\002B';
+  color: #2483DA;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.activepanel:after {
+  content: "\2212";
+}
+
+
+
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+@media screen and (min-width:260px) and (max-width:767px)
+{
+	.basic__article {
+    margin-bottom: 50px;
+    font-size: 16px;
+    line-height: 30px;
+    padding: 10px;
+	width:100%;
+}
+	}
+</style>
+
+<script>
+$(document).ready(function(){
+
+  // Add smooth scrolling to all links
+
+  $("a").on('click', function(event) {
+
+
+
+    // Make sure this.hash has a value before overriding default behavior
+
+    if (this.hash !== "") {
+
+      // Prevent default anchor click behavior
+
+      event.preventDefault();
+
+
+
+      // Store hash
+
+      var hash = this.hash;
+
+
+
+      // Using jQuery's animate() method to add smooth page scroll
+
+      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+
+      $('html, body').animate({
+
+        scrollTop: $(hash).offset().top
+
+      }, 800, function(){
+
+   
+
+        // Add hash (#) to URL when done scrolling (default click behavior)
+
+        window.location.hash = hash;
+
+      });
+
+    } // End if
+
+  });
+
+});
+
+</script>
+    <!-- basic -->
+            <div class="basic">
+
+                <!-- basic__article -->
+                <div class="basic__article article">
+				<h2>The Scientific Foundation of<br>Life Healing Food</h2>
+					<img src="<?php echo $this->getSkinUrl('');?>images/Research-Page-Baner.jpg" alt="researchbanner">
+					<h3 style="font-style:italic;color:#111;">Research Highlights</h3>
+					<p>Extensive research has proven various positive effects of nutrition. Diet affects us at a macro level such as plaque deposits to smaller levels such as in the veins. Diet can even affect gene expression with the power to turn on and off many genes found in the body. 
+</p>
+					<p>Learn more about how nutrition can affect multiple aspects of biology:</p>
+					<h3 id="TELOMERES" class="anchor accordion">Telomeres</h3>
+					
+<div id="TELOMERESpanel" style="display:none;">
+                    
+                    <p><img src="<?php echo $this->getSkinUrl('');?>images/telomeres.png" alt="telomeres" style="display: block;width: 85px;float: left;">Telomeres are the endcaps of our genetic strands. Think of it as the plastic ends of shoe laces.
+When these endcaps disappear with aging, cells that are born have less and less genetic code.
+New studies are showing that a plant based diet can reverse this degeneration and actually
+lengthen your Telomeres. If you want to be part of our scientific research study on Telomeres
+please email us here.</p>
+                   
+                   <p>“Lifestyle changes lengthen telomeres”<br> <a href="https://www.ornish.com/wp-content/uploads/Lancet_Lifestyle-changes-lengthen-telomeres.pdf" target="_blank"><span>Lancet Oncology (PDF)</span></a></p>
+					</div>
+                   <h3 id="GENE" class="anchor accordion">Gene Expression</h3>
+					<div id="GENEpanel" style="display:none;">
+                      <p><img src="<?php echo $this->getSkinUrl('');?>images/Gene-Expression.png" alt="Gene-Expression" style="display: block;width: 85px;float: left;">Whereas we all have roughly 24,000 genes, not all of them are ON. This is called gene
+expression. If your genes are a piano keyboard, your gene expression decides which keys get
+played.</p>
+                   <p>If your parents have diabetes it only gives you a 20% increase chance of having diabetes. The
+rest is your gene expression. The management of diet, stress and sleep affect your gene
+expression.</p>     
+					<p>A study published in <a href="https://www.pnas.org/"  target="_blank">Proceedings of the National Academy of Sciences</a>
+found that over 500 genes were affected by lifestyle changes. Certain disease preventing genes
+were turned on and disease causing genes were turned off, including oncogenes involved in
+cancer.</p>
+					
+					<p>“Changes in prostate gene expression in men undergoing an intensive nutrition and lifestyle
+						intervention.”<br>
+						<a href="https://www.ornish.com/wp-content/uploads/8369.full_.pdf" target="_blank">Proceedings of the National Academy of Sciences (PNAS): www.pnas.org (PDF)</a></p>
+					</div>
+					
+				
+                   <h3 id="HEART" class="anchor accordion">Heart Disease</h3>
+					<div id="HEARTpanel" style="display:none;">
+                  <p><img src="<?php echo $this->getSkinUrl('');?>images/Heart-Disease.png" alt="Heart-Disease" style="display: block;width: 85px;float: left;">The build up of plaque can be reversed through diet. US President Bill Clinton controlled his
+heart disease by going vegan under the guidance of Dr. Dean Ornish. Dr Ornish has shown in his
+path breaking research show how blockages disappear and blood flow increase through dietary
+intervention and today the Ornishway programs are covered by health insurance plans in USA.
+                  </p> 
+					<p>By reducing inflammation in the body and by providing heart protective ingredients such as
+nuts and seeds the Life Healing Food program delivers comprehensive nutrients that an
+
+increasing number of studies are proving as beneficial and effective at stopping, reducing and
+reversing coronary heart disease.</p>
+					
+					<p>
+						“Changes in Myocardial Perfusion Abnormalities by Positron Emission Tomography
+After Long-Term, Intense Risk Factor Modification”<br>
+<a href="https://www.ncbi.nlm.nih.gov/pubmed/?term=Ornish+D%2C+Gould+KL%2C+JAMA+1995" target="_blank">Journal of the American Medical Association (PDF)</a></p>
+						
+<p>“Can Lifestyle Changes Reverse Coronary Heart Disease?”<br>
+<a href="https://www.ornish.com/wp-content/uploads/can-lifestyle-changes-reverse-coronary-heart-disease.pdf" target="_blank">The Lancet (PDF)</a></p>
+  <p>“Effects of Stress Management Training &amp; Dietary Changes in Treating Ischemic Heart
+Disease”<br>
+<a href="https://www.ornish.com/wp-content/uploads/effects-of-stress-management-training.pdf" target="_blank">Journal of the American Medical Association (PDF)</a></p> 
+<p>“The Contribution of Changes in Diet, Exercise, and Stress Management in Coronary
+Risks in Women and Men in the Multisite Cardiac Lifestyle Intervention Program”<br>
+<a href="https://www.ornish.com/wp-content/uploads/contribution-changes-in-diet-exercise-stress.pdf" target="_blank">Annals of Behavioral Medicine (PDF)</a></p>
+<p>“Lifestyle Changes and Clinical Profile in Heart Disease Patients with an Ejection
+Fraction of ≤40% or ≥ 40% in the Multi-center Lifestyle Demonstration Project”<br>
+						<a href="https://www.ornish.com/wp-content/uploads/Lifestyle-changes-and-clinical-profile-in-coronary-heart-disease-patients.pdf" target="_blank">The European Journal of Heart Failure (PDF)</a></p>
+					<p>“Changes in Myocardial Perfusion Abnormalities by Positron Emission Tomography
+After Long-term, Intense Risk Factor Modification”<br>
+<a href="https://www.ornish.com/wp-content/uploads/4421.pdf" target="_blank">JAMA (PDF)</a></p>
+					</div>
+					 <h3 id="DIABETES" class="anchor accordion">Diabetes & Pre-Diabetes</h3>
+					<div id="DIABETESpanel" style="display:none;">
+					<p><img src="<?php echo $this->getSkinUrl('');?>images/DIABETES-&-PRE-DIABETES.png" alt="DIABETES-&-PRE-DIABETES" style="display: block;width: 85px;float: left;">Diabetes reversal has now been clinically proven in several studies including the DiRECT study and many more. We have ourselves reversed pre-diabetes and in advanced diabetics reduced medications within 2 days. </p>
+						
+<p>Like all diseases the sooner one starts, the better. At a pre-diabetes stage there almost a 100% chance of returning to a non-diabetic state, the longer one has been diabetic the harder it is the fully become non-diabetic. The goal in such cases is to stop injections, reduce medications and reduce possibilities of co-morbidities like renal failure and cardiovascular disease.</p>
+		
+					<p>“Primary care-led weight management for remission of type 2 diabetes (DiRECT)”<br>
+						<a href="https://www.thelancet.com/journals/lancet/article/PIIS0140-67361733102-1/fulltext"  target="_blank">The Lancet (PDF)</a></p>
+
+				
+<p>“A plant-based diet for the prevention and treatment of type 2 diabetes“<br>
+	<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5466941/"  target="_blank">Journal of Geriatric Cardiology</a></p>
+					</div>
+					<h3 id="WEIGHT" class="anchor accordion">Weight Loss</h3>
+					<div id="WEIGHTpanel" style="display:none;">
+					<p><img src="<?php echo $this->getSkinUrl('');?>images/WEIGHT-LOSS.png" alt="WEIGHT-LOSS" style="display: block;width: 85px;float: left;">We see incredible weight loss in all our clients simply through eating. Our current record is 10
+kgs in 30 days, without exercise. Though this varies significantly, first month weight loss is often
+between 4 and 6 kilograms. At present our maximum weight loss is 23 kilograms over 4 months.
+Please bear in mind that age, biology, genes, adherence to plan, all affect outcomes and our
+focus is primarily on internal health such as cholesterol, blood pressure, cellular aging, Hba1c
+						and more. Weight loss in our view should be a by-product of good health.</p>
+<p>New research is indicating that obesity increases the risk of chronic disease and cancer. Obesity leads to increased angiogenesis which can increase chances for cancer. We also often find compromised glycemic response in obese clients which means that, unfairly, they will put on more weight than others. New studies also indicate the microbiome of obese people are different than lean people and that the microbiome diversity plays a part in obesity.</p>
+
+
+					<p>“Improvement in medical risk factors and quality of life in women and men with
+	coronary artery disease in the Multi-center Lifestyle Demonstration Project”<br>
+						<a href="https://www.ornish.com/wp-content/uploads/improvement-in-medical-risk-factors-and-quality-of-life-in-women1.pdf"  target="_blank">American Journal of Cardiology (PDF)</a></p>
+
+					</div>
+					<h3 id="CHOLESTEROL" class="anchor accordion">Cholesterol</h3>
+					<div id="CHOLESTEROLpanel" style="display:none;">
+					<p><img src="<?php echo $this->getSkinUrl('');?>images/CHOLESTEROL.png" alt="CHOLESTEROL" style="display: block;width: 85px;float: left;">Studies show that Plant Based diets improve cholesterol, LDL cholesterol and triglycerides over
+a 12 week period. 60% of cardiac bypass surgeries are due to dyslipidemia and the Life Healing
+Food diet will significantly improve cholesterol levels.</p>
+					
+					<p>“The effectiveness and efficacy of an intensive cardiac rehabilitation program
+in 24 sites”<br>
+						<a href="https://www.ornish.com/wp-content/uploads/effectiveness-efficacy-of-an-intensive-cardiac1-2.pdf" target="_blank">“The effectiveness and 
+American Journal of Health Promotion (PDF)</a></p>
+					</div>
+					
+					<h3 id="BLOOD" class="anchor accordion">Blood Pressure</h3>
+						<div id="BLOODpanel" style="display:none;">
+					<p><img src="<?php echo $this->getSkinUrl('');?>images/BLOOD-PRESSURE.png" alt="BLOOD-PRESSURE" style="display: block;width: 85px;float: left;">Blood pressure improves and medications go down very routinely on the Life Healing Food
+program. The plant based diet improves everything in the body, least of all reducing weight.
+This automatically helps in blood pressure. People eating the diet for as little at 10 days have
+						reported the need to reduce medications.</p>
+
+<p>“The effectiveness and efficacy of an intensive cardiac rehabilitation program
+	in 24 sites”<br>
+	<a href="https://www.ornish.com/wp-content/uploads/effectiveness-efficacy-of-an-intensive-cardiac1-1.pdf" target="_blank">American Journal of Health Promotion (PDF)</a></p>
+					</div>
+					<h3 id="DEPRESSION" class="anchor accordion">Depression</h3>
+					<div id="DEPRESSIONpanel" style="display:none;">
+					<p><img src="<?php echo $this->getSkinUrl('');?>images/DEPRESSION.png" alt="DEPRESSION" style="display: block;width: 85px;float: left;">Depression is a huge problem today and people are not aware of dietary options. However in
+one study 73% of patients became non-depressed after only 12 weeks, with both men and
+women showing similar improvements.</p>
+					
+					<p>Serotonin is often called the Happiness Hormone. Whereas front-line anti-depressants like
+Prozac work to increase the serotonin in the brain most people don’t realize that 90% of
+serotonin is actually in the gut, where it is produced. Scientific studies have proven that low
+levels on serotonin in the gut also reduce serotonin levels in the brain. Currently no research
+has proven that increased serotonin production in the gut leads to increased serotonin in the
+brain. However many scientists feel that the connection will be proven soon and the connection
+is through the vagus nerve.</p>
+					<p>Serotonin is produced by the amino acid tryptophan and the Life Healing Food pro-biotic
+subscription ensures that tryptophan is delivered to the client. It is part of our years of research
+on food that these items are provided.</p>
+					
+					<p>“Lifestyle changes are related to reductions in depression in persons with
+						elevated coronary risk factors”<br>
+						<a href="https://www.ornish.com/wp-content/uploads/lifestyle-changes-related-to-reduction-in-depression-coronary-risk-factors.pdf" target="_blank">Psychology and Health (PDF)</a></p>
+					</div>
+				</div>
+
+      <!-- /basic__article -->
+                <aside class="basic__navigation">
+<a href="#" class="basic__navigation-current-item">On this page:</a>
+                    <div class="basic__navigation-wrap">
+                        <ul>
+                            <li><a href="#TELOMERES" class="basic__navigation-item active" id="TELOMERESbtn">Telomeres</a></li>
+                            <li><a href="#GENE" class="basic__navigation-item" id="GENEbtn">Gene Expression</a></li>
+                            <li><a href="#HEART" class="basic__navigation-item" id="HEARTbtn">Heart Disease</a></li>
+							<li><a href="#DIABETES" class="basic__navigation-item" id="DIABETESbtn">Diabetes & Pre-Diabetes</a></li>
+							<li><a href="#DIABETES" class="basic__navigation-item" id="WEIGHTbtn">Weight Loss</a></li>
+							<li><a href="#DIABETES" class="basic__navigation-item" id="CHOLESTEROLbtn">Cholesterol</a></li>
+							<li><a href="#DIABETES" class="basic__navigation-item" id="BLOODbtn">Blood Pressure</a></li>
+							<li><a href="#DIABETES" class="basic__navigation-item" id="DEPRESSIONbtn">Depression</a></li>
+                        </ul>
+                    </div>
+    
+</aside>
+</div>
+
+            <!-- /basic -->
+
+<script>
+	$(document).ready(function(){
+  $("#TELOMERESbtn").click(function(){
+   $("#TELOMERES").addClass("activepanel");
+ $("#TELOMERESpanel").show();
+  $(this).next().slideToggle(300);
+
+	  });
+		$("#TELOMERES").click(function(){
+  $("#TELOMERES").toggleClass("activepanel");
+	  $("#TELOMERESpanel").toggleClass("activepanel");
+  $(this).next().slideToggle(300);
+  });
+		
+		
+		$("#GENEbtn").click(function(){
+		$("#GENE").addClass("activepanel");
+ $("#GENEpanel").show();
+  $(this).next().slideToggle(300);
+
+	  });
+		$("#GENE").click(function(){
+   $("#GENE").toggleClass("activepanel");
+	  $("#GENEpanel").toggleClass("activepanel");
+  $(this).next().slideToggle(300);
+  });
+		
+		
+		
+		$("#HEARTbtn").click(function(){
+   $("#HEART").addClass("activepanel");
+ $("#HEARTpanel").show();
+  $(this).next().slideToggle(300);
+
+	  });
+		$("#HEART").click(function(){
+   $("#HEART").toggleClass("activepanel");
+	  $("#HEARTpanel").toggleClass("activepanel");
+  $(this).next().slideToggle(300);
+  });
+		
+		
+		
+		$("#DIABETESbtn").click(function(){
+      $("#DIABETES").addClass("activepanel");
+ $("#DIABETESpanel").show();
+  $(this).next().slideToggle(300);
+
+	  });
+		$("#DIABETES").click(function(){
+     $("#DIABETES").toggleClass("activepanel");
+	  $("#DIABETESpanel").toggleClass("activepanel");
+  $(this).next().slideToggle(300);
+  });
+		
+		$("#WEIGHTbtn").click(function(){
+    $("#WEIGHT").addClass("activepanel");
+ $("#WEIGHTpanel").show();
+  $(this).next().slideToggle(300);
+
+	  });
+		$("#WEIGHT").click(function(){
+ $("#WEIGHT").toggleClass("activepanel");
+	  $("#WEIGHTpanel").toggleClass("activepanel");
+  $(this).next().slideToggle(300);
+  });
+				
+		
+			
+		$("#CHOLESTEROLbtn").click(function(){
+ $("#CHOLESTEROL").addClass("activepanel");
+ $("#CHOLESTEROLpanel").show();
+  $(this).next().slideToggle(300);
+
+	  });
+		$("#CHOLESTEROL").click(function(){
+ $("#CHOLESTEROL").toggleClass("activepanel");
+	  $("#CHOLESTEROLpanel").toggleClass("activepanel");
+  $(this).next().slideToggle(300);
+  });
+		
+		$("#BLOODbtn").click(function(){
+    $("#BLOOD").addClass("activepanel");
+ $("#BLOODpanel").show();
+  $(this).next().slideToggle(300);
+	  });
+		$("#BLOOD").click(function(){
+ $("#BLOOD").toggleClass("activepanel");
+	  $("#BLOODpanel").toggleClass("activepanel");
+  $(this).next().slideToggle(300);
+  });
+		
+			
+		$("#DEPRESSIONbtn").click(function(){
+ $("#DEPRESSION").addClass("activepanel");
+ $("#DEPRESSIONpanel").show();
+  $(this).next().slideToggle(300);
+	  });
+		$("#DEPRESSION").click(function(){
+ $("#DEPRESSION").toggleClass("activepanel");
+	  $("#DEPRESSIONpanel").toggleClass("activepanel");
+  $(this).next().slideToggle(300);
+  });
+});
+	
+
+</script>

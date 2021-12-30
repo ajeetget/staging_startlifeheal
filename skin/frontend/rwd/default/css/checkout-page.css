@@ -1,0 +1,1444 @@
+#payPalButton img,
+#payPalCreditButton img {
+ padding:12px 23px;
+ border-radius:5px;
+ background:#eee;
+ text-align:center;
+ height:45px;
+ display:inline-block
+}
+#payPalCreditButton img {
+ background:#013087
+}
+#paypal-ship .text-medium #payPalCreditButton,
+#payPalButton {
+ padding-left:2px
+}
+#password input.password-strength.form-control:required:valid.valid {
+ background:0
+}
+input::-ms-clear,
+input::-ms-reveal {
+ display:none
+}
+.alert a:hover {
+ color:#eb4f12
+}
+.order-summary table,
+.progressbar span.mobile-number,
+.required,
+div.order-item-content {
+ font-family:'Open Sans',sans-serif
+}
+.site-header {
+ background-color:#f2f2f2;
+ max-height:50px
+}
+.checkout-nav ul {
+ margin:5px 0 0 65px
+}
+.checkout-nav li:after {
+ width:0
+}
+.main-navigation,
+.nav-upper {
+ background-color:#f2f2f2;
+ height:25px
+}
+.progressbar .material-icons.md-20 {
+ font-size:22px;
+ line-height:.8
+}
+.progressbar ul {
+ background-color:#f2f2f2;
+ text-align:center;
+ position:relative
+}
+.progressbar li:nth-child(1) {
+ margin-left:8px
+}
+.progressbar span.mobile-number {
+ position:relative;
+ color:#777;
+ z-index:1;
+ background-color:transparent
+}
+.progressbar span.mobile-number:after {
+width: 24px;
+height: 24px;
+content: ' ';
+line-height: 26px;
+border: 1px solid #777;
+display: block;
+text-align: center;
+margin: 14px auto 0px;
+border-radius: 50%;
+position: absolute;
+top: -14px;
+z-index: -1;
+}
+.progressbar .not-active.complete span.mobile-number:after {
+ border:0;
+ background-color:#f2f2f2;
+ left:2px
+}
+.progressbar ul:after {
+ width:67%;
+ height:2px;
+ content:'';
+ position:absolute;
+ background-color:#CCC;
+ top:14px;
+ left:14%;
+ z-index:0
+}
+.progressbar.chef-picks ul:after {
+ width:49%
+}
+.progressbar span.mobile-number:after {
+ background-color:#f2f2f2;
+ left:0
+}
+.progressbar span.mobile-number.active {
+ color:#fff;
+ background-color:transparent
+}
+.progressbar span.mobile-number.active:after {
+ background-color:#2695a6;
+ border-color:#2695a6;
+ left:0
+}
+.progressbar li {
+ padding-top:5px;
+ font-weight:500;
+ font-size:.75em;
+ width:23%
+}
+.checkout-nav .progressbar li.complete.not-active a,
+.progressbar li.active,
+.progressbar li.complete.not-active {
+ color:#2695a6
+}
+.checkout-nav li:not(:first-child).not-active .material-icons,
+.progressbar li.not-active,
+.req,
+.required {
+ color:#777
+}
+.checkout-nav :not(.lonely-lock) li:first-child {
+ display:inline-block
+}
+.checkout-nav li:not(:first-child) .material-icons {
+ font-size:22px;
+ line-height:.8;
+ bottom:0
+}
+.checkout-nav li:not(:first-child).not-active .material-icons,
+li.not-active.complete span.mobile-number {
+ color:#2695a6
+}
+#account {
+ margin-top:30px
+}
+.subheading {
+ margin-top:-22px;
+ margin-bottom:24px !important;
+}
+#sect4 {
+ margin-top:24px;
+ margin-bottom:40px
+}
+.headings {
+ margin-bottom:-6px;
+ font-weight:600
+}
+.benefit {
+margin-top: 0px;
+width: 100%;
+float: left;
+}
+.features-heart {
+ width:36.87px;
+ height:42.36px
+}
+.features-head {
+ width:29.13px;
+ height:42.36px;
+}
+.features-board {
+ width:28.25px;
+ height:42.36px;
+}
+#heart {
+ margin-right:2px
+}
+#heart .a {
+ fill:none;
+ stroke-width:1.2px
+}
+hr {
+ width:66px;
+ border:1px solid #707070
+}
+
+.futura hr {
+    margin: 20px auto;
+    float: none;
+}
+#mbg2 {
+ margin:0
+}
+.dividerlog {
+ width:100%;
+ border-top:3px solid #ccc;
+ margin-bottom: 26px !important;
+}
+.margin-bottom {
+ margin-bottom:40px
+}
+#google-pay-pane.tab-pane,
+#apple-pay-pane.tab-pane {
+ padding-top:19px;
+ text-align:center
+}
+#google-pay-pane img.gpay-image,
+#apple-pay-pane img {
+ margin-right:10px
+}
+#google-pay-pane span.gpay-copy,
+#apple-pay-pane span.applepay-copy {
+ padding-top:8px;
+ display:inline-block
+}
+#google-pay-button,
+#apple-pay-button {
+ text-align:center
+}
+.site-header {
+ top:0
+}
+.pay-tab>li>a {
+ padding:10px 0;
+ margin-right:15px
+}
+.order-update-copy {
+ font-size:.8125em;
+ display:block;
+ margin-bottom:6px
+}
+.order-update-copy.static-display {
+ margin-top:-6px
+}
+#shipping-address .phone-form-group,
+#shipping-address .shipping-form-group {
+ margin-bottom:0
+}
+#optin_sec2 {
+ display:block
+}
+.pw-form-group,
+#password,
+.password-rules {
+ position:relative
+}
+#password .meterWrap {
+ position:absolute;
+ bottom:44px;
+ right:0;
+ margin:0;
+ -webkit-appearance:none
+}
+p#password-strength-text {
+ position:absolute;
+ top:0;
+ right:22px;
+ margin-bottom:0;
+ font-weight:400
+}
+.password-rules.collapse.in,
+.password-rules.collapse {
+ margin-bottom:12px
+}
+.password-rules .arrow,
+.password-rules .arrow::after {
+ position:absolute;
+ display:block;
+ width:0;
+ height:0;
+ border-color:transparent;
+ border-bottom-color:transparent;
+ border-style:solid
+}
+.password-rules .arrow {
+ border-width:11px;
+ border-top-width:11px;
+ left:30%;
+ border-top-width:0;
+ border-bottom-color:#e6e6e6;
+ border-bottom-color:rgba(0,0,0,.25);
+ top:-10px;
+ z-index:1
+}
+.password-rules .arrow::after {
+ border-width:10px;
+ border-top-width:10px;
+ content:" ";
+ top:1px;
+ margin-left:-10px;
+ border-top-width:0;
+ border-bottom-color:#fff
+}
+#pswd-rules {
+ border:1px solid #e6e6e6;
+ border:1px solid rgba(0,0,0,.1);
+ -webkit-box-shadow:0 5px 10px rgba(0,0,0,.2);
+ box-shadow:0 5px 10px rgba(0,0,0,.2);
+ padding:10px 10px 10px 8px;
+ margin-bottom:0
+}
+.password-rules #pswd-rules ul {
+ padding-top:6px
+}
+.apple-pay-button-black-with-text img {
+ margin-top:4px
+}
+@media(min-width:360px) {
+ .progressbar ul {
+  left:0
+ }
+ .progressbar ul:after {
+  width:70%;
+  left:13%
+ }
+ .progressbar.chef-picks ul:after {
+  width:70%
+ }
+}
+@media(min-width:414px) {
+ .progressbar ul {
+  background-color:#f2f2f2;
+  height:49px
+ }
+ .progressbar ul:after {
+  left:10%
+ }
+ .progressbar li {
+  width:22%
+ }
+}
+@media(max-width:402px) {
+ .nodisplay {
+  display:none
+ }
+}
+.cart-item .inline-block {
+ vertical-align:baseline
+}
+.required {
+ font-size:.875em;
+ font-weight:300;
+ font-style:italic;
+ display:block;
+ top:-.8em;
+ position:relative
+}
+input::-ms-clear {
+ display:none
+}
+.cross-sell-product-name {
+ margin-top:-3px;
+ display:inline-block
+}
+.add-now {
+ margin-top:8px
+}
+#BeachPassAd.show-bg #membership-selected,
+.order-summary {
+ margin-bottom:10px
+}
+.cross-sell-box .panel-heading,
+.order-summary .panel-heading {
+ position:relative;
+ font-size:1.125em;
+ font-weight:700;
+ margin:15px 19px 0;
+ background:#fff;
+ border-bottom:3px solid #ccc;
+ padding:.25em;
+}
+.plan-table,
+div.order-item-content {
+ border-bottom:1px solid #ccc
+}
+.order-summary .panel-heading a {
+ font-weight:400;
+ font-size:.925em
+}
+.mbg {
+ background:#fff;
+ width:73px;
+ height:72px;
+ display:block;
+ top:-27px;
+ right:8px;
+ cursor:pointer;
+ border-radius:50%;
+ position:absolute
+}
+.panel-body {
+ padding:15px 19px 19px
+}
+.order-summary table,
+div.order-item-content {
+ font-size:15px
+}
+.order-summary table {
+ width:100%
+}
+.order-summary td {
+ padding:5px 0
+}
+.plan h3 {
+ margin:0;
+ color:#d3336c;
+ font-size:16px;
+ font-weight:500;
+ font-style:normal;
+ font-family:'open sans',sans-serif
+}
+.plan-promotion {
+ font-size:15px;
+ color:#2695a6;
+ margin:5px 0 0;
+ padding:0 0 12px
+}
+.plan-promotion p {
+ margin:0;
+ padding:0
+}
+.price {
+ text-align:right;
+ vertical-align:top
+}
+div.order-item-content {
+ padding:10px 60px 10px 0;
+ position:relative
+}
+.order-item-price {
+ font-size:14px;
+ text-align:right
+}
+span.order-item-price {
+ position:absolute;
+ top:10px;
+ right:0
+}
+.remove {
+ font-size:12px;
+ color:#777
+}
+.order-item-table td,
+.plan-table td {
+ padding:10px 0
+}
+.plan-table .plan td {
+ padding:0 0 3px;
+ border-bottom:0
+}
+.plan-table td.plan-promotion {
+ padding:0 0 10px
+}
+.order-totals-table tr:nth-last-child(2) td {
+ padding-bottom:10px
+}
+.order-savings-details:not(.cart-total-visible) {
+ padding-top:5px
+}
+.order-savings-details tr:last-child {
+ border-bottom:1px solid #ccc
+}
+.order-savings-details td {
+ color:#11bb6e
+}
+.order-savings-details .cart-total td {
+ padding-top:0;
+ color:#222
+}
+.order-totals-table .subtotal strong {
+ font-weight:400
+}
+.order-totals-table .totals {
+ border-top:1px solid #ccc;
+ font-weight:700
+}
+.order-totals-table .totals td {
+ padding:12px 0 0
+}
+.order-summary .panel-footer {
+ border-top:1px solid #ccc;
+ padding:15px 0;
+ text-align:center;
+ margin:0;
+ color:#2695a6;
+ background:0
+}
+.savings-details {
+ padding:0 15px;
+ position:relative;
+ border-top:1px solid #ccc;
+ background:#f2f2f2;
+ font-family:Open-Sans,sans-serif;
+ font-size:15px
+}
+.nav-tabs>li.active>a,
+.savings-details table {
+ margin-bottom:0
+}
+.savings-details tr:first-child td {
+ border-top:0
+}
+.savings-details:after,
+.savings-details:before {
+ bottom:100%;
+ left:50%;
+ border:solid transparent;
+ content:" ";
+ height:0;
+ width:0;
+ position:absolute;
+ pointer-events:none
+}
+.savings-details:after {
+ border-color:transparent transparent #f0f0f0;
+ border-width:10px;
+ margin-left:-10px
+}
+.savings-details:before {
+ border-color:transparent transparent #ccc;
+ border-width:11px;
+ margin-left:-11px
+}
+.you-save {
+ text-decoration:none;
+ color:#2695a6
+}
+.you-save-details {
+ font-size:14px;
+ text-decoration:underline;
+ color:#222
+}
+#promo-code-btn {
+ width:30%;
+ display:inline-block;
+ height:40px;
+ vertical-align:top
+}
+#promo-code-input {
+ margin-bottom:10px;
+ width:66%;
+ display:inline-block;
+ height:40px
+}
+.health-information {
+ margin:50px 0 30px;
+ padding-top:10px
+}
+.health-information h6 {
+ font-size:13px;
+ font-weight:700;
+ margin:0 0 5px;
+ text-transform:uppercase;
+ padding:0
+}
+.health-information p {
+ font-size:12px;
+ padding:0;
+ margin:0;
+ font-family:'Open Sans',sans-serif
+}
+.open-address-line-2,
+.open-address-line-2-billing {
+ text-decoration:none
+}
+.note-italic {
+ font-size:.8125em;
+ line-height:1.25;
+ color:#777;
+ margin:2px 0 0;
+ display:block
+}
+#addtoADModal .dropdown-menu>li>a em,
+.cta-disclaimer {
+ font-size:.75em
+}
+.paypal-logo {
+ margin-right:15px
+}
+.cta-container {
+ margin-top:40px
+}
+.right-icons {
+ margin-top:20px
+}
+#addtoADModal .btn-group {
+ width:100%
+}
+#addtoADModal .dropdown-menu>li>a {
+ white-space:normal;
+ line-height:1.1
+}
+.cvv-popover {
+ display:inline-block
+}
+.cvv-amex-popover {
+ display:none
+}
+.cross-sell-img {
+ padding-right:8px
+}
+.skip-to-paypal {
+ margin-bottom:15px
+}
+.skip-to-paypal img {
+ width:185px
+}
+.ad-disclaimer {
+ margin-top:30px
+}
+#email-input em {
+ display:inline-block;
+ font-size:.75em
+}
+.cta-disclaimer {
+ line-height:1.25;
+ margin-bottom:25px;
+ font-family:'open sans',sans-serif
+}
+.nav-tabs {
+ margin-bottom:0
+}
+.tab-pane {
+ padding-top:30px;
+ background:#f2f2f2
+}
+.form-horizontal .checkbox,
+.form-horizontal .checkbox-inline,
+.form-horizontal .radio,
+.form-horizontal .radio-inline {
+ margin-bottom:-9px;
+ padding-top:8px;
+ padding-bottom:3px
+}
+#saved-cards #saved-cc-list .radio label.selected {
+ border:2px solid #ce0f69
+}
+#saved-cards #add-credit-card-details {
+ margin-top:10px
+}
+#saved-cards .default-card {
+ position:relative;
+ padding:0 0 0 60px
+}
+#saved-cards .default-card .card_amex,
+#saved-cards .default-card .card_diners,
+#saved-cards .default-card .card_discover,
+#saved-cards .default-card .card_mastercard,
+#saved-cards .default-card .card_visa {
+ position:absolute;
+ top:-4px;
+ left:0
+}
+#saved-cards .default-card .btn {
+ margin-top:-7px
+}
+.nav-tabs .logo-paypal img {
+ height:19px;
+ width:71px
+}
+.nav-tabs .logo-paypal-credit img {
+ height:24px;
+ width:60px
+}
+input[type=email]:required:valid,
+input[type=tel]:required:valid,
+input[type=text]:required:valid {
+ background:url(/images/sbd/global/valid-input-checkmark.png) right .4em center/14px auto no-repeat #fff
+}
+.plan-table td.pickmenu-summary {
+ padding:0 0 10px;
+ font-size:13px
+}
+a.edit-shipping-btn {
+ margin-top:-20px
+}
+a.edit-shipping-btn i {
+ font-size:18px
+}
+@media(max-width:320px) {
+ .checkout-steps li.first {
+  display:none
+ }
+ p.skip-to-sm {
+  font-size:.775em;
+  line-height:1
+ }
+ .pay-tab>li>a {
+  margin-right:5px
+ }
+}
+@media(min-width:320px) and (max-width:374px) {
+ .btn {
+  padding:.7em .4em
+ }
+}
+@media(max-width:1169px) {
+ #checkOutContent {
+  margin-top:-6px
+ }
+ .subheading {
+  margin-top:-12px;
+  font-size:14px;
+  font-weight:400;
+  margin-bottom:12px
+ }
+ #sect4 {
+  border-top:0;
+  margin-bottom:40px;
+  margin-top:40px
+ }
+ .features {
+  margin-left:18px
+ }
+ .mbgwrapper {
+  margin:10px auto;
+  display:inline-block
+ }
+ .dividerlog {
+  margin-bottom:14px
+ }
+ #margin-bottom {
+  margin-bottom:38px
+ }
+ #email_address_persist {
+  margin-bottom:2px
+ }
+}
+@media(max-width:767px) {
+ input[type=submit].btn.btn-lock {
+  margin-bottom:20px
+ }
+ #citystatebox,
+ #citystatebox-billing {
+  margin-top:15px
+ }
+ .paypal-logo {
+  margin:0 13px 10px 0
+ }
+ .card_amex,
+ .card_diners,
+ .card_discover,
+ .card_jcb,
+ .card_mastercard,
+ .card_visa {
+  width:44px
+ }
+ #saved-cards .tab-pane.well {
+  padding:15px 15px 0
+ }
+ .grayarea {
+  background-color:#f2f2f2;
+  padding:20px 15px 4px 15px;
+  margin-left:-15px;
+  margin-right:-15px
+ }
+ .font26mobile {
+  font-size:26px
+ }
+ #sect4 {
+  margin-bottom:0px;
+  margin-top:0px
+ }
+ #account {
+  margin-top:0
+ }
+ #cc-tab {
+  font-size:12px;
+  width:50px;
+  text-align:center;
+  line-height:14px;
+  margin-bottom:0;
+  height:48px
+ }
+ .nav-tabs .logo-paypal img {
+  height:auto;
+  width:60px
+ }
+ .nav-tabs .logo-paypal-credit img {
+  height:auto;
+  width:55px
+ }
+}
+@media(max-width:991px) {
+ .divider {
+  width:50%;
+  border-top:1px solid #777;
+  margin-bottom:30px
+ }
+ .alignleft {
+  text-align:left;
+  margin-left:-30px;
+  margin-top:-2px;
+  margin-bottom:-10px
+ }
+ .headings {
+  margin-bottom:12px;
+  font-size:16px
+ }
+ .benefit {
+  margin-bottom:20px
+ }
+ #cc-tab {
+  font-size:12px;
+  width:50px;
+  text-align:center;
+  line-height:14px;
+  margin-bottom:0;
+  height:48px
+ }
+ .nav-tabs .logo-paypal img {
+  height:auto;
+  width:60px
+ }
+ .nav-tabs .logo-paypal-credit img {
+  height:auto;
+  width:55px
+ }
+}
+.order-savings-table tr:last-child td {
+ padding-bottom:10px
+}
+.promo-table tr:last-child td {
+ padding:10px 0 0
+}
+.promo-table tr:first-child td {
+ border-top:0;
+ padding:0 0 10px
+}
+.promo-table .table {
+ margin-bottom:0
+}
+.promo-table {
+ padding-top:15px;
+ margin-top:8px;
+ padding-bottom:16px
+}
+.order-item-details {
+ padding:10px 0;
+ font-size:15px;
+ font-family:'Open Sans',sans-serif;
+ position:relative;
+ border-bottom:1px solid #ccc
+}
+.paypal-text {
+ font-style:italic
+}
+.paypal-text a img {
+ margin-left:5px
+}
+.membership {
+ border-top:1px solid #ccc
+}
+.membership .order-item-price {
+ color:#222
+}
+#BeachPassPlanAd {
+ background:url(/images/sbd/checkout/beachpassmembership/alc-bg.jpg) -20px -12px no-repeat #f0f0f0;
+ padding-left:98px;
+ margin-bottom:15px;
+ padding-bottom:8px
+}
+#BeachPassPlanAd .bp-disclaimer {
+ font-size:12px;
+ line-height:14px;
+ margin-top:5px;
+ margin-bottom:10px
+}
+#BeachPassPlanModal .modal-content {
+ background:url(/images/sbd/checkout/beachpassmembership/overlay-bg.jpg) top center no-repeat #fff
+}
+#BeachPassPlanModal .modal-header {
+ padding-top:120px
+}
+#BeachPassAd {
+ background:url(/images/sbd/checkout/beachpassmembership/alc-bg.jpg) -21px -21px no-repeat
+}
+#BeachPassAd .bp-headline {
+ line-height:20px;
+ margin:0 0 12px 80px;
+ min-height:68px
+}
+#BeachPassAd #bp-checked {
+ padding:0 15px 0 95px;
+ margin-bottom:10px;
+ margin-top:-15px;
+ min-height:78px
+}
+#BeachPassAd #bp-checked label em {
+ line-height:16px;
+ display:block;
+ margin-top:5px
+}
+#BeachPassModal .modal-content {
+ background:url(/images/sbd/checkout/beachpassmembership/overlay-bg.jpg) top center no-repeat #fff
+}
+#BeachPassModal .modal-header {
+ padding-top:120px
+}
+#BeachPassAd #membership-selected {
+ margin-bottom:0;
+ width:100%
+}
+@media(max-width:359px) {
+ .jf-hide {
+  display:none
+ }
+ .jf-size {
+  height:23px;
+  width:118px
+ }
+}
+@media(min-width:375px) and (max-width:767px) {
+ p.skip-to-sm {
+  line-height:1
+ }
+}
+@media(min-width:768px) and (max-width:1169px) {
+ #sect4 {
+  margin-top:0px
+ }
+ .text-medium .popover {
+  width:150px
+ }
+}
+@media(min-width:768px) and (max-width:991px) {
+ .checkout-content.shipping .form-horizontal .control-label,
+ .form-horizontal.shipping .control-label {
+  text-align:left;
+  margin-bottom:5px;
+  padding-right:15px;
+  padding-top:0
+ }
+ .form-horizontal .control-label:not(.col-sm-12) {
+  text-align:left
+ }
+ .cta-container {
+  margin-top:40px;
+  margin-left:-15px
+ }
+ .page-content {
+  margin-top:6em;
+  padding:0 2.5em
+ }
+ .pw-form-group label.control-label {
+  width:150px
+ }
+}
+@media(min-width:768px) {
+ #EmailModal .modal-body {
+  margin-top:10px
+ }
+ .jf-size {
+  height:23px;
+  width:118px
+ }
+ p.skip-to-sm {
+  margin-bottom:30px
+ }
+ h1.border-bottom-thick {
+  margin-top:25px
+ }
+ h1.border-bottom-thick:first-of-type {
+  margin-top:-7px
+ }
+ .modal-dialog h1.border-bottom-thick:first-of-type {
+  margin-top:0
+ }
+ .delivery-options {
+  margin-top:10px
+ }
+ .checkout-nav ul {
+  margin:3px 27px 0 -25px
+ }
+ .progressbar {
+  background-color:#f2f2f2
+ }
+ .progressbar ul,
+ .progressbar.chef-picks ul {
+  background-color:#f2f2f2;
+  margin-bottom:0
+ }
+ .progressbar ul {
+  left:-5%
+ }
+ .progressbar li {
+  width:20%
+ }
+ .progressbar ul:after {
+  width:63%;
+  left:9%
+ }
+ .progressbar.chef-picks ul:after {
+  width:80%
+ }
+ .pay-tab>li>a {
+  padding:10px 0;
+  margin-right:13px;
+  min-height:48px
+ }
+ .gpay-well {
+  margin-top:-18px
+ }
+ #password .hide-show {
+  right:-26px;
+  padding:.1em 0;
+  width:35px
+ }
+ #password .meterWrap {
+  bottom:43px;
+  left:141px
+ }
+ .pw-form-group p#password-strength-text {
+  top:5px;
+  right:61px
+ }
+}
+@media(min-width:992px) {
+#sect4 .futura {    width: 33%;    float: left;}
+.col4612{width:33%; float:right;}
+.col8612{width:65%; float:left;}
+.col6p{width:50%; float:left;}
+.col412{width:100%; float:left;}
+.col812{width:100%; float:left;}
+ a.edit-shipping-btn {
+  margin-top:10px
+ }
+ #EmailModal .modal-body {
+  padding:30px 50px
+ }
+ .jf-size {
+  height:34px;
+  width:174px
+ }
+ .page-content {
+  margin-top:10em;
+  padding:0 2.5em
+ }
+ .checkout-nav .lonely-lock li:first-child {
+  padding-left:110px;
+  line-height:1
+ }
+ .checkout-nav .material-icons.md-18 {
+  position:relative;
+  top:-2px
+ }
+ .progressbar li {
+  width:15%
+ }
+ .progressbar li:nth-child(1) {
+  margin-left:0px
+ }
+ .nav-upper,
+ .progressbar ul {
+  max-width:980px;
+  margin:0 auto
+ }
+ .checkout-nav {
+  background:#f2f2f2
+ }
+ .checkout-nav li {
+  color:#777
+ }
+ .progressbar li.active {
+  color:#2695a6
+ }
+ .progressbar .material-icons.md-20 {
+  font-size:36px;
+  line-height:.8;
+  position:relative;
+  top:2px
+ }
+ .nav-upper {
+  padding:.3em 0 0
+ }
+ .main-navigation {
+  background-color:#f2f2f2
+ }
+ .nav-upper a {
+  max-width:980px
+ }
+ .progressbar ul {
+  height:80px;
+  float:none;
+  left:-6%
+ }
+ .progressbar.chef-picks ul {
+  left:0%;width:100%;
+ }
+ .progressbar ul:after {
+  top:23px;
+  left:31%;
+  width:48%
+ }
+ .progressbar.chef-picks ul:after {
+  left:33%;
+  width:32%
+ }
+ .progressbar span.mobile-number {
+  font-size:1em
+ }
+ .progressbar span.mobile-number.active:after {
+  left:-9px
+ }
+ .progressbar span.mobile-number:after {
+  top:-16px;
+  border:2px solid #777;
+  width:30px;
+  height:30px;
+  left:-10px
+ }
+
+.checkout-nav  .progressbar li {
+  line-height:1.9;
+  font-size:1.125em
+ }
+ .checkout-nav li:not(:first-child) .material-icons {
+  font-size:36px
+ }
+ .checkout-nav li a:hover {
+  background:rgba(0,0,0,0)
+ }
+ .checkout-nav .progressbar li.complete.not-active a:hover,
+ .checkout-nav .progressbar li.complete.not-active a:hover .material-icons,
+ .checkout-nav li:not(:first-child).not-active .material-icons:hover {
+  color:#144d56
+ }
+ .pay-tab>li>a {
+  margin-right:20px
+ }
+ .logo-google-pay {
+  margin-top:-4px
+ }
+ .logo-apple-pay {
+  margin-top:-2px
+ }
+ #password .meterWrap {
+  bottom:8px;
+  left:291px
+ }
+ @-moz-document url-prefix() {
+  #password .meterWrap {
+   left:321px
+  }
+ }
+ .pw-form-group p#password-strength-text {
+  top:10px;
+  right:-8px
+ }
+ #password .hide-show {
+  right:116px
+ }
+ @supports(-ms-ime-align:auto) {
+  #password .meterWrap {
+   left:330px
+  }
+ }
+}
+@media(min-width:992px) and (-ms-high-contrast:none),(-ms-high-contrast:active) {
+ #password .meterWrap {
+  left:325px
+ }
+}
+@media(min-width:992px) and (max-width:1999px) {
+ #BeachPassAd {
+  background-position:-11px -6px
+ }
+ #BeachPassAd .bp-headline {
+  line-height:20px;
+  margin:13px 0 0 88px
+ }
+ #BeachPassAd #bp-checked {
+  padding:22px 0 0 110px
+ }
+ #BeachPassAd .bp-dropdown .input-sm {
+  padding:5px 3px
+ }
+}
+@media(min-width:1200px) {
+ #BeachPassAd {
+  background-position:0 -23px;
+  margin-bottom:33px
+ }
+ #BeachPassAd.show-bg {
+  background-position:0 -5px
+ }
+ #BeachPassAd .bp-headline {
+  margin-top:20px;
+  margin-right:40px;
+  float:right;
+  line-height:1.5;
+  margin-bottom:0
+ }
+ #BeachPassAd #bp-checked {
+  padding:18px 0 0 120px;
+  margin-bottom:0
+ }
+ #BeachPassAd:not(.show-bg) #membership-selected {
+  margin-top:12px
+ }
+ #BeachPassAd .bp-dropdown .input-sm {
+  padding:5px 3px
+ }
+ #email-input em {
+  width:155px;
+  line-height:14px;
+  height:32px;
+  vertical-align:bottom
+ }
+ .progressbar li:nth-child(1) {
+  margin-left:7px
+ }
+ .progressbar li {
+  padding-top:0
+ }
+ .progressbar li.not-active {
+  width:18%;color: #7f7f7f !important;
+ }
+ .progressbar ul:after {
+  width:56%;
+  left:22%;
+  top:18px
+ }
+ .progressbar.chef-picks ul:after {
+  left:32%;
+  width:36%
+ }
+ #password .hide-show {
+  right:273px
+ }
+ .pw-form-group p#password-strength-text {
+  top:11px;
+  right:120px
+ }
+ @-moz-document url-prefix() {
+  .pw-form-group p#password-strength-text {
+   right:100px
+  }
+ }
+}
+@media(min-width:1200px) and (-ms-high-contrast:active),(-ms-high-contrast:none) {
+ .pw-form-group p#password-strength-text {
+  right:100px
+ }
+ #password .hide-show {
+  right:230px
+ }
+}
+@media(min-width:1334px) {
+ .progressbar ul {
+  left:-9%
+ }
+}
+.edit-gpay-link {
+ display:block
+}
+.edit-gpay-link:hover {
+ color:#ce0f69
+}
+.gpay-well {
+ margin-top:-13px
+}
+.apple-pay-well {
+ margin-top:-18px
+}
+.gpay-well .arrow {
+ margin-top:4px
+}
+.form-control-static.phone {
+ display:inline-block
+}
+.radio-inline.edit-phone-type {
+ padding-left:0;
+ padding-top:0;
+ min-height:50px
+}
+.radio-inline.shortened-phone-type {
+ min-height:49px;
+ padding-top:0
+}
+@media only screen and (max-width:768px) {
+ .radio-inline.phone-type {
+  padding-left:0;
+  padding-top:10px
+ }
+}
+@media only screen and (min-width:768px) and (max-width:992px) {
+ .radio-inline.shortened-phone-type {
+  padding-left:0
+ }
+}
+@media only screen and (max-width:400px) {
+ .radio-inline.shortened-phone-type {
+  padding-left:0;
+  display:block
+ }
+}
+@media only screen and (max-width:992px) {
+ .radio-inline.shortened-phone-type .radio-inline {
+  padding-top:0
+ }
+}
+@media only screen and (max-width:1200px) {
+ .radio-inline.edit-phone-type {
+  min-height:40px
+ }
+}
+@supports(-webkit-appearance:-apple-pay-button) {
+ .apple-pay-button-with-text {
+  display:inline-block;
+  -webkit-appearance:-apple-pay-button;
+  -apple-pay-button-type:buy
+ }
+ .apple-pay-button-with-text>* {
+  display:none
+ }
+ .apple-pay-button-black-with-text {
+  -apple-pay-button-style:black
+ }
+ .apple-pay-button-white-with-text {
+  -apple-pay-button-style:white
+ }
+ .apple-pay-button-white-with-line-with-text {
+  -apple-pay-button-style:white-outline
+ }
+}
+@supports not(-webkit-appearance:-apple-pay-button) {
+ .apple-pay-button-with-text {
+  --apple-pay-scale:1;
+  display:inline-flex;
+  justify-content:center;
+  font-size:12px;
+  border-radius:5px;
+  padding:0;
+  box-sizing:border-box;
+  min-width:200px;
+  min-height:40px;
+  max-height:64px
+ }
+ .apple-pay-button-black-with-text {
+  background-color:black;
+  color:white
+ }
+ .apple-pay-button-white-with-text {
+  background-color:white;
+  color:black
+ }
+ .apple-pay-button-white-with-line-with-text {
+  background-color:white;
+  color:black;
+  border:.5px solid black
+ }
+ .apple-pay-button-with-text.apple-pay-button-black-with-text>.logo {
+  background-image:-webkit-named-image(apple-pay-logo-white);
+  background-color:black
+ }
+ .apple-pay-button-with-text.apple-pay-button-white-with-text>.logo {
+  background-image:-webkit-named-image(apple-pay-logo-black);
+  background-color:white
+ }
+ .apple-pay-button-with-text.apple-pay-button-white-with-line-with-text>.logo {
+  background-image:-webkit-named-image(apple-pay-logo-black);
+  background-color:white
+ }
+ .apple-pay-button-with-text>.text {
+  font-family:-apple-system;
+  font-size:calc(1em * var(--apple-pay-scale));
+  font-weight:300;
+  align-self:center;
+  margin-right:calc(2px * var(--apple-pay-scale))
+ }
+ .apple-pay-button-with-text>.logo {
+  width:calc(35px * var(--scale));
+  height:100%;
+  background-size:100% 60%;
+  background-repeat:no-repeat;
+  background-position:0 50%;
+  margin-left:calc(2px * var(--apple-pay-scale));
+  border:0
+ }
+}
+@media screen and (min-width:768px) and (max-width:991px) and (orientation:landscape) {
+ #password .hide-show {
+  right:-30px;
+  padding:.1em 0;
+  width:35px
+ }
+}
+@media screen and (min-width:260px) and (max-width:767px)
+{
+#checkOutContent {
+    margin-top: 20%;
+}
+.col4612{width:100%; float:left;}
+.col8612{width:100%; float:left;}
+.col6p{width:100%; float:left;}
+.col412{width:100%; float:left;}
+.col812{width:100%; float:left;}
+#sect4 .futura{width:100%;float:left;}
+.alignleft {
+    text-align: left;
+    margin-left: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+}
+@media screen and (min-width:768px) and (max-width:999px)
+{
+#checkOutContent {
+    margin-top: 44px;
+}
+.col4612{width:100%; float:right;}
+.col8612{width:100%; float:left;}
+.col6p{width:20% !important; float:left;}
+.col412{width:20%; float:left;}
+.col812 {
+    width: 60%;
+    float: left;
+}
+#sect4 .futura {
+    width: 100%;
+    float: left;
+    text-align: left !important;
+}
+.alignleft {
+    text-align: left;
+    margin-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+#sect4 {border-top: 0; margin-bottom: 10px;}
+.cross-sell-box {margin-top: 0px !important;}
+
+}
+@media screen and (min-width:800px) and (max-width:1200px)
+{
+#sect4 .futura {
+    width: 33%;
+    float: left;
+}
+.col4612{width:33%; float:right;}
+.col8612{width:65%; float:left;}
+.col6p{width:50%; float:left;}
+.col412{width:100%; float:left;}
+.col812{width:100%; float:left;}
+
+}

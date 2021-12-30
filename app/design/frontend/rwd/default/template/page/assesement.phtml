@@ -1,0 +1,470 @@
+<style>
+	input[type="radio"]{margin: 5px !important;}
+	.whitebox{background:#fff; width:100%; padding:40px;float:left;}
+	.callbutton{padding: 5px 10px;background: #269a9b;font-size: 1.4em;font-weight:bold;color: #fff;text-transform: uppercase;margin: 2% 0px;}
+	.whitebox .form-group{float:left; width:50%;}
+	.whitebox .one{float:left; width:75%;border: 1px solid #000;border-right:0px;}
+	.whitebox .two{float:left; width:25%;border: 1px solid #000;height: 2.6em;padding: 0px 1em;}
+	.form-group label{margin:5px 5px;justify-content:left;}
+	.suggestionbox label{margin: 5px 5px;float: left;justify-content: left;text-align: left;align-items: baseline;} 
+	.suggestionbox .col1 label{margin: 5px 5px;float: none;justify-content: center;text-align: center;align-items: baseline;} 
+	.suggestionbox .col2 label{margin: 5px 5px;float: none;justify-content: center;text-align: center;align-items: baseline;} 
+	.form-inline .form-control{border:0;height: 40px;float: left; height: 36px;	border: 1px solid #000;}
+	 input[type="text"] {width: 100%;max-width: 100%;background: none;}
+	.formbluebox{margin: auto;width: 100%;background: #269a9b;padding: 40px;float: left;margin-top: 4%;}
+	.formbluebox tbody tr th p{padding: 5px 10px;background: #269a9b;font-size: 1.4em;font-weight:bold;color: #fff;text-transform: uppercase;}
+	.formbluebox tbody{padding: 40px;float: left;width: 100%; padding-bottom:0px;}
+	.formbluebox tbody tr{width: 100%;float: left;}
+	.formbluebox .inputclient{width: 23%;float: left;margin: auto 10px;}
+.formbluebox tbody tr td p{background:#40b8b9;color: #fff;text-align: center;padding: 5px 10px;font-size: 1.5em;text-transform: uppercase;font-weight: bold;}
+	input[type="email"], input[type="password"]	{width: auto;max-width: 100%;  background: none; height: 36px;border: 1px solid #000;}
+	input[type="number"]{width:40%; max-width: 100%; background: none;height: 36px;	border: 1px solid #000;}
+	.suggestionbox tbody{padding-bottom:40px;padding-top: 0px;}
+	.suggestionbox tbody tr td textarea{border: 1px solid #000 !important;}
+	.suggestionbox tbody tr .col1{width:30%; float:left;margin:5px;text-align:left;}
+	.suggestionbox tbody tr .col2{width:15%; float:left;margin:5px;text-align:center;}
+	.suggestionbox th {font-weight: bold;font-style: normal;font-size: 14px;text-transform: capitalize;}
+	@media screen and (min-width:260px) and (max-width:767px)
+	{
+		.whitebox{background:#fff; width:100%; padding:10px;float:left;}
+	.callbutton{padding: 5px 10px;
+background: #269a9b;
+font-size: 1.4em;
+font-weight: bold;
+color: #fff;
+text-transform: uppercase;
+margin: 1% 0px;
+text-align: center;}
+	.whitebox .form-group{float:left; width:100%;margin:0rem;}
+	.whitebox .one{float:left; width:100%;border: 1px solid #000;border-right:0px;}
+	.whitebox .two{float:left; width:100%;border: 1px solid #000;height: 2.6em;padding: 0px 1em;}
+	.form-group label{margin:5px 5px;justify-content:left;}
+		.whitebox img{display:none;}
+	.suggestionbox label{margin:0px;float: left;justify-content: left;text-align: left;align-items: baseline;} 
+	.suggestionbox .col1 label{margin: 5px 5px;float: none;justify-content: center;text-align: center;align-items: baseline;} 
+	.suggestionbox .col2 label{margin: 5px 5px;float: none;justify-content: center;text-align: center;align-items: baseline;} 
+	.form-inline .form-control{border:0;height: 40px;float: left; height: 36px;	border: 1px solid #000;width: 100% !important;margin: 0px !important;}
+	 input[type="text"] {width: 100%;max-width: 100%;background: none;}
+	.formbluebox{margin: auto;width: 100%;background: #269a9b;padding: 40px;float: left;margin-top: 4%;}
+	.formbluebox tbody tr th p{padding: 5px 10px;background: #269a9b;font-size: 1.4em;font-weight:bold;color: #fff;text-transform: uppercase;}
+	.formbluebox tbody{padding:10px;float: left;width: 100%; padding-bottom:0px;}
+	.formbluebox tbody tr{width: 100%;float: left;}
+	.formbluebox .inputclient{width:100%;float: left;margin: auto 10px;}
+.formbluebox tbody tr td p{background:#40b8b9;color: #fff;text-align: center;padding: 5px 10px;font-size: 1em;text-transform: uppercase;font-weight: bold;}
+	input[type="email"], input[type="password"]	{width: auto;max-width: 100%;  background: none; height: 36px;border: 1px solid #000;}
+	input[type="number"]{width:45px; max-width: 100%; background: none;height: 36px;	border: 1px solid #000;}
+	.suggestionbox tbody{padding-bottom:40px;}
+	.suggestionbox tbody tr .col1{width:30%; float:left;margin:5px;text-align:left;font-size:12px;}
+	.suggestionbox tbody tr .col2{width:15%; float:left;margin:2px;text-align:center;font-size:12px;}
+	.suggestionbox th {font-weight: bold;font-style: normal;font-size: 15px;text-transform: capitalize;}
+	.suggestionbox textarea{background: #edf3f3 !important;box-shadow: none;resize: initial;}
+	}
+	@media screen and (min-width:800px) and (max-width:1200px)
+	{
+	
+	input[type="email"], input[type="password"]	{width: auto;max-width: 100%;  background: none; height: 36px;border: 1px solid #000;}
+	input[type="number"]{width:50%; max-width: 100%; background: none;height: 36px;	border: 1px solid #000;}
+	.suggestionbox tbody{padding-bottom:40px;}
+	.suggestionbox tbody tr .col1{width:30%; float:left;margin:5px;text-align:left;font-size:13px;}
+	.suggestionbox tbody tr .col2{width:15%; float:left;margin:5px;text-align:center;font-size:13px;}
+	.suggestionbox th {font-weight: bold;font-style: normal;font-size: 13px;text-transform: capitalize;}
+	}
+	@media screen and (min-width:768px) and (max-width:999px)
+	{
+	.suggestionbox .col2 label {
+    margin: 0px 0px;
+    float: none;
+    justify-content: center;
+    text-align: center;
+    align-items: baseline;
+}
+		.formbluebox tbody tr td p {
+    background: #40b8b9;
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+		
+		.callbutton {
+    padding: 5px 10px;
+    background: #269a9b;
+    font-size: 1em;
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+    margin: 2% 0px;
+}
+		.formbluebox tbody {padding: 10px;}
+		.whitebox { background: #fff; width: 100%; padding: 10px;float: left;}
+	input[type="email"], input[type="password"]	{width: auto;max-width: 100%;  background: none; height: 36px;border: 1px solid #000;}
+	input[type="number"]{width:60px; max-width: 100%; background: none;height: 36px;	border: 1px solid #000;}
+	.suggestionbox tbody{padding-bottom:40px;}
+	.suggestionbox tbody tr .col1{width:30%; float:left;margin:5px 5px;text-align:left;font-size:14px;}
+	.suggestionbox tbody tr .col2{width:15%; float:left;margin:5px;text-align:center;font-size:14px;}
+	.suggestionbox th {font-weight: bold;font-style: normal;font-size: 14px;text-transform: capitalize;}
+	}
+</style>
+
+<form name="contactform" method="post" action="<?php echo Mage::getBaseUrl();?>patientthankyou" class="form-inline" >
+	<div class="container">
+		<div class="formbluebox">
+			<div class="whitebox">
+			 <div class="form-group">
+		<p class="callbutton">IMMUNITY ASSESMENT TOOL</p>
+				</div>
+				<div class="form-group">
+	<p><img src="https://lifeheal.in/skin/frontend/rwd/default/images/logo.png" style="width:60%;float: right;"></p>	
+	</div>
+			</div>
+			
+<div class="table-responsive"> 
+
+		
+<table style="background: #fff;width: 100%;" class="suggestionbox">
+
+<tr>
+	<td style="float:left;margin: 10px auto;width:100%;"><label for="pername">Name</label>
+	<input type="text" class="form-control"  name="name" style="margin:0px 5px;border: 1px solid #000;background: none !important;padding: 0px;box-shadow: none;border-radius: 0;width: 50%;float: right;">
+	</td>
+	<td style="float:left;margin: 10px auto;width:100%;"><label for="pername">Mobile (where we will whatsapp report to you)</label>
+	<input type="text" class="form-control"  name="mobileno" style="margin:0px 5px;border: 1px solid #000;background: none !important;padding: 0px;box-shadow: none;border-radius: 0;width: 50%;float: right;">
+	</td>
+	<tr>
+<td style="margin: auto;float: left;text-align: center;width: 100%;" colspan="6"><p>Immunity Check</p></td>
+</tr>
+	<tr style="background: #f0eeee;">
+	    <th class="col1">Do You Get Frequent</th>
+		<th class="col2">0 times per year</th>
+		<th class="col2">1-4 times per year</th>
+		<th class="col2">5-10 times per year</th>
+		<th class="col2">11+ times per year</th>
+	</tr>
+	<tr>
+		<td class="col1">Colds</td>
+		<td class="col2">  <label for="Colds">
+      <input type="radio"  name="cold" style="margin:0px 5px" value="0">
+    </label>
+</td>
+		<td class="col2">  <label for="Colds">
+      <input type="radio"  name="cold" style="margin:0px 5px" value="1">
+    </label>
+</td>
+		<td class="col2"> <label for="Colds">
+      <input type="radio"  name="cold" style="margin:0px 5px" value="2">
+    </label>
+</td>
+		<td class="col2"> <label for="Colds">
+      <input type="radio"  name="cold" style="margin:0px 5px" value="3">
+    </label>
+</td>
+	</tr>
+
+	<tr>
+		<td class="col1">Headaches</td>
+		<td class="col2">  <label for="Headaches">
+      <input type="radio"  name="headache" style="margin:0px 5px" value="0">
+    </label>
+</td>
+		<td class="col2">  <label for="Headaches">
+      <input type="radio"  name="headache" style="margin:0px 5px" value="1">
+    </label>
+</td>
+		<td class="col2"> <label for="Headaches">
+      <input type="radio"  name="headache" style="margin:0px 5px" value="2">
+    </label>
+</td>
+		<td class="col2"> <label for="Headaches">
+      <input type="radio"  name="headache" style="margin:0px 5px" value="3">
+    </label>
+</td>
+	</tr>	
+	<tr>
+		<td class="col1">Migraines</td>
+		<td class="col2">  <label for="Migraines">
+      <input type="radio"  name="migranes" style="margin:0px 5px" value="0">
+    </label>
+</td>
+		<td class="col2">  <label for="Migraines">
+      <input type="radio"  name="migranes" style="margin:0px 5px" value="1">
+    </label>
+</td>
+		<td class="col2"> <label for="Migraines">
+      <input type="radio"  name="migranes" style="margin:0px 5px" value="2">
+    </label>
+</td>
+		<td class="col2"> <label for="Migraines">
+      <input type="radio"  name="migranes" style="margin:0px 5px" value="3">
+    </label>
+</td>
+	</tr>	
+	<tr>
+		<td class="col1">Fevers</td>
+		<td class="col2">  <label for="Fevers">
+      <input type="radio"  name="fever" style="margin:0px 5px" value="0">
+    </label>
+</td>
+		<td class="col2">  <label for="Fevers">
+      <input type="radio"  name="fever" style="margin:0px 5px" value="1">
+    </label>
+</td>
+		<td class="col2"> <label for="Fevers">
+      <input type="radio"  name="fever" style="margin:0px 5px" value="2">
+    </label>
+</td>
+		<td class="col2"> <label for="Fevers">
+      <input type="radio"  name="fever" style="margin:0px 5px" value="3">
+    </label>
+</td>
+	</tr>
+	<tr>
+		<td class="col1">Aches in Joints or Arthritis</td>
+		<td class="col2">  <label for="Joints">
+      <input type="radio"  name="jointache" style="margin:0px 5px" value="0">
+    </label>
+</td>
+		<td class="col2">  <label for="Joints">
+      <input type="radio"  name="jointache" style="margin:0px 5px" value="1">
+    </label>
+</td>
+		<td class="col2"> <label for="Joints">
+      <input type="radio"  name="jointache" style="margin:0px 5px" value="2">
+    </label>
+</td>
+		<td class="col2"> <label for="Joints">
+      <input type="radio"  name="jointache" style="margin:0px 5px" value="3">
+    </label>
+</td>
+	</tr>	
+	
+		<tr>
+		<td class="col1">Body Ache, Muscle Aches</td>
+		<td class="col2">  <label for="Body">
+      <input type="radio"  name="bodyache" style="margin:0px 5px" value="0">
+    </label>
+</td>
+		<td class="col2">  <label for="Body">
+      <input type="radio"  name="bodyache" style="margin:0px 5px" value="1">
+    </label>
+</td>
+		<td class="col2"> <label for="Body">
+      <input type="radio"  name="bodyache" style="margin:0px 5px" value="2">
+    </label>
+</td>
+		<td class="col2"> <label for="Body">
+      <input type="radio"  name="bodyache" style="margin:0px 5px" value="3">
+    </label>
+</td>
+	</tr>
+	
+	
+		<tr>
+		<td class="col1">Stomach Infections</td>
+		<td class="col2">  <label for="Stomach">
+      <input type="radio"  name="stomach_infection" style="margin:0px 5px" value="0">
+    </label>
+</td>
+		<td class="col2">  <label for="Stomach">
+      <input type="radio"  name="stomach_infection" style="margin:0px 5px" value="1">
+    </label>
+</td>
+		<td class="col2"> <label for="Stomach">
+      <input type="radio"  name="stomach_infection" style="margin:0px 5px" value="2">
+    </label>
+</td>
+		<td class="col2"> <label for="Stomach">
+      <input type="radio"  name="stomach_infection" style="margin:0px 5px" value="3">
+    </label>
+</td>
+	</tr>
+	<tr>
+		<td class="col1">UTI's</td>
+		<td class="col2">  <label for="UTI">
+      <input type="radio"  name="uti" style="margin:0px 5px" value="0">
+    </label>
+</td>
+		<td class="col2">  <label for="UTI">
+      <input type="radio"  name="uti" style="margin:0px 5px" value="1">
+    </label>
+</td>
+		<td class="col2"> <label for="UTI">
+      <input type="radio"  name="uti" style="margin:0px 5px" value="2">
+    </label>
+</td>
+		<td class="col2"> <label for="UTI">
+      <input type="radio"  name="uti" style="margin:0px 5px" value="3">
+    </label>
+</td>
+	</tr>
+	
+	<tr style="background: #f0eeee;margin-top: 20px;">
+	    <th class="col1">Lifestyle</th>
+		<th class="col2">No</th>
+		<th class="col2">Yes</th>
+	</tr>
+	
+	<tr>
+		<td class="col1">High Stress</td>
+		<td class="col2">  <label for="High">
+      <input type="radio"  name="High" style="margin:0px 5px" value="0">
+    </label>
+</td>
+		<td class="col2">  <label for="High">
+      <input type="radio"  name="High" style="margin:0px 5px" value="1">
+    </label>
+</td>
+	</tr>
+		<tr>
+		<td class="col1">Poor sleep, less than 7 hrs per day</td>
+		<td class="col2">  <label for="Poor">
+      <input type="radio"  name="Poor" style="margin:0px 5px" value="0">
+    </label>
+</td>
+		<td class="col2">  <label for="Poor">
+      <input type="radio"  name="Poor" style="margin:0px 5px" value="1">
+    </label>
+</td>
+	</tr>
+	
+	<tr style="background: #f0eeee;margin-top: 20px;">
+	    <th class="col1">Chronic Disease</th>
+		<th class="col2">No</th>
+		<th class="col2">Yes</th>
+	</tr>
+	
+	
+	<tr>
+		<td class="col1">Arthritis</td>
+		<td class="col2">  <label for="Arthritis">
+      <input type="radio"  name="Arthritis" style="margin:0px 5px" value="0">
+    </label>
+</td>
+		<td class="col2">  <label for="Arthritis">
+      <input type="radio"  name="Arthritis" style="margin:0px 5px" value="1">
+    </label>
+</td>
+	</tr>
+		<tr>
+		<td class="col1">Asthma</td>
+		<td class="col2">  <label for="Asthma">
+      <input type="radio"  name="Asthma" style="margin:0px 5px" value="0">
+    </label>
+</td>
+		<td class="col2">  <label for="Asthma">
+      <input type="radio"  name="Asthma" style="margin:0px 5px" value="1">
+    </label>
+</td>
+	</tr>
+	<tr>
+		<td class="col1">Cardiac</td>
+		<td class="col2">  <label for="Cardiac">
+      <input type="radio"  name="Cardiac" style="margin:0px 5px" value="0">
+    </label>
+</td>
+		<td class="col2">  <label for="Cardiac">
+      <input type="radio"  name="Cardiac" style="margin:0px 5px" value="1">
+    </label>
+</td>
+	</tr>
+	
+	<tr>
+		<td class="col1">Chronic Fatigue</td>
+		<td class="col2">  <label for="Chronic">
+      <input type="radio"  name="Chronic" style="margin:0px 5px" value="0">
+    </label>
+</td>
+		<td class="col2">  <label for="Chronic">
+      <input type="radio"  name="Chronic" style="margin:0px 5px" value="1">
+    </label>
+</td>
+	</tr>
+	<tr>
+		<td class="col1">Diabetes</td>
+		<td class="col2">  <label for="Diabetes">
+      <input type="radio"  name="Diabetes" style="margin:0px 5px" value="0">
+    </label>
+</td>
+		<td class="col2">  <label for="Diabetes">
+      <input type="radio"  name="Diabetes" style="margin:0px 5px" value="1">
+    </label>
+</td>
+	</tr>
+	
+	<tr>
+		<td class="col1">Fatty Liver</td>
+		<td class="col2">  <label for="Fatty">
+      <input type="radio"  name="Fatty" style="margin:0px 5px" value="0">
+    </label>
+</td>
+		<td class="col2">  <label for="Fatty">
+      <input type="radio"  name="Fatty" style="margin:0px 5px" value="1">
+    </label>
+</td>
+	</tr>
+	<tr>
+		<td class="col1">Kidney Disease</td>
+		<td class="col2">  <label for="Kidney">
+      <input type="radio"  name="Kidney" style="margin:0px 5px" value="0">
+    </label>
+</td>
+		<td class="col2">  <label for="Kidney">
+      <input type="radio"  name="Kidney" style="margin:0px 5px" value="1">
+    </label>
+</td>
+	</tr>
+	
+	<tr>
+		<td class="col1">PCOD</td>
+		<td class="col2">  <label for="PCOD">
+      <input type="radio"  name="PCOD" style="margin:0px 5px" value="0">
+    </label>
+</td>
+		<td class="col2">  <label for="PCOD">
+      <input type="radio"  name="PCOD" style="margin:0px 5px" value="1">
+    </label>
+</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td class="col1">Thyroid</td>
+		<td class="col2">  <label for="Thyroid">
+      <input type="radio"  name="Thyroid" style="margin:0px 5px" value="0">
+    </label>
+</td>
+		<td class="col2">  <label for="Thyroid">
+      <input type="radio"  name="Thyroid" style="margin:0px 5px" value="1">
+    </label>
+</td>
+	</tr>
+	
+	
+	
+	
+	
+	
+	<tr>
+		<td class="col1">Other</td>
+		<td class="col2" colspan="4" style="width: 60%;border: 1px solid #000;float: right;margin: 10px;">  <label for="other" style="margin: 0px;">
+      <input type="text"  name="other" style="margin:0px 0px">
+    </label>
+</td>	
+	</tr>
+	
+	<br>
+	<!--submit-->
+<tr style="margin-top:10px;">
+ <td coslpan="4" style="margin: auto;float: none;width: 150px;text-align: center;" valign="top">
+ <input type="hidden" name="date" value="<?php echo date("Y-m-d");?>"  />
+  <input style="background-color: #f28424;border: none;color: white;padding: 10px 25px;text-align: center;text-decoration: none;font-size: 18px;
+border-radius: 4px;width:100%;" type="submit" name="submitAssessment" value="Submit"\>
+ </td>
+</tr>
+</table>
+		</div>
+	</div>
+		</div>
+</form>

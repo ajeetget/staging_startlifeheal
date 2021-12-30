@@ -1,0 +1,245 @@
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+ 
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+  </script>
+	<style>
+		@media print
+{
+	.header-wrapper, .footer-container, .breadcrumbs, .bck-btn{display:none;}
+	header, footer{display:none;}
+	
+.noprint {display:none;}
+}
+
+@media print {
+	.header-wrapper, .footer-container, .breadcrumbs{display:none;}
+	header, footer, .bck-btn{display:none;}
+	 div.print-content article.node .node-blog .clearfix div.item-body p a {
+    display: none;}
+    @page {
+      size: A4; /* DIN A4 standard, Europe */
+      margin:0;
+		font-size:10pt;
+    }
+    html, body {
+       /* width: 210mm;
+         height: 297mm;
+        height: 282mm; */
+        
+        background: #FFF;
+        overflow:visible;
+    }
+    
+		}
+.col1-layout .col-main {
+    float: left;
+    width: 100%;
+    padding: 0;
+}.main {
+    width: 100%;
+    margin-top: 7rem;
+    height: 100%;
+    margin-bottom: 1.5rem;
+}
+
+	table{  
+	width: auto;
+margin: auto;
+		}	
+		
+	table td {
+    border-top: thin solid; 
+    border-bottom: thin solid;
+	padding-left: 10px;
+	padding-right: 10px;
+	width:80%;
+	text-align:left;
+}
+.ui-datepicker td {
+    border: 0;
+    padding: 1px;
+    width: 10%;
+}
+table td:first-child {
+     border-left: thin solid;
+	padding-left: 10px;
+	padding-right: 10px;
+	width: 10%;
+}
+
+table td:last-child {
+     border-right: thin solid;
+	padding-left: 10px;
+	padding-right: 10px;
+	    padding: 10px;
+		width: 10%;
+}
+
+.deleteImg{background: url(<?php echo Mage::getBaseUrl();?>skin/frontend/rwd/default/images/delete.png);
+background-size: auto;
+width: 35px;
+height: 30px;
+background-size: 100% 100%;
+float: right;
+margin-top: 37px;
+margin-right: -5px;}
+
+		
+@media print {   
+    body {
+        padding-top:15mm;
+    }
+}		
+@media screen and (min-width:260px) and (max-width:760px){
+
+}
+.qty-wrapper{display: flex; flex-wrap: wrap; align-items: end; padding: 20px; width: 100%; box-sizing: border-box;}	
+.qty-inner{width:calc(100% - 150px);}
+.qty-inner label{display: inline-block; width:130px; height: 35px;line-height: 35px;}
+.qty-inner select, .qty-inner input{
+		width:calc(100% - 135px);
+		background: #f6fcfc;
+		height: 35px;
+		box-shadow: 0px 0px 2px rgba(0,0,0,0.3);
+		border: 0px;
+		margin-bottom: 15px;
+		display: inline-block;
+	}
+.qty-wrapper input[type="button"]{
+		margin: 0 auto 15px auto; width: 120px;	background: #0EB58F;
+		border: 1px solid #0EB58F; color: #fff; font-size: 14px;
+		height: 35px; line-height: 35px;
+	}	
+</style>
+
+
+<table width="100%" border="1" align="center" style="padding-left: 20px;padding-top:10px;margin: 25px;margin-right: 50px">
+  <tbody>
+  
+    <tr class="noprint">     
+    	<td style="margin:3px"> 
+      		<div class="qty-wrapper">
+      			<div class="qty-inner">
+      				<label class="select_label">Select City:</label>
+        			<select id="city" name="city">
+		      			<option value="Delhi">Delhi</option>
+		      			<option value="Gurgaon">Gurgaon</option>
+		      			<option value="Pune">Pune</option>
+						<option value="Surat">Surat</option>
+		    		</select>
+      				<label>Order Date:</label>
+      				<input type="text" id="datepicker">
+      			</div>
+      			<input type="button" value="Order Details" onClick="getCustomerInformation();" /> 
+      		</div>
+      	</td>	  
+    </tr>
+    <tr>
+      <td  id="resultTable" style="text-align:center;margin-left:0px;padding-left:10px;padding-bottom: 34px;"></td>
+    </tr>
+   
+   
+  </tbody>
+</table>
+<div id="wait" style="display: none; width:100px; height: 120px; position: absolute; z-index: 999; top:1%; left: 50%; padding: 2px;"><img src='<?php echo Mage::getBaseUrl();?>skin/frontend/rwd/default/images/demo_wait.gif' width="64" height="64" style="width: 100px;height: 120px;"/><br>Loading..</div>
+<script type="text/javascript">
+	//var jQuery = $.noConflict();
+function getCustomerInformation()
+	{
+		
+		var orderDate = jQuery("#datepicker").val();
+		var city = jQuery("#city").val();
+		//alert(orderDate);
+		if(orderDate!='')
+		{
+		
+			jQuery.ajax({
+						url: "<?php echo Mage::getBaseUrl().'heal/index/getcustomernames' ?>",
+						type: "POST",
+						data: {
+						 orderDate: orderDate,
+						 city: city
+						},
+						  success: function(response)
+						 {  
+							//alert(response);
+							jQuery("#resultTable").html(response);
+								
+						 }
+			});
+		}
+		else
+		{
+				alert("Please select the date");
+		}
+	}
+	
+	function deleteMeal(orderid,customerName)
+	{
+	    var orderDate = jQuery("#datepicker").val();
+		var city = jQuery("#city").val();
+		
+		if(confirm("Do you want to delete meal of "+customerName+" of "+orderDate+" ?"))
+		{
+		     jQuery("#wait").css("display", "block");
+			
+			jQuery.ajax({
+						url: "<?php echo Mage::getBaseUrl().'heal/index/deletemeal' ?>",
+						type: "POST",
+						data: {
+						orderid: orderid,
+						},
+						
+						  success: function(response)
+						 {  
+							    
+								jQuery.ajax({
+											url: "<?php echo Mage::getBaseUrl().'heal/index/getcustomernames' ?>",
+											type: "POST",
+											data: {
+											 orderDate: orderDate,
+											 city:city
+											},
+											  success: function(response)
+											 {  
+												
+												jQuery("#resultTable").html(response);
+												
+
+											 }
+								});
+								
+								jQuery("#wait").css("display", "none"); 
+								
+						 }
+			});
+			
+		}
+		else
+		{
+		  return false;
+		
+		}
+			
+		
+	}
+</script>
+
+<script>
+jQuery(document).ready(function(){
+  jQuery(document).ajaxStart(function(){
+   jQuery("#wait").css("display", "block");
+  });
+  jQuery(document).ajaxComplete(function(){
+   jQuery("#wait").css("display", "none");
+  });
+  jQuery("button").click(function(){
+   jQuery("#noprint").load("demo_ajax_load.asp");
+  });
+});
+</script>

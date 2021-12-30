@@ -1,0 +1,1102 @@
+﻿<link href="<?php echo $this->getSkinUrl();?>css/dashboard.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<?php 
+$customerInfo = Mage::helper("weeklyclientinfo")->checkDiseaseLevel();
+?>
+<style>
+/* Fading animation */
+.getfreebanner .fades {
+	-webkit-animation-name: fade;
+	-webkit-animation-duration: 2s;
+	animation-name: fade;
+	animation-duration: 2s;
+}
+@-webkit-keyframes fades {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fades {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+</style>
+<div class="loader" style="display: none;"></div>
+<div class="row pagescrollrow" style="float: left;">
+<div class="getfreebanner">
+
+  <div class="slideshow-container1">
+    <div class="mySlides1 fades"> <img src="<?php echo $this->getSkinUrl('/images/t1.jpg')?>" style="width:100%"> </div>
+    <div class="mySlides1 fades"> <img src="<?php echo $this->getSkinUrl('/images/t2.jpg')?>" style="width:100%"> </div>
+    <div class="mySlides1 fades"> <img src="<?php echo $this->getSkinUrl('/images/t3.jpg')?>" style="width:100%"> </div>
+    <div class="mySlides1 fades"> <img src="<?php echo $this->getSkinUrl('/images/t4.jpg')?>" style="width:100%"> </div>
+	<div class="mySlides1 fades"> <img src="<?php echo $this->getSkinUrl('/images/t5.jpg')?>" style="width:100%"> </div>
+    <a class="prev" onclick="plusSlides1(-1)">&#10094;<span class="spanprev">Prev</span></a> <a class="next" onclick="plusSlides1(1)">&#10095;<span class="spannext">Next</span></a> </div>
+  
+  <div class="dotbox"> 
+  <span class="dot" onclick="currentSlide(1)"></span> 
+  <span class="dot" onclick="currentSlide(2)"></span> 
+  <span class="dot" onclick="currentSlide(3)"></span>
+  <span class="dot" onclick="currentSlide(4)"></span>
+  <span class="dot" onclick="currentSlide(5)"></span>
+   </div>
+  
+<!--<h2>"WILL I GET SICK" <br/>
+<span style="font-weight:normal;">FREE DASHBOARD</span> <hr style="width: 300px;margin: 10px auto;border-color: #fff;"/>
+<span style="font-weight: normal;text-transform: capitalize;" class="fontname">Scientifically reduce<br> your chances of getting sick</span>
+</h2>-->
+
+</div>  
+                             
+<!--<scroll-container>
+  <scroll-page id="page-1">-->
+    <div class="getfreebanner">
+<div class="col-xl-4 col-lg-6 col-md-6 pageexpandpanel" style="float: left;">
+<div class="bpbutton">BLOOD PRESSURE</div>
+    <div class="panel bppanel <?php if (strpos($customerInfo['bpresult'], 'Not') === false){ echo 'panel-green';}else{ echo 'panel-red';};?>">
+        <div class="panel-heading">
+          
+               <div class="col-xs-12 text-left">
+                    <div class="huge" >BP</div> 					
+					<span class="btn-xs btn"  data-toggle="modal" data-target="#myModalbp">?</span>
+					</div>
+					
+					
+					 <div class="col-xs-3 text-right">
+					<div class="bpdata">
+					
+				   <?php echo $customerInfo['upperBP'].'/'.$customerInfo['lowerBP'];?>
+				   </div>
+                </div>
+				
+					
+					<div class="col-xs-9 text-left">  
+                    <div class="bpresult"> <?php echo $customerInfo['bplabel'];?></div>
+                </div>
+               </div>
+			   
+        
+        <div class="graphbp">
+        <div class="bperroricon" style="display: none;font-size: 10px;">
+       <img src="<?php echo $this->getSkinUrl('/images/infoicon.png')?>" style="width:18px;float: left;">Cure my Diabetes food subscription help you to control your BP<br>
+       <span style="font-size: 12px;color: #72a7cf;border-bottom: 1px solid #72a7cf;">Please provide your contact detail here to get more information</span>
+       </div>
+		   <!--<div class="bperror" id="errorbox1">
+		   </div>-->
+
+            <div class="panel-footer">
+                <span class="pull-left"><input type="text" class="form-control" id="high" placeholder="Upper BP"><input type="text" class="form-control" id="Low" placeholder="Lower BP">
+</span>
+                <span class="pull-right " onclick="SaveBPData()"><img src="<?php echo $this->getSkinUrl('images/uploadarrow.png')?>"/></span>
+
+                <div class="clearfix"></div>
+            </div>
+            
+         
+        </div>
+       <!--bptable modal-->
+       <div class="modal fade" id="myModalbp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" 
+				style="background-color: rgb(53, 185, 147); color:#fff;margin: 30% auto;width: 70% !important;">
+                    
+                    <div class="modal-body">
+					
+					<p style="text-align: justify;">
+					A High Blood Pressure means an increased chance for cardiac issues, stroke and more. 
+					It is often called the "Silent Killer". 
+					There are many ways to normalize blood pressure......</p>
+                     <table style="display:none;">
+                      <tr>
+                        <th>Date</th>
+                        <th>Lower BP</th>
+                        <th>Upper BP</th>
+                      </tr>
+        <?php $bpInfo = Mage::helper("weeklyclientinfo")->getBPData();
+        foreach ($bpInfo as $bpInfovalue) { if(strtolower($bpInfovalue['lowerBP']) != 'na' && strtolower($bpInfovalue['upperBP']) != 'na' ) { ?>   
+                      <tr>
+                        <td><?php echo $bpInfovalue['date'] ?></td>
+                        <td><?php echo $bpInfovalue['lowerBP'] ?></td>
+                        <td><?php echo $bpInfovalue['upperBP'] ?></td>
+                      </tr>
+        <?php } } ?>        
+		</table>
+                    </div>
+					
+					<div class="modal-footer" style="text-align: center;margin: auto;border: 0px;">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
+					style="border-radius: 50%;box-shadow: 0px 0px 5px rgba(0,0,0,0.4);width: 24px;height: 24px;background: #fff;color: #000;">×</button>
+                  
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+         <!--bptable moadal-->
+    </div>
+</div>
+</div>
+            
+<!--modal-->
+
+
+<div class="col-xl-4 col-lg-6 col-md-6 pageexpandpanel" style="float: left;">
+<div class="WaistToHeightResultbutton">WAIST TO HEIGHT</div>
+
+    <div class="panel WaistToHeightResultpanel <?php if (strpos($customerInfo['WaistToHeightResult'], 'Not') === false){ echo 'panel-green';}else{ echo 'panel-red';};?>">
+        <div class="panel-heading">
+          
+                    <div class="col-xs-12 text-left">
+                    <div class="huge" >Waist to Height </div>
+					<span class="btn-xs btn" data-toggle="modal" data-target="#myModalheighttowaist">?</span>
+					</div>
+					<div class="col-xs-3 text-right">
+					<div class="WaistToHeight"><?php echo $customerInfo['WaistToHeight'];?></div>
+					</div>
+					<div class="col-xs-9 text-left">                    
+                    <div class="WaistToHeightResult"><?php echo $customerInfo['ratiolabel'];?></div>
+                </div>
+               
+            </div>
+       
+        <div class="graphbp">
+    <div class="heightwaisterroricon" style="display: none;font-size: 10px;">
+       <img src="<?php echo $this->getSkinUrl('/images/infoicon.png')?>" style="width:18px;float: left;">Cure my Diabetes food subscription help you to control your BP<br>
+       <span style="font-size: 12px;color: #72a7cf;border-bottom: 1px solid #72a7cf;">Please provide your contact detail here to get more information</span>
+       </div>     
+		<!--<div class="heightwaisterror" id="errorbox4"> </div>-->
+            <div class="panel-footer">
+                <span class="pull-left"><input type="text" class="form-control" id="waist" placeholder="Waist in cm">
+                <input type="text" class="form-control" id="height" placeholder="Height in cm">
+</span>
+                 <span class="pull-right " onclick="SaveWeistHeightData()"><img src="<?php echo $this->getSkinUrl('images/uploadarrow.png')?>"/></span>
+
+                <div class="clearfix"></div>
+            </div>
+            
+        </div>
+        <!--heightwaisttable modal-->
+                                    <div class="modal fade" id="myModalheighttowaist" tabindex="-1" role="dialog" 
+                                    aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content" style="background-color: rgb(53, 185, 147); color:#fff;margin: 30% auto;width: 70% !important;">
+                               
+                                    
+                                <div class="modal-body">
+								
+								<p style="text-align: justify;">Waist/Height is often considered a better predictor of Metabolic Syndrome than BMI. 
+								If waist to height is bad it may affect all the other factors on this dashboard. There are many ways to improve this....</p>
+                                <table style="display:none;">
+                                  <tr>
+                                    <th>Date</th>
+                                    <th>Waist in cm</th>
+                                    <th>Height in cm</th>
+                                    <th>Ratio</th>
+                                  </tr>
+                  <?php $waistHeightRatio = Mage::helper("weeklyclientinfo")->getWaistToHeightRatio();
+                    foreach ($waistHeightRatio as $waistHeightRatiovalue) { if(strtolower($waistHeightRatiovalue['waist']) !='na' && strtolower($waistHeightRatiovalue['height']) != 'na' &&  strtolower($waistHeightRatiovalue['waistToHeightRatio']) != 'na') {?>
+                                  <tr>
+                                    <td><?php echo $waistHeightRatiovalue['date'] ?></td>
+                                    <td><?php echo $waistHeightRatiovalue['waist'] ?></td>
+                                    <td><?php echo $waistHeightRatiovalue['height'] ?></td>
+                                    <td><?php echo $waistHeightRatiovalue['waistToHeightRatio'] ?></td>
+                                  </tr>
+                  <?php } } ?>                
+                                </table>
+                                </div>
+                              <div class="modal-footer" style="text-align: center;margin: auto;border: 0px;">
+							  <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="border-radius: 50%;box-shadow: 0px 0px 5px rgba(0,0,0,0.4);width: 24px;height: 24px;background: #fff;color: #000;">×</button>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                     <!--heigthwaisttable moadal-->
+    </div>
+</div>
+</div>
+
+<div class="col-xl-4 col-lg-6 col-md-6 pageexpandpanel" style="float: left;">
+<div class="tgbutton">TRIGLYCERIDES</div>
+
+    <div class="panel tgpanel <?php if (strpos($customerInfo['tgresult'], 'Not') === false){ echo 'panel-green';}else{ echo 'panel-red';};?>">
+        <div class="panel-heading">
+          
+              <div class="col-xs-12 text-left">
+                    <div class="huge" >TG </div>
+					<span class="btn-xs btn" data-toggle="modal" data-target="#myModalTG" >?</span>
+				   </div>
+				   <div class="col-xs-3 text-left">
+				   <div class="tgdata"><?php echo $customerInfo['tg'];?></div>
+					</div>
+					<div class="col-xs-9 text-left">
+                    <div class="tgresult"> <?php echo $customerInfo['tglabel'];?></div>
+                </div>
+                
+            
+        </div>
+        <div class="graphtg">
+      <div class="tgerroricon" style="display: none;font-size: 10px;">
+       <img src="<?php echo $this->getSkinUrl('/images/infoicon.png')?>" style="width:18px;float: left;">Cure my Diabetes food subscription help you to control your BP<br>
+       <span style="font-size: 12px;color: #72a7cf;border-bottom: 1px solid #72a7cf;">Please provide your contact detail here to get more information</span>
+       </div>  
+		<!-- <div class="tgerror" id="errorbox2"> </div>-->
+            <div class="panel-footer">
+                <span class="pull-left"><input type="text" class="form-control" id="tgvalue" placeholder="TG Value"></span>
+                 <span class="pull-right " onclick="SaveTGData()"><img src="<?php echo $this->getSkinUrl('images/uploadarrow.png')?>"/></span>
+
+                <div class="clearfix"></div>
+            </div>
+           
+        </div>
+         <!--TGtable modal-->
+                                    <div class="modal fade" id="myModalTG" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content" style="background-color: rgb(53, 185, 147);color:#fff;margin: 30% auto;width: 70% !important;">
+                                
+                                <div class="modal-body">
+								
+								<p style="text-align: justify;">HDL Cholesterol, also known as "Good Choleterol" indicates risk for cardiac disease. Keeping it normal or high will protect you from cardiac issues. </p>
+                                <table style="display:none;">
+                                <tr>
+                                  <th>Date</th>
+                                  <th>TG Rate</th>
+                                </tr>
+                <?php $tgData = Mage::helper("weeklyclientinfo")->getTgdata(); 
+                foreach ($tgData as $tgDatavalue) { if(strtolower($tgDatavalue['tg']) != 'na' ){ ?>     
+                                <tr>
+                                  <td><?php echo $tgDatavalue['date'] ?></td>
+                                  <td><?php echo $tgDatavalue['tg'] ?></td>
+                                </tr>
+                <?php } } ?>                
+                                </table>
+                                </div>
+                              <div class="modal-footer" style="text-align: center;margin: auto;border: 0px;">
+							  <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="border-radius: 50%;box-shadow: 0px 0px 5px rgba(0,0,0,0.4);width: 24px;height: 24px;background: #fff;color: #000;">×</button>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                     <!--TGtable moadal-->
+    </div>
+</div>
+</div>
+<div class="col-xl-4 col-lg-6 col-md-6 pageexpandpanel" style="float: left;">
+<div class="hdlbutton">HIGH-DENSITY LIPOPROTIEN</div>
+
+    <div class="panel hdlpanel <?php if (strpos($customerInfo['hdlresult'], 'Not') === false){ echo 'panel-green';}else{ echo 'panel-red';};?>">
+        <div class="panel-heading">
+          
+             <div class="col-xs-12 text-left">
+                    <div class="huge" >HDL</div>
+					<span class="btn-xs btn" data-toggle="modal" data-target="#myModalHDL" >?</span>
+					
+					</div>
+					<div class="col-xs-3 text-right">
+					<div  class="hdldata"><?php echo $customerInfo['hdl'];?> mg/dl</div>
+					</div>
+					<div class="col-xs-9 text-left">
+                    <div class="hdlresult"><?php echo $customerInfo['hdlabel'];?></div>
+                </div>
+                
+            </div>
+      
+       <div class="graphtg">
+     <div class="hdlerroricon" style="display: none;font-size: 10px;">
+       <img src="<?php echo $this->getSkinUrl('/images/infoicon.png')?>" style="width:18px;float: left;">Cure my Diabetes food subscription help you to control your BP<br>
+       <span style="font-size: 12px;color: #72a7cf;border-bottom: 1px solid #72a7cf;">Please provide your contact detail here to get more information</span>
+       </div>   
+	  <!-- <div class="hdlerror" id="errorbox3"> </div>-->
+            <div class="panel-footer">
+                <span class="pull-left"><input type="text" class="form-control" id="hdlvalue" placeholder="HDL Value"></span>
+                <span class="pull-right " onclick="SaveHDLData()"><img src="<?php echo $this->getSkinUrl('images/uploadarrow.png')?>"/></span>
+
+                <div class="clearfix"></div>
+            </div>
+            
+        </div>
+         <!--HDLtable modal-->
+                                    <div class="modal fade" id="myModalHDL" tabindex="-1" role="dialog" 
+                                    aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content" style="background-color: rgb(53, 185, 147); color:#fff;margin: 30% auto;width: 70% !important;">
+                               
+                                <div class="modal-body">
+								
+								<p style="text-align: justify;">HDL stands for high-density lipoproteins. It is sometimes called the "good" cholesterol because it 
+								carries cholesterol from other parts of your body back to your liver. ... 
+								It is sometimes called the "bad" cholesterol because a high LDL level leads to a buildup of cholesterol in your arteries.</p>
+                                <table style="display:none;">
+                                <tr>
+                                  <th>Date</th>
+                                  <th>HDL Rate</th>
+                                </tr>
+              <?php $hdlData = Mage::helper("weeklyclientinfo")->getHDLdata();
+                foreach ($hdlData as $hdlDatavalue) { if(strtolower($hdlDatavalue['hdl']) != 'na' ) { ?>
+                                <tr>
+                                  <td><?php echo $hdlDatavalue['date'] ?></td>
+                                  <td><?php echo $hdlDatavalue['hdl'] ?></td>
+                                </tr>
+                <?php } } ?>                
+                              </table>
+                                </div>
+                              <div class="modal-footer" style="text-align: center;margin: auto;border: 0px;">
+							  <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="border-radius: 50%;box-shadow: 0px 0px 5px rgba(0,0,0,0.4);width: 24px;height: 24px;background: #fff;color: #000;">×</button>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                     <!--HDLtable moadal-->
+    </div>
+</div>
+</div>
+
+<div class="col-xl-4 col-lg-6 col-md-6 pageexpandpanel" style="float: left;">
+<div class="fastingglucoseresultbutton">FASTING GLUCOSE</div>
+
+    <div class="panel fastingglucoseresultpanel <?php if (strpos($customerInfo['fastingglucoseresult'], 'Not') === false)
+	{ echo 'panel-green';}else{ echo 'panel-red';};?>">
+        <div class="panel-heading">
+                    <div class="col-xs-12 text-left">
+                    <div class="huge" >Fasting Glucose</div>
+					<span class="btn-xs btn" data-toggle="modal" data-target="#myModalfastingglucose">?</span>
+					</div>
+					<div class="col-xs-3 text-right">
+					<div class="fastinggldata"><?php echo $customerInfo['fastinggl'];?> mg/dl</div>
+                    </div>
+					<div class="col-xs-9 text-left">
+					<div class="fastingglucoseresult"> <?php echo $customerInfo['fastinglabel'];?></div>
+                </div>
+                
+            </div>
+        
+         <div class="graphtg">
+     <div class="fastingglerroricon" style="display: none;font-size: 10px;">
+       <img src="<?php echo $this->getSkinUrl('/images/infoicon.png')?>" style="width:18px;float: left;">Cure my Diabetes food subscription help you to control your BP<br>
+       <span style="font-size: 12px;color: #72a7cf;border-bottom: 1px solid #72a7cf;">Please provide your contact detail here to get more information</span>
+       </div>    
+		<!-- <div class="fastingglerror" id="errorbox5"></div>-->
+            <div class="panel-footer">
+                <span class="pull-left"><input type="text" class="form-control" id="fastinggl" placeholder="Fasting Glucose"></span>
+                 <span class="pull-right " onclick="SaveFastingGlucoseData()"><img src="<?php echo $this->getSkinUrl('images/uploadarrow.png')?>"/></span>
+
+                <div class="clearfix"></div>
+            </div>
+            
+        </div>
+         <!--fastingglucosetable modal-->
+                                    <div class="modal fade" id="myModalfastingglucose" tabindex="-1" role="dialog" 
+                                    aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;background-color: #35b993;">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                
+                                <div class="modal-body">  
+								
+<p style="text-align: justify;">Having High Fasting Glucose is the classic sign of diabetes and pre-diabetes. There are natural ways to reduce diabetes and even reverse diabetes. We have many videos on this to help reduce diabetes....</p>								
+                              <table STYLE="DISPLAY:NONE;">
+                                <tr>
+                                  <th>Date</th>
+                                  <th>Fasting Glucose Rate</th>    
+                                </tr>
+                <?php $fastingData = Mage::helper("weeklyclientinfo")->getFastingData();
+                foreach ($fastingData as  $fastingDatavalue) { if( strtolower($fastingDatavalue['fastinggl']) != 'na' ){ ?>  
+                                <tr>
+                                  <td><?php echo $fastingDatavalue['date'] ?></td>
+                                  <td><?php echo $fastingDatavalue['fastinggl'] ?></td> 
+                                </tr>  
+                <?php } } ?>                
+                              </table>
+                                </div>
+                              <div class="modal-footer" style="text-align: center;margin: auto;border: 0px;">
+							  <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="border-radius: 50%;box-shadow: 0px 0px 5px rgba(0,0,0,0.4);width: 24px;height: 24px;background: #fff;color: #000;">×</button>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                     <!--fastingglucosetable moadal-->
+    </div>
+  </div>
+  </div>
+  <div class="col-xl-4 col-lg-6 col-md-6 pageexpandpanel" style="float: left;">
+
+    <div class="panel ordertest">
+        <div class="panel-heading">
+            
+              <div class="col-xs-12">
+                    <div class="huge" data-toggle="modal" data-target="#myModalpopup" style="cursor:pointer;">
+					<img src="<?php echo $this->getSkinUrl('images/reporticon.png')?>"> <span>Order Here and <br> Save on Blood Tests</span> </div>
+				
+					</div>
+                   
+             
+            </div>
+      
+    
+       
+                        
+    </div>
+</div>
+</div>
+<!--</scroll-page>
+</scroll-container>-->
+<!--box row-->
+
+ <!--MSGBOX-->
+  <!-- Modal Popup -->
+<!-- Modal -->
+<div class="modal fade" id="myModalpopup" role="dialog">
+<div class="modal-dialog" style="max-width: 600px;">
+    
+<!-- Modal content-->
+<div class="modal-content">
+  <div class="modal-header" style="background: #eaf3f1;">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h4 class="modal-title" style="text-transform:uppercase">SELECT YOUR BLOOD TEST</h4>
+  </div>
+  <div class="modal-body"  style="background:#fff;"  >
+  <div class="container packagebox">
+   <div class="row">
+   
+  <div class="col-sm-4">
+  <div class="packageborder">
+  <h3>Basic package</h3>
+  <p style="position:relative">
+<!--<span ng-class="{'srlCross': subTestDetail[0].original_price != '0'}" class="srlCross"></span>-->
+<span class="srlNew-test-crum ng-binding">MRP: <!-- ngIf: subTestDetail[0].original_price != "0" --><i ng-if="subTestDetail[0].original_price != &quot;0&quot;" class="ng-binding ng-scope"><strike>690</strike></i><!-- end ngIf: subTestDetail[0].original_price != "0" --> &nbsp;&nbsp;₹590 &nbsp;&nbsp;&nbsp; <!-- ngIf: subTestDetail[0].parameter != "0" --><!--<i ng-if="subTestDetail[0].parameter != &quot;0&quot;" class="ng-binding ng-scope">ANALYZES: 3 TESTS</i><!-- end ngIf: subTestDetail[0].parameter != "0" --></span>
+</p>
+  <small>
+  <ul>
+<li>HDL</li>
+<li>Triglycerides</li>
+<li>Fasting Glucose</li>
+    </ul>
+</small>
+<button type="button" class="btn btn-info clickinfobtn" onClick="javascript:AddPackTOCart(1671);">Book Now</button>
+  
+ 
+  </div>
+  </div>
+  <div class="col-sm-4">
+  <div class="packageborder">
+  <h3>Premium package</h3>
+  <p style="position:relative">
+<!--<span ng-class="{'srlCross': subTestDetail[0].original_price != '0'}" class="srlCross"></span>-->
+<span class="srlNew-test-crum ng-binding">MRP: <!-- ngIf: subTestDetail[0].original_price != "0" --><i ng-if="subTestDetail[0].original_price != &quot;0&quot;" class="ng-binding ng-scope"><strike>1380</strike></i><!-- end ngIf: subTestDetail[0].original_price != "0" --> &nbsp;&nbsp;₹966 &nbsp;&nbsp;&nbsp; <!-- ngIf: subTestDetail[0].parameter != "0" --><!--<i ng-if="subTestDetail[0].parameter != &quot;0&quot;" class="ng-binding ng-scope">ANALYZES: 6 TESTS</i><!-- end ngIf: subTestDetail[0].parameter != "0" --></span>
+</p>
+  <small> <ul>
+<li><b>All Tests Above PLUS</b></li>
+<li>Lipid Profile</li>
+<li>HBA1c</li>
+<li>Vitamin D</li>
+    </ul>
+	</small>
+  <button type="button" class="btn btn-info clickinfobtn" onClick="javascript:AddPackTOCart(1672);">Book Now</button>
+  
+  
+  </div>
+  </div>
+  <div class="col-sm-4">
+  <div class="packageborder">
+  <h3>Super Premium package</h3>
+  <p style="position:relative">
+<!--<span ng-class="{'srlCross': subTestDetail[0].original_price != '0'}" class="srlCross"></span>-->
+<span class="srlNew-test-crum ng-binding">MRP: <!-- ngIf: subTestDetail[0].original_price != "0" --><i ng-if="subTestDetail[0].original_price != &quot;0&quot;" class="ng-binding ng-scope"><strike>₹6005</strike></i><!-- end ngIf: subTestDetail[0].original_price != "0" --> &nbsp;&nbsp;₹4500 &nbsp;&nbsp;&nbsp; <!-- ngIf: subTestDetail[0].parameter != "0" --><!--<i ng-if="subTestDetail[0].parameter != &quot;0&quot;" class="ng-binding ng-scope">ANALYZES: 9 TESTS</i><!-- end ngIf: subTestDetail[0].parameter != "0" --></span>
+</p>
+  <small> 
+   <ul>
+<li><b>All Tests Above PLUS</b></li>
+<li>Liver Function</li>
+<li>HSCRP</li>
+<li>Vitamin B12</li>
+
+
+    </ul>
+	</small>
+ <button type="button" class="btn btn-info clickinfobtn" onClick="javascript:AddPackTOCart(1673);">Book Now</button>
+  
+ 
+  </div>
+  </div>
+  <!--freetets-->
+   <div class="col-sm-4">
+  <div class="packageborder">
+  <h3>Free Test</h3>
+  <p style="position:relative">
+<!--<span ng-class="{'srlCross': subTestDetail[0].original_price != '0'}" class="srlCross"></span>-->
+<span class="srlNew-test-crum ng-binding">MRP: <!-- ngIf: subTestDetail[0].original_price != "0" --><i ng-if="subTestDetail[0].original_price != &quot;0&quot;" class="ng-binding ng-scope"><strike>₹2</strike></i><!-- end ngIf: subTestDetail[0].original_price != "0" --> &nbsp;&nbsp;₹1 &nbsp;&nbsp;&nbsp; <!-- ngIf: subTestDetail[0].parameter != "0" --><!--<i ng-if="subTestDetail[0].parameter != &quot;0&quot;" class="ng-binding ng-scope">ANALYZES: 9 TESTS</i><!-- end ngIf: subTestDetail[0].parameter != "0" --></span>
+</p>
+  <small> 
+   <ul>
+<li><b>All Tests Above PLUS</b></li>
+<li>Liver Function</li>
+<li>HSCRP</li>
+<li>Vitamin B12</li>
+
+
+    </ul>
+	</small>
+ <button type="button" class="btn btn-info clickinfobtn" onClick="javascript:AddPackTOCart(1674);">Book Now</button>
+  
+ 
+  </div>
+  </div>
+  <!--freetest-->
+  
+</div> 
+ </div>
+ </div>
+
+</div>
+
+</div>
+</div>
+ <!--MSGBOX-->
+ 
+ 
+ 
+<!--videopopup-->
+
+
+  <!-- Grid column -->
+ 
+
+    <!--Modal: Name-->
+    <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document" style="background:#fff;">
+
+        <!--Content-->
+        <div class="modal-content">
+
+          <!--Body-->
+          <div class="modal-body mb-0 p-0">
+
+            <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
+              <!--<iframe class="embed-responsive-item" src="http://cure.americanarearugs.com/skin/frontend/rwd/default/media/Video1.mp4"
+                allowfullscreen></iframe>-->
+            </div>
+
+    </div>
+	
+          </div>
+
+          <!--Footer-->
+          <div class="modal-footer justify-content-center" onclick="openForm()">
+            <button class="btn btn-outline-primary btn-rounded btn-md ml-4">Open Form</button>
+            <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4" data-dismiss="modal">Close</button>
+
+          </div>
+
+<div class="form-popup" id="mypopupForm">
+  <form action="/action_page.php" class="form-container">
+    <h1>Login</h1>
+
+    <label for="email"><b>Email</b></label>
+    <input type="text" placeholder="Enter Email" name="email" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" required>
+
+    <button type="submit" class="btn">Login</button>
+    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+  </form>
+</div>
+
+
+        </div>
+        <!--/.Content-->
+
+      </div>
+	  
+    <!--Modal: Name-->
+
+   <div class="iframe-embed comp iframe-embed mntl-block">
+ <a class="iframe-embed-toggle  z-depth-1" data-toggle="modal" data-target="#modal1">Create account to save your data and get access to helpful advice</a>
+ </div>
+
+ 
+  <!-- Grid column -->
+
+
+<!--videopopup-->
+
+
+<script type="text/javascript">
+var slideIndex1 = 1;
+showSlides1(slideIndex1);
+
+function plusSlides1(n) {
+  showSlides1(slideIndex1 += n);
+}
+
+function currentSlide(n) {
+  showSlides1(slideIndex1 = n);
+}
+
+function showSlides1(n) {
+  var i;
+  var slides1 = document.getElementsByClassName("mySlides1");
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides1.length) {slideIndex1 = 1}    
+  if (n < 1) {slideIndex1 = slides1.length}
+  for (i = 0; i < slides1.length; i++) {
+      slides1[i].style.display = "none";  
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides1[slideIndex1-1].style.display = "block";  
+  dots[slideIndex1-1].className += " active";
+}
+// Wait for the DOM to be ready
+<?php 
+if(Mage::getSingleton('customer/session')->isLoggedIn()){
+    $customer = Mage::getSingleton('customer/session')->getCustomer();
+    $customerid = trim($customer->getID());
+    $name = trim($customer->getName());
+    $email = trim($customer->getEmail());
+    $mobile = trim($customer->getPrimarymobileno());
+}
+?>
+var customerid = "<?php echo $customerid; ?>";
+var mobile = "<?php echo $mobile; ?>";
+var email = "<?php echo $email; ?>";
+var name = "<?php echo $name; ?>";
+jQuery(function() {
+  jQuery("form[name='regForm']").validate({
+    // Specify validation rules
+    rules: {
+      // The key name on the left side is the name attribute
+      // of an input field. Validation rules are defined
+      // on the right side
+      Username: "required",
+      email: {
+        required: true,
+        // Specify that email should be validated
+        // by the built-in "email" rule
+        email: true
+      },
+       mobileno: "required",
+	    landmark: "required"
+    },
+	
+    // Specify validation error messages
+    messages: {
+      Username: "Please enter your firstname",
+      mobileno: "Please enter your mob no",
+       landmark: "Please enter your landmark",
+      email: "Please enter a valid email address"
+    },
+    // Make sure the form is submitted to the destination defined
+    // in the "action" attribute of the form when valid
+    submitHandler: function(form) {
+    //  form.submit();
+	  
+
+    }
+	
+  });
+   
+});
+
+
+jQuery(function() {
+	jQuery(".btn").click(function() {
+		jQuery(".form-signin").toggleClass("form-signin-left");
+    jQuery(".form-signup").toggleClass("form-signup-left");
+    jQuery(".frame").toggleClass("frame-long");
+    jQuery(".signup-inactive").toggleClass("signup-active");
+    jQuery(".signin-active").toggleClass("signin-inactive");
+    jQuery(".forgot").toggleClass("forgot-left");   
+    jQuery(this).removeClass("idle").addClass("active");
+	});
+});
+
+function SaveBPData(){  
+jQuery(".loader").css("display", "block"); 
+jQuery(".bperror").css("display","none");
+var upperbp = jQuery("#high").val();
+var lowerbp = jQuery("#Low").val();
+if(upperbp && lowerbp){
+jQuery.ajax({
+    url: "<?php echo Mage::getBaseUrl().'heal/index/insetBpRecords' ?>",
+    type: "post",
+    data: {
+      mobile : (mobile ? mobile : ""),
+      name : (name ? name : ""),
+      email : (email ? email : ""),
+      lowerbp: lowerbp,  
+      upperbp: upperbp,
+      customerid : (customerid ? customerid : "")
+    },
+    success: function(response){
+        result=JSON.parse(response);        
+        var finallog = (result.graphdata.bpresult).toLowerCase();
+        jQuery(".loader").css("display", "none"); 
+        //jQuery(".bperror").text("Thank you for information");
+        jQuery(".bperror").css("color","#5cb85c"); 
+        jQuery(".bperror").css("display","block"); 
+        jQuery(".bpdata").text(upperbp+'/'+lowerbp);
+        jQuery('.bppanel').removeClass('panel-green panel-red');
+        jQuery(".bpresult").text(result.graphdata.bplabel);
+        if( finallog == 'not good'){
+        jQuery('.bppanel').addClass('panel-red');
+        /*jQuery(".bperroricon").css("display","block"); 
+        jQuery(".bperror").append('<div class="iframe-embed comp iframe-embed mntl-block"  data-toggle="modal" data-target="#myModalpopup"><a class="iframe-embed-toggle"><span class="down">To get complete analysis </span></a></div>');*/
+        }else { jQuery('.bppanel').addClass('panel-green'); }
+    }
+});
+}else{ 
+    jQuery(".bperror").text( "Please enter Lower and Upper BP values");
+    jQuery(".bperror").css("display","block");
+    jQuery(".loader").css("display", "none");
+    }
+}
+function SaveTGData(){
+jQuery(".loader").css("display", "block"); 
+jQuery(".tgerror").css("display","none");
+var tgvalue = jQuery("#tgvalue").val();
+if(tgvalue){
+jQuery.ajax({
+    url: "<?php echo Mage::getBaseUrl().'heal/index/insetTGRecords' ?>",
+    type: "POST",
+    data: {
+      mobile : (mobile ? mobile : ""),
+      name : (name ? name : ""),
+      email : (email ? email : ""),
+      tg: tgvalue,
+      customerid : (customerid ? customerid : "")
+    },
+    success: function(response){
+        result=JSON.parse(response);        
+        var finallog = (result.graphdata.tgresult).toLowerCase();
+        jQuery(".loader").css("display", "none");
+        //jQuery(".tgerror").text("Thank you for information");
+        jQuery(".tgerror").css("color","#5cb85c"); 
+        jQuery(".tgerror").css("display","block");
+        jQuery(".tgdata").text(tgvalue); 
+        jQuery('.tgpanel').removeClass('panel-green panel-red');
+        jQuery(".tgresult").text(result.graphdata.tglabel);     
+        if( finallog == 'not good'){
+        jQuery('.tgpanel').addClass('panel-red');
+        /*jQuery(".tgerroricon").css("display","block");
+        jQuery(".tgerror").append('<div class="iframe-embed comp iframe-embed mntl-block"  data-toggle="modal" data-target="#myModalpopup"><a class="iframe-embed-toggle"><span class="down">To get complete analysis </span></a></div>');*/
+        }else { jQuery('.tgpanel').addClass('panel-green'); }
+    }
+});
+}else{ 
+    jQuery(".tgerror").text("Please enter TG value");
+    jQuery(".tgerror").css("display","block");
+    jQuery(".loader").css("display", "none"); 
+}
+}
+
+function SaveHDLData(){
+jQuery(".loader").css("display", "block"); 
+jQuery(".hdlerror").css("display","none");
+var hdlvalue = jQuery("#hdlvalue").val();
+if(hdlvalue){
+jQuery.ajax({
+    url: "<?php echo Mage::getBaseUrl().'heal/index/insetHDLRecords' ?>",
+    type: "POST",
+    data: {
+      mobile : (mobile ? mobile : ""),
+      name : (name ? name : ""),
+      email : (email ? email : ""),
+      hdl: hdlvalue,
+      customerid : (customerid ? customerid : "")
+    },
+    success: function(response){
+        result=JSON.parse(response);        
+        var finallog = (result.graphdata.hdlresult).toLowerCase();
+        jQuery(".loader").css("display", "none"); 
+        //jQuery(".hdlerror").text("Thank you for information");
+        jQuery(".hdlerror").css("color","#5cb85c"); 
+        jQuery(".hdlerror").css("display","block");
+        jQuery(".hdldata").text(hdlvalue+" mg/dl");
+        jQuery('.hdlpanel').removeClass('panel-green panel-red');
+        jQuery(".hdlresult").text(result.graphdata.hdlabel);    
+        if( finallog == 'not good'){
+        jQuery('.hdlpanel').addClass('panel-red');
+        /*jQuery(".hdlerroricon").css("display","block");
+        jQuery(".hdlerror").append('<div class="iframe-embed comp iframe-embed mntl-block"  data-toggle="modal" data-target="#myModalpopup"><a class="iframe-embed-toggle"><span class="down">To get complete analysis </span></a></div>');*/
+        }else { jQuery('.hdlpanel').addClass('panel-green'); }  
+    }
+});
+}else{ 
+    jQuery(".hdlerror").text("Please enter HDL value");
+    jQuery(".hdlerror").css("display","block");
+    jQuery(".loader").css("display", "none");
+}
+}   
+function SaveWeistHeightData(){
+jQuery(".loader").css("display", "block"); 
+jQuery(".heightwaisterror").css("display","none");
+var waist = jQuery("#waist").val();
+var height = jQuery("#height").val();
+if(waist && height){
+jQuery.ajax({
+    url: "<?php echo Mage::getBaseUrl().'heal/index/insetheightwaistRecords' ?>",
+    type: "POST",
+    data: {
+      mobile : (mobile ? mobile : ""),
+      name : (name ? name : ""),
+      email : (email ? email : ""),
+      waist: waist,  
+      height: height,
+      customerid : (customerid ? customerid : "")
+    },
+    success: function(response){
+        result=JSON.parse(response);        
+        var finallog = (result.graphdata.WaistToHeightResult).toLowerCase();
+        jQuery(".loader").css("display", "none"); 
+        //jQuery(".heightwaisterror").text("Thank you for information");
+        jQuery(".heightwaisterror").css("color","#5cb85c"); 
+        jQuery(".heightwaisterror").css("display","block");
+        jQuery('.WaistToHeightResultpanel').removeClass('panel-green panel-red');
+        jQuery(".WaistToHeightResult").text(result.graphdata.ratiolabel);   
+    jQuery(".WaistToHeight").text(result.graphdata.WaistToHeight);
+        if( finallog == 'not good'){
+        jQuery('.WaistToHeightResultpanel').addClass('panel-red');
+        /*jQuery(".heightwaisterroricon").css("display","block");
+        jQuery(".heightwaisterror").append('<div class="iframe-embed comp iframe-embed mntl-block"  data-toggle="modal" data-target="#myModalpopup"><a class="iframe-embed-toggle"><span class="down">To get complete analysis </span></a></div>');*/
+        }else { jQuery('.WaistToHeightResultpanel').addClass('panel-green'); } 
+
+    }
+});
+}else{ 
+    jQuery(".heightwaisterror").text( "Please enter values" );
+    jQuery(".heightwaisterror").css("display","block");
+    jQuery(".loader").css("display", "none");
+    }
+}   
+
+function SaveFastingGlucoseData(){
+jQuery(".loader").css("display", "block"); 
+jQuery(".fastingglerror").css("display","none");
+var fastinggl = jQuery("#fastinggl").val();
+if(fastinggl){
+jQuery.ajax({
+    url: "<?php echo Mage::getBaseUrl().'heal/index/insetFstGlucoseRecords' ?>",
+    type: "POST",
+    data: {
+      mobile : (mobile ? mobile : ""),
+      name : (name ? name : ""),
+      email : (email ? email : ""),
+      fastinggl: fastinggl,
+      customerid : (customerid ? customerid : "")
+    },
+    success: function(response){
+        result=JSON.parse(response);        
+        var finallog = (result.graphdata.fastingglucoseresult).toLowerCase();
+        jQuery(".loader").css("display", "none"); 
+        //jQuery(".fastingglerror").text("Thank you for information");
+        jQuery(".fastingglerror").css("color","#5cb85c"); 
+        jQuery(".fastingglerror").toggle();
+		 
+        jQuery(".fastinggldata").text(fastinggl+" mg/dl");
+        jQuery('.fastingglucoseresultpanel').removeClass('panel-green panel-red');
+        jQuery(".fastingglucoseresult").text(result.graphdata.fastinglabel);    
+        if( finallog == 'not good'){
+        jQuery('.fastingglucoseresultpanel').addClass('panel-red');
+        /*jQuery(".fastingglerroricon").css("display", "block");
+        jQuery(".fastingglerror").append('<div class="iframe-embed comp iframe-embed mntl-block"  data-toggle="modal" data-target="#myModalpopup"><a class="iframe-embed-toggle"><span class="down">To get complete analysis </span></a></div>');*/
+        }else { jQuery('.fastingglucoseresultpanel').addClass('panel-green'); } 
+    }
+});
+}else{
+    jQuery(".fastingglerror").text("Please enter Fasting Glucose value");
+    jQuery(".fastingglerror").toggle();
+    jQuery(".loader").css("display", "none"); 
+}
+
+}
+
+function createAccount(){
+jQuery(".loader").css("display", "block"); 
+jQuery(".success").css("display","none");
+var names = jQuery("#Username").val();
+var emails = jQuery("#email").val();
+var mobileno = jQuery("#mobileno").val();
+if(mobileno && emails && names){
+jQuery.ajax({
+    url: "<?php echo Mage::getBaseUrl().'heal/index/insertAccounts' ?>",
+    type: "POST",
+    data: {
+      mobile : mobileno,
+      name : names,
+      email: emails
+    },
+    success: function(response){  
+      console.log(response); 
+      jQuery(".form-signin").css("display", "none");
+      jQuery(".loader").css("display", "none"); 
+      jQuery(".success").css("display", "block");
+    }
+});
+}
+
+}
+
+function myFunctionclose1() {
+  var x = document.getElementById("errorbox1");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+} 
+function myFunctionclose2() {
+  var x = document.getElementById("errorbox2");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+} 
+
+function myFunctionclose3() {
+  var x = document.getElementById("errorbox3");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+} 
+
+function myFunctionclose4() {
+  var x = document.getElementById("errorbox4");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+} 
+
+function myFunctionclose5() {
+  var x = document.getElementById("errorbox5");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+} 
+
+var jQuery = $.noConflict();
+jQuery(document).ready(function(){
+ jQuery(".bpbutton").click(function(){
+	
+	jQuery(".bppanel").animate({
+      height: 'toggle'
+     });
+
+});
+jQuery(".tgbutton").click(function(){
+	
+	jQuery(".tgpanel").animate({
+      height: 'toggle'
+     });
+});
+jQuery(".hdlbutton").click(function(){
+	
+	jQuery(".hdlpanel").animate({
+      height: 'toggle'
+     });
+});
+jQuery(".WaistToHeightResultbutton").click(function(){
+	
+	jQuery(".WaistToHeightResultpanel").animate({
+      height: 'toggle'
+     });
+});
+jQuery(".fastingglucoseresultbutton").click(function(){
+	
+	jQuery(".fastingglucoseresultpanel").animate({
+      height: 'toggle'
+     });
+});
+
+ jQuery('#modal1').on('hidden.bs.modal', function (e) {
+  // do something...
+  jQuery('#modal1 iframe').attr("src", jQuery("#modal1 iframe").attr("src"));
+});
+
+	
+});
+
+function openForm() {
+  document.getElementById("mypopupForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("mypopupForm").style.display = "none";
+}
+
+function AddPackTOCart(id)
+{
+	
+	  var url = "<?php echo Mage::getBaseUrl();?>checkout/cart/custom/id"+id;
+		window.location.href = "<?php echo Mage::getBaseUrl();?>checkout/cart/custom/id/"+id;
+	
+}
+</script>

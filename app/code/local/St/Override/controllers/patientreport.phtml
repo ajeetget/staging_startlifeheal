@@ -1,0 +1,1271 @@
+	<?php  error_reporting(E_ALL);
+	       ob_start();
+	 
+
+$groupId = Mage::getSingleton('customer/session')->getCustomerGroupId(); 
+if(!isset($groupId) || $groupId!=5)
+{
+	header("Location:".Mage::getBaseUrl()."customer/account/login/"); exit;
+}
+?>
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl();?>css/preloader.css">
+ <link rel="stylesheet" href="<?php echo $this->getSkinUrl();?>css/perfect-scrollbar.min.css">
+ <link rel="stylesheet" href="<?php echo $this->getSkinUrl();?>css/catalog-page.css">
+ <script src="<?php echo $this->getSkinUrl();?>js/catalog.min.js"></script>
+
+<style>
+    .formbluebox{margin-top:3rem;}
+    .heading-top{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-bottom: 2px solid #e4f4f5;
+    }
+    .heading-top img{
+        width:14%;
+    }
+    .heading-top p{
+        color:#5ac5c7;
+        font-size: 1.4rem;
+    }
+
+    .subheading{
+        padding: 8px 0;
+        border-bottom: 2px solid #e4f4f5; 
+        margin-bottom: 3rem; 
+    }
+    .subheading p {
+        font-size: 1.8rem;
+        font-weight:bold;color: #00ae8e;
+        text-transform: uppercase;
+    }
+	.whitebox{
+        background:#fff; 
+        width:100%;
+    }
+    .form-personal, .form-personal-left, 
+    .form-personal-right, .gender, 
+    .form-personal-long,
+    .form-personal-long-left,
+    .form-personal-long-right,
+    .preferred-inner, .form-lifestyle,
+    .form-personal-veg-left, 
+    .form-personal-veg-right,
+    .chicken_per_week, .tofu-left, .tofu-left-inner,
+    .tofu-right, .tofu-right-inner{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;       
+    }
+   
+    .form-personal, .form-personal-long, .form-lifestyle{       
+        margin-bottom: 15px;
+    }
+    .form-personal > label, 
+    .form-personal-left > label, 
+    .gender > label,
+    .waist > label, 
+    .form-personal-long-right > label {
+        width:125px;
+    }
+
+    .form-personal-veg-right > label {
+        width:35px;
+    }
+    .form-personal-right > label{
+        width:145px;
+    }
+    .form-personal-long-right2 > label{
+        width:180px;
+    }
+    .form-chicken-long > label{
+        width: 300px;
+    }
+    .tofu-right > label{
+        width:250px;
+    }
+    .weight > label, .height > label{
+        width:115px;
+        text-align: right;
+        box-sizing: border-box;
+        padding-right: 12px;
+    }
+    .form-personal-long > label,
+    .form-personal-long-left > label {
+        width:225px;
+    }
+    .form-personal > input[type="text"],
+    .form-personal-left > input[type="text"],
+    .form-personal-right > input[type="text"],
+    .weight > input[type="text"],
+    .height > input[type="text"],
+    .waist > input[type="text"],
+    .weight > input[type="date"],
+    .form-personal-long > input[type="text"],
+    .form-personal-long-right >  input[type="text"],
+    .form-personal-long-left >  input[type="text"],
+    .form-personal-long-right2 > input[type="date"],
+    .form-lifestyle > input[type="text"],    
+    .chicken_per_week > input[type="number"] {
+        width: calc(100% - 130px);
+        border:0;
+        outline: 0;
+        height: 45px;
+        background: #e4f4f5;
+        border-radius: 5px;
+        box-sizing: border-box;
+        padding: 0 20px;
+        box-shadow: none;
+    }
+    .gender-inner, .egg-inner, .veg-inner{
+        width: calc(100% - 130px);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .egg-inner{
+        width: calc(100% - 40px);
+    }
+    .form-personal-right > input[type="text"]{
+        width: calc(100% - 145px);
+    }
+    .form-personal-long > input[type="text"],
+    .preferred-inner, 
+    .form-personal-long-left >  input[type="text"] {
+        width: calc(100% - 230px);
+    }
+     .form-personal-long-right2 > input[type="date"] {
+         width: calc(100% - 185px);
+     }
+     .form-chicken-long > input[type="text"]{
+        width: calc(100% - 305px);
+     }
+    .weight > input[type="text"],
+    .height > input[type="text"],
+    .weight > input[type="date"]{
+        width: calc(100% - 120px);
+    }
+    .form-personal > textarea, .form-lifestyle > textarea{
+        width: calc(100% - 130px);
+        border:0;
+        outline: 0;
+        height: 110px;
+        background: #e4f4f5 !important;
+        border-radius: 5px;
+        box-sizing: border-box;
+        padding: 0 20px;
+        box-shadow: none;
+    }
+    .form-personal-left, .form-personal-right{
+        width:45%;
+    }
+    .gender, .weight, .height, .waist{
+        width:31%;
+    }
+    .tofu-left{
+        width:32%;
+    }
+    .tofu-right{
+        width:42%;
+    }
+    .form-personal-long-left,
+    .form-personal-long-right{
+        width:45%;
+    }
+
+    .form-personal-veg-left {
+        width:35%;
+    }
+
+    .form-personal-veg-right {
+        width:18%;
+    }
+    .chicken_per_week{
+        width:40%;
+    }
+
+    .personal-fields{
+        margin-bottom: 50px;
+    }
+
+    .lifestyle-section{}
+    .lifestyle-section h3{
+        color:#08515c;
+        font-size: 1.6rem;
+    }
+    .form-lifestyle{}
+    .form-lifestyle > label,
+    .form-personal-veg-left > label,
+    .chicken_per_week > label, .tofu-left > label {
+        width: 195px;
+    }
+    .form-lifestyle > input[type="text"], .form-lifestyle > textarea,
+    .veg-inner, .chicken_per_week > input[type="number"],
+    .tofu-left-inner {
+        width: calc(100% - 200px);
+    }
+    .tofu-right-inner{
+        width: calc(100% - 255px);
+    }
+
+/*============RADIO CONTAINER ==================*/
+    .radio_container {
+      display: block;
+      position: relative;
+      padding-left: 35px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      font-size: 14px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+/* Hide the browser's default radio button */
+.radio_container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 22px;
+  width: 22px;
+  background-color: #fff;
+  border-radius: 50%;
+  border:2px solid #c1e6eb;
+}
+
+/* On mouse-over, add a grey background color */
+.radio_container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.radio_container input:checked ~ .checkmark {
+  background-color: #bcf4fc;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radio_container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.radio_container .checkmark:after {
+    top: 5px;
+    left: 5px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: white;
+}
+
+/*============= END OF RADIO CONTAINER ==========*/
+
+/***********************=========***************************/
+
+	.boxonew, .boxtwow, .boxthreew{width: 33%;float: left;}
+	.boxonew div, .boxtwow div, .boxthreew div{width:100%;float: left;}	
+	.boxonew div label, .boxtwow div label, .boxthreew div label{width:100%;}
+	.boxtwosmall{width:30%; float:left;}
+.whitebox .one {
+    float: left;
+    width: 100%;
+    border: 1px solid #000;
+        border-right-color: rgb(0, 0, 0);
+        border-right-style: solid;
+        border-right-width: 1px;
+        border-bottom-color: rgb(0, 0, 0);
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+    border-right: 0px;
+    border-bottom: 0px;
+}
+	.whitebox .two {
+    float: left;
+    width: 100%;
+    border: 1px solid #000;
+      height: auto;
+    padding: 0px 0em;
+    border-bottom: 0px;
+}
+	.form-inline label {
+    margin: 0 5px;
+    float: left;
+    font-size: 13px;
+    justify-content: left;
+    text-align: left;
+    line-height: 40px;
+		height:40px;
+    align-items: normal;
+    width: auto;
+}
+	.form-inline .nameclass {
+    width: 68%;
+}
+	.form-inline .addressclass {
+    resize: inherit;
+    background: none !important;
+    width: 88%;
+    box-shadow: none;
+    border-radius: 0;
+    line-height: 27px;
+}
+.form-inline .form-control {
+    border: 0;
+    height: 40px;
+    float: left;
+    font-size: 14px;
+    padding: 5px !important;
+    text-align: left !important;
+	box-shadow: none;
+}
+	.form-inline .addressclass {
+    resize: inherit;
+    background: none !important;
+    width: 88%;
+    box-shadow: none;
+    border-radius: 0;
+    line-height: 27px;
+		
+}
+	.whitebox .one b, .whitebox .two b{font-weight: 600;
+margin: 0px 5px;
+float: left;
+height: 40px;
+line-height: 40px;}
+	
+	.form-inline .howdid {
+    border: 0px;
+    resize: unset;
+    background: none !important;
+    padding: 5px;
+    width: 26%;
+    box-shadow: none;
+    border-radius: 0;
+    line-height: 30px;
+}
+	.form-inline .primdoc {
+   border: 0px;
+resize: unset;
+background: none !important;
+padding: 5px;
+width: 26%;
+box-shadow: none;
+border-radius: 0;
+line-height: 30px;
+}
+	b, strong {
+    font-weight: 700;
+    font-size: 13px;
+}
+	input[type="checkbox"], input[type="radio"] {
+    box-sizing: border-box;
+    padding: 0;
+    box-sizing: border-box;
+    padding: 0;
+    width: 14px;
+    height: 14px;
+    float: left;
+    line-height: 40px;
+    height: 40px;
+}
+	.form-inline .weight {
+    width:68%;
+}
+	.form-inline .height {
+    width: 68%;
+}
+	.form-inline .waist, .form-inline .lastvisit {
+    width: 80%;
+}
+	.formbluebox .lastrow label {
+    margin: 0 5px;
+    float: left;
+    justify-content: center;
+    text-align: center;
+    align-items: baseline;
+    width: 100%;
+}
+
+.formbluebox tbody tr .lastrow{width:12%;float:left;}
+.formbluebox tbody tr span{float: left;
+width: 33%;
+padding-left: 10px;
+font-size: 13px;}
+.suggestionbox tbody tr td textarea {
+    border: 1px solid #000 !important;
+}
+
+		
+	
+	.form-inline .form-control{border:0;height: 40px;float: left;}
+	input[type="text"], input[type="number"] {width: 100%;max-width: 100%;background: none;
+border: 1px solid;}
+
+	.formbluebox tbody tr th p{padding: 5px 10px;background: #269a9b;font-size: 1.4em;font-weight:bold;color: #fff;text-transform: uppercase;}
+	.formbluebox tbody{float: left;width: 100%; padding-bottom:0px;}
+	.formbluebox tbody tr{width: 100%;float: left;}
+	.formbluebox .inputclient{width: 23%;float: left;margin: auto 10px;}
+.formbluebox tbody tr td p{
+    background: #269a9b;
+color: #fff;
+text-align: center;
+padding: 5px 10px;
+font-size: 1em;
+text-transform: uppercase;
+font-weight: bold;
+margin: 2% auto;}
+	.suggestionbox tbody{padding-bottom:40px;}
+	.suggestionbox tbody tr .ths1{width:30%; float:left;margin: 10px auto;text-align:left;}
+	.suggestionbox tbody tr .ths2{width:30%; float:left;margin:10px;text-align:center;}
+	.suggestionbox tbody tr .ths3{width:30%; float:left;margin:10px;text-align:center;}
+	.suggestionbox th {font-weight: bold;font-style: normal;font-size: 15px;text-transform: capitalize;}
+	.suggestionbox textarea{background: #edf3f3 !important;box-shadow: none;resize: initial;}
+	
+	.thankyoumsg {
+    width: 100%;
+    float: left;
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+		background:rgba(0,0,0,0.4)
+}
+	.thankyoumsg p {
+    position: fixed;
+    top: 40%;
+    width: 50%;
+    float: none;
+    margin: auto;
+    left: 25%;
+    background: #40b8b9;
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+	.whitebox .form-group {
+    float: left;
+    width: 100%;
+    display: block;
+}
+	.catch{margin:0px 5px 0px 0px;float: left;width: 48%;}
+	
+	.breadcrumbs{float: right;position: inherit;}
+			.highlight{color:#fff;
+background:#269a9b;}
+	
+.lifeass{
+    line-height: 40px;
+    width: 100%;
+    float: left;
+}
+	.lifeass input[type="checkbox"], .lifeass input[type="radio"] {
+    box-sizing: border-box;
+    padding: 0;
+    box-sizing: border-box;
+    padding: 0;
+    width: 14px;
+    height: 14px;
+    float: left;
+  line-height: 40px;
+height: 40px !important;
+}
+	.lifeass label {
+    margin: 0 5px;
+    float: left;
+    font-size: 13px;
+    justify-content: left;
+    text-align: left;
+    line-height: 40px!important;
+    height: 40px!important;
+    align-items: normal;
+    width: auto;
+}
+	.lifeass b {
+    width: auto !important;
+}
+	@media screen and (min-width:260px) and (max-width:767px)
+	{
+		.addresstab{display:none;}
+		input[type="number"], input[type="password"], input[type="text"] {
+    width: 98% !important;
+}
+		.lifeass label {
+    margin: 0 0px !important;
+		}
+			.boxonew, .boxtwow, .boxthreew{width:100%;float: left;}
+	.boxonew div, .boxtwow div, .boxthreew div{width:100%;float: left;}
+		.boxtwosmall {
+    width: 100%;
+    float: left;
+}
+	.boxonebig {
+    width: 100%;
+   
+}
+.form-group b {
+font-size: 12px;
+float: left;
+line-height: 40px;
+margin: 0px 5px !important;
+width: 100%;
+padding: 0px;
+}
+		.formbluebox tbody tr .lastrow {
+    width: auto;
+    float: left;
+}
+		.formbluebox {
+    margin: auto;
+        margin-top: auto;
+    width: 100%;
+    background: #269a9b;
+    padding: 20px 20px;
+    float: left;
+    margin-top: 22%;
+}
+		.formbluebox tbody tr span{float: left;
+width: 100%;
+padding-left: 10px;
+font-size: 13px;}
+	.suggestionbox tbody tr td textarea {
+    border: 1px solid #000 !important;
+    width: 100% !important;
+}
+	.form-inline label {
+    margin: 0 5px;
+    float: left;
+		line-height: 24px;
+		height:auto;
+    justify-content: left;
+    text-align: left;
+   align-items: safe;
+    font-size: 12px;
+}
+	
+		.whitebox {
+    background: #fff;
+    width: 100%;
+    padding: 10px;
+    float: left;
+}
+		.whitebox .one{  float: left;
+    width: 100%;
+    border: 1px solid #000;
+    height: auto;
+    padding: 0px 0em;border-bottom:0px;}
+	.whitebox .two {
+    float: left;
+    width: 100%;
+    border: 1px solid #000;
+    height: auto;
+    padding: 0px 0em;border-bottom:0px;
+}
+		.whitebox .form-group {
+    float: left;
+	margin: 0px;
+    width: 100%;
+    display: block;
+}
+		.whitebox .form-group img{display:none;}
+		.callbutton {
+   padding: 10px 7px;
+background: #269a9b;
+font-size: 1em;
+font-weight: bold;
+color: #fff;
+text-transform: uppercase;
+margin: 3% 0px 0px 0px;
+text-align: center;float: left;
+}
+		
+	
+		.form-inline .waist, .form-inline .lastvisit{width:100%;background:#f7f5f5 !important;}
+		.form-inline .primdoc{width:100%;background:#f7f5f5 !important;}
+		.form-inline .marital{width:100%;background:#f7f5f5 !important;}
+		.form-inline .address2{width:99%;display:none;}
+		.form-inline .weight{width:100%;background:#f7f5f5 !important;}
+		.form-inline .height{width:100%;background:#f7f5f5 !important;}
+		.form-inline .bloodg{width:100%;background:#f7f5f5 !important;}
+		.form-inline .dob{width:100%;background:#f7f5f5 !important;}
+		.form-inline .howdid{width:100%;background:#f7f5f5 !important;}
+		.form-inline .addressclass{border: 1px;background:#f7f5f5 !important;resize:inherit;padding: 0px;
+width:100%;box-shadow: none;border-radius: 0;}
+		.form-inline .nameclass{width:100%;background:#f7f5f5 !important;}
+		.formbluebox tbody {
+    float: left;
+    width: 100%;
+		}
+	
+		.formbluebox tbody tr td p {
+    background: #269a9b;
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: bold;
+			margin: 10% auto 10% auto;
+}
+		.suggestionbox tbody tr .ths1 {
+    width: 100%;
+    float: left;
+    margin:auto;
+    text-align: left;
+}
+		.suggestionbox tbody tr .ths2 {
+    width: 100%;
+    float: left;
+    margin:auto;
+    text-align: left;
+}
+		.form-group b{font-size: 12px;float:left;}
+		.suggestionbox tbody tr .ths3 {
+    width: 100%;
+    float: left;
+    margin:auto;
+    text-align: left;
+}
+		.form-inline label {
+  font-size: 12px;
+margin: 0px 5px!important;
+float: left;
+justify-content: left;
+text-align: left;
+align-items: left;
+width: auto;
+}
+		.formbluebox .lastrow label {
+    margin: 0 5px;
+    float: left;
+    justify-content: center;
+    text-align: center;
+    align-items: baseline;
+    width: 95%;
+}
+		.formbluebox tbody tr .lastrowmob{width:100%;}
+		.form-inline .prof {
+    width: 100%;
+}
+		 input[type="radio"], input[type="checkbox"] {
+    box-sizing: border-box;
+    padding: 0;
+    box-sizing: border-box;
+    padding: 0;
+    width: 14px;
+    height: 14px !important;
+    float: left;
+    margin-top: 5px !important;
+}
+	
+		
+		.catch{margin:0px 5px 0px 0px;float: left;width:100%;}
+		
+	}
+	
+	@media screen and (min-width:768px) and (max-width:999px){
+		input[type="checkbox"], input[type="radio"] {
+    box-sizing: border-box;
+    padding: 0;
+    box-sizing: border-box;
+    padding: 0;
+    width: 14px;
+    height: 14px;
+    float: left;
+    line-height: auto;
+    height: auto;
+}
+		.form-inline td b{float: left;
+margin: 3px 5px;
+font-size: 13px;
+height: 40px;
+line-height: 40px;}
+			input[type="email"], input[type="number"], input[type="password"], input[type="text"] {
+    width: 100%;
+    max-width: 100%;
+    background: none;
+    height: 40px;
+    border: 1px solid #000;
+    float: left;
+}
+		.form-inline .form-control {
+    border: 1px;
+    height: 40px;
+    float: left;
+    background:none;
+    font-size: 12px;
+}
+		.form-inline label {
+    margin: 0 5px;
+    float: left;
+    justify-content: left;
+    text-align: left;
+			height: 40px;
+line-height: 40px;
+    align-items: center;
+    font-size: 12px;
+}
+		.form-inline .waist, .form-inline .lastvisit{width:100%;background:#f7f5f5 !important;}
+		.form-inline .primdoc{width:100%;background:#f7f5f5 !important;}
+		.form-inline .marital{width:100%;background:#f7f5f5 !important;}
+		.address2{width:99%;display:none;}
+		.form-inline .weight{width:100%;background:#f7f5f5 !important;}
+		.form-inline .height{width:100%;background:#f7f5f5 !important;}
+		.form-inline .bloodg{width:100%;background:#f7f5f5 !important;}
+		.form-inline .dob{width:100%;background:#f7f5f5 !important;}
+		.form-inline .howdid{width:100%;background:#f7f5f5 !important;}
+		.form-inline .prof{width:100%;background:#f7f5f5 !important;}
+		.form-inline .addressclass{border: 1px;background:#f7f5f5 !important;resize:inherit;padding: 0px;
+width:100%;box-shadow: none;border-radius: 0;background:#f7f5f5 !important;}
+		.form-inline .nameclass{width:100%;background:#f7f5f5 !important;}
+	.addresstab{display:none;}
+		.formbluebox tbody {
+    padding: 10px 0px;
+    float: left;
+    width: 100%;
+		}
+		.whitebox .one {
+    float: left;
+    width: 100%;padding:5px;
+    border: 1px solid #000 !important;
+		}
+		.formbluebox tbody tr td p {
+    background: #269a9b;
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px;
+    font-size: 1em;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+		.suggestionbox tbody tr .ths1 {
+    width: 31%;
+    float: left;
+    margin: 10px 5px;
+    text-align: left;
+}
+		.suggestionbox tbody tr .ths2 {
+    width: 31%;
+    float: left;
+    margin: 10px 5px;
+    text-align: left;
+}
+		.suggestionbox tbody tr .ths3 {
+    width: 31%;
+    float: left;
+    margin: 10px 5px;
+    text-align: left;
+}
+		.ths1 label, .ths2 label, .ths3 label{margin: 0px 0px !important;
+height:auto;
+line-height: 40px;}
+	
+		 input[type="radio"] {
+    box-sizing: border-box;
+    padding: 0;
+    box-sizing: border-box;
+    padding: 0;
+    width: 14px;
+    height: 14px !important;
+    float: left;
+    margin-top: 6px;
+}
+		.whitebox {
+    background: #fff;
+    width: 100%;
+    padding: 10px;
+    float: left;
+}
+	.whitebox .two {
+    float: left;
+    width: 100%;
+    border: 1px solid #000;
+    height: auto;
+    padding: 0px 0em;
+}
+		.whitebox .form-group {
+    float: left;
+    width: 100%;margin:0px;
+}
+		.whitebox .form-group img{display:none;}
+		.callbutton {
+    padding: 5px 10px;
+    background: #269a9b;
+    font-size: 1em;
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+    margin: 2% 0px 0px 0px;
+    text-align: center;
+}
+	.form-inline {
+    display: -ms-block;
+    display: block;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -ms-flex-align: center;
+    align-items: center;
+    position: relative;
+    margin-top: 10%;
+}
+	
+	.boxtwosmall {
+    width: 100%;
+    float: left;
+}
+		.boxonebig {
+    width: 100%;
+    float: left;
+}
+		.boxonew div label, .boxtwow div label, .boxthreew div label {
+    width: 100%;
+    line-height: normal;
+    align-items: normal;
+}
+	}
+	
+		@media screen and (min-width:800px) and (max-width:1200px)
+		{
+			.boxonew div label, .boxtwow div label, .boxthreew div label {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    align-items: center;
+}
+			.suggestionbox tbody tr .ths1 {
+    width: 32%;
+    float: left;
+    margin: 5px auto;
+    text-align: left;
+}
+			.suggestionbox tbody tr .ths2 {
+    width: 32%;
+    float: left;
+    margin: 5px;
+    text-align: center;
+}
+			.suggestionbox tbody tr .ths3 {
+    width: 34%;
+    float: left;
+    margin: 5px auto;
+    text-align: left;
+}
+			.callbutton {
+    padding: 5px 10px;
+    background: #269a9b;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+    margin: 2% 0px;
+}
+			.form-inline label {
+    margin: 0 5px;
+    float: left;
+    justify-content: left;
+    text-align: left;
+    align-items: center;
+    font-size: 14px;
+				line-height: 40px;
+}
+			.form-inline .nameclass{width: 88%;}
+	.form-inline .addressclass{border: 0px;background:none !important;resize:inherit;padding: 10px;
+width:85%;box-shadow: none;border-radius: 0;}
+	.form-inline .address2{width:100%;}
+	.form-inline .weight{width:50%;}
+		.form-inline .height{width:49%;}
+	.form-inline .marital{width:29%;}
+	.form-inline .bloodg{width:47%;}
+	.form-inline .dob{width:74%;}
+	.form-inline .waist, .form-inline .lastvisit{width:71%;}
+	.form-inline .primdoc{border: 0px;background: none !important;resize:inherit;padding:5px;
+width:19%;box-shadow: none;border-radius: 0;}
+	.form-inline .howdid{border: 0px;background: none !important;resize:inherit;padding:5px;
+width:19%;box-shadow: none;border-radius: 0;}
+			.formbluebox .lastrow label {
+    margin: 0 5px;
+    float: left;
+    justify-content: left;
+    text-align: left;
+    align-items: center;
+    width: 100%;
+}
+		}
+
+	
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background: none;
+}
+.hrline{
+  padding-top:0px;
+}
+/* Modal Content */
+.modal-content {
+  margin: auto;
+margin-top: 30%;
+  width:50%;
+}
+
+	.highlight{color:#fff;
+background:#269a9b;}
+	.stand-out__content .itm-dsc__actn {
+    flex-basis: auto;
+    flex-flow: row nowrap;
+    display: flex;
+    margin-top: 0.4rem;
+    margin-bottom: 1.5rem;
+    margin-top: 0rem;
+    margin-bottom: 0.5rem;
+    width: 100%;
+}
+	p {
+    margin-top: 0;
+    margin-bottom: 0rem;
+}
+	.itm-dsc__actn__sz__dd-ttl {
+    font-size: 13px;
+	}
+	.iwmcbq {   
+    min-width: 3.3em;
+    min-height: 3.3em;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    right: 0px;
+}
+	.jrxrSi button {
+    cursor: pointer;
+    padding: 0.433rem;
+    border: 0px solid 
+rgb(38, 154, 155) !important;
+color:
+    rgb(38, 154, 155);
+    background: none;
+}
+	.box, .box2, .box3, .box4{
+        float: left;
+overflow: hidden;
+background:#f0e68c;
+height: 142px;
+width: 100%;
+position: absolute;
+z-index: 3;
+right: 0%;
+		 display:none;
+    }
+	 
+    /* Add padding and border to inner content
+    for better animation effect */
+    .box-inner{
+        width: 100%;		
+        padding: 5px;
+        border: 1px solid #a29415;
+    }
+	 .cCbxqa .itm-dsc__actn__sz {
+    flex-flow: column nowrap;
+    width: 100%;
+    margin: auto;
+}
+	 .SSFcO {
+   float: right;
+color:#3d4152;
+cursor: pointer;
+font-size: 24px;
+position: absolute;
+right: 10px;
+padding: 5px;
+top: -5px;
+}
+	
+#myInput {
+  box-sizing: border-box;
+background-position: 14px 12px;
+background-repeat: no-repeat;
+font-size: 14px;
+padding: 0px 0px 0px 15px;
+border: none;
+	text-align: left;
+    border-bottom-color: currentcolor;
+    border-bottom-style: none;
+    border-bottom-width: medium;
+border-bottom: 1px solid #ddd;
+
+height: 50px !important;
+border-radius: 4px;
+background:#fff;
+color:#000;
+width: 100% !important;
+}
+
+#myInput:focus {outline: 3px solid #ddd;}
+
+
+
+	/*.main-container .container{max-width:100%;padding:0px;}*/
+
+	@media screen and (min-width:260px) and (max-width:760px)
+	{
+		.site{padding:15% 15px;}
+		.eRJwMX{box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 2px 0px, rgba(0, 0, 0, 0.12) 1px 2px 4px 1px;}
+		.catalog_product_view {
+    display: block;
+}
+		.catalog__filter, .catalog__filter-item {
+    display: block;
+}
+		.catalog__list {
+    max-width: 100%;
+    margin: 20px auto;
+}
+		.SSFcO {
+    float: right;
+    color: 
+    #fff;
+    cursor: pointer;
+    font-size: 24px;
+    position: absolute;
+    right: 10px;
+    padding: 5px;
+    top: -5px;
+}
+		.stickyhead{position: fixed;
+top:0px !important;
+width: 100%;
+}
+	 }
+	@media screen and (min-width:768px) and (max-width:1200px)
+	{
+		.site{padding:0px 15px;}
+	}
+	 .catalog {
+float:left;
+}
+
+
+
+
+label{
+    color: #58595b;
+    font-size: 14px;
+}
+</style>
+
+
+
+    <!-- site -->
+    <div class="site container">
+        <!-- site__content -->
+        <div class="site__content">
+            <!-- catalog -->
+            <div class="catalog">              
+                <!-- catalog__frame -->
+                <div class="catalog__frame">
+                    <div>     	
+                    <?php  $customerCollection = Mage::getModel('customer/customer')->getCollection()
+         ->addAttributeToSelect('*')
+        ->addAttributeToSort('firstname','ASC')
+        ->addAttributeToSort('lastname','ASC')
+        
+         ->addFieldToFilter('mealstatus', array("eq" => 1));
+         //->addFieldToFilter('group_id', array("neq" => 4));
+//echo '';
+$customerLi='';
+foreach($customerCollection as $custinfo)
+{
+    $customerId = $custinfo->getEntityId();
+    $firstName =  $custinfo->getFirstname();
+	$mobileNo = $custinfo->getPrimarymobileno();
+    $customerName='';
+    $isDr = false;
+    $isDiabetes = false;
+    
+    $foundItem = strpos( $firstName,'Dr');   if($foundItem!==false){  $isDr= true;  $firstName = str_replace("Dr",'',$firstName); }
+   $foundItem2 = strpos( $firstName,'.');   if($foundItem2!==false){   $firstName = str_replace(".",'',$firstName); }
+    $foundItem3 = strpos( $firstName,'Diabetes');   if($foundItem3!==false){ $isDiabetes = true;  $firstName = str_replace("(Diabetes Educator )",'',$firstName); }
+   
+   
+    $lastName =  $custinfo->getLastname();
+    if($firstName!='')
+    {
+        $customerName = trim($firstName);
+        
+    }
+    
+    if($lastName!='')
+    {
+        if($firstName!=''){ $customerName.=' ' ;}
+        $customerName.= trim($lastName);   
+        
+        if($isDr==true)
+        {
+          //  $customerName.= ' ( Dr )'; 
+        }
+        if($isDiabetes==true)
+        {
+          //  $customerName.= ' (Diabetes Educator )'; 
+        }
+    }
+   //  $customerName = str_replace("Dear","",$customer);
+    
+  //  print_r($custinfo); die;
+   // $customerLi.='<li id="'.$customerId.'" value="'.$customerId.'" onclick="getPatientIntakeForm('.$customerId.','.$mobileNo.')">'.$customerName.'</li>';
+	 $customerLi.='<li id="'.$customerId.'" value="'.$customerId.'" onclick="getDateWiseInfo('.$customerId.','.$mobileNo.')">'.$customerName.'</li>';
+}
+
+ $tomorrowDay = ucfirst(date("l", strtotime('tomorrow')));
+ $curentdataetime = Mage::getModel('core/date')->date('m/d/Y');
+?>
+				
+    <div id="loader" style="display:none;width:69px;height:89px;border:1px solid black;position:absolute;top:50%;left:50%;padding:2px;"><img src='<?php echo $this->getSkinUrl();?>images/demo_wait.gif' width="64" height="64" /><br>Loading..</div>
+    <div style="margin-bottom:10px; width:100%">Select Customer:</div>    
+	<ul id="my-list">
+  <?php echo $customerLi;?>
+  <div class="clearfix"></div>
+</ul>
+            
+
+
+<script src="<?php echo $this->getSkinUrl('js');?>/jquery.alphaindex.js"></script>
+
+<script> 
+
+	jQuery(document).ready(function() {  //alert('before showing products');
+           jQuery('#my-list').makeAlphaIndex({
+                activateFirstIndex: false,
+                showItemsCount: false
+               })
+                
+			
+		});
+		
+		function getDateWiseInfo(custId,mobileNo)
+		{  
+			jQuery('#formDiv').html('');  
+			jQuery('li').removeClass("highlight");
+			
+					
+			jQuery.ajax({
+                        url: "<?php echo Mage::getBaseUrl().'override/index/getcustomerintakerows' ?>",
+                        type: "POST",
+                        data: {
+                                 custid: custId,
+                                 mobileno:mobileNo
+                                
+                              },
+                              
+                            success: function(response)
+							{
+								
+								
+								 jQuery('#'+custId).addClass("highlight");
+								jQuery('#formDate').html(response);
+								//alert(response);
+                            }
+                      }); 
+		}
+		
+		
+		
+		function getPatientIntakeForm(patientid,custId,mobileNo)
+		{  
+			  
+					jQuery('li').removeClass("highlight");
+			        jQuery('td span').removeClass("highlight");
+					
+			// alert(custId+'---'+mobileNo);
+			jQuery.ajax({
+                        url: "<?php echo Mage::getBaseUrl().'override/index/getcustomerintakeinformation' ?>",
+                        type: "POST",
+                        data: {
+                                 patientid:patientid,
+								 custid: custId,
+                                 mobileno:mobileNo
+                                
+                              },
+                              
+                            success: function(response)
+							{
+								
+								//alert(response);
+                                /*if(response=='exist')
+								{
+									jQuery('#formDiv').show();
+								}
+								else
+								{
+									jQuery('#formDiv').hide();
+									alert('No patient information found'); return false;
+								}*/
+                                //jQuery('#formDiv').html
+								 jQuery('#'+custId).addClass("highlight");
+								jQuery('#'+mobileNo).addClass("highlight");
+								 jQuery('#formDiv').html(response);
+                            }
+                      }); 
+		}
+        
+		function submitpaitentform()
+		{    
+		
+			jQuery.ajax({
+                        url: "<?php echo Mage::getBaseUrl().'override/index/submitpaitentform' ?>",
+                        type: "POST",
+                        data: jQuery("#contactform").serialize(),
+                              
+                            success: function(response)
+							{
+								
+								alert(response);
+								jQuery('#formDiv').html('');
+								
+
+                            }
+                      }); 
+		}   
+</script>
+<div id="formDate"></div>
+<div class="clearfix"></div>
+<div id="formDiv">
+	<div class="container"></div></div>
+</div> 
+            
+
+			 <!-- /catalog__frame -->
+
+            </div>
+            <!-- /catalog -->
+
+        </div>
+        <!-- /site__content -->
+
+
+    </div>
+    <!-- /site --> 

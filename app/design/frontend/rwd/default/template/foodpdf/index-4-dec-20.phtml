@@ -1,0 +1,436 @@
+<?php
+  $categoryCollection = Mage::getModel("foodpdf/foodcategory")->getCollection()
+									  ->addFieldToFilter('status', 1)
+									  ->setOrder('name', 'ASC')
+									  ->load();
+									  
+	$uploadDir = Mage::getBaseDir('media').DS.'foodpdf'.DS;	
+	$msg='';
+    $action='new';	
+	
+	$updateFoodModel='';
+	$catId='';
+	$pdf='';
+	$mealItem='';
+	$mealvideo='';
+	$categoryName ='';
+	$status='';
+   							  
+	if(isset($_POST['submit']))
+	{
+            
+            
+			
+			$catName =   isset($_POST['catName']) ?$_POST['catName']:'';
+			$mealItem =  isset($_POST['mealitem'])?$_POST['mealitem']:'';
+			$mealvideo = isset($_POST['mealvideo'])?$_POST['mealvideo']:'';
+			$fileName ='';	
+			$status=isset($_POST['status'])?$_POST['status']:'';
+			$action=isset($_POST['action'])?$_POST['action']:'';
+			
+			if ( isset( $_FILES['pdfFile'] ) ) {
+				if ($_FILES['pdfFile']['type'] == "application/pdf") {
+					$source_file = $_FILES['pdfFile']['tmp_name'];
+					$fileName =$_FILES['pdfFile']['name'];
+					$dest_file = $uploadDir.$fileName;
+				   
+					move_uploaded_file( $source_file, $dest_file )
+						or die ("Error!!");
+						//if($_FILES['pdfFile']['error'] == 0) {
+						//	print "Pdf file uploaded successfully!";
+				}
+	       }
+		   
+		   $mealData = array('category'=>$catName,'name'=>$mealItem,'pdf'=>$fileName,'video'=>$mealvideo,'status'=>$status);
+		   
+		   if($action=='new')
+		   {
+			   
+		     $foodItemModel = Mage::getModel("foodpdf/fooditem")->setData($mealData)->save();
+			 header("Location:".Mage::getBaseUrl()."foodpdf/index/index");
+		     $msg='<span class="green_msg">A new meal item has been saved</span>';
+		   }
+		   else if($action=='update')
+		   {
+			 
+		   	try {
+				$itemId = $_POST['rowid'];
+			    $updateFoodModel = Mage::getModel("foodpdf/fooditem")->load($itemId);
+				//echo 'status='.$status; die; 
+				
+				if($catName!='')   {	$updateFoodModel->setCategory($catName); }
+			    if($mealItem!='')  {  $updateFoodModel->setName($mealItem);   }
+			    if($fileName!='')  { $updateFoodModel->setPdf($fileName);     } 
+			    if($mealvideo!='') {$updateFoodModel->setVideo($mealvideo);  }
+			    if($status!='')    {  $updateFoodModel->setStatus($status);      }
+			   $updateFoodModel->save();
+			  header("Location:".Mage::getBaseUrl()."foodpdf/index/index");
+		      $msg="Meal item has been updated";
+			  $action='new';
+			  $updateFoodModel='';
+				$catId='';
+				$pdf='';
+				$mealItem='';
+				$mealvideo='';
+				$categoryName ='';
+				$status='';
+			}
+			 catch (Exception $e){
+            echo $e->getMessage(); 
+    }
+			
+			 
+		   }
+	}
+
+
+ if(isset($_GET['action']) && $_GET['action']=='delete')
+	{
+		
+		if(isset($_GET['id']) && $_GET['id']>0)
+		{
+		   $itemId = $_GET['id'];
+		   $action='delete';
+		   $foodItemModel = Mage::getModel("foodpdf/fooditem")->load($itemId);
+		   if(isset($foodItemModel) && is_object($foodItemModel))
+		   {
+		    $foodItemModel->delete();
+			 header("Location:".Mage::getBaseUrl()."foodpdf/index/index");
+		    $msg='<span class="red_msg">Selected item has been deleted</span>';
+		   }
+		}
+	}		
+	
+	
+	
+	if(isset($_GET['action']) && $_GET['action']=='update')
+	{
+		
+		if(isset($_GET['id']) && $_GET['id']>0)
+		{
+		   $itemId = $_GET['id'];
+		   $action='update';
+		   $updateFoodModel = Mage::getModel("foodpdf/fooditem")->load($itemId);
+		   
+		   $catId = $updateFoodModel->getCategory();
+		  
+		   $pdf = ($updateFoodModel->getPdf()!='')? $updateFoodModel->getPdf():'';
+		   $mealItem= ($updateFoodModel->getName()!='')? $updateFoodModel->getName():'';
+		   $mealvideo = ($updateFoodModel->getVideo()!='')? $updateFoodModel->getVideo():'';
+		   $status = ($updateFoodModel->getStatus()!='')? $updateFoodModel->getStatus():'';
+		   
+		  // echo $catId."--".$pdf."--".$mealItem."--".$mealvideo."--".$status; 
+		}
+	}	
+ ?>
+
+ <div class="container mypdf">
+
+	<form class="pdf_form" action="<?php echo Mage::getBaseUrl();?>foodpdf/index/index" method="post" enctype="multipart/form-data">
+		<div class="form-row">	
+			<div class="select-category">
+	  			<select id="catName" name="catName" >
+	             	<!-- <option value="">Select Category</option> -->
+	            	<?php 
+					if(sizeof($categoryCollection)>0)
+					{	
+		        	  foreach($categoryCollection as $catInfo){?>
+					     <option value="<?php echo $catInfo->getCatId();?>" 
+ 					       <?php if($catInfo->getCatId()==$catId){ echo 'selected'; }?> >
+						      <?php echo $catInfo->getName();?>
+						  </option>
+					
+		    	<?php  }
+			} ?>
+			 	</select>
+			</div>
+
+			<div class="form-upload">	  		
+	   			<input type="file" name="pdfFile" id="pdfFile" />
+	   			<!--<span>Upload Pdf</span>-->
+	   		</div>
+	   	</div>
+	   	<div class="form-row">
+	    	<input type="text" name="mealitem"  id="mealitem" placeholder="Item Name To Be Displayed" value="<?php echo $mealItem;?>" />
+
+			
+	        <input type="text" name="mealvideo" id="mealvideo" value="<?php echo $mealvideo;?>" placeholder="Video Url" />
+	        <div class="select-status">
+	        	<select name="status" >
+	        		
+	            	<option value="1" <?php  if($status==1){ echo 'selected';} ?> >Active</option>
+			    	<option value="2" <?php  if($status==2){ echo 'selected';} ?> >Inactive</option>
+	        	</select>
+	        </div>
+	    </div> 
+	    
+			<input type="submit" value="Save Meal Item" name="submit">
+	  		<input type="hidden" name="action" value="<?php echo $action;?>" />
+	  		<?php if($action=='update' && isset($_GET['id']) && ($_GET['id']>0) ) {?>
+	        <input type="hidden" name="rowid" value="<?php echo $_GET['id'];?>" />
+			 <input type="button" value="Cancel" class="cancel" name="cancel"
+			  onclick="javascript:window.location='<?php echo Mage::getBaseUrl();?>foodpdf/index'">
+	
+	  <?php } ?>
+	 
+	</form>
+<?php
+$foodtemCollection = Mage::getModel("foodpdf/fooditem")->getCollection()
+									  //->addFieldToFilter('status', 1)
+									  ->setOrder('category', 'ASC')
+									  ->load();
+if(sizeof($foodtemCollection)>0)
+{
+	if($msg!=''){ ?>
+     <div class="msg-box"> <?php echo $msg;?></div>
+    <?php } ?>
+    <div class="outer_table">
+		<table cellpadding="2" cellspacing="2"  frame="rules" class="cat_table">
+			<tr>
+				<th>Id</th>
+				<th>Category</th>
+				<th>Meal Item</th>
+				<th>Video</th>
+				<th>Pdf</th>
+				<th>Status</th>
+				<th>Action</th>
+			</tr>
+	<?php foreach($foodtemCollection as $fooditem){
+	      $status =   ($fooditem->getStatus()==1)?'Active':'Inactive';
+		  $catId = $fooditem->getCategory();
+		  $catModel = Mage::getModel("foodpdf/foodcategory")->load($catId);
+		  $catName = $catModel->getName();
+		  $pdf = $fooditem->getPdf();
+	 	?>
+		<tr> 
+			<th><?php echo $fooditem->getItemId();?></th>
+		    <th><?php echo $catName;?></th>
+		    <th><?php echo $fooditem->getName();?></th>
+			<th><?php echo $fooditem->getVideo();?></th>
+			<th><?php if($pdf!=''){ ?> <span onclick="downloadPdf('<?php echo $pdf;?>')" title="<?php echo $pdf;?>">Download</span> <?php }?></th>
+			<th><?php echo $status;?></th>
+			<th>
+				<div class="table-icon">
+					<img src="<?php echo $this->getSkinUrl();?>images/edit-btn.png" style="width:25px; margin: 0 auto; cursor:pointer;" onclick="updateItem('<?php echo $fooditem->getItemId();?>')">
+					
+					<img src="<?php echo $this->getSkinUrl();?>images/remove_icon.png" style="width:18px; margin: 0 auto; cursor:pointer;" onclick="confirmDelete('<?php echo $fooditem->getItemId();?>')">
+				</div>
+			</th>
+		</tr>
+<?php } ?>
+	</table>
+</div>
+<?php } else { ?>
+<div> There is no items.</div>
+<?php } ?>
+</div>
+
+<script type="text/javascript">
+function confirmDelete(rowId)
+{
+	if(confirm("Do you want to delete this item?"))
+	{
+		var baseUrl = window.location.origin;
+		window.location = baseUrl+"/foodpdf/index/index?id="+rowId+"&action=delete";
+	}
+	else
+	{
+		return false;
+	}
+}
+
+function updateItem(rowId)
+{
+	var baseUrl = window.location.origin;
+	window.location = baseUrl+"/foodpdf/index/index?id="+rowId+"&action=update";
+}
+
+function downloadPdf(pdf)
+{
+	var baseUrl = window.location.origin;
+	var pdfPath = baseUrl+'/media/foodpdf/'+pdf;
+	//alert(pdfPath);
+	
+	var req = new XMLHttpRequest();
+  req.open("GET", pdfPath, true);
+  req.responseType = "blob";
+
+  req.onload = function (event) {
+    var blob = req.response;
+    console.log(blob.size);
+    var link=document.createElement('a');
+    link.href=window.URL.createObjectURL(blob);
+    link.download=pdf;
+    link.click();
+  };
+
+  req.send();
+}
+</script>
+
+<style type="text/css">
+.mypdf .pdf_form{
+	width: 60%;
+	padding: 30px;
+	box-sizing: border-box;	
+	margin: 30px auto;
+	box-shadow: 0 0 1px 0 rgba(0,0,0,0.2); 
+	position: relative;
+}
+.form-row{
+	/*margin-bottom: 1.8rem;*/
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.select-category, .form-upload, .select-status{
+	box-sizing: border-box;
+	width:100%;
+	position: relative;
+	height:40px;
+	border:1px solid #dadada;
+	background: #fff;
+	border-right: 0;
+	margin-bottom: 20px;
+}
+.form-upload{	
+	padding: 5px 25px;
+	border:1px solid #dadada;
+}
+/*.select-status{
+	width:32%;
+}*/
+.pdf_form input[type="text"] {
+	border:0;
+	border:1px solid #dadada;
+	width:100%;
+	height: 40px;
+	box-sizing: border-box;
+	outline: none;
+	padding: 0 15px;
+	background:#fff;
+	margin-bottom: 20px;
+}
+
+.select-category select, .select-status select {
+	width: 100%;
+	display: block;
+	box-sizing: border-box;
+	position: relative;
+	appearance:none;
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	background: transparent;
+	cursor: pointer;
+	height:40px;
+	border:0;
+	outline: none;
+	z-index: 100;
+	padding: 0 15px;
+}
+	
+.select-category:before, .select-status:before {
+	position: absolute;
+	content: '';
+	right:0;
+	width:40px;
+	height: 40px;
+	background: #c21c45;
+	border:1px solid #c21c45;
+	z-index: 5;			
+} 
+
+.select-category:after, .select-status:after {
+	content: '';
+	position: absolute;	
+	top:20px;
+	right: 12px;
+	z-index: 5;
+	width: 0; 
+  	height: 0; 
+	border-left: 8px solid transparent;
+  	border-right: 8px solid transparent;  
+  	border-top: 8px solid #fff
+}
+.pdf_form input[type="submit"]{
+	display: block;
+	width:230px;
+	margin:0 auto;
+	height: 45px;
+	line-height: 45px;
+	text-align: center;
+	cursor: pointer;
+	border:0;
+	outline: none;
+	/*background: #007f00;
+    border: 1px solid #66d50d;
+    background: #d31f02;
+    border: 1px solid #fe5a52;*/
+    background: #c21c45;
+    border: 1px solid #c21c45;
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+.mypdf	.outer_table{
+	width:100%;
+	padding: 20px;
+	box-sizing: border-box;
+	/*box-shadow: 0 2px 1px 1px rgba(0,0,0,0.2);*/
+}
+.cat_table{
+	width:100%;
+	border:1px solid #dadada;
+	border-collapse: collapse;
+}
+.cat_table th{ 
+    padding: 10px 15px;
+    border:1px solid #dadada;
+}
+.cat_table td { 
+    padding: 2px 15px;
+    border:1px solid #dadada;
+}
+.cat_table tr:nth-child(even) { 
+    background:#f6f6f6;
+}
+.table-icon{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+.form-footer{
+	position: relative;
+}
+.cancel{
+	position: absolute;
+	right: 27px;
+	bottom: 30px;
+	border:0;
+	outline: none;
+	cursor: pointer;	
+    color: #fff;   
+    font-weight: 600;
+    padding: 0 25px;
+    font-size: 1.2rem;
+    height: 45px;
+	line-height: 45px;
+	text-align: center;	
+    background: #c21c45;
+    border: 1px solid #c21c45;
+}
+.msg-box{
+	text-align: center;
+    font-size: 1.5rem;  
+    font-weight: 600;
+}
+.green_msg{
+	  color: green;
+}
+.red_msg{
+	  color: red;
+}
+
+
+</style>

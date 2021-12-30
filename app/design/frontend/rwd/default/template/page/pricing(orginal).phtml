@@ -1,0 +1,289 @@
+<link href="<?php echo $this->getSkinUrl();?>css/w3.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.breadcrumbs {
+    overflow: hidden;
+   margin: 15px 30px;
+}
+.footer-container {
+    padding: 0px;
+    width: 100%;
+    float: none;
+}
+
+hr {
+    border: 0;
+        border-top-color: currentcolor;
+        border-top-style: none;
+        border-top-width: 0px;
+    border-top: 1px solid #dedede;
+    margin: 1em;
+}
+input[type="radio"]{height:34px;}
+.w3-container h4{width: 100%;float: left;border-bottom: 1px solid rgba(0,0,0,0.1);padding-bottom: 10px;}
+html,body,h1,h2,h3,h4 {font-family:"Lato", sans-serif}
+.mySlides {display:none}
+p{font-size: 15px !important;
+font-Weight: 300;
+color: #333;}
+.w3-tag, .fa {cursor:pointer}
+.w3-tag {height:15px;width:15px;padding:0;margin-top:6px}
+.main-container{padding:0px;}
+</style>
+    <div class="main-wrap">
+    <!-- Content -->
+      <img src="<?php echo $this->getSkinUrl('images/pricingbanner.jpg') ?>"  alt="Diabetes" style="width:100%;">
+
+<div class="w3-content" style="max-width:1100px;margin-top:0px;margin-bottom:80px">
+  <div class="w3-panel" style="padding: 0 2em;">
+
+<h1><b>PRICING</b></h1>
+</div>
+<hr style="margin: 1em 0em;display:block;">
+  <div class="w3-panel" style="padding: 0 2em;">
+    <h1><b>DIABETES REDUCTION PROGRAM
+</b></h1>
+    <p>Our Innovative Diabetes Reduction program is guaranteed to bring results when followed properly.</p>
+  </div>
+
+  
+ 
+
+  <!-- Grid -->
+  <div class="w3-row-padding" id="about">
+        <div class="w3-third w3-margin-bottom">
+      <div class="w3-card-4" style="background: #f3f3f3;">
+       <div class="w3-container">
+       <h3>Evaluation Pack- Rs 4000/-</h3>
+       <p>We review your previous medical records including latest Hba1c, Cholesterol etc.</p>
+      <!--<p style="margin: -15px 0px 10px 0px;font-size: small !important;"><small>( Includes Rs. 1000/- Deposit, refundable at end of the program* )</small></p>-->
+ 
+  
+      <p style="margin:20px 0px 10px 0px">What You Get -</p>
+      <ul style="list-style:lower-alpha">
+      <li> Minute by minute glucose analysis of your body using advanced CGM sensor.</li>
+      <li> 2 Days Food Trial : 4 meal per day for 2 days, delivered at your door step. To see whether glucose control in your body improves with our program.</li>
+        </ul></div>
+        <hr/>
+          <div class="w3-container">
+          <h3>10 days Subscription Pack- Rs 900 @ 10 Days = 9000/</h3>
+          
+          <p style="margin:20px 0px 10px 0px">What You Get - </p>
+         <ul style="list-style:lower-alpha">
+      <li>4 meals per day for 10 days, delivered at your door step.</li>        
+      <li>Weekly one Consultation by Dietician Team over phone.</li>
+            </ul>
+                  </div>
+        <hr/>
+        <div class="w3-container" style="border:0px;">
+          <h3>1 Month Subscription Rs.900@ 30 Days = 27,000/-  </h3>
+          <p style="margin:20px 0px 10px 0px">What You Get -</p>
+         <ul style="list-style:lower-alpha">
+         <li>4 meals per day for 30 days, delivered at your door step.</li>
+          <li>Weekly one Consultation by Dietician Team over phone plus free Hba1c, HDL/LDL blood test at the end of the month. </li>
+          </ul>
+        </div>
+        <div class="w3-container" style="height: auto;width: 100%;margin: auto;background: none;text-align: center;display: block;border:0px;">
+        <p><button class="w3-button w3-light-grey w3-block" onclick="document.getElementById('id01').style.display='block'">BOOK NOW</button></p>
+        </div>
+        <div id="id01" class="w3-modal">
+    <div class="w3-modal-content w3-card-4 w3-animate-zoom">
+      <header class="w3-container w3-teal"> 
+        <span onclick="document.getElementById('id01').style.display='none'" 
+        class="w3-button w3-display-topright">&times;</span>
+        
+      </header>
+      <div class="w3-container" style="background: #fff;padding-bottom: 0;">
+       <h4>Evaluation Pack <input type="radio" name="diabetesReductionProgram" value="1627"></h4>
+      
+       <h4>10 Days Subscription <input type="radio" name="diabetesReductionProgram" value="1628"></h4>
+     
+      <h4>1 Month Subscription <input type="radio" name="diabetesReductionProgram" value="1629"></h4>
+     
+      </div>
+      <footer class="w3-container w3-teal">
+                  <p><button class="w3-button w3-light-grey w3-block" onClick="javascript:diabetesReduction();">BOOK NOW</button></p>
+
+      </footer>
+    </div>
+  </div>
+        
+      </div>
+    </div>
+
+   
+  <div class="w3-third w3-margin-bottom">
+
+        <h3>Chargeable Services </h3>
+        <ul style="list-style:lower-alpha">
+        <li>CGM cost, if your Hba1c is more than 7 with labile sugars = Rs 2500/- per 14 days(excluding one CGM in Evaluation Pack).</li>
+       <li>If Desired, more than 1 Consultation/ week  by Dietitian's Team = Rs 2000/- per Consultation.</li>
+        <li>Consultation from Mr Junior Anand Gupta ( CEO & CRO) = Rs 10000/- Per Consultation.</li>
+        <li>More than 1 Supply in a Day @ Rs 100 per Delivery.</li>
+       </ul>
+        </div>
+        
+    </div>
+    
+    <div class="w3-panel" style="padding: 0 2em;"> 
+    <div class="w3-third w3-margin-bottom" style="padding: 5px 15px;">  
+    <p>Total program time is of 12 to 24 weeks. Depends on people's lifestyle, BMI and body type at time of starting.</p>
+    <p>*Return of the delivery kit items</p> 
+    </div>
+    </div>
+  <hr style="margin: 1em 0em;">
+  <div class="w3-panel" style="padding: 0 2em;">
+    <h1><b>FIX MY FAT PROGRAM
+</b></h1>
+    <p>Our Innovative Fat Reduction program is guaranteed to bring results when followed properly.</p>
+
+</div>
+ <div class="w3-panel" style="padding: 0 2em;">
+  
+<footer class="w3-container w3-padding-32 w3-light-grey w3-center">
+   <h1 style="color:#fff;"><b>METABOLIC DISORDERS LIST : 
+</b></h1>
+  <div class="w3-xlarge w3-section">
+    <span>OBESITY</span> | <span>FATTY LIVER</span> | <span>PCOD/PCOS</span> | <span>THYROID</span> | <span>DYSLIPIDEMAI</span> | <span>DYSPEPSIA</span> | 
+    <span>IBS</span>
+  </div>
+</footer>
+  </div>
+  
+
+ <!-- Grid -->
+  <div class="w3-row-padding" id="about">
+        <div class="w3-third w3-margin-bottom">
+      <div class="w3-card-4" style="background: #f3f3f3;">
+        <div class="w3-container">
+        <h3>Evaluation Pack- Rs 2000/- </h3>
+        <p>We review your previous medical records including latest Hba1c, Cholesterol etc.</p>
+     <!-- <p style="margin: -15px 0px 10px 0px;font-size: small !important;"><small>( Includes Rs. 1000/- Deposit, refundable at end of the program* )</small></p>-->
+      <p>We require information of  your previous medical records including latest TSH, Hba1c,  Height, Weight KFT, LFT Etc.</p>
+      <p style="margin: 20px 0px 10px 0px">What You Get - </p>
+      <ul style="list-style:lower-alpha">
+        <li>2 Days  Food Trial : To See your Choice &  Adaptability to Program Delivered at your door step.</li>
+        </ul>
+         </div>
+        
+        <hr/>
+        <div class="w3-container">
+          <h3>10 days Subscription Pack- Rs 900 @ 10 Days = 9000/-</h3>
+          <p style="margin: 20px 0px 10px 0px">What You Get - </p>
+          <ul style="list-style:lower-alpha">
+        <li>4 meals per day for 10 days, delivered at your door step.</li>
+        <li>Weekly one Consultation by Dietician Team over phone.</li>
+        </ul>
+
+
+        </div>
+        <hr/>
+        <div class="w3-container" style="border:0px;">
+          <h3>1 Month Subscription Rs.900@ 30 Days = 27,000/-  </h3>
+          <p>What You Get -</p>
+          <ul style="list-style:lower-alpha">
+        <li>4 meals per day for 30 days, delivered at your door step.</li>
+          <li>Weekly one Consultation by Dietician Team over phone plus free Hba1c, HDL/LDL, HSCRP blood test at the end of the month.</li>
+          </ul>
+        </div>
+        <div class="w3-container" style="height: auto;width: 100%;margin: auto;background: none;text-align: center;display: block;border:0px;">
+              <p><button class="w3-button w3-light-grey w3-block" onclick="document.getElementById('id03').style.display='block'">BOOK NOW</button></p>
+        </div>
+        <div id="id03" class="w3-modal">
+    <div class="w3-modal-content w3-card-4 w3-animate-zoom">
+      <header class="w3-container w3-teal"> 
+        <span onclick="document.getElementById('id03').style.display='none'" 
+        class="w3-button w3-display-topright">&times;</span>
+        
+      </header>
+      <div class="w3-container" style="background: #fff;padding-bottom: 0;">
+       <h4>Evaluation Pack <input type="radio" name="fatReductionProgram" value="1630"></h4>
+       <h4>10 Days Subscription <input type="radio" name="fatReductionProgram" value="1631"></h4>
+      <h4>1 Month Subscription <input type="radio" name="fatReductionProgram" value="1632"></h4>
+      </div>
+      <footer class="w3-container w3-teal">
+                  <p><button class="w3-button w3-light-grey w3-block" onClick="fatReduction()">BOOK NOW</button></p>
+
+      </footer>
+    </div>
+  </div>
+      </div>
+    </div>
+
+  
+ <div class="w3-third w3-margin-bottom">
+ 
+        <h3>Chargeable Services -</h3>
+       <ul style="list-style:lower-alpha">
+        <li>CGM cost, if your Hba1c is more than 7 with labile sugars = Rs 2500/- per 14 days(excluding one CGM in Evaluation Pack).</li>
+       <li>If Desired, more than 1 Consultation/ week  by Dietitian's Team = Rs 2000/- per Consultation.</li>
+        <li>Consultation from Mr Junior Anand Gupta ( CEO & CRO) = Rs 10000/- Per Consultation.</li>
+        <li>More than 1 Supply in a Day @ Rs 100 per Delivery.</li>
+       </ul>
+       
+        </div>
+        
+    </div>
+    <div class="w3-panel" style="padding: 0 2em;">   
+    <div class="w3-third w3-margin-bottom" style="padding: 5px 15px;">
+    <p>Total program time is of 12 to 24 weeks. Depends on people's lifestyle, BMI and body type at time of starting. </p> 
+    <p>*Return of the delivery kit items</p>
+    </div>
+    </div>
+  
+</div>
+</div>
+
+
+  </div>
+  
+  <script type="text/javascript">
+  function diabetesReduction()
+  {
+  //alert("diabetesReduction");
+    var checkedDiabetesSelectedProgram = jQuery("input[name='diabetesReductionProgram']:checked").val();
+	//alert(checkedDiabetesSelectedProgram);
+	jQuery.ajax({
+						url: "<?php echo Mage::getBaseUrl().'override/cart/addcustom' ?>",
+						type: "POST",
+						data: {
+						    id: checkedDiabetesSelectedProgram
+						   
+						},
+						  success: function(response)
+						 {
+						   if(response=='success')
+						   {
+						      window.location.href = "<?php echo Mage::getBaseUrl();?>checkout/cart";
+						   }
+						 }
+			});
+	
+  }
+  
+  function fatReduction()
+  {
+  //alert("fatReduction");
+   var checkedFatReduction = jQuery("input[name='fatReductionProgram']:checked").val();
+  // alert(checkedFatReduction);
+	jQuery.ajax({
+						url: "<?php echo Mage::getBaseUrl().'override/cart/addcustom' ?>",
+						type: "POST",
+						data: {
+						    id: checkedFatReduction
+						   
+						},
+						  success: function(response)
+						 {
+						    if(response=='success')
+						     {
+						        window.location.href = "<?php echo Mage::getBaseUrl();?>checkout/cart";
+						     }
+						 }
+			});
+  
+  }
+  
+  </script>
+  

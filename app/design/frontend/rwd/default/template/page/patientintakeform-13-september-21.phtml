@@ -1,0 +1,1385 @@
+<?php
+
+    $ctrl = $_GET['ctrl']; 
+	$decodeCtrl =  base64_decode($ctrl);
+     $mobileNo='';
+	 $custId = '';
+	 $customerName='';
+     $param = $_GET['param'];
+     $msg='';
+	 $mobileNo = $decodeCtrl; 
+									
+	$customerCollection= Mage::getModel('customer/customer')
+		->getCollection()
+		->addAttributeToSelect('*')
+		->addAttributeToFilter('primarymobileno', $mobileNo) 
+		//->addAttributeToFilter('email', $email)
+		->load();        
+		
+	if(isset($customerCollection) && count($customerCollection)==1)	{
+		foreach($customerCollection as $customer)	{
+			$custId = $customer->getEntityId();
+			$customer = Mage::getModel('customer/customer')->load($custId);
+			$customerName = $customer->getFirstname()." ".$customer->getLastname();
+			$customerName = str_replace("Dear ","",$customerName);
+		}
+										
+	}else{
+				
+		$url = Mage::getBaseUrl()."patientintakeform?ctrl=".$ctrl."&error=customernotexist"; 
+		header("Location:'".$url."'"); 
+	}	
+?>
+
+<form name="contactform" method="post" action="<?php echo Mage::getBaseUrl();?>thankyoupatient?mobileno=<?php echo $mobileNo;?>">
+    <div class="container">
+        <div class="formbluebox">
+            <div class="subheading"> <p>Client Intake Form</p> </div>
+            <ul id="progressbar">
+                <li class="active"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>                
+            </ul>
+            <div class="whitebox">
+                <fieldset>         
+                    <div class="personal-fields">
+                        <div class="form-personal">
+                            <div class="form-personal-left">
+                                <label for="nameone">First Name</label>
+                                <input type="text" name="name" id="name" value="<?php  echo $customerName;?>">
+                            </div>
+
+                            <div class="form-personal-right">
+                                <div class="gender">
+                                    <label for="nameone">Gender</label> 
+                                    <div class="gender-inner">                   
+                                        <label class="radio_container">Male 
+                                            <input type="radio" name="gender" value="male" />
+                                            <span class="checkmark"></span>
+                                        </label>
+
+                                        <label class="radio_container">Female
+                                            <input type="radio" name="gender" value="female" />
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div> 
+                                </div>                         
+                            </div>
+                        </div>               
+                                   
+
+                        <div class="form-personal">
+                            <div class="form-personal-left">
+                                <label for="profession">Profession</label> 
+                                <input type="text"  name="profession" id="profession">
+                            </div>
+                            <div class="form-personal-right">
+                                <label for="mobileno">Contact Number</label>
+                                <input type="text" name="mobileno" id="mobileno" value="<?php echo $mobileNo;?>" >
+                            </div>
+                        </div> 
+
+                        <div class="form-personal">
+                            <label for="address1">Address</label>
+                            <textarea name="address1" id="address1">
+                            </textarea>         
+                        </div>                                       
+                    </div>
+                    <input type="button" name="next" class="next action-button" value="Next Step" />
+                </fieldset> 
+
+                <fieldset>            
+                    <div class="challenges-bottom">
+                        <div class="challenges-bottom-inner">
+                            <div class="challenges-bottom-inner-left">
+                                <label for="age">Age</label>
+                                <input type="text" name="age" >
+                            </div>
+
+                            <div class="challenges-bottom-inner-right">
+                                <label for="height">Height </label>
+                                <div class="height-col">
+                                    <input type="text" name="height" id="height" placeholder="feet" >
+                                    <input type="text" name="height" id="height" placeholder="inches" >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="challenges-bottom-inner">
+                            <div class="challenges-bottom-inner-left">
+                                <label for="weight">Weight </label>
+                                <input type="text" name="weight" id="weight" placeholder="kg" >
+                            </div>
+
+                            <div class="challenges-bottom-inner-right">  
+                                <label for="waist">Waist </label>
+                                <input type="text" name="waist" id="waist"   placeholder="inches" >
+                            </div>                            
+                        </div>
+
+                        <div class="challenges-bottom-inner">
+                            <div class="challenges-bottom-inner-left">
+                                <label for="sleephour">How Many Hours Do You Sleep Per Night?</label>
+                                <select name="sleephour">
+                                    <option>Select Hours</option>
+                                    <?php for($i=1; $i<11; $i++){
+                                        if($i==1){
+                                            echo '<option vlaue="'.$i.'">'.$i.' Hour</option>';
+                                        }else{
+                                          echo '<option vlaue="'.$i.'">'.$i.' Hours</option>';  
+                                        }
+                                        
+                                    } ?>
+                                </select>
+                            </div> 
+                            <div class="challenges-bottom-inner-right">
+                                <label for="exercisemin">How Many Minutes A Day Do You Exercise?</label>
+                                <select name="exercisemin">
+                                    <option>Select Minutes</option>
+                                <?php
+                                $b = 5;
+                                 for($i=1; $i<17; $i++){
+                                    echo '<option vlaue="'.$b*$i.'">'.$b*$i.' Minutes</option>';
+
+                                } ?>
+                            </select>
+                            </div>                           
+                        </div>
+                    </div><!--end of challenges-bottom --> 
+
+                    <input type="button" name="previous" class="previous action-button-previous" value="Previous" /> 
+                    <input type="button" name="next" class="next action-button" value="Next Step" />
+                </fieldset>
+
+
+          <?php 
+            $symptoms_checkbox_left = [
+              "Acid Reﬂux"=>"acid", "Alzheimers disease"=>"alzheimers", "Asthma"=>"asthama", "Bloating"=>"bloating", "Blood pressure"=>"bp", "Blurred vision"=>"blurred_vision", "body_pains"=>"body_pains", "Cardiac Diseases"=>"cardiac_disease", "Cervical Pain"=>"cervical", "Cholesterol"=>"cholestrol", "Constipation"=>"constipation", "COPD"=>"copd", "Dental Health complications"=>"dental_health_complication", "Depression"=>"depression", "Diabetes"=>"diabetes", "Eating disorders"=>"eating_disorders"
+            ]; 
+
+             $symptoms_checkbox_middle = [
+              "Erectile Dysfunction"=>"erectile_dysfunction", "Fatigue"=>"fatigue", "Fatty Liver"=>"fatty_liver", "Frequent Stomach Infections"=>"frequent_stomach_infections", "Frequent Colds"=>"frequent_colds", "Frequent Urination"=>"frequent_urination", "Frozen shoulder"=>"frozen_shoulder", "Fungal Infections"=>"fungal_infections", "Headaches"=>"headaches", "Hearing Impairment "=>"hearing_impairment", "IBS"=>"ibs", "Infertility"=>"infertility", "Insomnia"=>"insomnia", "Itching or yeast infections"=>"itching_or_yiest_infections", "Joints Aches"=>"joint_aches", "Kidney Disease"=>"kidney_disease"
+              ]; 
+
+              $symptoms_checkbox_right = [
+                "Migraines"=>"migranes", "Muscular Spasms"=>"muscular_spasms", "Neuropsychological problems "=>"neuropsychological_problems", "Patches of Dark Skin "=>"patches_of_dark_skin", "PCOD / PCOS"=>"pcod_pcos", "Poor wound healing"=>"poor_wound_healing", "Pre diabetic"=>"pre_diabetic", "Sinusitis"=>"sinusitis", "Sleep Apnea"=>"sleep_apnea", "Smoking"=>"smoking", "Spine issues"=>"spine_issues", "Stress"=>"stress", "Thyroid"=>"thyroid", "Tingling, numbness or pain in hands & feet"=>"tingling_numbness", "UTI's"=>"uti", "Low Immunity"=>"low_immunity"
+            ];
+            ?>
+
+          <fieldset>
+            <div class="symptoms">
+            <h3>Please Check Any Symptoms You Are Facing</h3>
+                <div class="symptoms-inner">
+                    <div class="symptoms-inner-left">
+                    <?php 
+                      foreach ($symptoms_checkbox_left as $key => $value) { ?>
+                        <div class="symptoms-checkbox"> 
+                          <label class="checkbox_container"><?php echo $key; ?> 
+                            <input type="checkbox"  name="<?php echo $value; ?>" >
+                            <span class="checkmarks"></span> 
+                          </label>
+                        </div>                      
+                      <?php } ?>                       
+                    </div><!--end of symptoms-inner-left-->
+
+                    <div class="symptoms-inner-middle">
+                    <?php 
+                      foreach ($symptoms_checkbox_middle as $key => $value) { ?>
+                        <div class="symptoms-checkbox"> 
+                          <label class="checkbox_container"><?php echo $key; ?> 
+                            <input type="checkbox"  name="<?php echo $value; ?>" >
+                            <span class="checkmarks"></span> 
+                          </label>
+                        </div>                      
+                      <?php } ?>                        
+                    </div><!--end of symptoms-inner-middle-->
+
+                    <div class="symptoms-inner-right">
+                      <?php 
+                      foreach ($symptoms_checkbox_right as $key => $value) { ?>
+                        <div class="symptoms-checkbox"> 
+                          <label class="checkbox_container"><?php echo $key; ?> 
+                            <input type="checkbox"  name="<?php echo $value; ?>" >
+                            <span class="checkmarks"></span> 
+                          </label>
+                        </div>                      
+                      <?php } ?>
+                    </div><!--end of symptoms-inner-right-->
+                </div><!--end of symptoms inner -->
+
+                <div class="lifestyle-medication">
+                    <label for="medication">Current Medications</label>
+                    <input type="text" name="medication" value="<?php echo $row['medication'];?>">
+                </div>
+                <div class="lifestyle-medication">
+                     <label for="stresslevel">Your Stress Level On A Scale of 0-10</label>
+                     <select name="stresslevel">
+                         <option>Selelct Stress Level</option>
+                        <?php
+                        for($i=0; $i<11; $i++){
+                        echo '<option vlaue="'.$i.'">'.$i.'</option>';
+                        }
+                      ?>
+                     </select>
+                </div>
+            </div>  <!--end of symptoms -->                    
+            <input type="button" name="previous" class="previous action-button-previous" value="Previous" /> 
+            <input type="button" name="next" class="next action-button" value="Next Step" />                   
+          </fieldset>
+
+
+            <?php 
+            $challenges_checkbox = [
+              "Late Night Snacking"=>"late_night_snacks", 
+              "Mirch-Masala Crunchy Snacks"=>"mirch_masala", 
+              "Eating Too Much With Drinks"=>"too_much_food", 
+              "Heavy Afternoon Snacks"=>"afternoon_snacks",
+              "Sweet Tooth"=>"sweet_tooth",
+              "Fried Food Cravings"=>"fried_food",
+              "Frequent Snacking"=>"frequent_snacking",
+              "Heavy Carb & Gravy Cravings"=>"need_carbs"
+            ];
+            ?>
+
+          <fieldset>
+            <div class="challenges">
+            <h3>Eating Challenges</h3>
+                <div class="challenges-top">
+                  <?php 
+                  foreach ($challenges_checkbox as $key => $value) {?>
+                    <div class="challenges-checkbox"> 
+                      <label class="checkbox_container"><?php echo $key; ?>
+                        <input type="checkbox"  name="<?php echo $value; ?>" > 
+                        <span class="checkmarks"></span>
+                      </label> 
+                    </div>
+                <?php } ?>                    
+                </div><!--end of challenges-top --> 
+                <div class="challenges-bottom-inner">
+                    <div class="challenges-eating-inner-left">
+                        <label for="stillleft">Other Food Cravings</label>
+                        <input type="text" name="stillleft" >
+                    </div>                                    
+                </div>              
+            </div><!--end of challenges -->
+            
+            <input type="button" name="previous" class="previous action-button-previous" value="Previous" /> 
+            <input type="button" name="next" class="next action-button" value="Next Step" />                   
+          </fieldset>
+
+          <fieldset>
+            <div class="lifestyle-section">
+                <!--<h3>Lifestyle Assesment</h3>-->                    
+                <div class="form-lifestyle">
+                    <div class="form-personal-veg-left">
+                        <label for="vegyes">Veg or Non Veg </label> 
+                        <div class="veg-inner">
+                            <label class="radio_container">Veg
+                              <input type="radio" name="step3_veg_nonveg" value="veg" /> 
+                                <span class="checkmark"></span>
+                            </label>
+
+                            <label class="radio_container">Non Veg
+                              <input type="radio" name="step3_veg_nonveg" value="non-veg" /> 
+                                <span class="checkmark"></span>
+                            </label>                   
+                        </div>
+                    </div>
+                    <div class="form-personal-veg-right">
+                        <label for="eggyes">Egg</label>
+                        <div class="egg-inner">
+                            <label class="radio_container">Yes
+                                <input type="radio" name="egg" value="egg" />
+                                <span class="checkmark"></span>
+                            </label>
+
+                            <label class="radio_container egg2">No
+                                <input type="radio" name="egg" value="egg" />
+                                <span class="checkmark"></span>
+                            </label>    
+                        </div>
+                    </div>                            
+                </div> 
+
+                <div class="form-lifestyle">
+                    <div class="chicken_per_week">
+                        <label for="chicken_per_week" >If Non Veg, How Many Times Non Veg Per Week?</label>
+                        <select name="chicken_per_week">
+                            <option>Non Veg Per Week</option>
+                            <?php
+                            for($i=1; $i<13; $i++){
+                            echo '<option vlaue="'.$i.'">'.$i.'</option>';
+                            }
+                            ?>
+                        </select> 
+                    </div>
+
+                    <div class="tofu-right">
+                        <label for="tofu">Tofu</label>
+                        <div class="tofu-right-inner">
+                            <label class="radio_container">Yes
+                                <input type="radio" name="tofu" value="yes" />  
+                                <span class="checkmark"></span>
+                            </label>
+
+                            <label class="radio_container">No
+                                <input type="radio" name="tofu" value="no" />    
+                                <span class="checkmark"></span>
+                            </label> 
+                        </div>
+                    </div>
+                </div>             
+
+                <div class="form-lifestyle">                      
+                    <div class="tofu-left">
+                        <label for="try_tofu">If No, Willing To Try Tofu</label>
+                        <div class="tofu-left-inner">
+                            <label class="radio_container">Yes
+                                <input type="radio" name="try_tofu" value="no" />  
+                                <span class="checkmark"></span>
+                            </label>
+
+                            <label class="radio_container">No
+                               <input type="radio" name="try_tofu" value="no" />  
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+                     <div class="lifestyle-medication">
+                    <label for="litre">Water intake per day,  in litres</label>
+                    <select name="litre">
+                         <option>Selelct Water Intake</option>
+                        <?php
+                        for($i=1; $i<13; $i++){
+                            if($i==1){
+                                echo '<option vlaue="'.$i.'">'.$i.' Litre</option>';
+                            }else{
+                             echo '<option vlaue="'.$i.'">'.$i.' Litres</option>';   
+                            }
+                        
+                        }
+                      ?>
+                    </select>
+                </div>
+                   
+                </div>              
+
+                <div class="form-lifestyle">
+                    <label for="food_allergies">Food allergies</label>
+                    <textarea name="food_allergies" id="food_allergies">
+                      
+                    </textarea>
+                </div>
+                
+            </div><!--end of lifestyle-section -->
+
+           <input type="hidden" name="mobileno" value="<?php echo $mobileNo;?>" />
+            <input type="hidden" name="custid" value="<?php  echo $custId;?>" />
+            <input type="hidden" name="date" value="<?php  echo date('Y-m-d');?>" />
+
+            <input type="button" name="previous" class="previous action-button-previous" value="Previous" /> 
+            <input  type="submit" name="submit" id="submit" value="Save"> 
+        </fieldset>
+        </div><!--end of whitebox-->        
+      </div><!--end of formbluebox-->       
+     </div><!--end of container-->      
+    </form>
+<script>
+jQuery(document).ready(function(){
+  jQuery(".btncancel").click(function(){
+    jQuery(".thankyoumsg").toggle();
+  });
+ 
+});
+</script>
+
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+        var current_fs, next_fs, previous_fs;
+        var opacity;
+        jQuery(".next").click(function(){           
+            current_fs = jQuery(this).parent();
+            next_fs = jQuery(this).parent().next();
+            jQuery("#progressbar li").eq(jQuery("fieldset").index(next_fs)).addClass("active");
+            next_fs.show();
+            current_fs.animate({opacity: 0}, {
+                step: function(now) {
+                    opacity = 1 - now;
+                    current_fs.css({
+                        'display': 'none',
+                        'position': 'relative'
+                    });
+                    next_fs.css({'opacity': opacity});
+                },
+                duration: 600
+            });
+        });
+
+        jQuery(".previous").click(function(){           
+            current_fs = jQuery(this).parent();
+            previous_fs = jQuery(this).parent().prev();
+            jQuery("#progressbar li").eq(jQuery("fieldset").index(current_fs)).removeClass("active");
+            previous_fs.show();
+            current_fs.animate({opacity: 0}, {
+                step: function(now) {
+                    opacity = 1 - now;
+                    current_fs.css({
+                        'display': 'none',
+                        'position': 'relative'
+                    });
+                    previous_fs.css({'opacity': opacity});
+                },
+                duration: 600
+            });
+        });
+        
+        jQuery("#submit").click(function(){          
+            
+            return true;
+        })
+
+    });
+</script>
+
+<style> 
+    .formbluebox{margin-top:7rem;}
+    .heading-top{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-bottom: 2px solid #e4f4f5;
+    }    
+    .heading-top img{
+        width:14%;
+    }
+    .heading-top p{
+        color:#5ac5c7;
+        font-size: 1.4rem;
+    }
+
+    .subheading{
+        padding: 8px 0;
+        border-bottom: 2px solid #e4f4f5; 
+        margin-bottom: 3rem; 
+    }
+    .subheading p {
+        font-size: 1.6rem;
+        font-weight:bold;color: #00ae8e;
+        text-transform: capitalize;
+        text-align: center;
+    }
+    .whitebox{
+        background:#fff; 
+        width:100%;
+    }
+    .formbluebox input[type="submit"]{
+        background:#0eb58f;
+        color:#fff;
+        width:182px;
+        display: inline-block;
+        margin:25px auto;
+        border:0;
+        outline: 0;
+        font-size: 1rem;
+        text-transform: uppercase;
+        line-height: 3.2rem;
+        border-radius: 1.6rem;
+        text-align: center
+    }
+    .form-personal, .form-personal-left, 
+    .form-personal-right, .gender, 
+    .form-personal-long,
+    .form-personal-long-left,
+    .form-personal-long-right,
+    .preferred-inner, .form-lifestyle,
+    .form-personal-veg-left, 
+    .form-personal-veg-right,
+    .chicken_per_week, .tofu-left, .tofu-left-inner,
+    .tofu-right, .tofu-right-inner{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between; 
+        align-items: center;      
+    }
+   
+    .form-personal, .form-personal-long, .form-lifestyle{       
+        margin-bottom: 15px;
+    }
+    .form-personal > label, 
+    .form-personal-left > label, 
+    .gender > label,     
+    .form-personal-long-right > label {
+        width:125px;
+    }
+    .waist > label{
+        width:100px;
+    }
+    .form-personal-veg-right > label {
+        width:90px;
+    }
+    .form-personal-right > label{
+        width:145px;
+    }
+    .form-personal-long-right2 > label{
+        width:180px;
+    }
+    .form-chicken-long > label{
+        width: 300px;
+    }
+    .tofu-right > label{
+        width:90px;
+    }
+    .weight > label, .height > label{
+        width:115px;
+        text-align: right;
+        box-sizing: border-box;
+        padding-right: 12px;
+    }
+    .form-personal-long > label,
+    .form-personal-long-left > label {
+        width:225px;
+    }
+    .form-personal > input[type="text"],
+    .form-personal-left > input[type="text"],
+    .form-personal-right > input[type="text"],
+    .weight > input[type="text"],
+    .height > input[type="text"],
+    .waist > input[type="text"],
+    .weight > input[type="date"],
+    .form-personal-long > input[type="text"],
+    .form-personal-long-right >  input[type="text"],
+    .form-personal-long-left >  input[type="text"],
+    .form-personal-long-right2 > input[type="date"],
+    .form-lifestyle > input[type="text"],    
+    .chicken_per_week > select,
+    .nutritional-history-top > input[type="text"], 
+.water-intake > input[type="text"],
+.bottom-sec-top-left input[type="text"],
+.bottom-sec-top-right input[type="date"],
+.lifestyle-medication > input[type="text"],
+.lifestyle-medication > select {
+        width: calc(100% - 130px);
+        border:0;
+        outline: 0;
+        height: 45px;
+        background: #e4f4f5;
+        border-radius: 5px;
+        box-sizing: border-box;
+        padding: 0 20px;
+        box-shadow: none;
+    }
+     .waist > input[type="text"]{
+         width: calc(100% - 105px);
+     }
+    .gender-inner, .egg-inner, .veg-inner{
+        width: calc(100% - 130px);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .egg-inner{
+        width: calc(100% - 95px);
+    }
+    .form-personal-right > input[type="text"]{
+        width: calc(100% - 145px);
+    }
+    .form-personal-long > input[type="text"],
+    .preferred-inner, 
+    .form-personal-long-left >  input[type="text"] {
+        width: calc(100% - 230px);
+    }
+     .form-personal-long-right2 > input[type="date"] {
+         width: calc(100% - 185px);
+     }
+     .form-chicken-long > input[type="text"]{
+        width: calc(100% - 305px);
+     }
+    .weight > input[type="text"],
+    .height > input[type="text"],
+    .weight > input[type="date"]{
+        width: calc(100% - 120px);
+    }
+    .form-personal > textarea, .form-lifestyle > textarea,
+    .medication-textarea textarea{
+        width: calc(100% - 130px);
+        border:0;
+        outline: 0;
+        height: 110px;
+        background: #e4f4f5 !important;
+        border-radius: 5px;
+        box-sizing: border-box;
+        padding: 0 20px;
+        box-shadow: none;
+    }
+    .form-personal-left, .form-personal-right{
+        width:45%;
+    }
+    .gender{
+        width:76%;
+    }
+    .weight, .height{
+        width:31%;
+    }
+    .waist{
+        width:28%;
+    }
+    .tofu-left{
+        width:45%;
+    }
+    .tofu-right{
+        width:28%;
+    }
+    .form-personal-long-left,
+    .form-personal-long-right{
+        width:45%;
+    }
+
+    .form-personal-veg-left {
+        width:45%;
+    }
+
+    .form-personal-veg-right {
+        width:28%;
+    }
+    .chicken_per_week{
+        width:45%;
+    }
+
+    .lifestyle-section, .challenges{
+        margin-bottom: 35px;
+    }
+    .lifestyle-section h3, .symptoms h3, .challenges h3{
+        color:#08515c;
+        font-size: 15px;
+        font-weight: 700;
+        text-transform: capitalize;
+        margin-bottom: 15px;
+        font-weight: 600;
+        text-align: left;
+    }
+    .form-lifestyle{}
+
+    .form-lifestyle > label,
+    .form-personal-veg-left > label,
+    .chicken_per_week > label, .tofu-left > label {
+        width: 220px;
+    }
+    .symptoms .lifestyle-medication > label {
+        width:180px;
+        margin:0.5rem 0;
+    }
+    .lifestyle-medication > label{
+        width: 240px;
+    }
+    .form-lifestyle > input[type="text"], .form-lifestyle > textarea,
+    .veg-inner, .chicken_per_week > select,
+    .tofu-left-inner {
+        width: calc(100% - 225px);
+    }
+    .tofu-right-inner{
+        width: calc(100% - 95px);
+    }
+    .lifestyle-medication > input[type="text"] {
+         width: calc(100% - 225px);
+    }
+    .lifestyle-medication > select {
+        max-width: 280px;
+         width: calc(100% - 185px);
+    }
+    .lifestyle-medication{
+        margin-bottom: 15px;
+        width:40%;
+        display: flex;
+    }
+    .symptoms .lifestyle-medication{
+        margin-bottom: 15px;
+        width:100%;
+    }
+
+/*============RADIO CONTAINER ==================*/
+    .radio_container {
+      display: block;
+      position: relative;
+      padding-left: 35px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      font-size: 14px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    .veg-inner .radio_container, 
+    .tofu-left-inner .radio_container {   
+        padding-left: 0px;    
+    }
+
+.radio_container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 22px;
+  width: 22px;
+  background-color: #fff;
+  border-radius: 50%;
+  border:2px solid #c1e6eb;
+}
+.veg-inner .checkmark, .tofu-left-inner .checkmark {   
+         left: -35px;    
+    }
+
+.radio_container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+.radio_container input:checked ~ .checkmark {
+  background-color: #bcf4fc;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.radio_container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.radio_container .checkmark:after {
+    top: 5px;
+    left: 5px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: white;
+}
+
+.challenges{}
+.challenges-top, .symptoms-inner{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background: #e4f4f5;
+    padding:25px;
+    box-sizing: border-box;
+    width:100%;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+.challenges-checkbox{
+    width:30%;
+}
+/* The container */
+.checkbox_container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  font-size: 12px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.checkbox_container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmarks {
+  position: absolute;
+  top: -5px;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #fff;
+  border: 2px solid #c1e6eb;
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox_container:hover input ~ .checkmarks {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox_container input:checked ~ .checkmarks {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmarks:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbox_container input:checked ~ .checkmarks:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkbox_container .checkmarks:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.challenges-bottom{}
+.challenges-bottom-inner{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.health_goals_left, .health_goals_right,
+.bottom-sec-top-left, .bottom-sec-top-right{
+    width:48%;
+}
+.challenges-bottom-inner-left {
+     width:45%;
+     display: flex;
+}
+.challenges-bottom-inner-right{
+     width:45%;
+     display: flex;
+}
+.challenges-eating-inner-left{
+     width:100%;
+} 
+.challenges-eating-inner-right{
+    width:48%;
+}
+.challenges-bottom-inner-left > label,
+.challenges-bottom-inner-right > label {
+    width:185px;
+}
+.challenges-eating-inner-left > label{
+    width: 185px;
+}
+.challenges-eating-inner-right > label{
+    width:240px;
+}
+.challenges-bottom-inner-left > select,
+.challenges-bottom-inner-right > select,
+.challenges-bottom-inner-left > input[type="text"],
+.challenges-bottom-inner-right > input[type="text"],
+.challenges-eating-inner-left > select,
+.challenges-eating-inner-right > select,
+.challenges-eating-inner-left > input[type="text"],
+.challenges-eating-inner-right > input[type="text"] {
+        width: calc(100% - 190px);
+        border:0;
+        outline: 0;
+        height: 45px;
+        background: #e4f4f5;
+        border-radius: 5px;
+        box-sizing: border-box;
+        padding: 0 20px;
+        box-shadow: none;
+    }
+
+ .challenges-bottom-inner-right > select,
+ .challenges-bottom-inner-right > input[type="text"]{
+    width: calc(100% - 130px);
+ } 
+ .challenges-eating-inner-left > select,
+.challenges-eating-inner-left > input[type="text"]{
+     width: calc(100% - 305px);
+}   
+.challenges-eating-inner-left > input[type="text"]{
+    width: calc(100% - 190px);
+}
+.challenges-eating-inner-right > select,
+.challenges-eating-inner-right > input[type="text"]{
+    width: calc(100% - 245px); 
+}
+.medication-history,
+.medication-left-checkbox,
+.nutritional-history-top, 
+.nutritional-history-middle,
+.water-intake, .water-intake-inner,
+.health_goals, .plan_action, .bottom-sec-top,
+.bottom-sec-top-left, .bottom-sec-top-right {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.health_goals, .plan_action, .bottom-section{
+    width:100%;
+    margin-bottom: 15px;
+}
+.medication-history{
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+}  
+.medication-history h3{
+    color: #08515c;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-transform: capitalize;
+}
+.medication-history-left p{
+    margin:25px 0 25px 0;
+}
+.medication-history-left,
+.medication-history-right{
+    width:47%;
+}  
+.nutritional-history-top > label, .water-intake > label {
+    width:285px;
+}
+.bottom-sec-top-left > label, .bottom-sec-top-right > label {
+    width: 100px;
+}
+.bottom-sec-top-left input[type="text"],
+.bottom-sec-top-right input[type="date"] {
+        width: calc(100% - 105px);
+        }
+.nutritional-history-top > input[type="text"], 
+.water-intake > input[type="text"], .water-intake-inner {
+    width:calc(100% - 290px);
+}
+.nutritional-history-top, .nutritional-history-middle, .water-intake,
+.high_risk, .medication-left-checkbox, .medication-textarea{
+    margin-bottom: 15px;
+}
+.medication-textarea textarea{
+    width:100%;
+    height: 135px;
+}
+.comment-textarea{
+    width:100%;
+}
+.bottom-section p{
+    margin-bottom: 15px;
+}
+.health_goals_left > textarea, 
+.health_goals_right > textarea, 
+.plan_action > textarea, 
+.comment-textarea > textarea{
+    width: 100%;
+    border:0;
+    outline: 0;
+    height: 110px;
+    background: #e4f4f5 !important;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 0 20px;
+    box-shadow: none;
+}
+.patient-summary a{
+    color:#00ae8e;
+}
+label{
+    color: #58595b;
+    font-size: 14px;
+    text-align: left;
+}
+
+/*=================END OF NEW CSS ====================*/
+
+input[type="password"]{
+        width: auto;
+         max-width: 100%;
+        background: none;
+         height: 36px;
+        border: 1px solid #000;
+        
+    }
+    
+.thankyoumsg {
+    width: 100%;
+    float: left;
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background:rgba(0,0,0,0.4)
+}
+.thankyoumsg p {
+    position: fixed;
+    top: 40%;
+    width: 50%;
+    float: none;
+    margin: auto;
+    left: 25%;
+    background: #40b8b9;
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+/*====================PROGRESS BAR ================*/
+
+#progressbar {
+    margin-bottom: 50px;
+    overflow: hidden;
+    color: lightgrey;
+}
+
+#progressbar .active {
+    color: #000000;
+}
+
+#progressbar li {
+    list-style-type: none;
+    font-size: 12px;
+    width: 20%;
+    float: left;
+    position: relative;
+    text-align:center;
+}
+
+#progressbar #account:before {
+    font-family: FontAwesome;
+    content: "";
+}
+
+#progressbar #personal:before {
+    font-family: FontAwesome;
+    content: "";
+}
+
+#progressbar #payment:before {
+    font-family: FontAwesome;
+    content: "";
+}
+
+#progressbar #confirm:before {
+    font-family: FontAwesome;
+    content: "";
+}
+
+#progressbar li:before {
+    content: '';
+    width: 30px;
+    height: 30px;
+    line-height: 25px;
+    display: block;
+    font-size: 16px;
+    color: #ffffff;
+    background: lightgray;
+    border-radius: 50%;
+    margin: 0 auto 10px auto;
+    padding: 2px;
+}
+
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: lightgray;
+    position: absolute;
+    left: 0;
+    top: 15px;
+    z-index: 1;
+}
+
+#progressbar li.active:before,
+#progressbar li.active:after {
+    background: #00ae8e;
+}
+
+.formbluebox input[type="button"] {
+    background: #0eb58f;
+    color: #fff;
+    width: 182px;
+    display: inline-block;
+    margin: 25px auto;
+    border: 0;
+    outline: 0;
+    font-size: 1rem;
+    text-transform: capitalize;
+    line-height: 3.2rem;
+    border-radius: 1.6rem;
+    text-align: center;  
+    text-transform: uppercase;    
+}
+.formbluebox input[type="button"]:hover,
+.formbluebox input[type="submit"]:hover {
+    background: #144F5A;
+}
+.formbluebox input[type="button"].action-button-previous {
+    background: #616161;
+}
+.formbluebox .btn-container{
+    width:290px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+.formbluebox fieldset{
+    text-align: center;
+}
+.formbluebox fieldset:not(:first-of-type) {
+    display: none
+}
+.form-success {
+    margin-bottom: 100px;
+}
+.success-pic {
+    width: 90px;
+    margin: 0 auto 25px auto;
+}
+.success-content {
+    text-align: center;
+}
+.success-content h3, fieldset h3 {
+    color: #08515c;
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-transform: capitalize;
+    margin-bottom: 25px;
+}
+
+
+.success-content ul li a{
+    display: inline-block;
+    width: 300px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-transform: capitalize;
+    margin-bottom: 15px;
+    border: solid 2px #0EB58F;
+    background-color: #0EB58F;
+    color: #FFFFFF;
+    border-radius: 1.6rem;
+    padding: 10px 0;
+    cursor: pointer;
+}
+.height-col{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: calc(100% - 132px);
+}
+.height-col input[type="text"]{
+    width:45%;
+    border: 0;
+    outline: 0;
+    height: 45px;
+    background: #e4f4f5;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 0 20px;
+    box-shadow: none;
+}
+
+/*================ END OF PROGRESS BAR =============*/  
+    
+@media screen and (min-width:260px) and (max-width:767px){
+    
+}   
+
+.thankyoumsg p {
+    position: fixed;
+    top: 40%;
+    width: 96%;
+    float: none;
+    margin: auto;
+    left: 2%;
+    background: #40b8b9;
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+    
+@media screen and (min-width:768px) and (max-width:999px) {
+            
+    }   
+        
+    
+@media only screen and (min-width:310px) and (max-width:641px)  {
+    b, strong {
+        font-weight: 700;
+        font-size: 13px;
+    }
+    label{
+        margin: 0 auto;
+    }
+    .formbluebox{
+        width: 100%;
+        margin:3rem auto 0 auto;
+        padding:20px;
+        box-sizing: border-box;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    }
+
+    .form-personal > label, .form-personal-left > label, 
+    .gender > label, .waist > label, .form-personal-veg-right > label,
+    .form-personal-right > label, .form-personal-long-right > label,
+    .form-personal-long-right2 > label, .form-chicken-long > label,
+    .tofu-right > label, .weight > label, .height > label,
+    .form-personal-long > label, .form-personal-long-left > label,
+    .form-lifestyle > label, .form-personal-veg-left > label,
+    .chicken_per_week > label, .tofu-left > label {
+        display: block;
+        width:100%;
+        margin-bottom: 8px;
+    }
+    .form-personal > input[type="text"],
+    .form-personal-left > input[type="text"],
+    .form-personal-right > input[type="text"],
+    .weight > input[type="text"], .height > input[type="text"],
+    .waist > input[type="text"], .weight > input[type="date"],
+    .form-personal-long > input[type="text"],
+    .form-personal-long-right >  input[type="text"],
+    .form-personal-long-left >  input[type="text"],
+    .form-personal-long-right2 > input[type="date"],
+    .form-lifestyle > input[type="text"],    
+    .chicken_per_week > select,
+    .nutritional-history-top > input[type="text"], 
+    .water-intake > input[type="text"],
+    .bottom-sec-top-left input[type="text"],
+    .bottom-sec-top-right input[type="date"],
+    .form-chicken-long > input[type="text"],
+    .weight > input[type="text"],    .height > input[type="text"],
+    .weight > input[type="date"] {
+        width:100%;
+    }
+
+    .gender-inner, .egg-inner, .veg-inner{
+        width: 100%;        
+    }      
+
+    .form-personal > textarea, .form-lifestyle > textarea,
+    .medication-textarea textarea{
+        width: 100%;        
+    }
+
+    .form-personal-left, .form-personal-right, .gender, .weight, 
+    .height, .waist,  .tofu-left, .tofu-right, .form-personal-long-left,
+    .form-personal-long-right, .form-personal-veg-left, 
+    .form-personal-veg-righ, .chicken_per_week{
+        width:100%;
+    }
+    .weight > label, .height > label {  
+        text-align: left;    
+    }
+    .form-personal-long-right2 > input[type="date"] {
+        width: 100%;
+    }
+    .challenges-checkbox {
+        width: 100%;
+    }
+    .challenges-bottom-inner-left, .challenges-bottom-inner-right, .health_goals_left, .health_goals_right, .bottom-sec-top-left, .bottom-sec-top-right {
+        width: 100%;
+    }
+    .challenges-bottom-inner-left > select, 
+    .challenges-bottom-inner-right > select, 
+    .challenges-bottom-inner-left > input[type="text"], 
+    .challenges-bottom-inner-right > input[type="text"] {
+        width: 100% ;    
+    }
+
+    .subheading p {
+        font-size: 1.4rem;
+    }
+    .lifestyle-section h3, .symptoms h3, .challenges h3 {   
+        font-size: 12px; 
+        font-weight: 600;   
+    }
+    label {    
+        font-size: 12px;
+        text-align: left;
+    }
+    .checkbox_container, .radio_container {   
+        font-size: 12px;   
+    }
+    .subheading {   
+        margin-bottom: 1rem;
+    }
+    .form-personal, .form-personal-left,
+    .challenges-bottom-inner, .challenges-bottom-inner-left,
+    .form-personal-veg-left, .form-lifestyle, .chicken_per_week,
+    .tofu-left{
+        margin-bottom: 20px;
+    }
+    .form-personal .radio_container, .lifestyle-medication{
+        margin-bottom: 0;
+    }
+    #progressbar {
+        margin-bottom: 25px;    
+    }
+    .challenges-bottom-inner-right,
+    .challenges-bottom-inner-left,
+    .lifestyle-medication {    
+        flex-wrap: wrap;
+    }
+    .height-col {    
+        width: 100%;
+    }
+
+    .challenges-bottom-inner-left > label, 
+    .challenges-bottom-inner-right > label,
+    .symptoms .lifestyle-medication > label,
+    .challenges-eating-inner-left > label,
+    .lifestyle-medication > label {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+    .lifestyle-medication > select,
+    .lifestyle-medication > input[type="text"],
+    .challenges-eating-inner-left > input[type="text"],
+    .form-personal-veg-right, .tofu-left-inner,
+    .lifestyle-medication, .tofu-right-inner { 
+        width: 100%;
+        max-width: 100%;
+    }
+    .formbluebox input[type="button"] {   
+        margin: 25px auto 0 auto;
+    } 
+    .egg-inner .radio_container, 
+    .tofu-right-inner .radio_container{
+        margin-left:35px;
+    }  
+    .egg-inner .egg2{
+        margin-left: 0;
+    }
+
+}
+textarea{
+    padding: 15px 20px !important;
+}
+</style>
+
+<script type="text/javascript">
+    function roundValue(val, id){
+        var x = Math.round(val);
+        //alert(x+'#'+id);
+        jQuery("#"+id).val(x);
+    }
+</script>

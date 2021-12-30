@@ -1,0 +1,382 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+?>
+
+<?php 
+error_reporting(E_ALL);
+ini_set('display_errors', TRUE);
+ini_set('display_startup_errors', TRUE);
+
+
+if($this->getRequest()->getParam('webmail')){
+  $logincustomer = Mage::getModel("customer/customer");
+  $logincustomer->setWebsiteId(Mage::app()->getWebsite()->getId());
+  // Load our customer by email
+  $logincustomer->loadByEmail($this->getRequest()->getParam('webmail'));
+  // Load the session up
+  $sess = Mage::getSingleton("customer/session");
+  // Login by ID
+  $sess->loginById($logincustomer->getId());
+  // Set the customer as logged in
+  $sess->setCustomerAsLoggedIn($logincustomer);
+  // redirect to the homepage
+  Mage::app()->getFrontController()->getResponse()->setRedirect('//')->sendResponse();
+}
+$moduleName = Mage::app()->getRequest()->getModuleName();
+$controller=$this->getRequest()->getControllerName();
+$action = Mage::app()->getRequest()->getActionName();
+
+$groupId = Mage::getSingleton('customer/session')->getCustomerGroupId(); 
+$identifier = Mage::getSingleton('cms/page')->getIdentifier();
+
+//echo $moduleName."--".$controller."--".$action."---".$identifier."---".$groupId;
+if($moduleName=='cms' && $identifier=='foodrecipes')
+{
+	    if($groupId>=0 && !in_array($groupId,array(5)))
+		{
+	     	header("Location:".Mage::getBaseUrl()."customer/account/login/"); exit;
+		}
+}
+
+if($moduleName=='cms' && in_array($identifier,array('dish-qty-details','all-dish-base-items','customer-allergy','customer-report-of-week','newcustomer')) )	
+{
+	    if($groupId>=0 && !in_array($groupId,array(4,5)))
+		{
+	     	header("Location:".Mage::getBaseUrl()."customer/account/login/"); exit;
+		}
+}
+
+if($moduleName=='foodpdf' && $controller=='index')
+{
+	    if($groupId>=0 && !in_array($groupId,array(5)))
+		{
+	     	header("Location:".Mage::getBaseUrl()."customer/account/login/"); exit;
+		}
+}
+if($moduleName=='heal' && $controller=='index' && in_array($action,array('qtydetails','creport','qty','creport','customermeals','meallabel') ) )
+{
+	$groupId = Mage::getSingleton('customer/session')->getCustomerGroupId(); 
+		if($groupId>=0 && !in_array($groupId,array(4,5)))
+		{
+		header("Location:".Mage::getBaseUrl()."customer/account/login/"); exit;
+		}
+} 
+elseif($moduleName=='heal' && $controller=='index' && in_array($action,array('index') ) )
+{
+	  
+		if($groupId>=0 && $groupId!=5)
+		{
+		header("Location:".Mage::getBaseUrl()."customer/account/login/"); exit;
+		}
+}
+
+?>
+	<!-- Header Start -->
+	<header>	    
+		<div class="header-wrapper">
+		    
+		    <!-- Logo -->
+			<a class="logo" href="<?php echo $this->getUrl('') ?>">
+				<img src=" <?php echo $this->getSkinUrl('images/logo.png') ?>"/>
+			</a>
+			
+			<!-- Navigation -->
+			<nav class="menu">
+				<ul>
+					<li><a href="<?php echo $this->getUrl('') ?>" class="active-menu-item">Home</a>
+					</li>
+					<li><a href="<?php echo $this->getUrl('disease-remission') ?>">Disease Remission</a>
+					</li>
+					<li><a href="<?php echo $this->getUrl('meal-plan-coaching') ?>">Meal Plans & Coaching</a>
+					</li>
+					<li><a href="<?php echo $this->getUrl('foodmealplan') ?>">Food Subscription</a>
+					</li>
+					<li><a href="<?php echo $this->getUrl('webinar') ?>">Webinars</a>
+					</li>
+					<li><a href="<?php echo $this->getUrl('aboutus') ?>">About us</a>
+					</li>
+					<li><a href="<?php echo $this->getUrl('blog') ?>">Blogs</a>
+					</li>
+				</ul>
+			
+			
+		<div class="menu-separator-mobile"></div>
+				<ul class="account-items-user-mobile">
+					
+					<?php $customerName='';
+					if (Mage::getSingleton('customer/session')->isLoggedIn()) { 
+				$customer = Mage::getSingleton('customer/session')->getCustomer();
+				
+				$firstName = ucfirst($customer->getFirstname());
+				$lastName  = ucfirst($customer->getLastname()); 
+				$customerName = $firstName." ".$lastName;?>
+					<li class="welcome-mobile">
+						Welcome, <span><?php echo $customerName;?></span>
+					</li>
+					<?php } ?>
+				<?php if( ! Mage::getSingleton('customer/session')->isLoggedIn()){?>
+							<li>
+								<a href="<?php echo Mage::getBaseUrl();?>customer/account/login"> 
+								<span class="sign-in-icon" style="background-image: url('<?php echo $this->getSkinUrl("images/sign-in-icon.png");?>')"></span>
+								<span class="sign-in-text">Sign in / Register</span>
+								</a>
+							</li>
+							
+						   <?php } else { ?>
+						   <li>
+							   <a href="<?php echo Mage::getBaseUrl();?>customer/account/logout"> 
+								<span class="sign-in-icon" style="background-image: url('<?php echo $this->getSkinUrl("images/sign-in-icon.png");?>')"></span>
+								<span class="sign-in-text">Sign Out</span>
+							</a>
+							 </li>
+							<li>
+								<a href="<?php echo Mage::getBaseUrl();?>customer/account/organhealth">My Account</a>
+							</li>
+							<li>
+									<a href="<?php echo Mage::getBaseUrl();?>sales/order/history/">My Orders</a>
+								</li>
+						  
+						   <?php } ?>
+							
+								<li>
+									<a href="<?php echo Mage::getBaseUrl();?>checkout/cart">My Cart</a>
+								</li>
+							
+				</ul>
+					<div class="menu-separator-mobile"></div>
+				<?php  if(in_array($groupId,array(4,5))) {?>
+					<div class="account-items-dietician-mobile">
+						<ul>
+							<h3 style="color: #FFFFFF;font-size: 1.2rem;padding: .5rem;font-weight: 500;border-bottom: 1px solid #0eb58f;background: #0eb58f;">Patient</h3>
+			<li class="orderall"><a href="<?php echo Mage::getBaseUrl();?>heal/index" target="_blank">All Orders</a></li>
+		<li class="printallli" style="display:none"><a href="<?php echo Mage::getBaseUrl();?>heal/index/printall" target="_blank">Print All</a></li>
+		<li><a href="<?php echo Mage::getBaseUrl();?>customer-favourite" style="width:100%;" target="_blank">Customer Favourites</a></li>
+		<li><a href="<?php echo Mage::getBaseUrl();?>patientreport" style="width:100%;" target="_blank">Patient Report</a></li>
+		<li><a href="<?php echo Mage::getBaseUrl();?>newcustomer" style="width:100%;" target="_blank">Create New Customer</a></li>
+			
+						</ul>
+					
+					
+						<ul>
+							<h3 style="color: #FFFFFF;font-size: 1.2rem;padding: .5rem;font-weight: 500;border-bottom: 1px solid #0eb58f;background: #0eb58f;" class="dishnrecipe"> Dish and Recipes</h3>
+		<div class="dishinfoboth" style="display:none;">
+		<li><a href="<?php echo Mage::getBaseUrl();?>base-dish-info" target="_blank">Database</a></li>
+		<li><a href="<?php echo Mage::getBaseUrl();?>base-dish-items" target="_blank">Costing</a></li>
+			</div>
+		<li><a href="<?php echo Mage::getBaseUrl();?>heal/index/mealdetails" target="_blank">Meal Details Report</a></li>
+		<li><a href="<?php echo Mage::getBaseUrl();?>heal/index/creport" target="_blank">Meals Sent Report</a></li>
+		<li><a href="<?php echo Mage::getBaseUrl();?>heal/index/customerallmeals" target="_blank">Customer Detailed Report</a></li>
+	    <li><a href="<?php echo Mage::getBaseUrl();?>heal/index/customermeals" target="_blank">Customer All Weekly-Meal Report</a></li>
+		<li><a href="<?php echo Mage::getBaseUrl();?>customer-meal-report-of-week" target="_blank">Customer Meal Report Of A Week</a></li>
+			
+	
+		
+		
+						</ul>
+					
+						<ul>
+							<h3 style="color: #FFFFFF;font-size: 1.2rem;padding: .5rem;font-weight: 500;border-bottom: 1px solid #0eb58f;background: #0eb58f;">Kitchen</h3>
+							<li><a href="<?php echo Mage::getBaseUrl();?>heal/index/qty" target="_blank">Qty Order Report</a></li>
+			<li><a href="<?php echo Mage::getBaseUrl();?>customer-allergy" target="_blank">Customer Allergy And Dislike</a> </li>
+			<li><a href="<?php echo Mage::getBaseUrl();?>heal/index/qtydetails" target="_blank">Qty Details Report</a></li>
+			<li><a href="<?php echo Mage::getBaseUrl();?>dish-qty-details" target="_blank">Breakdown of Ingredients by Item</a></li>
+			<li><a href="<?php echo Mage::getBaseUrl();?>all-dish-base-items" target="_blank">Ingredients Summary for Day</a> </li>
+			<li><a href="<?php echo Mage::getBaseUrl();?>heal/index/meallabel" target="_blank">Meal Labels</a></li>
+				<li class="boxtrack"><a href="<?php echo Mage::getBaseUrl();?>heal/index/deliveryreport" target="_blank">Box Tracking Report</a>	</li>
+							<div class="updaterecipe" style="display:none;">
+	<li><a href="<?php echo Mage::getBaseUrl();?>foodrecipes" target="_blank">Food Recipes</a></li>
+		<li><a href="<?php echo Mage::getBaseUrl();?>foodpdf/index/index" target="_blank">Update Food Recipes</a></li>
+		</div>
+						</ul>
+					
+				</div>
+				<?php }?>
+			</nav>
+			
+			<!-- Account -->
+			<div class="account-items">
+				<div class="account-items-wrapper singed-in">
+					<div class="account-items-user">
+						<svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
+  <path id="User" d="M194,1243a26,26,0,1,0,26,26,26,26,0,0,0-26-26Zm-22.455,26a22.455,22.455,0,1,1,40.1,13.851,22.72,22.72,0,0,0-11.213-8.733,11.243,11.243,0,0,0,3.018-7.776c0-5.862-4.242-10.636-9.455-10.636s-9.455,4.775-9.455,10.636a11.189,11.189,0,0,0,3.256,8.013,21.05,21.05,0,0,0-10.991,9.088A22.394,22.394,0,0,1,171.545,1269Zm23.045,4.136c-.649,0-1.293.048-1.933.106-2.615-.72-4.567-3.534-4.567-6.9,0-3.912,2.646-7.091,5.909-7.091s5.909,3.179,5.909,7.091a7.014,7.014,0,0,1-4.346,6.843C195.24,1273.16,194.918,1273.136,194.591,1273.136Zm-15.146,12.941a17.287,17.287,0,0,1,13.038-9.242,9.167,9.167,0,0,0,1.517.142,8.219,8.219,0,0,0,1.956-.224c5.729.544,10.626,4.479,13.213,8.769A22.372,22.372,0,0,1,179.445,1286.077Z" transform="translate(-168 -1243)" fill="#144F5A" fill-rule="evenodd"/>
+</svg>
+					</div>
+					<div class="account-items-checkout">
+						<a href="<?php echo Mage::getBaseUrl();?>checkout/cart">
+							<svg xmlns="http://www.w3.org/2000/svg" width="52" height="44.303" viewBox="0 0 52 44.303">
+  <path id="Cart" d="M537.84,2333.372H560.7a3.437,3.437,0,0,0,3.151-2.064l6.859-15.89a3.375,3.375,0,0,0-.289-3.211,3.442,3.442,0,0,0-2.863-1.532H529.838a3.417,3.417,0,0,0-1.848.567l-2.3-5.22a1.709,1.709,0,0,0-1.571-1.021h-3.427a1.7,1.7,0,1,0,0,3.4H523l10.432,23.674a5.575,5.575,0,0,0-1.305,3.563c.061,1.417.033,3.393,1.64,4.176-.632.872-1.744,1.634-1.639,3.768a5.715,5.715,0,1,0,11.43,0,5.6,5.6,0,0,0-.484-2.27h12.4a5.594,5.594,0,0,0-.485,2.27,5.716,5.716,0,1,0,11.432,0,5.634,5.634,0,0,0-5.642-5.674.166.166,0,0,0-.074.011v-.011H538.119c-.016-.012-.036-.012-.052-.023a1.532,1.532,0,0,1-.227.023,2.27,2.27,0,0,1,0-4.54Zm29.721-19.293-6.858,15.889H536.7l-6.858-15.889Zm-27.435,29.508a2.287,2.287,0,1,1-2.286-2.271A2.286,2.286,0,0,1,540.126,2343.587Zm22.863,0a2.287,2.287,0,1,1-2.286-2.271A2.287,2.287,0,0,1,562.989,2343.587Z" transform="translate(-518.991 -2305)" fill="#144F5A" fill-rule="evenodd"/>
+</svg>
+                            <?php $count = $this->helper('checkout/cart')->getSummaryCount();?>
+							<div class="account-items-chekout-notification"><?php echo $count;?></div>
+						</a>
+					</div>
+				</div>
+				
+				<div class="account-items-dropdown">
+					<div class="account-items-user-dropdown">
+						<ul>
+						<?php if($customerName!=''){?>
+							<li class="welcome">
+								Welcome, <span><?php echo $customerName;?></span>
+							</li>
+						<?php } ?>
+							<li class="separator"></li>
+							<?php if( ! Mage::getSingleton('customer/session')->isLoggedIn()){?>
+							<li>
+								<a href="<?php echo Mage::getBaseUrl();?>customer/account/login"> 
+								<span class="sign-in-icon" style="background-image: url('<?php echo $this->getSkinUrl("images/sign-in-icon.png");?>')"></span>
+								<span class="sign-in-text">Sign in / Register</span>
+								</a>
+							</li>
+							
+						   <?php } else { ?>
+						   <li>
+							   <a href="<?php echo Mage::getBaseUrl();?>customer/account/logout"> 
+								<span class="sign-in-icon" style="background-image: url('<?php echo $this->getSkinUrl("images/sign-in-icon.png");?>')"></span>
+								<span class="sign-in-text">Sign Out</span>
+							</a>
+							 </li>
+							<li>
+								<a href="<?php echo Mage::getBaseUrl();?>customer/account/organhealth">My Account</a>
+							</li>
+							<li>
+									<a href="<?php echo Mage::getBaseUrl();?>sales/order/history/">My Orders</a>
+								</li>
+						  
+						   <?php } ?>
+								
+								<!--<li>
+									<a href="#">Create Account</a>
+								</li>-->
+								
+								<li>
+									<a href="<?php echo Mage::getBaseUrl();?>checkout/cart">My Cart</a>
+								</li>
+								
+								<!--<li>
+									<a href="#">My Subscription</a>
+								</li>-->
+						</ul>
+					</div>
+					<?php  if(in_array($groupId,array(4,5))) {?>
+					<div class="account-items-dietician-dropdown account-items-dietician-dropdown-first">
+						<ul>
+							<h3 style="margin: 0em 0;">Patient</h3>
+							<li class="orderall"><a href="<?php echo Mage::getBaseUrl();?>heal/index" target="_blank">All Orders</a></li>
+							<li class="printallli" style="display:none;border: 1px solid #ccc;box-shadow: 0px 4px 4px rgba(0,0,0,20%);padding: .5em;"><a href="<?php echo Mage::getBaseUrl();?>heal/index/printall" target="_blank">Print All</a></li>
+							<li><a href="<?php echo Mage::getBaseUrl();?>customer-favourite" style="width:100%;" target="_blank">Customer Favourites</a></li>
+							<li><a href="<?php echo Mage::getBaseUrl();?>patientreport" style="width:100%;" target="_blank">Patient Report</a></li>
+							<li><a href="<?php echo Mage::getBaseUrl();?>newcustomer" style="width:100%;" target="_blank">Create New Customer</a></li>
+								
+						</ul>
+					</div>
+					
+				
+					<div class="account-items-dietician-dropdown">
+						<ul>
+							<h3 style="margin: 0em 0;">Kitchen</h3>
+							<li><a href="<?php echo Mage::getBaseUrl();?>heal/index/qty" target="_blank">Qty Order Report</a></li>
+			<li><a href="<?php echo Mage::getBaseUrl();?>customer-allergy" target="_blank">Customer Allergy And Dislike</a> </li>
+			<li><a href="<?php echo Mage::getBaseUrl();?>heal/index/qtydetails" target="_blank">Qty Details Report</a></li>
+			<li><a href="<?php echo Mage::getBaseUrl();?>dish-qty-details" target="_blank">Breakdown of Ingredients by Item</a></li>
+			<li><a href="<?php echo Mage::getBaseUrl();?>all-dish-base-items" target="_blank">Ingredients Summary for Day</a> </li>
+			<li><a href="<?php echo Mage::getBaseUrl();?>heal/index/meallabel" target="_blank">Meal Labels</a></li>
+				<li class="boxtrack"><a href="<?php echo Mage::getBaseUrl();?>heal/index/deliveryreport" target="_blank">Box Tracking Report</a>	</li>
+							<div class="updaterecipe" style="display:none;">
+								<ul style="border: 1px solid #ccc;box-shadow: 0px 4px 4px rgba(0,0,0,20%);padding: .5em;">
+	<li style="border-bottom: 1px solid #ccc;"><a href="<?php echo Mage::getBaseUrl();?>foodrecipes" target="_blank">Food Recipes</a></li>
+		<li><a href="<?php echo Mage::getBaseUrl();?>foodpdf/index/index" target="_blank">Update Food Recipes</a></li>
+		</ul>
+				</div>
+							<li><a href="<?php echo Mage::getBaseUrl();?>heal/index/mealdetails" target="_blank">Meal Details Report</a></li>
+							<li><a href="<?php echo Mage::getBaseUrl();?>heal/index/creport" target="_blank">Meals Sent Report</a></li>
+							<li class="dishnrecipe"><a href="#">Dish and Recipes</a></li>
+		                     <div class="dishinfoboth" style="display:none;">
+								 <ul style="border: 1px solid #ccc;box-shadow: 0px 4px 4px rgba(0,0,0,20%);padding: .5em;">
+							      <li style="border-bottom: 1px solid #ccc;"><a href="<?php echo Mage::getBaseUrl();?>base-dish-info" target="_blank">Database</a></li>
+							      <li><a href="<?php echo Mage::getBaseUrl();?>base-dish-items" target="_blank">Costing</a></li>
+									 </ul>
+							</div>
+							</li>
+							<li><a href="<?php echo Mage::getBaseUrl();?>heal/index/customerallmeals" target="_blank">Customer Detailed Report</a></li>
+							<li><a href="<?php echo Mage::getBaseUrl();?>heal/index/customermeals" target="_blank">Customer All Weekly-Meal Report</a></li>
+							<li><a href="<?php echo Mage::getBaseUrl();?>customer-meal-report-of-week" target="_blank">Customer Meal Report Of A Week</a></li>
+				
+							
+						</ul>
+					</div>
+					<?php } ?>
+				</div>
+			</div>
+			
+			
+			
+			<!-- Mobile Menu -->
+			<div class="mobile-menu">
+				<div class="bar1"></div>
+				<div class="bar2"></div>
+				<div class="bar3"></div>
+			</div>
+		</div>
+		
+	</header>
+	<!-- Header End -->
+<script>
+jQuery(document).ready(function(){
+  jQuery(".orderall").hover(function(){
+    jQuery(".printallli").css("display", "block");
+  
+  });
+		  jQuery(".printallli").hover(function(){
+  jQuery(".printallli").css("display", "block");
+    }, function(){
+    jQuery(this).css("display", "none");
+  });
+	
+	 jQuery(".dishnrecipe").hover(function(){
+    jQuery(".dishinfoboth").css("display", "block");
+		 jQuery(".updaterecipe").css("display", "block");
+    });
+	  jQuery(".dishinfoboth").hover(function(){
+  jQuery(".dishinfoboth").css("display", "block");
+    }, function(){
+    jQuery(this).css("display", "none");
+  });
+	 jQuery(".boxtrack").hover(function(){
+    jQuery(".updaterecipe").css("display", "block");
+		 jQuery(".dishinfoboth").css("display", "none");
+    
+  });
+	  jQuery(".updaterecipe").hover(function(){
+  jQuery(".updaterecipe").css("display", "block");
+    }, function(){
+    jQuery(this).css("display", "none");
+  });
+	});
+</script>

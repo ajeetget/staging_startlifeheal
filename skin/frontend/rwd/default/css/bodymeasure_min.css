@@ -1,0 +1,404 @@
+@media screen and (min-width:260px) and (max-width:767px) {
+    .page-bmi .hero {
+        background-color: #ebfbfb;
+        padding: 4em 1em 5em !important;
+        margin-top: 20% !important;
+        height: 100%;
+    }
+.page-bmi .details {
+    padding-top:30px;
+}
+.page-bmi .cta-wrap {
+    margin-bottom:20px;
+    margin-top: 20px;
+}
+}
+
+.breadcrumb.text-white,
+.breadcrumb.text-white>.prev a:before,
+.breadcrumb.text-white>li,
+.breadcrumb.text-white>li a {
+    color: #222;
+}
+
+.page-bmi .nav-upper,
+.page-bmi .nav-upper a {
+    color: #222;
+}
+
+.gut-left-0,
+.no-gutter {
+    padding-left: 0
+}
+
+.fw-800 {
+    font-weight: 800
+}
+
+.open-sans {
+    font-family: open-sans, helvetica, arial, sans-serif
+}
+
+.no-gutter {
+    padding-right: 0
+}
+
+.page-bmi .hero {
+    background-color: #ebfbfb;
+    padding: 4em 0 5em;
+    margin-top: -3%;
+}
+
+.page-bmi .bmi-wrapper {
+    background: #fff;
+    padding: 3em 0 0;
+    float: left;
+    width: 100%;
+    height: 100%;
+box-shadow: 0px 0px 3px rgba(131, 184, 167, 0.4);
+}
+
+.page-bmi .bmi-wrapper {
+    padding: 0;
+    margin: 0
+}
+
+.details h5:nth-child(1) {
+    margin-bottom: 0
+}
+
+.page-bmi .intro-text p {
+    margin: 0 auto;
+    max-width: 15em
+}
+
+.page-bmi .bmi-wrapper.bmi-scale {
+    margin: 3em 0 2em;
+    position: relative
+}
+
+.page-bmi .bmi-wrapper .alert {
+    margin: 1em 0
+}
+
+.page-bmi .scale_pointer {
+    position: absolute;
+    top: -1.2em;
+    width: 1.3em;
+    height: 1.3em;
+    background: #ce0f69;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    z-index: 1;
+    transition: .2s ease
+}
+
+.page-bmi .bmi-scale .type {
+    border-top: 7px solid #bfbfbf;
+    padding-top: 1em;
+    margin-right: .5%;
+    position: relative
+}
+
+.page-bmi .bmi-scale .type:last-of-type {
+    margin-right: none
+}
+
+.page-bmi .bmi-scale .type.selected {
+    border-top: 7px solid #ce0f69
+}
+
+.page-bmi .bmi-scale p {
+    font-size: .7em
+}
+
+.page-bmi .bmi-scale .normal:after,
+.page-bmi .bmi-scale .overweight:after,
+.page-bmi .bmi-scale .underweight:after {
+    position: absolute;
+    top: -2.8em;
+    right: -1em;
+    font-size: .8em;
+    font-weight: 600
+}
+
+.page-bmi .bmi-scale .underweight:after {
+    content: "18.5"
+}
+
+.page-bmi .bmi-scale .normal:after {
+    content: "25"
+}
+
+.page-bmi .bmi-scale .overweight:after {
+    content: "30"
+}
+
+.page-bmi .bmi-scale .underweight {
+    width: 24%
+}
+
+.page-bmi .bmi-scale .normal {
+    width: 28%
+}
+
+.page-bmi .bmi-scale .obese,
+.page-bmi .bmi-scale .overweight {
+    width: 23%
+}
+
+.page-bmi .details h5:last-of-type {
+    margin: 0
+}
+
+.page-bmi .btn-link {
+    color: #026271
+}
+
+.page-bmi .no-content {
+    padding-bottom: 0
+}
+
+.page-bmi #learnMore .modal-body a {
+    text-decoration: underline
+}
+
+.page-bmi .details h5 {
+    font-size: 1.125em
+}
+
+.page-bmi .cta-row h4 {
+    line-height: 1.1
+}
+
+.page-bmi .cta-row h4.text-secondary {
+    margin-bottom: 0;
+    float: left;
+width: 100%;
+padding-bottom: 12px;
+}
+
+.page-bmi .cta-row .cta-wrap,
+.page-bmi .cta-row h5,
+.page-bmi .cta-row p {
+    line-height: 1.4
+}
+
+.page-bmi .description p {
+    line-height: 1.4;
+    margin-top: 8px;
+    padding: 0;
+    margin-bottom: 0
+}
+
+.page-bmi .text-wrapper p {
+    padding-top:0px;
+padding-bottom:12px;
+}
+
+.page-bmi .cta-row img {
+    padding: 36px 0 24px
+}
+
+.page-bmi .cta-row hr {
+    border-top: 1px solid #ccc;
+    width: -moz-available;
+    width: -webkit-available;
+    width: -oz-available;
+    margin: 24px auto;
+float: left;
+width: 100%;
+}
+
+.page-bmi .intro-text hr {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    margin-top: .5em;
+    margin-bottom: 1.5em;
+    border: 0;
+    border-top: 5px solid #026271;
+    width: 65px
+}
+
+.page-bmi .aime-dant-bg p {
+    margin-bottom: 50px
+}
+
+.page-bmi .description .btn.btn-link {
+    font-family: Raleway, sans-serif;
+    font-weight: 600
+}
+
+.page-bmi .description .btn.btn-link:hover {
+    color: #144D56
+}
+
+.page-bmi .description .btn-link:after {
+    font-size:24px;
+    bottom: -1.5px;
+right: -2px;content: none;
+}
+
+@media(min-width:768px) {
+.page-bmi .cta-row {
+    margin: 3.5em auto 4em;
+    float: left;
+    width: 100%;
+}
+.logomob {
+    width: 30% !important;
+    float: right;
+    margin-top: 0%;
+}
+    .page-bmi .hero {
+        background: url(../images/palm-bg-dt.jpg)no-repeat center top;
+        padding: 11em 0 6em
+    }
+    .page-bmi .bmi-wrapper.bmi-scale {
+        margin: 1.5em 0 1.875em
+    }
+    .page-bmi .scale_pointer {
+        position: absolute;
+        width: 1.7em;
+        height: 1.7em;
+        border: 3px solid #fff
+    }
+    .page-bmi .bmi-scale .type {
+        border-top: 10px solid #bfbfbf
+    }
+    .page-bmi .bmi-scale p {
+        font-size: 1em
+    }
+    .page-bmi .bmi-scale .underweight:after {
+        content: "18.5";
+        top: -2.5em;
+        font-size: initial
+    }
+    .page-bmi .bmi-scale .normal:after {
+        content: "25";
+        position: absolute;
+        top: -2.5em;
+        right: -1em;
+        font-weight: 600;
+        font-size: initial
+    }
+    .page-bmi .bmi-scale .overweight:after {
+        content: "30";
+        position: absolute;
+        top: -2.5em;
+        right: -1em;
+        font-weight: 600;
+        font-size: initial
+    }
+    .page-bmi .bmi-scale .underweight {
+        width: 20%
+    }
+    .page-bmi .bmi-scale .normal {
+        width: 30%
+    }
+    .page-bmi .bmi-scale .overweight {
+        width: 23%
+    }
+    .page-bmi .bmi-scale .obese {
+        width: 24%
+    }
+    .page-bmi .bmi-scale .type.selected {
+        border-top: 10px solid #ce0f69
+    }
+    .page-bmi .intro-text p {
+        margin: 0 auto;
+        max-width: inherit
+    }
+    .page-bmi .no-content {
+        padding-bottom: 0
+    }
+    .page-bmi .cta-row img {
+        padding: 0 0 24px
+    }
+    .page-bmi .cta-wrap {
+        margin-bottom: 50px;
+        margin-top: 20px;
+    }
+}
+
+@media(min-width:992px) {
+.page-bmi .cta-row {
+    margin: 3.5em auto 4em;
+    float: left;
+    width: 100%;
+}
+    .page-bmi .hero {
+        background-size: cover;
+        padding: 13em 0 6em;
+    }
+    .page-bmi .bmi-wrapper.bmi-scale {
+        margin: 2em 4em 3.5em
+    }
+    .page-bmi .bmi-error {
+        padding: 2em 3em !important;
+        margin: 2em 4em 0 !important
+    }
+    .page-bmi .bmi-wrapper .alert {
+        margin: 3em 4em
+    }
+    .page-bmi .aime-dant-bg {
+        padding: 0 15px 0 0
+    }
+    .page-bmi .details {
+        padding-left: 10px;
+        padding-right: 80px
+    }
+    .page-bmi .details.under-max {
+        padding-left: 80px;
+        padding-top: 5%;
+    }
+    .page-bmi .obese-under-max-detail {
+        padding: 1em 2em 1.5em 4.7em;
+        border-right: 1px solid #ccc;
+        text-align: right
+    }
+    .page-bmi .obese-under-max-desc p {
+        padding: 0 4em 0 1em;
+        margin-top: 0
+    }
+}
+
+@media(min-width:1200px) {
+
+    .page-bmi.cta-row {
+        margin: 20px 0 0;
+        padding-bottom: 100px
+    }
+    .page-bmi .details {
+        padding-left: 46px;
+        padding-right: 90px
+    }
+    .page-bmi .details.under-max {
+        padding-left: 80px
+    }
+    .page-bmi .cta-row {
+        margin: 3.5em auto 4em;
+        float: left;
+        width: 100%;
+    }
+    .page-bmi .aime-dant-bg {
+        padding: 0
+    }
+    .page-bmi .btn-link {
+        position: relative;
+        bottom:1px;
+        right: 8px
+    }
+    .page-bmi .obese-under-max-detail {
+        padding: 1em 2em 1.5em 4.7em;
+        border-right: 1px solid #ccc
+    }
+    .page-bmi .obese-under-max-desc p {
+        padding: .7em 4em 0 1em;
+        margin-top: 0
+    }
+    .page-bmi .bmi-wrapper .alert {
+        margin: 2em 4em 3em
+    }
+}

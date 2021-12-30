@@ -1,0 +1,67 @@
+<script src="//code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+<script src="<?php echo $this->getSkinUrl('js');?>/jquery.alphaindex.js"></script>
+
+<script> 
+
+	$(document).ready(function() { 
+            $('#my-list').makeAlphaIndex({
+                activateFirstIndex: false,
+                showItemsCount: false
+               })
+                
+			
+		});
+
+
+</script>
+<?php  $customerCollection = Mage::getModel('customer/customer')->getCollection()
+         ->addAttributeToSelect('*')
+         ->addFieldToFilter('group_id', array("neq" => 4));
+echo '<pre>';
+$customerLi='';
+foreach($customerCollection as $custinfo)
+{
+    $customerId = $custinfo->getEntityId();
+    $firstName =  $custinfo->getFirstname();
+    $customerName='';
+    $isDr = false;
+    $isDiabetes = false;
+    
+    $foundItem = strpos( $firstName,'Dr');   if($foundItem!==false){  $isDr= true;  $firstName = str_replace("Dr",'',$firstName); }
+   $foundItem2 = strpos( $firstName,'.');   if($foundItem2!==false){   $firstName = str_replace(".",'',$firstName); }
+    $foundItem3 = strpos( $firstName,'Diabetes');   if($foundItem3!==false){ $isDiabetes = true;  $firstName = str_replace("(Diabetes Educator )",'',$firstName); }
+   
+   
+    $lastName =  $custinfo->getLastname();
+    if($firstName!='')
+    {
+        $customerName = trim($firstName);
+        
+    }
+    
+    if($lastName!='')
+    {
+        if($firstName!=''){ $customerName.=' ' ;}
+        $customerName.= trim($lastName);   
+        
+        if($isDr==true)
+        {
+            $customerName.= ' ( Dr )'; 
+        }
+        if($isDiabetes==true)
+        {
+            $customerName.= ' (Diabetes Educator )'; 
+        }
+    }
+   
+    
+  //  print_r($custinfo); die;
+    $customerLi.='<li value="'.$customerId.'" onclick="getFavitems('.$customerId.')">'.$customerName.'</li>';
+}
+
+
+?>
+
+<ul id="my-list">
+  <?php echo $customerLi;?>
+</ul>

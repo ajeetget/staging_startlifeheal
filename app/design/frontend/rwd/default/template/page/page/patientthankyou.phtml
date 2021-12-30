@@ -1,0 +1,409 @@
+<?php @ob_start();
+ $msg='<p>Thanks for sharing your information.</p>';
+    if(isset($_POST['submitAssessment']))
+	{
+		$formData = $_POST;
+		
+		//echo '<pre>'; print_r($formData);
+		unset($formData['submitAssessment']);
+		$mobileno = $formData['mobileno'];
+		$date = $formData['date'];
+		
+		$collection = Mage::getModel("immunityassessment/immunutyassessment")->getCollection()
+		              ->addFieldToFilter('mobileno',$mobileno)
+					  ->addFieldToFilter('date',$date);
+		//	echo 'collection size ='.sizeof($collection);		  
+					  
+		if(isset($collection) && sizeof($collection)==1)
+		{	
+
+	
+		  $immuntiyObject = $collection->getFirstItem();
+		 $rowId =  $immuntiyObject->getId();
+		  $immnunityModel = Mage::getModel("immunityassessment/immunutyassessment")->load($rowId );
+		  
+		   $immnunityModel->setName($formData['name']);
+		   $immnunityModel->setCold($formData['cold']);
+		   $immnunityModel->setHeadache($formData['headache']);
+		   $immnunityModel->setMigranes($formData['migranes']);
+		   $immnunityModel->setFever($formData['fever']);
+		   $immnunityModel->setJointache($formData['jointache']);
+		   $immnunityModel->setBodyache($formData['bodyache']);
+		   $immnunityModel->setStomachInfection($formData['stomach_infection']);
+		   $immnunityModel->setUti($formData['uti']);
+		   
+		   $immnunityModel->setHighstress($formData['highstress']);
+		   $immnunityModel->setPoorsleep($formData['poorsleep']);
+		   $immnunityModel->setChronicFatigue($formData['chronic_fatigue']);
+		   $immnunityModel->setAsthama($formData['asthama']);
+		   $immnunityModel->setKidneyDisease($formData['kidney_disease']);
+		   $immnunityModel->setCardiac($formData['cardiac']);
+		   $immnunityModel->setDiabetes($formData['diabetes']);
+		   $immnunityModel->setFattyliver($formData['fattyliver']);
+		   $immnunityModel->setThyroid($formData['thyroid']);
+		   $immnunityModel->setPcod($formData['pcod']);
+		   $immnunityModel->setArthritis($formData['arthritis']);
+		   $immnunityModel->setOthers($formData['others']);
+		   
+		   
+		   $immnunityModel->save();
+		   //  echo "ifffff"; die;
+		
+		}
+		else 
+		{	
+		//echo "else"; die;
+		  $immnunityModel = Mage::getModel("immunityassessment/immunutyassessment");
+		  $immnunityModel->setData($formData);
+		  $immnunityModel->save();
+		}
+		
+		$immunityPoint = (int) ( $formData['cold'] + $formData['headache'] + $formData['migranes'] + $formData['fever'] + $formData['jointache']  + $formData['bodyache'] +$formData['stomach_infection'] + $formData['uti'] + $formData['highstress'] + $formData['poorsleep'] + $formData['chronic_fatigue'] + $formData['asthama'] + $formData['kidney_disease']  + $formData['cardiac'] +$formData['diabetes'] +$formData['fattyliver'] +$formData['thyroid'] +$formData['pcod'] +$formData['arthritis'] + $formData['others']  );
+		//echo 'immunityPoint='.$immunityPoint; die;
+		if($immunityPoint==0)
+		{
+			$msg="<span><b style='text-align: center;float:left; width:100%;text-transform:uppercase;'>You scored 0 :</b><br>awesome, your immunity appears to be good.</span>";
+		}
+		else if($immunityPoint==1)
+		{
+			$msg="<span><b style='text-align: center;float:left; width:100%;text-transform:uppercase;'>You Scored 1 :</b><br>While it is best to be 0 times per year, having a few issues is not so bad. At a score of 1 you should not be concerned about your immunity too much. However for a more personalized approach feel free to get an Immunity assesment or a reputed Ayurvedic or Functional Doctor appointment.</span>";
+		}
+		else if($immunityPoint==2)
+		{
+			$msg="<span><b style='text-align: center;float:left; width:100%;text-transform:uppercase;'>You Scored = 2 :</b><br>A score of 2 is less than ideal but not a major worry. You should try to sort out the root causes, however your immunity appears to be holding up. If you want to improve your score you schould get an immunity assesment</span>";
+		}
+		else if($immunityPoint==3)
+		{
+			$msg="<span><b style='text-align: center;float:left; width:100%;text-transform:uppercase;'>You scored = 3 :</b><br>You are either having a multiple of problems, or great frequency in one. Both are not good. You should get an immunity assesment and see what are the root causes and could they cause other serious issues.</span>";
+		}
+		else if($immunityPoint==4)
+		{
+			$msg="<span><b style='text-align: center;float:left; width:100%;text-transform:uppercase;'>You Scored = 4 :</b><br>You are having many issues, and they would be impairing your quality of life. You should get an immunity check done, find the root causes, and work on them. If you are below age 60 then you really should do this ASAP to have a longer positive healthspan in your life. You are likely to develop more issues with age. Your immunity is weak and should be resolved ASAP.</span>";
+		}
+		else if($immunityPoint>=5)
+		{
+			$msg="<span><b style='text-align: center;float:left; width:100%;text-transform:uppercase;'>You scored 5 points or over :</b><br>Most often, metabolic health issues lead to health symptoms. Issues such as inflammation are related to frequent colds. Migraines, though unknown as to their reason, often have triggers. Arthritis is an auto-immune disorder often triggered by what's going on inside the body. UTI's are age related or sure, but having too many can be symptoms of diseases, such as diabetes. Stomach infections are often related to poor gut health and is related to immunity. Fevers can be due to food or sinus inflammation. Both can be mitigated with nutrition and defense strategies.</span>";
+		}
+		
+		
+	}
+
+
+
+
+  
+   if(isset($_POST['submit']))
+   {
+	   
+	 //  echo 'shailesh'; die;
+    $nameone = $_POST['nameone']; // required
+	$male = $_POST['male']; // required
+	$female = $_POST['female']; // required
+	   
+	$address = $_POST['address']; // required
+    $weight = $_POST['weight']; // required
+	$height = $_POST['height']; // required  
+	   
+	$profession = $_POST['profession']; // required
+	$marital = $_POST['marital']; // required
+	$hindi = $_POST['hindi']; // required   
+	   
+	$eng = $_POST['eng']; // required   
+	$DOB = $_POST['DOB']; // required
+	$blood = $_POST['blood']; // required
+	   
+	$hearabout = $_POST['hearabout']; // required   
+	$primary = $_POST['primary']; // required   
+	$waist = $_POST['waist']; // required   
+	   
+	   $lastvisit = $_POST['lastvisit']; // required 
+	   $Allergies = $_POST['Allergies']; // required   
+	   $Diabetes = $_POST['Diabetes']; // required  
+	   
+	   $Conditions = $_POST['Conditions']; // required  
+	   $Drug = $_POST['Drug']; // required  
+	   $Depression = $_POST['Depression']; // required  
+	   
+	   $spasms = $_POST['spasms']; // required  
+	   $Joints = $_POST['Joints']; // required  
+	   $Dysfunction = $_POST['Dysfunction']; // required  
+	   
+	   $problems = $_POST['problems']; // required  
+	   $acid = $_POST['acid']; // required  
+	   $disorders = $_POST['disorders']; // required 
+	   
+	   $Pre = $_POST['Pre']; // required  
+	   $Asthma = $_POST['Asthma']; // required  
+	   $Liver = $_POST['Liver']; // required  
+	   
+	   $PCOS = $_POST['PCOS']; // required  
+	   $Alzheimers = $_POST['Alzheimers']; // required  
+	   $Colds = $_POST['Colds']; // required  
+	   
+	   $Patches = $_POST['Patches']; // required  
+	   $Pains = $_POST['Pains']; // required  
+	   $Fatigue = $_POST['Fatigue']; // required  
+	   
+	   $surgery = $_POST['surgery']; // required  
+	   $Bloating = $_POST['Bloating']; // required  
+	   $shoulder = $_POST['shoulder']; // required 
+	   
+	   $healing = $_POST['healing']; // required  
+	   $bp = $_POST['bp']; // required  
+	   $urination = $_POST['urination']; // required 
+	   
+	   $Stress = $_POST['Stress']; // required  
+	   $vision = $_POST['vision']; // required  
+	   $Hearing = $_POST['Hearing']; // required  
+	   
+	   $Smoking = $_POST['Smoking']; // required  
+	   $Cervical = $_POST['Cervical']; // required  
+	   $Headaches = $_POST['Headaches']; // required 
+	   
+	   $Sinusitis = $_POST['Sinusitis']; // required  
+	   $Cholesterol = $_POST['Cholesterol']; // required  
+	   $Infertility = $_POST['Infertility']; // required  
+	   
+	   $Spine = $_POST['Spine']; // required 
+	   $Infections = $_POST['Infections']; // required 
+	   $Stomach = $_POST['Stomach']; // required 
+	   
+	   $COPD = $_POST['COPD']; // required 
+	   $Insomnia = $_POST['Insomnia']; // required 
+	   $Sleep = $_POST['Sleep']; // required 
+	   
+	   $Constipation = $_POST['Constipation']; // required 
+	   $IBS = $_POST['IBS']; // required 
+	   $Thyroid = $_POST['Thyroid']; // required 
+	   
+	   $cvpain = $_POST['cvpain']; // required 
+	   $yeast = $_POST['yeast']; // required 
+	   $Tingling = $_POST['Tingling']; // required 
+	   
+	   $cough = $_POST['cough']; // required 
+	   $Kidney = $_POST['Kidney']; // required 
+	   $Migraines = $_POST['Migraines']; // required 
+	   
+	   $innsipidus = $_POST['innsipidus']; // required 
+	   $LI = $_POST['LI']; // required 
+	   $Dental = $_POST['Dental']; // required 
+	   
+	   $Cardiac = $_POST['Cardiac']; // required 
+	   $Antibiotics = $_POST['Antibiotics']; // required 
+	   $killers = $_POST['killers']; // required 
+	   $Steroids = $_POST['Steroids']; // required 
+	   $Gained = $_POST['Gained']; // required 
+	   $decreased = $_POST['decreased']; // required 
+	   $Veg = $_POST['Veg']; // required 
+	   $non_veg = $_POST['non_veg']; // required 
+	   $glasses = $_POST['glasses']; // required 
+	   $fussy1 = $_POST['fussy1']; // required 
+	   $fussy2 = $_POST['fussy2']; // required 
+	   
+	   
+	$email_from = "team@gmail.com";
+	$email_to = "shruti.homespice@gmail.com";
+    $email_subject = "PATIENT INTAKE FORM";
+ 
+    $email_message .= "Name: ".trim($nameone)."\n";
+    $email_message .= "Gender: ".trim($male)."\n";
+    $email_message .= "Gender: ".trim($female)."\n";
+	   
+	$email_message .= "Address: ".trim($address)."\n";
+	$email_message .= "Weight: ".trim($weight)."\n";
+	$email_message .= "Height: ".trim($height)."\n";	
+	   
+    $email_message .= "Profession: ".trim($profession)."\n";
+	$email_message .= "Marital Status: ".trim($marital)."\n";
+	$email_message .= "Preferred Language: ".trim($hindi)."\n";
+	   
+	$email_message .= "Preferred Language: ".trim($eng)."\n";
+	$email_message .= "Blood Group: ".trim($blood)."\n";	
+	$email_message .= "Waist: ".trim($waist)."\n";
+	   
+	$email_message .= "DOB: ".trim($DOB)."\n";
+	$email_message .= "how did you here about us: ".trim($hearabout)."\n";	
+    $email_message .= "Primary Doctor: ".trim($primary)."\n";
+	   
+	$email_message .= "Last visit to a doctor: ".trim($lastvisit)."\n";	   
+	$email_message .= "Allergies (Food/Others): ".trim($Allergies)."\n";
+	$email_message .= "Diabetes: ".trim($Diabetes)."\n";
+	   
+    $email_message .= "Muscular Conditions: ".trim($Conditions)."\n";	
+	   $email_message .= "Alcohol/Drug abuse: ".trim($Drug)."\n";
+	   $email_message .= "Depression: ".trim($Depression)."\n";
+	   
+	   $email_message .= "Muscular spasms: ".trim($spasms)."\n";
+	   $email_message .= "Aching Joints: ".trim($Joints)."\n";	  
+	   $email_message .= "Erectile Dysfunction: ".trim($Dysfunction)."\n";
+	   
+	   $email_message .= "Neuropsychological problems: ".trim($problems)."\n";
+	   $email_message .= "Acid Reﬂux: ".trim($acid)."\n";
+	   $email_message .= "Eating disorders if any: ".trim($disorders)."\n";
+	   
+	   $email_message .= "Pre diabetic: ".trim($Pre)."\n";
+	   $email_message .= "Asthma: ".trim($Asthma)."\n";
+	   $email_message .= "Fatty Liver: ".trim($Liver)."\n";
+	   
+	   $email_message .= "PCOD / PCOS: ".trim($PCOS)."\n";
+	   $email_message .= "Alzheimers disease: ".trim($Alzheimers)."\n";
+	   $email_message .= "Frequent Colds : ".trim($Colds)."\n";
+	   
+	   $email_message .= "Patches of Dark Skin: ".trim($Patches)."\n";
+	   $email_message .= "Body Pains: ".trim($Pains)."\n";
+	   $email_message .= "Fatigue: ".trim($Fatigue)."\n";
+	   
+	   $email_message .= "Previous surgery if any: ".trim($surgery)."\n";
+	   $email_message .= "Bloating: ".trim($Bloating)."\n";
+	   $email_message .= "Frozen shoulder: ".trim($shoulder)."\n";
+	   
+	   $email_message .= "Poor wound healing : ".trim($healing)."\n";
+	    $email_message .= "Blood Pressure: ".trim($bp)."\n";
+	    $email_message .= "Frequent urination : ".trim($urination)."\n";
+	   
+	    $email_message .= "Stress: ".trim($Stress)."\n";
+	    $email_message .= "Blurred vision: ".trim($vision)."\n";
+	    $email_message .= "Hearing impairment: ".trim($Hearing)."\n";
+	   
+	    $email_message .= "Smoking: ".trim($Smoking)."\n";
+	    $email_message .= "Cervical: ".trim($Cervical)."\n";
+	    $email_message .= "Headaches: ".trim($Headaches)."\n";
+	   
+	    $email_message .= "Sinusitis: ".trim($Sinusitis)."\n";
+	    $email_message .= "Cholesterol: ".trim($Cholesterol)."\n";
+	    $email_message .= "Infertility: ".trim($Infertility)."\n";
+	   
+	    $email_message .= "Spine issues: ".trim($Spine)."\n";
+	    $email_message .= "Cardiac issues if any: ".trim($Cardiac)."\n";	   
+	    $email_message .= "Infections: ".trim($Infections)."\n";
+	   
+	    $email_message .= "Stomach Pain : ".trim($Stomach)."\n";
+	    $email_message .= "COPD: ".trim($COPD)."\n";
+	    $email_message .= "Insomnia: ".trim($Insomnia)."\n";
+	   
+	    $email_message .= "Sleep Apnea: ".trim($Sleep)."\n";
+	    $email_message .= "Constipation: ".trim($Constipation)."\n";
+	    $email_message .= "IBS: ".trim($IBS)."\n";
+	   
+	    $email_message .= "Thyroid: ".trim($Thyroid)."\n";
+	    $email_message .= "Cervical pain : ".trim($cvpain)."\n";
+	    $email_message .= "Itching or yeast infections: ".trim($yeast)."\n";
+	   
+	    $email_message .= "Tingling, numbness or pain in hands & feet : ".trim($Tingling)."\n";
+	    $email_message .= "Common cold & cough: ".trim($cough)."\n";
+	    $email_message .= "Kidney Function : ".trim($Kidney)."\n";
+	   
+	    $email_message .= "Migraines: ".trim($Migraines)."\n";
+	    $email_message .= "Diabetes innsipidus: ".trim($innsipidus)."\n";
+	    $email_message .= "Low Immunity: ".trim($LI)."\n";
+	   
+	    $email_message .= "Dental Health complications: ".trim($Dental)."\n";
+	   $email_message .= "Antibiotics: ".trim($Antibiotics)."\n";
+	    $email_message .= "Pain killers: ".trim($killers)."\n";
+	    $email_message .= "Steroids: ".trim($Steroids)."\n";
+	   
+	    $email_message .= "Weight Loss or Gained in past 3 months: ".trim($Gained)."\n";
+	    $email_message .= "Increased or decreased food intake past 3 months  ".trim($decreased)."\n";
+	    $email_message .= "Veg: ".trim($Veg)."\n";
+	   $email_message .= "non_veg: ".trim($non_veg)."\n";
+	   
+	    $email_message .= "Water intake per day (glasses): ".trim($glasses)."\n";
+	    $email_message .= "Are you a fussy eater ?: ".trim($fussy1)."\n";
+	    $email_message .= "Are you a fussy eater ?: ".trim($fussy2)."\n";
+	   
+	//echo $email_message; die;
+// create email headers
+$headers = 'From: '.$email_from."\r\n".
+'Reply-To: '.$email_to."\r\n" .
+'X-Mailer: PHP/' . phpversion();
+@mail($email_to, $email_subject, $email_message, $headers); 
+ $msg= '<div class="thankyoumsg"><p>Thanks for submitting your information.</p></div>';
+
+   }
+   
+  
+?>
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+</head>
+
+<body>
+	<style>
+		.thankyoumsg span {
+    position: fixed;
+    top: 20%;
+    width: 50%;
+    float: none;
+    margin: auto;
+    left: 25%;
+    background: #40b8b9;
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px;
+    font-size: 1.2em;
+    text-transform: capitalize;
+    font-weight: 300;
+}
+		.thankyoumsg{width: 100%;float: left;position: absolute;height: 100%;top: 0;left: 0;}
+	.thankyoumsg p{position: fixed;
+top: 40%;
+width:50%;
+float: none;
+margin: auto;
+left: 25%;
+background: #40b8b9;
+color: #fff;
+text-align: center;
+padding: 5px 10px;
+font-size: 1.5em;
+text-transform: uppercase;
+font-weight: bold;}
+		@media screen and (min-width:260px) and (max-width:767px)
+		{
+			.thankyoumsg {
+    width: 100%;
+    float: left;
+    position: relative;
+    height: 300px;
+    top: 0;
+    left: 0;
+    background: #fff;
+}
+			.thankyoumsg span {
+   position: fixed;
+top: 9%;
+width: 70%;
+float: none;
+margin: auto;
+left: 15%;
+background: #40b8b9;
+color: #fff;
+text-align: justify;
+padding: 5px 10px;
+font-size: 11px;
+text-transform: capitalize;
+font-weight: 300;
+}
+		.thankyoumsg p {
+    position: fixed;
+    top: 15%;
+    width: 70%;
+    float: none;
+    margin: auto;
+    left: 15%;
+    background: #40b8b9;
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+		}
+	</style>
+	<div class="thankyoumsg"><?php echo $msg;?></div>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <St_Weeklyclientinfo>
+      <version>0.1.0</version>
+    </St_Weeklyclientinfo>
+  </modules>
+  <frontend>
+    <routers>
+      <weeklyclientinfo>
+        <use>standard</use>
+          <args>
+            <module>St_Weeklyclientinfo</module>
+            <frontName>weeklyhealthcheckin</frontName>
+          </args>
+      </weeklyclientinfo>
+    </routers>
+		<layout>
+		  <updates>
+			<weeklyclientinfo>
+			  <file>weeklyclientinfo.xml</file>
+			</weeklyclientinfo>
+		  </updates>
+		</layout>
+  </frontend>
+  <global>
+    <helpers>
+      <weeklyclientinfo>
+        <class>St_Weeklyclientinfo_Helper</class>
+      </weeklyclientinfo>
+    </helpers>
+	<blocks>
+	  <weeklyclientinfo>
+		<class>St_Weeklyclientinfo_Block</class>
+	  </weeklyclientinfo>
+	</blocks>
+	<models>
+	  <weeklyclientinfo>
+		<class>St_Weeklyclientinfo_Model</class>
+		<resourceModel>weeklyclientinfo_mysql4</resourceModel>
+	  </weeklyclientinfo>
+	  <weeklyclientinfo_mysql4>
+		<class>St_Weeklyclientinfo_Model_Mysql4</class>
+		<entities>		  
+			  <weeklyclientinfo>
+				<table>weeklyclientinfo</table>
+			  </weeklyclientinfo>
+        </entities>
+	  </weeklyclientinfo_mysql4>
+	</models>
+	<resources>
+	  <weeklyclientinfo_setup>
+		<setup>
+		  <module>St_Weeklyclientinfo</module>
+		</setup>
+		<connection>
+		  <use>core_setup</use>
+		</connection>
+	  </weeklyclientinfo_setup>
+	  <weeklyclientinfo_write>
+		<connection>
+		  <use>core_write</use>
+		</connection>
+	  </weeklyclientinfo_write>
+	  <weeklyclientinfo_read>
+		<connection>
+		  <use>core_read</use>
+		</connection>
+	  </weeklyclientinfo_read>
+	</resources>
+  </global>
+  <admin>
+	<routers>
+	  <weeklyclientinfo>
+	    <use>admin</use>
+		<args>
+		  <module>St_Weeklyclientinfo</module>
+		  <frontName>admin_weeklyclientinfo</frontName>
+		</args>
+	  </weeklyclientinfo>
+	</routers>
+  </admin>
+  <adminhtml> 
+	<!--<menu>
+	  <weeklyclientinfo module="weeklyclientinfo">
+		<title>Client Reports</title>
+		<sort_order>100</sort_order>
+		<children>
+		  <weeklyclientinfo module="weeklyclientinfo">
+		    <title>Manage Weekly Reports</title>
+			<sort_order>0</sort_order>
+			<action>admin_weeklyclientinfo/adminhtml_weeklyclientinfo</action>
+		  </weeklyclientinfo>
+		</children>
+		 <children>
+		 <monthlyclientinfo module="monthlyclientinfo">
+		    <title>Manage Monthly Reports</title>
+			<sort_order>1</sort_order>
+			<action>admin_monthlyclientinfo/adminhtml_monthlyclientinfo</action>
+		  </monthlyclientinfo>
+		</children>
+	  </weeklyclientinfo>
+	</menu>-->
+	<acl>
+	  <resources>
+		<all>
+		  <title>Allow Everything</title>
+		</all>
+		<admin>
+		  <children>
+			<weeklyclientinfo translate="title" module="weeklyclientinfo">
+			  <title>Weeklyclientinfo</title>
+			  <sort_order>1000</sort_order>
+			  <children>
+					  <weeklyclientinfo translate="title">
+						<title>Manage Weeklyclientinfo</title>
+						<sort_order>0</sort_order> 
+					  </weeklyclientinfo>
+			  </children>
+			</weeklyclientinfo>
+		  </children>
+		 
+		</admin>
+	  </resources>
+	</acl>
+	<layout>
+	  <updates>
+		<weeklyclientinfo>
+		  <file>weeklyclientinfo.xml</file>
+		</weeklyclientinfo>
+	  </updates>
+	</layout>
+  </adminhtml>
+</config> 

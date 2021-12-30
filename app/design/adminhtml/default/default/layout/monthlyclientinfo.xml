@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <monthlyclientinfo_adminhtml_monthlyclientinfo_index>
+	<reference name="content">
+	  <block type="monthlyclientinfo/adminhtml_monthlyclientinfo" name="monthlyclientinfo" />
+	</reference>
+  </monthlyclientinfo_adminhtml_monthlyclientinfo_index>
+</layout>

@@ -1,0 +1,1245 @@
+<?php
+      $ctrl = $_GET['ctrl']; 
+	$decodeCtrl =  base64_decode($ctrl);
+
+
+     $mobileNo='';
+	 $custId = '';
+	 $customerName='';
+     $param = $_GET['param'];
+     $msg='';
+	 $mobileNo = $decodeCtrl;
+	 
+	 
+	 
+		// $email    = $mobileNo."@lifeheal.in";							
+		$customerCollection= Mage::getModel('customer/customer')
+		->getCollection()
+		->addAttributeToSelect('*')
+		->addAttributeToFilter('primarymobileno', $mobileNo) 
+		//->addAttributeToFilter('email', $email)
+		->load();
+
+		
+		   if(isset($customerCollection) && count($customerCollection)==1 )
+			{
+			    foreach($customerCollection as $customer)
+				{
+					$custId = $customer->getEntityId();
+					$customer = Mage::getModel('customer/customer')->load($custId);
+					$customerName = $customer->getFirstname()." ".$customer->getLastname();
+					$customerName = str_replace("Dear ","",$customerName);
+				}
+										
+			}
+			else
+			{
+				
+				 $url = Mage::getBaseUrl()."patientintakeform?mobile=".$mobileNo."&error=customernotexist"; 
+				header("Location:'".$url."'"); 
+			}
+	
+?>
+<style>
+	.boxonew, .boxtwow, .boxthreew{width: 33%;float: left;}
+	.boxonew div, .boxtwow div, .boxthreew div{width:100%;float: left;}
+	
+	.boxonew div label, .boxtwow div label, .boxthreew div label{width:100%;}
+	.boxonebig{width:70%; float:left;}
+	.boxtwosmall{width:30%; float:left;}
+.whitebox .one {
+    float: left;
+    width: 100%;
+    border: 1px solid #000;
+        border-right-color: rgb(0, 0, 0);
+        border-right-style: solid;
+        border-right-width: 1px;
+        border-bottom-color: rgb(0, 0, 0);
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+    border-right: 0px;
+    border-bottom: 0px;
+}
+	.whitebox .two {
+    float: left;
+    width: 100%;
+    border: 1px solid #000;
+      height: auto;
+    padding: 0px 0em;
+    border-bottom: 0px;
+}
+	.form-inline label {
+    margin: 0 5px;
+    float: left;
+    font-size: 13px;
+    justify-content: left;
+    text-align: left;
+    line-height: 40px;
+		height:40px;
+    align-items: normal;
+    width: auto;
+}
+	.form-inline .nameclass {
+    width: 68%;
+}
+	.form-inline .addressclass {
+    resize: inherit;
+    background: none !important;
+    width: 88%;
+    box-shadow: none;
+    border-radius: 0;
+    line-height: 27px;
+}
+.form-inline .form-control {
+    border: 0;
+    height: 40px;
+    float: left;
+    font-size: 14px;
+    padding: 5px !important;
+    text-align: left !important;
+	box-shadow: none;
+}
+	form-inline .addressclass {
+    resize: inherit;
+    background: none !important;
+    width: 88%;
+    box-shadow: none;
+    border-radius: 0;
+    line-height: 27px;
+		
+}
+	.whitebox .one b, .whitebox .two b{font-weight: 600;
+margin: 0px 5px;
+float: left;
+height: 40px;
+line-height: 40px;}
+	
+	.form-inline .howdid {
+    border: 0px;
+    resize: unset;
+    background: none !important;
+    padding: 5px;
+    width: 26%;
+    box-shadow: none;
+    border-radius: 0;
+    line-height: normal;
+}
+	.form-inline .primdoc {
+   border: 0px;
+resize: unset;
+background: none !important;
+padding: 5px;
+width: 26%;
+box-shadow: none;
+border-radius: 0;
+line-height: normal;
+}
+	b, strong {
+    font-weight: 700;
+    font-size: 13px;
+}
+	input[type="checkbox"], input[type="radio"] {
+    box-sizing: border-box;
+    padding: 0;
+    box-sizing: border-box;
+    padding: 0;
+    width: 14px;
+    height: 14px;
+    float: left;
+    line-height: 40px;
+    height: 40px;
+}
+	.form-inline .weight {
+    width:68%;
+}
+	.form-inline .height {
+    width: 68%;
+}
+	.form-inline .waist, .form-inline .lastvisit {
+    width: 80%;
+}
+	.formbluebox .lastrow label {
+    margin: 0 5px;
+    float: left;
+    justify-content: center;
+    text-align: center;
+    align-items: baseline;
+    width: 100%;
+}
+	.formbluebox tbody tr .lastrow{width:12%;float:left;}
+	.formbluebox tbody tr span{float: left;
+width: 33%;
+padding-left: 10px;
+font-size: 13px;}
+	.suggestionbox tbody tr td textarea {
+    border: 1px solid #000 !important;
+}
+	input[type="email"], input[type="number"], input[type="password"], input[type="text"]{
+    width: auto;
+    max-width: 100%;
+    background: none;
+    height: 36px;
+    border: 1px solid #000;
+}
+	input[type="text"] {width: 100%;max-width: 100%;background: none;}
+	.whitebox{background:#fff; width:100%; padding:40px;float:left;}
+	.callbutton{padding: 5px 10px;float: left;background: #269a9b;font-size: 1.4em;font-weight:bold;color: #fff;text-transform: uppercase;margin:-1% 0px;}
+	
+	.formbluebox{margin: auto;width: 100%;background: #269a9b;padding: 40px;float: left;margin-top: 4%;}
+	.formbluebox tbody tr th p{padding: 5px 10px;background: #269a9b;font-size: 1.4em;font-weight:bold;color: #fff;text-transform: uppercase;}
+	.formbluebox tbody{padding: 40px;float: left;width: 100%; padding-bottom:0px;}
+	.formbluebox tbody tr{width: 100%;float: left;margin-top: 0px;}
+	.formbluebox .inputclient{width: 23%;float: left;margin: auto 10px;}
+.formbluebox tbody tr td p{background: #269a9b;
+color: #fff;
+text-align: center;
+padding: 5px 10px;
+font-size: 1em;
+text-transform: uppercase;
+font-weight: bold;
+margin: 2% auto;}
+	.suggestionbox tbody{padding:40px 0px;}
+	.suggestionbox tbody tr .ths1{width:30%; float:left;margin: 10px auto;text-align:left;}
+	.suggestionbox tbody tr .ths2{width:30%; float:left;margin:10px;text-align:center;}
+	.suggestionbox tbody tr .ths3{width:34%; float:left;margin:10px;text-align:center;}
+	.suggestionbox th {font-weight: bold;font-style: normal;font-size: 15px;text-transform: capitalize;}
+	.suggestionbox textarea{background: #edf3f3 !important;box-shadow: none;resize: initial;}
+	
+	.thankyoumsg {
+    width: 100%;
+    float: left;
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+	background:rgba(0,0,0,0.4)
+}
+	.thankyoumsg p {
+    position: fixed;
+    top: 40%;
+    width: 50%;
+    float: none;
+    margin: auto;
+    left: 25%;
+    background: #40b8b9;
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+	.whitebox .form-group {
+    float: left;
+    width: 100%;
+    display: block;
+}
+	.lifeass{
+    line-height: 40px;
+    width: 100%;
+    float: left;
+}
+	.lifeass input[type="checkbox"], .lifeass input[type="radio"] {
+    box-sizing: border-box;
+    padding: 0;
+    box-sizing: border-box;
+    padding: 0;
+    width: 14px;
+    height: 14px;
+    float: left;
+  line-height: 40px;
+height: 34px !important;
+}
+	.lifeass label {
+    margin: 0 5px;
+    float: left;
+    font-size: 13px;
+    justify-content: left;
+    text-align: left;
+    line-height: 40px!important;
+    height: 40px!important;
+    align-items: normal;
+    width: auto;
+}
+	.lifeass b {
+    width: auto !important;
+}
+	@media screen and (min-width:260px) and (max-width:767px)
+	{
+		.lifeass label {
+    margin: 0 0px !important;
+		}
+		.boxonew, .boxtwow, .boxthreew{width:100%;float: left;}
+	.boxonew div, .boxtwow div, .boxthreew div{width:100%;float: left;}
+		.boxtwosmall {
+    width: 100%;
+    float: left;
+}
+		.boxonebig {
+    width: 100%;
+    float: left;
+}
+		.thankyoumsg p {
+    position: fixed;
+    top: 40%;
+    width: 96%;
+    float: none;
+    margin: auto;
+    left: 2%;
+    background: #40b8b9;
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+		.form-group b {
+font-size: 12px;
+float: left;
+line-height: 40px;
+margin: 0px 5px !important;
+width: 100%;
+padding: 0px;
+}
+		textarea{margin:0px !important}
+		.formbluebox tbody tr .lastrow {
+    width: auto;
+    float: left;
+}
+		.formbluebox {
+    margin: auto;
+        margin-top: auto;
+    width: 100%;
+    background: #269a9b;
+    padding: 20px 20px;
+    float: left;
+    margin-top: 22%;
+}
+		.formbluebox tbody tr span{float: left;
+width: 100%;
+padding-left: 10px;
+font-size: 13px;}
+	.suggestionbox tbody tr td textarea {
+    border: 1px solid #000 !important;
+    width: 100% !important;
+}
+	
+
+	tr td b, strong {
+    font-weight: 700;
+    font-size: 12px;
+}
+	input[type="number"], input[type="password"], input[type="text"] {
+		width: 100% !important;}
+	input[type="email"], input[type="number"], input[type="password"], input[type="text"] {
+    width: 100%;
+    max-width: 100%;
+    background: none;
+    height: 40px;
+    border: 1px solid #000;
+    float: left;
+}
+	.formbluebox tbody {
+    padding:0px;
+    float: left;
+    width: 100%;
+		}
+		.whitebox .one {
+    float: left;
+    width: 75%;border-bottom:0px !important;
+    border: 1px solid #000;
+		}
+		.formbluebox tbody tr td p {
+    background: #269a9b;
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px;
+    font-size: 1em;
+			margin: 10% auto 10% auto;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+		.suggestionbox tbody tr .ths1 {
+    width: 100%;
+    float: left;
+    margin: 10px auto;
+    text-align: left;
+}
+		.suggestionbox tbody tr .ths2 {
+    width: 100%;
+    float: left;
+    margin: 10px auto;
+    text-align: left;
+}
+		.suggestionbox tbody tr .ths3 {
+    width: 100%;
+    float: left;
+    margin: 10px auto;
+    text-align: left;
+}
+	.form-inline label {
+    margin: 0 5px;
+    float: left;
+		line-height: 24px;
+		height:auto;
+    justify-content: left;
+    text-align: left;
+   align-items: safe;
+    font-size: 12px;
+}
+		
+		.whitebox {
+    background: #fff;
+    width: 100%;
+    padding: 10px;
+    float: left;
+}
+	.whitebox .two {
+    float: left;
+    width: 100%;
+    border: 1px solid #000;
+    height: auto;
+    padding: 0px 0em;border-bottom:0px;
+}
+		.whitebox .form-group {
+    float: left;
+    width: 100%;
+    display: block;
+}
+		.whitebox .form-group img{display:none;}
+		.callbutton {
+   padding: 10px 7px;
+background: #269a9b;
+font-size: 1em;
+font-weight: bold;
+color: #fff;
+text-transform: uppercase;
+margin: 3% 0px 0px 0px;
+text-align: center;float: left;
+}
+		.form-inline .waist, .form-inline .lastvisit{width:100%;background: #f7f5f5 !important;}
+		.form-inline .primdoc{width:100%;background: #f7f5f5 !important;}
+		.form-inline .marital{width:100%;background: #f7f5f5 !important;}
+		.form-inline .address2{width:99%;display:none;}
+		.form-inline .weight{width:100%;background: #f7f5f5 !important;}
+		.form-inline .height{width:100%;background: #f7f5f5 !important;}
+		.form-inline .bloodg{width:100%;background: #f7f5f5 !important;}
+		.form-inline .dob{width:100%;background: #f7f5f5 !important;}
+		.form-inline .howdid{width:100%;background: #f7f5f5 !important;}
+		.form-inline .addressclass{border: 1px;background:#f7f5f5 !important;resize:inherit;padding: 0px;
+width:100%;box-shadow: none;border-radius: 0;background: #f7f5f5 !important;}
+		.form-inline .nameclass{width:100%;background: #f7f5f5 !important;}
+		.suggestionbox td b{width:100%;}
+		.suggestionbox td .form-control{  padding:5px !important;text-align: left !important;  margin: 0px !important;}
+		.whitebox .one {
+    float: left;
+    width: 75%;border-bottom:0px !important;
+    border: 1px solid #000;
+		}
+		.formbluebox tbody tr td p {
+    background: #269a9b;
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+		.suggestionbox tbody tr .ths1 {
+    width: 100%;
+    float: left;
+    margin: 10px auto;
+    text-align: left;
+}
+		.suggestionbox tbody tr .ths2 {
+    width: 100%;
+    float: left;
+    margin: 10px auto;
+    text-align: left;
+}
+	
+		.suggestionbox tbody tr .ths3 {
+    width: 100%;
+    float: left;
+    margin: 10px auto;
+    text-align: left;
+}
+	
+		.form-inline .prof {
+    width: 100%;
+}
+		 input[type="radio"], input[type="checkbox"] {
+    box-sizing: border-box;
+    padding: 0;
+    box-sizing: border-box;
+    padding: 0;
+    width: 14px;
+    height: 14px !important;
+    float: left;
+    margin-top: 5px !important;
+}
+		.whitebox {
+    background: #fff;
+    width: 100%;
+    padding: 10px;
+    float: left;
+}
+	.whitebox .two {
+    float: left;
+    width: 100%;
+    border: 1px solid #000;
+    height: auto;
+    padding: 0px 0em;border-bottom:0px;
+}
+		.whitebox .form-group {
+    float: left;
+    width: 100%;margin:0px;
+}
+		.whitebox .form-group img{display:none;}
+		.callbutton {
+    padding: 5px 10px;
+    background: #269a9b;
+    font-size: 1em;
+    font-weight: bold;
+    color: #fff;float: left;
+    text-transform: uppercase;
+    margin: 2% 0px 0px 0px;
+    text-align: center;
+}
+	
+	}
+	
+	@media screen and (min-width:768px) and (max-width:999px)
+	{
+			.boxtwosmall {
+    width: 100%;
+    float: left;
+}
+		.boxonebig {
+    width: 100%;
+    float: left;
+}
+		input[type="email"], input[type="number"], input[type="password"], input[type="text"] {
+    width: 100%;
+    max-width: 100%;
+    background: none;
+    height: 40px;
+    border: 1px solid #000;
+    float: left;
+}
+
+.whitebox .one {
+    float: left;
+    width: 100%;
+    border: 1px solid #000 !important;
+		}
+		.form-inline {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -ms-flex-align: center;
+    align-items: center;
+    position: relative;
+    margin-top: 10%;
+}
+	.form-inline label {
+    margin: 0 5px;
+    float: left;
+    justify-content: left;
+    text-align: left;
+    line-height: 40px;
+    height: 40px;
+    align-items: normal;
+    width: auto;
+		font-size: 12px;
+}
+		
+	
+		
+		.whitebox .one b, .whitebox .two b {
+    font-weight: 600;
+    margin: 0px 5px;
+    float: left;
+    height: 40px;
+    line-height: 40px;
+    font-size: 12px;
+}
+		input[type="checkbox"], input[type="radio"] {
+    box-sizing: border-box;
+    padding: 0;
+    box-sizing: border-box;
+    padding: 0;
+    width: 14px;
+    height: 14px;
+    float: left;
+    line-height: 40px;
+    height: 40px;
+}
+		.whitebox {
+    background: #fff;
+    width: 100%;
+    padding: 10px;
+    float: left;
+}
+	.whitebox .two {
+    float: left;
+    width: 100%;
+    border: 1px solid #000;
+    height: auto;
+    padding: 0px 0em;
+}
+		.whitebox .form-group {
+    float: left;
+    width: 100%;margin:0px;
+}
+		
+		.formbluebox tbody tr td p {
+    background: #269a9b;
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px;
+    font-size: 1em;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+		.suggestionbox tbody tr .ths1 {
+    width: 32%;
+    float: left;
+    margin: 10px auto;
+    text-align: left;
+}
+		.suggestionbox tbody tr .ths2 {
+    width: 32%;
+    float: left;
+    margin: 10px auto;
+    text-align: left;
+}
+		.suggestionbox tbody tr .ths3 {
+    width: 32%;
+    float: left;
+    margin: 10px auto;
+    text-align: left;
+}
+	
+	
+		.whitebox .form-group img{display:none;}
+		.callbutton {
+    padding: 5px 10px;
+    background: #269a9b;
+    font-size: 1em;
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+    margin: 2% 0px 0px 0px;
+    text-align: center;float: left;
+}
+	
+		.form-inline .waist, .form-inline .lastvisit{width:100%;background:#f7f5f5 !important;}
+		.form-inline .primdoc{width:100%;background:#f7f5f5 !important;}
+		.form-inline .marital{width:100%;background:#f7f5f5 !important;}
+		.address2{width:100%;display:none;}
+		.form-inline .weight{width:100%;background:#f7f5f5 !important;}
+		.form-inline .height{width:100%;background:#f7f5f5 !important;}
+		.form-inline .bloodg{width:100%;background:#f7f5f5 !important;}
+		.form-inline .dob{width:100%;background:#f7f5f5 !important;}
+		.form-inline .howdid{width:100%;background:#f7f5f5 !important;}
+		.form-inline .prof{width:100%;background:#f7f5f5 !important;}
+		.form-inline .addressclass{border: 1px;background:#f7f5f5 !important;resize:inherit;padding: 0px;
+width:100%;box-shadow: none;border-radius: 0;background:#f7f5f5 !important;}
+		.form-inline .nameclass{width:100%;background:#f7f5f5 !important;}
+		.form-inline .addresstab{display:none;}
+		.formbluebox tbody {
+    padding: 10px;
+    float: left;
+    width: 100%;
+		}
+	
+		.formbluebox tbody tr td p {
+    background:#269a9b;
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px;
+    font-size: 1em;
+	margin:5% auto;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+		.suggestionbox tbody tr .ths1 {
+    width: 33%;
+    float: left;
+    margin: 10px auto;
+    text-align: left;
+}
+		.suggestionbox tbody tr .ths2 {
+    width: 33%;
+    float: left;
+    margin: 10px auto;
+    text-align: left;
+}
+		.suggestionbox tbody tr .ths3 {
+    width: 33%;
+    float: left;
+    margin: 10px auto;
+    text-align: left;
+}
+		.ths1 label, .ths2 label, .ths3 label{margin: 0px 0px !important;}
+	
+		
+		.callbutton {
+    padding: 5px 10px;
+    background: #269a9b;
+    font-size: 1em;
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+    margin: 2% 0px 0px 0px;
+    text-align: center;
+}
+
+	}
+	
+		@media screen and (min-width:800px) and (max-width:1200px)
+		{
+			b, strong {
+    font-weight: 700;
+    font-size: 13px;
+}
+			.form-inline label {
+    margin: 0 5px;
+    float: left;
+    justify-content: left;
+    text-align: left;
+    align-items: center;
+    font-size: 13px;
+}
+			.form-inline .nameclass{width:88%;background:#fff !important;}
+	.form-inline .addressclass{border: 0px;background:#fff !important;resize:inherit;padding: 0px;
+width:86%;box-shadow: none;border-radius: 0;background:#fff !important;}
+	.form-inline .address2{width:100%;background:#fff !important;}
+
+	.form-inline .weight{width:60%;background:#fff !important;}
+		.form-inline .height{width:60%;background:#fff !important;}
+	.form-inline .marital{width:29%;background:#fff !important;}
+	.form-inline .bloodg{width:47%;background:#fff !important;}
+	.form-inline .dob{width:74%;background:#fff !important;}
+	.form-inline .waist, .form-inline .lastvisit{width:76%;background:#fff !important;}
+	.form-inline .primdoc{border: 0px;background:#fff !important;resize:inherit;padding:5px;
+width:20%;box-shadow: none;border-radius: 0;}
+	.form-inline .howdid{border: 0px;background: #fff !important;resize:inherit;padding:5px;
+width:20%;box-shadow: none;border-radius: 0;}
+		}
+</style>
+
+<form name="contactform" method="post" action="<?php echo Mage::getBaseUrl();?>thankyoupatient?mobileno=<?php echo $mobileNo;?>" class="form-inline" >
+	
+	<div class="container">
+		<div class="formbluebox">
+			<div class="whitebox">
+			 <div class="form-group">
+		<p class="callbutton">PATIENT INTAKE FORM</p>
+				
+	<img src="https://lifeheal.americanarearugs.com/skin/frontend/rwd/default/images/logo.png" style="width:160px;float: right;">	
+	
+	<?php if($msg!='') { ?>
+			<div class="thankyoumsg"><p> <?php echo $msg; ?></p></div> 
+	<?php } ?>
+	</div>
+			</div>
+			<div class="whitebox">
+				<div class="boxonebig">
+					
+	<div class="form-group one" style="float:left;">
+      <label for="nameone">Name :</label>			
+      <input type="text" class="form-control  nameclass"  name="name" value="<?php  echo $customerName;?>">
+    </div>
+		<div class="form-group one" style="float:left;">
+      <label for="address">Address :</label>
+	<textarea name="address1" class="form-control addressclass"  cols="60" rows="1"><?php echo $address1;?></textarea>					
+    </div>		
+		<div class="form-group one addresstab" style="float:left;">
+     	
+	<input type="text" class="form-control address2" name="address2" value="<?php echo $address2;?>">
+    </div>				
+		<div class="form-group one" style="float:left;"><b>Preferred Language : </b>
+      <label for="hindi" class="width: 33%;">Hindi</label>
+          <input type="radio" class="form-control" name="preffered_language" value="hindi" checked>
+          <label for="eng" class="width: 33%;">English</label>
+          <input type="radio"  class="form-control" name="preffered_language"  value="english" >
+    </div>
+		<div class="form-group one" style="float:left;border-bottom:1px solid #000;">
+      <label for="hearabout">How did you hear about us ?</label>
+					 <textarea name="how_did_you_hear" class="form-control howdid" rows="1"><?php echo $how_did_you_hear;?></textarea>
+	 <label for="primary">Primary Doctor :</label>		
+				 <textarea name="primary_docotr" class="form-control primdoc" rows="1"></textarea>
+    </div>			
+	</div>
+	<div class="boxtwosmall">
+				
+				 <div class="form-group two" style="float:left;"><b>Gender : </b>
+      <label for="male">M</label>
+          <input type="radio" name="gender" value="male" checked>
+          <label for="female">F</label>
+          <input type="radio" name="gender" value="female"/>
+    </div>
+		<div class="form-group two" style="float:left;">
+      <label for="age">Age :</label>
+					 <input type="text" class="form-control weight" name="age"  value="">
+				
+    </div>
+		<div class="form-group two" style="float:left;"> 
+      <label for="weight">Weight (kg): </label>
+          <input type="text" class="form-control weight" name="weight"  value="">
+    </div>
+		<div class="form-group two" style="float:left;"> 
+      <label for="height">Height (cm): </label>
+          <input type="text" class="form-control height" name="height" value="">
+    </div>
+		  <div class="form-group two" style="float:left;border-bottom:1px solid#000;"> 
+      <label for="waist">Waist : </label>
+          <input type="text" class="form-control waist" name="waist" value="<?php echo $waist;?>" >
+    </div>
+	</div>
+				
+			<div class="whitebox" style="padding:0px;padding-top:40px;">
+	 <div class="form-group">
+		<p class="callbutton">LIFESTYLE ASSESMENT</p>
+				</div>
+				<div class="form-group">
+	
+	<?php if($msg!='') { ?>
+					<div class="thankyoumsg"><p>  <?php echo $msg; ?> </p></div> 
+	<?php } ?>
+	</div>
+				</div>
+<table style="background: #fff;width: 100%;margin-top: 20px;float: left;" class="suggestionbox">
+
+<tr>
+	<td style="background: #fff;width: 100%;float:left;line-height: 40px;" colspan="2">
+		
+		<label for="health_goal" style="margin:0px;">What is your Health Goal?</label>
+		<textarea name="health_goal" class="form-control" style="margin: 0px 5px 0px 5px;border: 1px solid #000;background: none !important;padding: 0px;box-shadow: none;border-radius: 0;width: 50%;float: left;" cols="60" rows="1"></textarea>
+		
+	</td>
+
+	</tr>
+
+	
+	
+	<tr>
+		<td> 
+			<div class="lifeass">
+			<b style="float: left;margin:0px 0px;">Veg or Non Veg?</b> 
+			<label style="float: left;" for="vegyes">
+      <input type="radio"  name="step3_veg_nonveg" style="margin:0px 5px" value="veg" checked> Veg
+    </label>
+			 <label style="float: left;" for="vegno">
+      <input type="radio"  name="step3_veg_nonveg" style="margin:0px 5px" value="non-veg"> Non Veg
+    </label>
+			</div>
+				<div class="lifeass">
+		<b style="float: left;margin:0px 0px;">Willing to go vegan ?</b> 
+			<label style="float: left;" for="veganyes">
+      <input type="radio"  name="vegan" style="margin:0px 5px" value="yes" checked> Yes
+    </label>
+			 <label style="float: left;" for="veganno">
+      <input type="radio"  name="vegan" style="margin:0px 5px" value="no"> No
+    </label>
+	</div>
+		
+	<div class="lifeass">
+		<b style="float: left;margin:0px 0px;">Egg</b> 
+			<label style="float: left;" for="eggyes">
+      <input type="radio"  name="egg" style="margin:0px 5px" value="yes" checked> Yes
+    </label>
+			 <label style="float: left;" for="eggno">
+      <input type="radio"  name="egg" style="margin:0px 5px" value="no"> No
+    </label>
+	</div> 	
+			
+			<div class="lifeass">
+				<label for="need_chicken" style="height:auto !important; line-height:24px !important;"><b style="float: left;">If Non Veg, How many times needs chicken per week?</b></label>
+		 <input type="number" name="chicken_per_week" step="0.01"  style="width: 80px;"> 
+			</div> 
+	
+	<div class="lifeass">
+	<b style="float: left;margin:0px 0px;">Tofu(Yes/No)?</b> 
+			<label style="float: left;" for="tofuyes">
+      <input type="radio"  name="tofu" style="margin:0px 5px" value="yes" checked> Yes
+    </label>
+			 <label style="float: left;" for="tofuno">
+      <input type="radio"  name="tofu" style="margin:0px 5px" value="no"> No
+    </label>
+	</div> 
+
+	
+	<div class="lifeass">
+	<b style="float: left;margin:0px 0px;">If No, Willing to Try Tofu(yes/no)</b>
+	
+		<label style="float: left;" for="tryyes">
+      <input type="radio"  name="try_tofu" style="margin:0px 5px" value="yes" checked> Yes
+    </label>
+			 <label style="float: left;" for="tryno">
+      <input type="radio"  name="try_tofu" style="margin:0px 5px" value="no"> No
+    </label>
+	</div>
+</td>
+</tr>
+	<tr>
+		<td  style="float:left;margin:0px auto 10px auto;width:100%;line-height: 40px;" colspan="2"><label for="food_allergies" style="margin:0px;height:auto !important; line-height:24px !important;">Food allergies</label>
+		<textarea name="food_allergies" class="form-control"  style="margin:0px 5px;border: 1px solid #000;background: none !important;padding: 5px;box-shadow: none;border-radius: 0;width: 50%;float: left;"  cols="60" rows="1"></textarea></td>
+	</tr>
+	
+	
+	<tr>
+<td style="margin: auto;float: left;text-align: center;width: 100%;" colspan="6"><p>Challenges faced in eating habits</p></td>
+</tr>
+	<tr>
+		<td>
+	<div class="boxonew">	
+		<div>
+			<label for="late_night_snacks">
+      <input type="checkbox"  name="late_night_snacks" style="margin:0px 5px"> Late Night Snacks 
+    </label>
+</div>
+		<div> <label for="mirch_masala">
+      <input type="checkbox" name="mirch_masala" style="margin:0px 5px"> Needs Mirch Masala
+    </label>
+</div>
+		
+			<div> <label for="too_much_food">
+      <input type="checkbox" name="too_much_food" style="margin:0px 5px"> Too much food with Drinks
+    </label>
+</div>
+		
+			</div>
+			<div class="boxtwow">
+	
+		<div>  <label for="afternoon_snacks">
+      <input type="checkbox"  name="afternoon_snacks" style="margin:0px 5px"> High Tea Afternoon Snacks
+    </label>
+</div>
+		<div>  <label for="sweet_tooth">
+      <input type="checkbox"  name="sweet_tooth" style="margin:0px 5px"> Sweet Tooth
+    </label>
+</div>
+	<div>  <label for="fried_food">
+      <input type="checkbox"  name="fried_food" style="margin:0px 5px"> Needs Fried Foods
+    </label>
+</div>	
+			</div>			
+	
+	<div class="boxthreew">
+		<div>  <label for="frequent_snacking">
+      <input type="checkbox"  name="frequent_snacking" style="margin:0px 5px"> Frequent Snacking
+    </label>
+		</div>
+		<div>  <label for="need_carbs">
+      <input type="checkbox"  name="need_carbs" style="margin:0px 5px"> Needs Carbs
+    </label>
+</div>
+	</div>
+		</td>
+	</tr>
+	
+	<tr>
+		<td  style="float:left;margin: 10px auto;width:100%;" colspan="3"><label for="sleephour" style="margin:0px;">Sleep- How Many Hours do you Sleep</label>
+		<input type="number" step="0.01" class="form-control"  name="sleephour" style="margin:0px 5px;border: 1px solid #000;background: none !important;padding: 0px;box-shadow: none;border-radius: 0;width: 100px;float: left;text-align: center;">
+		</td>
+	</tr>
+	
+	<tr>
+		<td  style="float:left;margin: 10px auto;width:100%;" colspan="3"><label for="stresslevel" style="margin:0px;">How is your stress level on scale of 0-10</label>
+		<input type="number" step="0.01" class="form-control"  name="stresslevel" style="margin:0px 5px;border: 1px solid #000;background: none !important;padding: 0px;box-shadow: none;border-radius: 0;width: 100px;float: left;text-align: center;">
+		</td>
+	</tr>
+	
+	<tr>
+		<td  style="float:left;margin: 10px auto;width:100%;" colspan="3"><label for="exercisemin" style="margin:0px;">How many minutes a day do you exercise?</label>
+		<input type="number" step="0.01" class="form-control"  name="exercisemin" style="margin:0px 5px;border: 1px solid #000;background: none !important;padding: 0px;box-shadow: none;border-radius: 0;width: 100px;float: left;text-align: center;">
+		</td>
+	</tr>
+	
+	<tr>
+		<td  style="float:left;margin: 10px auto;width:100%;" colspan="3"><label for="stillleft" style="margin:0px;">FOOD CRAVING (If any other still left)</label>
+		<input type="text" class="form-control"  name="stillleft" style="margin:0px 5px;border: 1px solid #000;background: none !important;padding: 0px;box-shadow: none;border-radius: 0;width: 50%;float: left;">
+		</td>
+	</tr>
+	
+	<tr>
+		<td  style="float:left;margin: 10px auto;width:100%;" colspan="3"><label for="litre" style="margin:0px;">Water intake per day, in litres</label>
+		<input type="number" step="0.01" class="form-control"  name="litre" style="margin:0px 5px;border: 1px solid #000;background: none !important;padding: 0px;box-shadow: none;border-radius: 0;width: 100px;float: left;text-align: center;">
+		</td>
+	</tr>
+	
+	<tr>
+		<td  style="float:left;margin: 10px auto;width:100%;" colspan="3"><label for="medication" style="margin:0px;">List Current Medications</label>
+		<input type="text" class="form-control"  name="medication" style="margin:0px 5px;border: 1px solid #000;background: none !important;padding: 0px;box-shadow: none;border-radius: 0;width:50%;float: left;text-align: center;">
+		</td>
+	</tr>
+
+
+	<tr>
+<td style="margin: auto;float: left;text-align: center;width: 100%;" colspan="6"><p>please check any of the symptoms which apply</p></td>
+</tr>
+<tr>
+	<td>
+	
+	
+	<div class="boxonew">	
+		<div> <label for="acid">
+      <input type="checkbox"  name="acid" style="margin:0px 5px"> Acid Reﬂux 
+    </label>
+</div>
+	<div> <label for="Alzheimers">
+      <input type="checkbox"  name="alzheimers" style="margin:0px 5px"> Alzheimers disease 
+    </label>
+</div>
+		<div> <label for="Asthma">
+      <input type="checkbox"  name="asthama" style="margin:0px 5px"> Asthma
+    </label>
+</div>
+		<div> <label for="Bloating">
+      <input type="checkbox"  name="bloating" style="margin:0px 5px"> Bloating 
+    </label>
+</div>
+			<div> <label for="bp">
+      <input type="checkbox"  name="bp" style="margin:0px 5px"> Blood pressure
+    </label>
+</div>
+		<div> <label for="vision">
+      <input type="checkbox"  name="blurred_vision" style="margin:0px 5px"> Blurred vision 
+    </label>
+</div>
+			<div> <label for="Pains">
+      <input type="checkbox"  name="body_pains" style="margin:0px 5px"> Body Pains 
+    </label>
+</div>
+		<div> <label for="Cardiac">
+      <input type="checkbox"  name="cardiac_disease" style="margin:0px 5px"> Cardiac Diseases
+    </label>
+</div>
+		<div> <label for="cvpain">
+      <input type="checkbox"  name="cvpain" style="margin:0px 5px"> Cervical pain 
+</div>
+		<div> <label for="Cholesterol">
+      <input type="checkbox"  name="cholestrol" style="margin:0px 5px"> Cholesterol 
+    </label>
+</div>
+		<div> <label for="Constipation">
+      <input type="checkbox"  name="constipation" style="margin:0px 5px"> Constipation 
+    </label>
+</div>
+		<div> <label for="COPD">
+      <input type="checkbox"  name="copd" style="margin:0px 5px"> COPD 
+    </label>
+</div>
+			<div>  <label for="Dental">
+      <input type="checkbox"  name="dental_health_complication" style="margin:0px 5px"> Dental Health complications  
+    </label>
+</div>
+		<div>  <label for="Depression">
+      <input type="checkbox"  name="depression" style="margin:0px 5px"> Depression 
+    </label>
+</div>
+	<div>  <label for="Diabetes">
+      <input type="checkbox"  name="diabetes" style="margin:0px 5px"> Diabetes
+    </label>
+</div>	
+		<div>  <label for="disorders">
+      <input type="checkbox"  name="eating_disorders" style="margin:0px 5px"> Eating disorders
+    </label>
+</div>
+	</div>
+	<div class="boxtwow">
+		<div>  <label for="Dysfunction">
+      <input type="checkbox"  name="erectile_dysfunction" style="margin:0px 5px"> Erectile Dysfunction 
+    </label>
+		</div>
+	<div>  <label for="Fatigue">
+      <input type="checkbox"  name="fatigue" style="margin:0px 5px"> Fatigue 
+    </label>
+</div>	
+		<div>  <label for="Liver">
+      <input type="checkbox"  name="fatty_liver" style="margin:0px 5px"> Fatty Liver
+    </label>
+</div>
+		<div>  <label for="Stomach">
+      <input type="checkbox"  name="frequent_stomach_infections" style="margin:0px 5px"> Frequent Stomach Infections 
+    </label>
+</div>	
+	<div>  <label for="Colds">
+      <input type="checkbox"  name="frequent_colds" style="margin:0px 5px"> Frequent Colds 
+    </label>
+</div>
+		<div>  <label for="urination">
+      <input type="checkbox"  name="frequent_urination" style="margin:0px 5px"> Frequent urination 
+    </label>
+</div>
+			<div>  <label for="shoulder">
+      <input type="checkbox"  name="frozen_shoulder" style="margin:0px 5px"> Frozen shoulder 
+    </label>
+</div>
+			<div>  <label for="Infections">
+      <input type="checkbox"  name="fungal_infections" style="margin:0px 5px"> Fungal Infections 
+    </label>
+</div>
+			<div>  <label for="Headaches">
+      <input type="checkbox"  name="headaches" style="margin:0px 5px"> Headaches 
+    </label>
+</div>
+		<div>  <label for="Hearing">
+      <input type="checkbox"  name="hearing_impairment" style="margin:0px 5px"> Hearing impairment 
+    </label>
+</div>
+		<div>  <label for="IBS">
+      <input type="checkbox"  name="ibs" style="margin:0px 5px"> IBS 
+    </label>
+</div>
+		<div>  <label for="Infertility">
+      <input type="checkbox"  name="infertility" style="margin:0px 5px"> Infertility 
+    </label>
+</div>
+		<div>  <label for="Insomnia">
+      <input type="checkbox"  name="insomnia" style="margin:0px 5px"> Insomnia 
+    </label>
+</div>
+		<div>  <label for="yeast">
+      <input type="checkbox"  name="itching_or_yiest_infections" style="margin:0px 5px"> Itching or yeast infections 
+    </label>
+</div>
+		<div> <label for="Joints">
+      <input type="checkbox"  name="joint_aches" style="margin:0px 5px"> Joints Aches
+    </label>
+</div>
+		<div>  <label for="Kidney">
+      <input type="checkbox"  name="kidney_disease" style="margin:0px 5px"> Kidney Disease  
+    </label>
+</div>
+	</div>
+	<div class="boxthreew">
+	<div>  <label for="Migraines">
+      <input type="checkbox"  name="migranes" style="margin:0px 5px"> Migraines
+    </label>
+</div>
+		<div>  <label for="spasms">
+      <input type="checkbox"  name="muscular_spasms" style="margin:0px 5px"> Muscular spasms
+    </label>
+</div>
+		
+		<div>  <label for="problems">
+      <input type="checkbox"  name="neuropsychological_problems" style="margin:0px 5px"> Neuropsychological problems 
+    </label>
+</div>
+		<div>  <label for="Patches">
+      <input type="checkbox"  name="patches_of_dark_skin" style="margin:0px 5px"> Patches of Dark Skin 
+    </label>
+</div>
+		<div>  <label for="PCOS">
+      <input type="checkbox"  name="pcod_pcos" style="margin:0px 5px"> PCOD / PCOS
+    </label>
+</div>
+		<div>  <label for="healing">
+      <input type="checkbox"  name="poor_wound_healing" style="margin:0px 5px"> Poor wound healing 
+    </label>
+</div>
+			<div>  <label for="Pre">
+      <input type="checkbox"  name="pre_diabetic" style="margin:0px 5px"> Pre diabetic
+    </label>
+</div>
+			<div>  <label for="Sinusitis"> 
+      <input type="checkbox"  name="sinusitis" style="margin:0px 5px"> Sinusitis 
+    </label>
+</div>
+		<div>  <label for="Sleep">
+      <input type="checkbox"  name="sleep_apnea" style="margin:0px 5px"> Sleep Apnea
+    </label>
+</div>
+		<div>  <label for="Smoking">
+      <input type="checkbox"  name="smoking" style="margin:0px 5px"> Smoking 
+    </label>
+</div>
+		<div>  <label for="Spine">
+      <input type="checkbox"  name="spine_issues" style="margin:0px 5px"> Spine issues 
+    </label>
+</div>
+		<div>  <label for="Stress">
+      <input type="checkbox"  name="stress" style="margin:0px 5px"> Stress 
+    </label>
+</div>
+			<div>  <label for="Thyroid">
+      <input type="checkbox"  name="thyroid" style="margin:0px 5px"> Thyroid 
+    </label>
+</div>	
+		<div>  <label for="Tingling">
+      <input type="checkbox"  name="tingling_numbness" style="margin:0px 5px"> Tingling, numbness or pain in hands & feet 
+    </label>
+</div>
+		
+		<div> <label for="uti">
+      <input type="checkbox"  name="uti" style="margin:0px 5px"> UTI's
+    </label>
+</div>
+			<div>  <label for="LI">
+      <input type="checkbox"  name="low_immunity" style="margin:0px 5px"> Low Immunity 
+    </label>
+</div>
+	</div>
+
+</td></tr>
+	
+
+		
+<tr>
+		<td style="margin: auto;float: left;text-align: center;width: 100%;font-size:1em" colspan="6"><p style="font-size: 1em;">Kindly share your blood test reports on
+			WhatsApp :<a href="tel:+919999-11-4772" style="color:blue">+919999-11-4772</a>&nbsp;Or E-mail : <a href="mailto:diet@lifeheal.in"  style="color:blue">diet@lifeheal.in</a></p>
+	</td>
+	</tr>
+	<tr>
+			<td  style="float:left;width:100%;" colspan="3"><label for="bloodtest">Typical Blood Tests We Like To See: </label>
+				</td>
+		</tr>
+		<tr>
+	<td style="width: 100%;float: left;">
+		<span>a. Fasting Glucose</span>
+				<span>b. Lipid Profile</span>
+				<span>c. HbA1c</span>
+			<span>d. Vitamin D & B12</span>
+			<span>e. HsCRP</span>
+			
+            <span>f. HOMA IR</span>
+			</td>
+	</tr>
+		
+		
+	
+	
+	<!--submit-->
+<tr>
+
+ 
+ <td coslpan="4" style="float: left;width: auto;text-align: center;margin: 20px 5px auto;" valign="top">
+ 	<input type="hidden" name="mobileno" value="<?php echo $mobileNo;?>" />
+  <input type="hidden" name="custid" value="<?php  echo $custId;?>" />
+ 	<input type="hidden" name="date" value="<?php  echo date('Y-m-d');?>" />
+  <input style="background-color: #0eb58f;border: none;color: white;padding: 10px 25px;text-align: center;text-decoration: none;font-size: 18px;
+border-radius: 4px;width:100%;" type="submit" name="submit" value="Save">
+ </td>
+
+</tr>
+</table>
+
+				</div>
+		
+	</div>
+		</div>
+</form>
+<script>
+jQuery(document).ready(function(){
+  jQuery(".btncancel").click(function(){
+    jQuery(".thankyoumsg").toggle();
+  });
+ 
+});
+</script>

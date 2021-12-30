@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <disease_adminhtml_disease_index>
+	<reference name="content">
+	  <block type="disease/adminhtml_disease" name="disease" />
+	</reference>
+  </disease_adminhtml_disease_index>
+</layout>

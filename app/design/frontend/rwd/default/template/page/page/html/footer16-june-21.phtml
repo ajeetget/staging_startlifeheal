@@ -1,0 +1,236 @@
+﻿<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<style>
+
+	.icon-bar {
+}
+
+.icon-bar a {
+  display: block;
+  text-align: center;
+ margin: 0px 5px;
+  transition: all 0.3s ease;
+  color: white;
+
+}
+
+
+.facebook {
+  background: #3B5998;
+  color: white;
+}
+.fa-instagram {
+    
+    color: white;    
+    background-image: none;
+}
+.instagram {
+  background-image: linear-gradient(60deg,orange,violet,blue);
+  color: white;
+}
+
+
+.youtube {
+  background: #bb0000;
+  color: white;
+}
+span a {
+    text-decoration: none;
+    color:#fff;
+    transition: all 0.15s ease-out;
+    font-size: 15px;
+    font-weight: normal;
+}
+	span a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+
+</style>
+<div class="footer-container">
+  <?php /*?> <footer id="new-footer">
+        <div class="container">
+            <div class="footer-links-web">
+                <ul class="list-inline list-unstyled text-uppercase">
+                <li class="text-left"><a href="<?php echo Mage::getBaseUrl();?>how">How</a></li>
+                  
+                   <li> <a href="<?php echo Mage::getBaseUrl();?>pricing">Pricing</a></li>
+                   <li> <a href="<?php echo Mage::getBaseUrl();?>menuorder">Menu</a></li>
+                    <li><a href="https://www.curemydiabetes.com/recipes" target="_blank">Recipes</a></li>
+                    <li><a href="<?php echo Mage::getBaseUrl();?>questions">Questions</a></li>
+                    <li><a href="<?php echo Mage::getBaseUrl();?>disclaimer">Disclaimer</a></li>
+                    <li class="text-right"><a href="<?php echo Mage::getBaseUrl();?>contacts">Contact Us</a></li>
+               
+                
+                    
+                </ul>
+            </div>
+           
+            <div class="footer-support-icons">
+                <div class="customer-support">
+                   <p>Braided-Rugs.Com © 2019 Premium Rugs Online Store</p>
+                        
+                    </div>
+                
+               
+            </div></div>
+        
+    </footer>  <?php */?> 
+
+<footer id="oldfooter" class="noprint">
+    <div class="container">
+        <div class="row footer-div">
+			 <div class="row">
+  <div class="col-sm-4"><span class="footlogo">
+	  <a href="https://lifeheal.in"><img src="<?php echo $this->getSkinUrl('images/Logo-lifehealing-food-PNG.png') ?>" alt=""></a>
+	  
+	  </span>
+	  <p style="float: left;width: 100%;"><a href="<?php echo Mage::getBaseUrl();?>contacts" style="float: left;color: #fff;font-weight: normal;font-size: 13px;margin: auto 5px;">Contact Us</a>
+          <a target="_blank" href="https://blog.lifeheal.in/" style="float: left;color: #fff;font-weight: normal;font-size: 13px;margin: auto 5px;">Blog</a>
+		  <a href="<?php echo Mage::getBaseUrl();?>research" style="float: left;color: #fff;font-weight: normal;font-size: 13px;margin: auto 5px;">Research</a>
+	   <a href="<?php echo Mage::getBaseUrl();?>disclaimer" style="float: left;color: #fff;font-weight: normal;font-size: 13px;margin: auto 5px;">Disclaimer</a>
+		    <a href="<?php echo Mage::getBaseUrl();?>subscriptionmenu" style="float: left;color: #fff;font-weight: normal;font-size: 13px;margin: auto 5px;">Sample Menu</a>
+		 <?php/* <a style="float: left;color: #fff;font-weight: normal;font-size: 13px;margin: auto 5px;" href="<?php echo Mage::getBaseUrl();?>pricingprogram">Referral Program and Pricing</a> */?>
+	 </p>
+	   <div class="social-media text-right icon-bar"  style="float:left;">
+                    <ul class="list-inline list-unstyled text-uppercase" style="margin-left:0;">
+                        <li class="text-uppercase" style="float: left;width: 100%;text-align: left;margin: 20px 0px 10px 0px;">Join us on</li>
+                        <li style="float: left;">
+                           <a href="https://www.facebook.com/lifehealindia/" class="facebook" style="width:30px;">
+		<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="24px" height="24px" style="margin:4px 2px" viewBox="0 0 546.773 546.773" style="enable-background:new 0 0 546.773 546.773;" xml:space="preserve">
+		<g transform="matrix(0.801631, 0, 0, 0.801631, 54.2315, 54.2315)">
+		<path d="M382.1,0h-56.953c-43.574,0-74.872,10.343-93.893,31.022c-19.027,20.686-28.532,51.151-28.532,91.408v38.373    c0,10.141-8.219,18.36-18.36,18.36H164.68c-10.141,0-18.36,8.219-18.36,18.36v57.503c0,10.141,8.219,18.36,18.36,18.36h19.682    c10.141,0,18.36,8.219,18.36,18.36v236.666c0,10.141,8.219,18.36,18.36,18.36h76.414c10.141,0,18.36-8.22,18.36-18.36V291.747    c0-10.142,8.22-18.36,18.36-18.36h38.592c10.142,0,19.224-8.176,20.289-18.256l6.095-57.712    c1.065-10.085-6.291-18.256-16.433-18.256h-48.549c-10.141,0-18.36-8.219-18.36-18.36v-28.752c0-7.075,0.331-12.552,0.997-16.426    c0.661-3.868,2.154-7.681,4.48-11.445c2.319-3.757,6.083-6.358,11.279-7.797c5.195-1.438,12.111-2.16,20.734-2.16h28.752    c10.141,0,18.359-8.219,18.359-18.36V18.36C400.459,8.219,392.24,0,382.1,0z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#FFFFFF"/>
+	    </g>
+                           </svg>
+                           </a> 
+                        </li>
+                       
+                        <li style="float: left;">
+                         <a href="https://www.instagram.com/lifehealingfood/" class="instagram"  style="width:32px;">
+							<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 511 511.9" width="24px" style="margin:4px 2px;" class=""><g transform="matrix(0.851458, 0, 0, 0.851458, 37.9525, 38.0193)"><path d="m510.949219 150.5c-1.199219-27.199219-5.597657-45.898438-11.898438-62.101562-6.5-17.199219-16.5-32.597657-29.601562-45.398438-12.800781-13-28.300781-23.101562-45.300781-29.5-16.296876-6.300781-34.898438-10.699219-62.097657-11.898438-27.402343-1.300781-36.101562-1.601562-105.601562-1.601562s-78.199219.300781-105.5 1.5c-27.199219 1.199219-45.898438 5.601562-62.097657 11.898438-17.203124 6.5-32.601562 16.5-45.402343 29.601562-13 12.800781-23.097657 28.300781-29.5 45.300781-6.300781 16.300781-10.699219 34.898438-11.898438 62.097657-1.300781 27.402343-1.601562 36.101562-1.601562 105.601562s.300781 78.199219 1.5 105.5c1.199219 27.199219 5.601562 45.898438 11.902343 62.101562 6.5 17.199219 16.597657 32.597657 29.597657 45.398438 12.800781 13 28.300781 23.101562 45.300781 29.5 16.300781 6.300781 34.898438 10.699219 62.101562 11.898438 27.296876 1.203124 36 1.5 105.5 1.5s78.199219-.296876 105.5-1.5c27.199219-1.199219 45.898438-5.597657 62.097657-11.898438 34.402343-13.300781 61.601562-40.5 74.902343-74.898438 6.296876-16.300781 10.699219-34.902343 11.898438-62.101562 1.199219-27.300781 1.5-36 1.5-105.5s-.101562-78.199219-1.300781-105.5zm-46.097657 209c-1.101562 25-5.300781 38.5-8.800781 47.5-8.601562 22.300781-26.300781 40-48.601562 48.601562-9 3.5-22.597657 7.699219-47.5 8.796876-27 1.203124-35.097657 1.5-103.398438 1.5s-76.5-.296876-103.402343-1.5c-25-1.097657-38.5-5.296876-47.5-8.796876-11.097657-4.101562-21.199219-10.601562-29.398438-19.101562-8.5-8.300781-15-18.300781-19.101562-29.398438-3.5-9-7.699219-22.601562-8.796876-47.5-1.203124-27-1.5-35.101562-1.5-103.402343s.296876-76.5 1.5-103.398438c1.097657-25 5.296876-38.5 8.796876-47.5 4.101562-11.101562 10.601562-21.199219 19.203124-29.402343 8.296876-8.5 18.296876-15 29.398438-19.097657 9-3.5 22.601562-7.699219 47.5-8.800781 27-1.199219 35.101562-1.5 103.398438-1.5 68.402343 0 76.5.300781 103.402343 1.5 25 1.101562 38.5 5.300781 47.5 8.800781 11.097657 4.097657 21.199219 10.597657 29.398438 19.097657 8.5 8.300781 15 18.300781 19.101562 29.402343 3.5 9 7.699219 22.597657 8.800781 47.5 1.199219 27 1.5 35.097657 1.5 103.398438s-.300781 76.300781-1.5 103.300781zm0 0" data-original="#000000" class="active-path" data-old_color="#000000" fill="#FFFFFF"/><path d="m256.449219 124.5c-72.597657 0-131.5 58.898438-131.5 131.5s58.902343 131.5 131.5 131.5c72.601562 0 131.5-58.898438 131.5-131.5s-58.898438-131.5-131.5-131.5zm0 216.800781c-47.097657 0-85.300781-38.199219-85.300781-85.300781s38.203124-85.300781 85.300781-85.300781c47.101562 0 85.300781 38.199219 85.300781 85.300781s-38.199219 85.300781-85.300781 85.300781zm0 0" data-original="#000000" class="active-path" data-old_color="#000000" fill="#FFFFFF"/><path d="m423.851562 119.300781c0 16.953125-13.746093 30.699219-30.703124 30.699219-16.953126 0-30.699219-13.746094-30.699219-30.699219 0-16.957031 13.746093-30.699219 30.699219-30.699219 16.957031 0 30.703124 13.742188 30.703124 30.699219zm0 0" data-original="#000000" class="active-path" data-old_color="#000000" fill="#FFFFFF"/></g> 
+							 </svg>
+						</a>
+                        </li>
+                        <li style="float: left;">
+                       <a href="https://www.youtube.com/channel/UCrocY4uHeWsxtnM_JpbxBVA" class="youtube"  style="width:30px;">
+						   <svg xmlns="http://www.w3.org/2000/svg" viewBox="-21 -117 682.66672 682" class="hovered-paths" width="24px" height="24px" style="margin:4px 4px;"><g><path d="m626.8125 64.035156c-7.375-27.417968-28.992188-49.03125-56.40625-56.414062-50.082031-13.703125-250.414062-13.703125-250.414062-13.703125s-200.324219 0-250.40625 13.183593c-26.886719 7.375-49.03125 29.519532-56.40625 56.933594-13.179688 50.078125-13.179688 153.933594-13.179688 153.933594s0 104.378906 13.179688 153.933594c7.382812 27.414062 28.992187 49.027344 56.410156 56.410156 50.605468 13.707031 250.410156 13.707031 250.410156 13.707031s200.324219 0 250.40625-13.183593c27.417969-7.378907 49.03125-28.992188 56.414062-56.40625 13.175782-50.082032 13.175782-153.933594 13.175782-153.933594s.527344-104.382813-13.183594-154.460938zm-370.601562 249.878906v-191.890624l166.585937 95.945312zm0 0" data-original="#000000" class="hovered-path active-path" data-old_color="#000000" fill="#FFFFFF"/></g> </svg>
+
+							</a> 
+
+                        </li>
+                        
+                    </ul>
+                </div>
+	  
+				 </div>
+  <div class="col-sm-4"><h3>CONTACT US</h3>
+				 <p style="height: 30px;line-height: 24px;">
+					 <span class="col-sm-1" style="border:1px solid #fff; padding:0px;float: left;width: 10%;height: 30px;text-align: center;"><svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 54.757 54.757" xml:space="preserve" style="enable-background:new 0 0 54.757 54.757; height:16px;float: none; width:16px;margin:0px;fill: #fff;">
+<g>
+	<path d="M27.557,12c-3.859,0-7,3.141-7,7s3.141,7,7,7s7-3.141,7-7S31.416,12,27.557,12z M27.557,24c-2.757,0-5-2.243-5-5   s2.243-5,5-5s5,2.243,5,5S30.314,24,27.557,24z"/>
+	<path d="M40.94,5.617C37.318,1.995,32.502,0,27.38,0c-5.123,0-9.938,1.995-13.56,5.617c-6.703,6.702-7.536,19.312-1.804,26.952   L27.38,54.757L42.721,32.6C48.476,24.929,47.643,12.319,40.94,5.617z M41.099,31.431L27.38,51.243L13.639,31.4   C8.44,24.468,9.185,13.08,15.235,7.031C18.479,3.787,22.792,2,27.38,2s8.901,1.787,12.146,5.031   C45.576,13.08,46.321,24.468,41.099,31.431z"/>
+</g>
+</svg></span>
+ <span class="col-sm-11" style="float:right;font-size: 13px;padding: 0px 5px;width: 90%;top: -8px;">JMD Regent Arcade, 3rd Floor
+MG Road,
+Gurgaon, HR 122 002</span>
+	  </p>
+				 <p style="height: 30px;line-height: 24px;float: left;width: 100%;"><span class="col-sm-1" style="border:1px solid #fff; padding:0px;float: left;width: 10%;height: 30px;text-align: center;">
+					 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 485.411 485.411" style="enable-background:new 0 0 485.411 485.411;height:16px;float: none; width:16px;margin:0px;" xml:space="preserve">
+<g>
+	<path d="M0,81.824v321.763h485.411V81.824H0z M242.708,280.526L43.612,105.691h398.187L242.708,280.526z    M163.397,242.649L23.867,365.178V120.119L163.397,242.649z M181.482,258.533l61.22,53.762l61.22-53.762L441.924,379.72H43.487   L181.482,258.533z M322.008,242.655l139.535-122.536v245.059L322.008,242.655z" style="fill:#fff;"/>
+</g>
+
+					 </svg></span>
+					 
+					 <span class="col-sm-11" style="float:right;font-size: 13px;padding: 2px 5px;width: 90%;"><a href="mailto:Team@LifeHeal.in" target="_top">Team@LifeHeal.in</a></span></p>
+	  <p style="height: 30px;line-height: 24px;float: left;width: 100%;margin-bottom:10px;">
+		  <span class="col-sm-1" style="border:1px solid #fff; padding:0px;float: left;width:10%;height: 30px;text-align: center;margin: 10px 0px;"><svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512.076 512.076" xml:space="preserve" style="enable-background:new 0 0 512.076 512.076;height:16px;float: none; width:16px;margin:0;fill:#fff;">
+<g transform="translate(-1 -1)">
+	<g>
+		<g>
+			<path d="M499.639,396.039l-103.646-69.12c-13.153-8.701-30.784-5.838-40.508,6.579l-30.191,38.818     c-3.88,5.116-10.933,6.6-16.546,3.482l-5.743-3.166c-19.038-10.377-42.726-23.296-90.453-71.04s-60.672-71.45-71.049-90.453     l-3.149-5.743c-3.161-5.612-1.705-12.695,3.413-16.606l38.792-30.182c12.412-9.725,15.279-27.351,6.588-40.508l-69.12-103.646     C109.12,1.056,91.25-2.966,77.461,5.323L34.12,31.358C20.502,39.364,10.511,52.33,6.242,67.539     c-15.607,56.866-3.866,155.008,140.706,299.597c115.004,114.995,200.619,145.92,259.465,145.92     c13.543,0.058,27.033-1.704,40.107-5.239c15.212-4.264,28.18-14.256,36.181-27.878l26.061-43.315     C517.063,422.832,513.043,404.951,499.639,396.039z M494.058,427.868l-26.001,43.341c-5.745,9.832-15.072,17.061-26.027,20.173     c-52.497,14.413-144.213,2.475-283.008-136.32S8.29,124.559,22.703,72.054c3.116-10.968,10.354-20.307,20.198-26.061     l43.341-26.001c5.983-3.6,13.739-1.855,17.604,3.959l37.547,56.371l31.514,47.266c3.774,5.707,2.534,13.356-2.85,17.579     l-38.801,30.182c-11.808,9.029-15.18,25.366-7.91,38.332l3.081,5.598c10.906,20.002,24.465,44.885,73.967,94.379     c49.502,49.493,74.377,63.053,94.37,73.958l5.606,3.089c12.965,7.269,29.303,3.898,38.332-7.91l30.182-38.801     c4.224-5.381,11.87-6.62,17.579-2.85l103.637,69.12C495.918,414.126,497.663,421.886,494.058,427.868z"/>
+			<path d="M291.161,86.39c80.081,0.089,144.977,64.986,145.067,145.067c0,4.713,3.82,8.533,8.533,8.533s8.533-3.82,8.533-8.533     c-0.099-89.503-72.63-162.035-162.133-162.133c-4.713,0-8.533,3.82-8.533,8.533S286.448,86.39,291.161,86.39z"/>
+			<path d="M291.161,137.59c51.816,0.061,93.806,42.051,93.867,93.867c0,4.713,3.821,8.533,8.533,8.533     c4.713,0,8.533-3.82,8.533-8.533c-0.071-61.238-49.696-110.863-110.933-110.933c-4.713,0-8.533,3.82-8.533,8.533     S286.448,137.59,291.161,137.59z"/>
+			<path d="M291.161,188.79c23.552,0.028,42.638,19.114,42.667,42.667c0,4.713,3.821,8.533,8.533,8.533s8.533-3.82,8.533-8.533     c-0.038-32.974-26.759-59.696-59.733-59.733c-4.713,0-8.533,3.82-8.533,8.533S286.448,188.79,291.161,188.79z"/>
+		</g>
+	</g>
+</g>
+	  </svg>
+		  </span>
+		  
+		  <span class="col-sm-11" style="float:right;font-size: 13px;padding: 0px 5px;width: 90%;line-height: 3;"><a href="tel:+91-9999-84-6622">+91-9999-84-6622</a></span></p>
+				 </div>
+                            
+  <div class="col-sm-4"><h3>SUBSCRIBE</h3>
+				 <p style="font-size:14px;">Get healthy news, tips and solutions to your health problems from our experts.</p>
+	   <span id="msg" style="color:red"></span>
+	  <div class="footeremailer" style="margin: 10px 0px;">
+				 <input type="email" id="email" name="email" placeholder="E-mail Address" value="" autocomplete="email">
+	 
+        <img src="<?php echo $this->getSkinUrl('images/WEBSITE-18_1.png') ?>" onclick="checknewsletter()"> </div>
+	  </div>
+</div> 
+          
+			 </div>
+    </div>
+</footer>
+
+
+</div>
+<script type="text/javascript">
+	function checknewsletter()
+	{
+		   
+		
+		    var email = jQuery("#email").val();
+		
+			jQuery.ajax({
+						url: "<?php echo Mage::getBaseUrl().'checkout/cart/newsletter' ?>",
+						type: "POST",
+						data: {
+						    email: email						    
+						},
+						  success: function(response)
+						 {  
+						     // alert(response);
+                                                      jQuery("#msg").html(response);
+										
+						 }
+			});
+		
+
+	}
+	
+	function addtocartAndWelcome(id)
+	{
+		
+		window.location.href = "<?php echo Mage::getBaseUrl().'checkout/cart/addproducttocart' ?>?id="+id; 
+	}
+</script>
+<script type="text/javascript"> var $zoho=$zoho || {};$zoho.salesiq = $zoho.salesiq || {widgetcode:"e8e4f602aa5edc51dc202b69cc12c9c7cd951725c39c9b29b67993e145d995db", values:{},ready:function(){}}; var d=document;s=d.createElement("script");s.type="text/javascript";s.id="zsiqscript";s.defer=true; s.src="https://salesiq.zoho.in/widget";t=d.getElementsByTagName("script")[0];t.parentNode.insertBefore(s,t);d.write("<div id='zsiqwidget'></div>"); </script>

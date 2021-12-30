@@ -1,0 +1,244 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"  href="<?php echo $this->getSkinUrl('css/copystylecss.css') ?>">
+<link rel="stylesheet"  href="<?php echo $this->getSkinUrl('css/slideeffect.css') ?>">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://alexandrebuffet.fr/codepen/slider/slick-animation.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+
+<style>
+	.slider{cursor: auto;}
+	.wcustomhtml {height: 320px;}
+	.wcustomhtml iframe{width:100% !important;}
+	div.hubspot-link__container{display:none !important;}
+	div .hs-input, .hs-form-field input[type="text"]{width:100% !important;}
+	.login {
+  padding: 6px 20px;
+  border-radius: 20px;
+  background: none;
+  border: 2px solid #FAB87F;
+  color: #FAB87F;
+  font-weight: bold;
+  transition: all .5s;
+  margin-top: 1em;
+}
+	.modal-dialog {
+    top: 10%;
+    width: 350px;
+}
+
+.login:hover {
+  background: #FAB87F;
+  color: #fff;
+}
+
+
+/*Modal*/
+h4 {
+  font-weight: bold;
+  color: #269A9B;
+	text-align:left;
+	font-size:20px;
+}
+.close {color:#686565;
+    transform: scale(1.2);
+}
+.close {
+    float: right;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1;
+    color: #686565;
+    text-shadow: 0 1px 0 #fff;
+    opacity: 1;
+}
+	.login-trigger:hover{color:#fff;}
+.modal-content {
+  font-weight: bold;
+	}
+.form-control {
+  margin: 1em 0;
+}
+.form-control:hover, .form-control:focus {
+  box-shadow: none;  
+  border-color: #fff;
+}
+	.breadcrumbs{display:none;}
+body, html {
+	scroll-behavior: smooth;
+	 height: 100vh;
+  height: 100%;
+  margin: 0;
+
+}
+	.main-container .container{max-width:100%; padding:0;}
+	p{margin:0px;}
+
+</style>
+
+
+<!--
+<section class="intro1 introscroll intro-image-wrapper" style="position:relative;background-size:cover;opacity:0.99;background-position:center;background-repeat:no-repeat">
+</section>-->
+<section class="hero-block">
+	<div class="hero-content-wrap">
+		<div class="hero-container w-container">
+	<div class="hero-content">
+		<h1>Food plans that work</h1>
+		</div>		
+		</div>
+	</div>
+	<div id="hero" class="hero-image"></div>
+	<a href="#section1"><div class="mousescroll bounce"></div></a>
+</section>
+
+<section data-delay-in="0.3" id="section1">
+	 
+<div class="slider stick-dots">
+    <div class="slide">
+      <div class="slide__img">
+       <img src="" alt="" data-lazy="https://lifeheal.in/skin/frontend/rwd/default/images/viratgamechangerbig.jpg" class="full-image animated desktopimg" data-animation-in="zoomInImage"  animation-delay= "2s"/>
+		   <img src="" alt="" data-lazy="https://lifeheal.in/skin/frontend/rwd/default/images/Viratgamechangermob.jpg" class="full-image animated mobileimg" data-animation-in="zoomInImage"  animation-delay= "2s"/>
+      </div>
+		<div class="slide__content contentvirat">
+        <div class="slide__content--headings">
+          <h2>As shown in <br><span class="netflix">netflix</span></h2>
+           <p>the <span class="gamechanger">Game Changers</span></p>
+        </div>
+      </div>
+      
+    </div>
+    <div class="slide">
+      <div class="slide__img">
+       <img src="" alt="" data-lazy="https://lifeheal.in/skin/frontend/rwd/default/images/stopped8yearsofinsulinin35daysbig.jpg" class="full-image animated desktopimg" data-animation-in="zoomInImage" />
+		  <img src="" alt="" data-lazy="https://lifeheal.in/skin/frontend/rwd/default/images/stopped8yearsofinsulinin35dayssmall.jpg" class="full-image animated mobileimg" data-animation-in="zoomInImage"/>
+		  
+      </div>
+      <div class="slide__content contentmanoj">
+        <div class="slide__content--headings">
+          <h2 class="wean">WEAN OUT MEDICINES</h2>
+           <p class="manojstopped">MANOJ <b>STOPPED</b><br>
+			<span class="eight">8</span> <b>YEARS</b><br>
+			OF INSULIN IN<br>
+			<span class="thirtyfive">35</span> <span class="revertdays">DAYS</span></p>
+        </div>
+      </div>
+    </div>
+   <div class="slide">
+      <div class="slide__img">
+        <img src="" alt="" data-lazy="https://lifeheal.in/skin/frontend/rwd/default/images/loseweightbig.jpg" class="full-image animated desktopimg" data-animation-in="zoomInImage" />
+		  <img src="" alt="" data-lazy="https://lifeheal.in/skin/frontend/rwd/default/images/loseweightsmall.jpg" class="full-image animated mobileimg" data-animation-in="zoomInImage"/>
+      </div>
+      <div class="slide__content contentaditya">
+        <div class="slide__content--headings"><span class="weightlose">LOSE WEIGHT </span><br><span class="withoutexercise">WITHOUT EXERCISE</span></h2>
+           <p class="boxfaded"><span class="adityalost">Aditya lost</span><span class="kilos">24 kilos with 0 exercise</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+	
+</section>
+
+<section class="hero-block hero-block2">
+	<div class="hero-content-wrap">
+		<div class="hero-container w-container">
+	<div class="hero-content imgtext2">
+		<h1>Health goal targeted<br><span>We focus on your health goal</span></h1>
+		</div>		
+		</div>
+	</div>
+	<div id="hero" class="hero-image2"></div>
+	
+</section>
+<section class="hero-block hero-block3">
+	<div class="hero-content-wrap">
+		<div class="hero-container w-container">
+	<div class="hero-content imgtext3">
+		<h1>Technology integrated<span>first company to pair</span>
+		<span class="biosense"><b>bio-sensors with food</b></span></h1>
+		</div>		
+		</div>
+	</div>
+	<div id="hero" class="hero-image3"></div>
+	
+</section>
+<section class="hero-block hero-block4">
+	<div class="hero-content-wrap">
+		<div class="hero-container w-container">
+	<div class="hero-content imgtext4">
+		<h1>VEGAN<br>OIL-FREE<br>PRO-BIOTICS
+		<span>HEALS YOU FROM INSIDE,<br>WEIGHT LOSS IS<br>JUST A BY-PRODUCT</span></h1>
+		</div>		
+		</div>
+	</div>
+	<div id="hero" class="hero-image4"></div>
+	
+</section>
+<section class="hero-block hero-block5">
+	<div class="hero-content-wrap">
+		<div class="hero-container w-container">
+	<div class="hero-content imgtext5">		
+		</div>		
+		</div>
+	</div>
+	<div id="hero" class="hero-image5"><a class="login-trigger" href="#" data-target="#login" data-toggle="modal">Learn more</a></div>
+	
+</section>
+
+<!--Trigger-->
+
+
+	
+<div id="login" class="modal" role="dialog">
+  <div class="modal-dialog">
+    
+    <div class="modal-content">
+      <div class="modal-body">
+        <button data-dismiss="modal" class="close">&times;</button>
+        <h4>learn about our innovative diabetes program</h4>
+        <form>
+            <div id="657632826702082412" style="width: 100%; overflow-y: hidden;" class="wcustomhtml" align="left"><script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/shell.js"></script>
+<script data-hubspot-rendered="true">
+  hbspt.forms.create({
+	portalId: "5359263",
+	formId: "1c6467c1-3ad3-4af1-819c-05dffadbaa22"
+});
+</script>
+<div class="hbspt-form" id="hbspt-form-1554276053636-8202985449">
+<iframe id="hs-form-iframe-0" class="hs-form-iframe" scrolling="no" 
+style="position: static; border: medium none; display: block; overflow: hidden !important; width: 100% !important; height:100% !important;">
+
+</iframe>
+</div>
+</div>
+        </form>
+      </div>
+    </div>
+  </div>  
+</div>
+
+<script type="text/javascript">
+
+	jQuery(document).ready(function() { 
+		jQuery(".login-trigger").click(function() { 
+                jQuery(".modal").show(); 
+            }); 
+  
+            jQuery(".close").click(function() { 
+                jQuery(".modal").hide(); 
+            }); 
+  
+        }); 
+</script>
+
+<script>
+$('.slider').slick({
+  autoplay: true,
+  speed: 1000,
+  lazyLoad: 'progressive',
+  arrows: false,
+  dots: true,
+}).slickAnimation();
+
+</script>

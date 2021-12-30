@@ -1,0 +1,165 @@
+<?php 
+$config  = Mage::getConfig()->getResourceConnectionConfig("default_setup");
+$dbinfo = array("host" => $config->host,"user" => $config->username,"pass" => $config->password,"dbname" => $config->dbname);
+  
+  $host      = $dbinfo["host"];
+  $username  = $dbinfo["user"];
+  $password  = $dbinfo["pass"];
+  $dbname    = $dbinfo["dbname"]; 
+  
+  $con = mysqli_connect($host  , $username,  $password ,$dbname);
+
+  if ($mysqli -> connect_errno) {
+  echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
+  exit();
+}
+     
+
+ $custId = '';
+ $mobileNo = $_GET['mobileno'];
+		 								
+ $customerCollection= Mage::getModel('customer/customer')
+		->getCollection()
+		->addAttributeToSelect('*')
+		->addAttributeToFilter('primarymobileno', $mobileNo) //replace your attribute of mobile
+		->load();
+
+        
+		
+   if(isset($customerCollection) && count($customerCollection)==1 )
+	{
+	    foreach($customerCollection as $customer)
+		{
+			$custId = $customer->getEntityId();
+		}
+	}
+	else
+	{
+		 $url = Mage::getBaseUrl()."patientintake"; 
+		 header("Location:'".$url."'"); 
+	}
+			
+	
+    $checkQuery = "select * from patientintakeform where custid='".$custId."' and mobileno='".$mobileNo."'";
+	$checkRowResult = mysqli_query($con,$checkQuery);
+	$countExisting = mysqli_num_rows($checkRowResult); 
+	//echo "count rows=".$countExisting; echo "<br>";
+	$row   = '';
+	
+	if($countExisting > 0)
+	{
+		
+		 while ($rowInfo = mysqli_fetch_assoc($checkRowResult)) 
+		 {
+            
+			 $row = $rowInfo;
+         }
+	}
+ // echo '<pre>';  print_r($row);
+  
+  $params = array();
+ // $params['weight']=$row['weight'];
+  //$params['height']=$row['height'];
+  
+  $params['BP Systolic']=$row['bp_systolic'];
+  $params['BP Diastolic']=$row['bp_diastolic'];
+  $params['Iron']=$row['iron'];
+  $params['B12']=$row['b12'];
+  $params['Calcium']=$row['calcium'];
+  $params['HsCRP']=$row['hscrp'];
+  $params['HDL']=$row['hdl'];
+  $params['LDL']=$row['ldl'];
+  $params['T3']=$row['t3'];
+  $params['T4']=$row['t4'];
+  $params['SGOT']=$row['sgot'];
+  $params['SPGT']=$row['sgpt'];
+ 
+?>
+<table cellpadding="3" cellspacing="3" border="1">
+<tr><td>Param</td><td>Value</td><td>Output</td></tr>
+<?php foreach($params as $diseaseName => $value){ ?>
+<tr><td><?php echo $diseaseName;?></td><td><?php echo $value;?></td><td><?php echo  getDiseaseLabel($diseaseName,$value);?></td></tr>
+<?php } ?>
+</table>
+
+
+<?php
+// echo  getDiseaseLabel('HsCRP','2');
+  function getDiseaseLabel($diseaseName,$value)
+  {
+
+	 if($value!='')
+	  {
+	  $optionsArray = St_Disease_Block_Adminhtml_Disease_Grid::getOptionArray0();
+	
+	 $diseaseArray = preg_grep ("%$diseaseName%", $optionsArray);
+	 $diseaseIndex =  array_keys($diseaseArray)[0];
+	 
+	$collection = Mage::getModel("disease/disease")->getCollection()
+            	   ->addFieldToFilter("disease",$diseaseIndex);
+		//	 echo "collection size =".sizeof($collection); echo '<br>';   		
+			 if(sizeof($collection)>0 && $value!='')
+			 {  
+				 // echo '<pre>';
+				  $label='';
+				  $count=0;
+				  foreach($collection as $rowinfo)
+				  {
+					 $lowRange='';
+					 $highRange='';	
+                     $count++;					 
+					  $lowRange =  $rowinfo->getLowrange();
+					  $highRange =  $rowinfo->getHighrange();
+					  
+					 
+						 
+					//	  echo  $count.'----'.$lowRange.'-----'.$highRange.'-----'.$value; echo '<br>';
+					  
+					  
+					  
+                     				  
+							  
+								 if( ( $value > $lowRange) && ( $value < $highRange ) )
+								  {
+									 return $label=$rowinfo->getLabel(); 
+									  
+									 return $label;
+								  }
+							      else if( $lowRange >0  && $highRange!=''  )
+							     {
+								  if(  $value > $lowerRange  )
+								  {
+									  $label=$rowinfo->getLabel();
+									  return $label;
+								  }
+							     }
+							     else if( $lowRange!=''  &&   $highRange >0 )
+							   {
+								  if(  $value < $highRange  )
+								  {
+									  $label=$rowinfo->getLabel();  
+									  return $label;
+								  }
+							   }
+							   else{
+								   
+								    $label='No Info'; 
+									return $label;
+							   }
+							  
+				 // echo  $label;
+					  
+				           //  return $label;
+							
+							
+							  
+				  
+				  }
+				  
+				
+			}
+			
+			
+	}
+}	
+?>

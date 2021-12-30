@@ -1,0 +1,334 @@
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+.footer-container {
+    padding: 0px;
+    width: 100%;
+    float: none;
+}
+input[type=text], select, textarea {
+width: 100%;
+padding: 12px;
+border-radius: 4px;
+resize: vertical;
+box-shadow: none;
+font-size: 14px;
+color: #3e3e3e;
+font-weight: 100;
+background-color: #f5f8fa;
+border: 1px solid #cbd6e2 !important;
+}
+input[type="checkbox"]{width: 24px;
+height: 24px;
+float: left;}
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+  margin-bottom: 0;
+}
+
+input[type=submit] {
+  background-color:#c31f41;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+input[type=submit]:hover {
+  background-color:#a61d3f;
+}
+
+.reportcont {
+border-radius: 5px;
+background-color: #f2f2f2;
+padding: 40px;
+max-width: 430px;
+float: none;
+height: 100%;
+}
+.reportcont form{background: #fff;
+width: auto;
+height: auto;
+padding-bottom: 15px;}
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+float: left;
+width: 80%;
+/*margin-top: 15px !important;
+*/margin: auto;
+}
+.col-50{width: 33%;
+margin-left: 40px;
+float: left;}
+.col-1{padding: 4px 4px 0px 4px;}
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.error {
+    color: #df280a;
+    font-weight: normal;
+    width: 100%;
+    float: left;
+    font-size: 10px;
+    text-transform: capitalize;
+    padding: 0px;
+}
+#msg b{font-size: 16px;
+background: #fff;
+width: 100%;
+float: left;
+margin: auto;
+text-align: center;
+height: 50px;
+z-index: 1;
+color: #c31f41;}
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+    width:80%;
+    margin-top: 0;
+  }
+  .col-50 {
+    width: 33%;
+    margin-left: 32px;
+    float: left;
+}
+  .reportcont {
+padding: 20px;
+
+}
+}
+</style>
+
+
+<!--<h2>Weekly Report</h2>
+-->
+<?php 
+      $storedCookieName = 'monthlyclientinfo';
+     // $cookieValue = Mage::getModel('core/cookie')->get($cookieName);
+	  $cookieValue = Mage::getSingleton('core/cookie')->get($storedCookieName);
+	  $cookieName='';
+	  $cookieMobile='';
+	  
+	  if(isset( $cookieValue) &&  $cookieValue!='')
+	  {
+	    $values = explode("_",$cookieValue); 
+		if($values[0]!=''){$cookieName =$values[0]; }
+		if($values[1]!=''){$cookieMobile =$values[1]; }
+		
+		
+	  }
+?>
+<div class="container reportcont">
+ 
+   <div class="row">
+      <div style="float: left;width: 80%;margin: 10px auto 0 auto;"><strong>Date: </strong><?php echo date("d-M-Y");?></div>
+      <div style="float: left;width: 80%;margin: 10px auto;"><strong>Monthly Customer Report</strong></div>
+   </div>
+  <form action="" id="weeklyreportform" method="post">
+    <div class="row">
+      <div class="col-75">
+        <label for="name">Name</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="name" name="name" placeholder="Your Name" value="<?php echo $cookieName;?>" required >
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-75">
+        <label for="mobile">Mobile</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="mobile" name="mobile" placeholder="Your Mobile Number" value="<?php echo $cookieMobile;?>"  required>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-75">
+        <label for="hb1ac">HBA1c</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="hba1c" name="hba1c" placeholder="Please enter HBA1c details">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-75">
+        <label for="hscrp">HSCRP</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="hscrp" name="hscrp" placeholder="Please enter HSCRP details">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-75">
+        <label for="hdl">HDL</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="hdl" name="hdl" placeholder="Please enter HDL details">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-75">
+        <label for="ldl">LDL</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="ldl" name="ldl" placeholder="Please enter LDL details">
+      </div>
+    </div>
+	<div class="row">
+      <div class="col-75">
+        <label for="vitamind">Vitamin D</label>
+      </div>
+      <div class="col-75">
+	  <input type="text" id="vitamind" name="vitamind" placeholder="Please enter vitamin D details">
+       
+      </div>
+    </div>
+	<div class="row">
+      <div class="col-75">
+        <label for="vitalmind">B12</label>
+      </div>
+      <div class="col-75">
+	  <input type="text" id="b12" name="b12" placeholder="Please enter b12 details">
+       
+      </div>
+    </div>
+	<div class="row">
+      <div class="col-75">
+        <label for="fasting">Fasting</label>
+      </div>
+      <div class="col-75">
+	  <input type="text" id="fasting" name="fasting" placeholder="Please enter fasting details">
+       
+      </div>
+    </div>
+	<div class="row">
+      <div class="col-75">
+        <label for="pp">PP</label>
+      </div>
+      <div class="col-75">
+	  <input type="text" id="pp" name="pp" placeholder="Please enter PP details">
+       
+      </div>
+    </div>
+	<div class="row">
+      <div class="col-75">
+        <label for="homair">HOMA - IR</label>
+      </div>
+      <div class="col-75">
+	  <input type="text" id="homair" name="homair" placeholder="Please enter HOMA - IR details">
+       
+      </div>
+    </div>
+	
+	<div class="row">
+      <div class="col-75">
+        <label for="homocysteine">Homocysteine</label>
+      </div>
+      <div class="col-75">
+	  <input type="text" id="homocysteine" name="homocysteine" placeholder="Please enter Homocysteine details">
+       
+      </div>
+    </div>
+	
+    <div class="row">
+      <div class="col-75">
+        <label for="lname">Remember me</label>
+      </div>
+      <div class="col-75">
+         <input type="checkbox" name="remember" id="rememberme" checked>
+      </div>
+    </div>
+    
+  
+    <div class="row">
+	  <span id="msg" class="col-75" style="margin-top: 10px;"> </span>
+      <input type="submit" value="Submit" class="col-75">
+    </div>
+  </form>
+</div>
+
+<script type="text/ecmascript">
+
+
+jQuery(document).ready(function() {
+   
+   
+   
+   jQuery("#weeklyreportform").validate({
+      rules:
+	  {
+         name:   'required',
+         mobile: 'required',
+		 
+         
+      },
+	  messages:
+	  {
+			   name: 'This field is required',
+			   mobile: 'This field is required',
+			   
+       },
+	submitHandler: function()
+	{
+       submitFormInformation();
+    }		   
+   });
+  
+   
+   
+});
+
+function submitFormInformation()
+{
+//alert(jQuery("#name").val());
+  jQuery.ajax({
+        url: "<?php echo Mage::getBaseUrl().'monthlyclientinfo/index/savemonthlyreport' ?>",
+        type: "POST",
+        data: {
+				  
+				  name  : jQuery("#name").val(), 
+				  mobile : jQuery("#mobile").val(),
+				  hba1c: jQuery("#hba1c").val(),
+				  hscrp: jQuery("#hscrp").val(),
+				  hdl: jQuery("#hdl").val(),
+				  ldl: jQuery("#ldl").val(),
+				  vitamind: jQuery("#vitamind").val(),
+				  b12: jQuery("#b12").val(),
+				  fasting: jQuery("#fasting").val(),
+				  pp: jQuery("#pp").val(),
+				  homair: jQuery("#homair").val(),
+				  homocysteine: jQuery("#homocysteine").val(),
+				  comments: jQuery("#comments").val(),
+				  rememberme: jQuery("#rememberme").prop('checked') 
+         
+        },
+        success: function(response){
+             jQuery("#msg").html("<b>Thank you for sharing your information.</b>");
+            /* jQuery("#name").val('');
+             jQuery("#mobile").val('');
+			 jQuery("#height").val('');
+			 jQuery("#weight").val('');
+			 jQuery("#waist").val('');
+			 jQuery("#bpsystolic").val('');
+			 jQuery("#bpdiastloc").val('');
+			 jQuery("#rememberme").val('')
+           */
+          }
+        });     
+}
+</script>

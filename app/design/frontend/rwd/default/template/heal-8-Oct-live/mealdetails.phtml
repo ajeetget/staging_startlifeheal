@@ -1,0 +1,1456 @@
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+ <link href="css/singlePageTemplate.css" rel="stylesheet" type="text/css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
+  <script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+  </script>
+	<style>
+		
+@media print
+{
+	.header-wrapper, .footer-container, .breadcrumbs, .bck-btn{display:none;}
+	header, footer{display:none;}
+	
+.noprint {display:none;}
+}
+
+@media print {
+	.header-wrapper, .footer-container, .breadcrumbs{display:none;}
+	header, footer, .bck-btn{display:none;}
+	 div.print-content article.node .node-blog .clearfix div.item-body p a {
+    display: none;}
+    @page {
+      size: A2; /* DIN A4 standard, Europe */
+      margin:0;
+		font-size:10pt;
+    }
+    html, body {
+       /* width: 210mm;
+         height: 297mm;
+        height: 282mm; */
+        
+        background: #FFF;
+        overflow:visible;
+    }
+    
+		}
+* {box-sizing: border-box}
+
+	.hero_header{text-align:center}	
+.col1-layout .col-main {
+    float: left;
+    width: 100%;
+    padding: 0;
+}.main {
+    width: 100%;
+    margin-top: 7rem;
+    height: 100%;
+    margin-bottom: 1.5rem;
+}
+
+	
+.ui-datepicker td {
+    border: 0;
+    padding: 1px;
+    width: 10%;
+}
+
+.hasDatepicker{width: 78% !important;
+
+max-width: 100%;
+
+background: #f6fcfc;
+
+height: 35px;
+
+box-shadow: 0px 0px 2px rgba(0,0,0,0.3);
+
+border: 0px;
+
+float: left;
+margin:10px;
+margin-right: 15px;}
+
+@media print
+{
+	.table td{font-size:8pt;}
+	
+	.table td, .table th {
+    padding: .75rem;
+    vertical-align: inherit;
+    border: 1px solid #ccc;
+}
+.noprint {display:none;}
+}
+
+
+
+@media screen and (min-width:260px) and (max-width:760px){
+.hasDatepicker{width: 100% !important;
+
+max-width: 100%;
+
+background: #f6fcfc;
+
+height: 35px;
+
+box-shadow: 0px 0px 2px rgba(0,0,0,0.3);
+
+border: 0px;
+
+float: left;
+margin:10px auto;}	
+}
+
+	table{border-collapse: separate;
+   }
+	.table td, .table th {
+    padding: .75rem;
+    vertical-align: inherit;
+    border-top: 1px solid #dee2e6;
+}
+	th{font-style: normal;
+text-align: left;
+display: table-cell;
+vertical-align: inherit;
+font-weight: bold;}
+	td{text-align: left;
+display: table-cell;
+vertical-align: inherit;
+font-weight: 400;
+font-style: normal;}
+	</style>
+	<?php  
+	$orderdate='';
+ if(isset($_POST))
+ {
+	 $orderdate   = $_POST['datepicker'];
+ }
+	 ?>
+
+
+
+<!-- Main Container -->
+
+       
+  
+<!-- Main Container Ends -->
+
+
+
+
+	 <div class="container-fluid"> 
+<form method="POST" action="<?php echo Mage::getBaseUrl();?>heal/index/mealdetails" style="margin-bottom: 20px;">
+<div class="loader" style="display: none;"></div>
+<table width="800" style="border:0px; margin: auto;width: 100%;" border="1" align="center" style="padding-left: 20px;padding-top:10px;margin: 25px;margin-right: 50px" class="noprint">
+  <tbody>
+    <tr >
+     
+     <td style="margin:3px"> <p style="margin-bottom: 0px;float: left;width: 100%;padding: 5px;">
+      <span style="width:auto;float: left;height: 35px;line-height: 35px;margin:10px auto;">Order Date:</span>
+      <input type="text" id="datepicker" name="datepicker" value="<?php echo $orderdate;?>">
+      <input type="submit" name="submit" value="Get Meal Details"  style="margin: 10px auto;padding: 0px 10px;background: #0EB58F;border: 1px solid #0EB58F;color: #fff;font-size: 14px;height: 35px;width:auto;line-height: 35px;float: left;"> </button></p></td>
+	  
+    </tr>
+   
+   
+   
+  </tbody>
+</table>
+</form>
+<?php 
+ if(isset($_POST['submit']))
+ {
+	 $orderdate   = $_POST['datepicker'];
+     $dateInfo    = explode("/",$orderdate);
+       
+       $tmpOrderdateToShow = $dateInfo[2]."-".$dateInfo[0]."-".$dateInfo[1];
+       $month = date("M",strtotime($tmpOrderdateToShow));
+       $orderdateToShow = $dateInfo[1]."-".$month."-".$dateInfo[2];
+	 ?>
+  <!-- Hero Section -->
+  <section class="" id="hero">
+    <h2 class="hero_header">Meal Details Of <?php echo $orderdateToShow;?></h2>
+	  <div class="table-responsive">
+   <table width="100%" border="1" class="table">
+  <tbody>
+    <tr>
+      <th scope="col">S.No</th>
+      <th scope="col" style="width:20%;">Item Name</th>
+      <th scope="col">Qty(gm)</th>
+      <th scope="col">Breakfast</th>
+      <th scope="col">Lunch</th>
+      <th scope="col">Hi-Tea</th>
+	  <th scope="col">Dinner</th>
+      <th scope="col">Time</th>
+      <th scope="col">Testing</th>
+      <th scope="col">Stored</th>
+    </tr>
+   
+	 <?php
+	   
+       
+       
+       $dbRead      = Mage::getSingleton('core/resource')->getConnection('core_read');
+       
+       $QueryGetItems = "select distinct(hid.productid) as itemid from healitemdetails hid join healorder ho on hid.orderid=ho.id and  ho.orderdate= '$orderdate'";
+       $itemResult = $dbRead->fetchAll($QueryGetItems);
+       
+       
+       $selectDatewiseOrders= "select * from healorder where status =0 and orderdate='$orderdate'";
+       $cuisineResult = $dbRead->fetchAll($selectDatewiseOrders);
+       
+       $orderResult = '';
+       $result = '';
+       
+      
+       
+       // $dinnerItemsArray = array();
+       // $breakfastItemsArray = array();
+       // $linchItemsArray = array();
+       // $highteaItemsArray = array();
+       
+       // $finalMealInfo = array();
+       
+       if(count($itemResult)>0)
+       {
+		   $mealItemInfo = array();
+		   
+		   $mealItemCount=0;
+		   $finalProductName ='';
+		   
+		   $countItemRecords=0;
+        foreach($itemResult as $itemInfo)
+        {
+
+			$normaldinnerOrderItemsArray 		     = array();
+			
+			$nonspicydinnerOrderItemsArray 		     = array();
+			$withoutOnionnonspicydinnerOrderItemsArray 		= array();
+			$lessspicydinnerOrderItemsArray 	= array();
+			$withoutOnionlessspicydinnerOrderItemsArray =array();
+			$extradinnerOrderItemsArray 		= array();
+			$withoutOnionextradinnerOrderItemsArray 		= array();
+			$nogarliconiondinnerOrderItemsArray 		= array();
+			
+
+			$breakfastOrderItemsArray   = array();
+			$noramlbreakfastOrderItemsArray   = array();
+			$nonbreakfastOrderItemsArray   = array();
+			$withoutOnionnonbreakfastOrderItemsArray   = array();
+			$lessbreakfastOrderItemsArray   = array();
+			$withoutOnionlessbreakfastOrderItemsArray   = array();
+			$extrabreakfastOrderItemsArray   = array();
+			$withoutOnionextrabreakfastOrderItemsArray   = array();
+			$nogarliconionbreakfastOrderItemsArray   = array();
+
+			//$lunchOrderItemsArray       = array();
+			$normallunchOrderItemsArray       = array();
+			$nonlunchOrderItemsArray       = array();
+			$withoutOnionnonlunchOrderItemsArray       = array();
+			$lesslunchOrderItemsArray       = array();
+			$withoutOnionlesslunchOrderItemsArray       = array();
+			$extralunchOrderItemsArray       = array();
+			$withoutOnionextralunchOrderItemsArray       = array();
+			$nogarliconionlunchOrderItemsArray       = array();
+
+			//$highteaOrderItemsArray     = array(); 
+			$normalhighteaOrderItemsArray     = array(); 
+			$nonhighteaOrderItemsArray     = array(); 
+			$withoutOnionnonhighteaOrderItemsArray     = array(); 
+			$lesshighteaOrderItemsArray     = array(); 
+			$withoutOnionlesshighteaOrderItemsArray     = array(); 
+			$extrahighteaOrderItemsArray     = array(); 
+			$withoutOnionextrahighteaOrderItemsArray     = array(); 
+			$nogarliconionhighteaOrderItemsArray     = array(); 	
+			
+			//$finalQty =0;
+			$normalfinalQty =0;
+			$nonfinalQty =0;
+			$withoutOnionnonfinalQty =0;
+			$lessfinalQty =0;
+			$withoutOnionlessfinalQty=0;
+			$extrafinalQty =0;
+			$withoutOnionextrafinalQty =0;
+			$nogarliconionfinalQty =0;
+			++$countItemRecords;
+         if(count($cuisineResult)>0) {
+            $mealItemInfo['itemId']=$itemInfo['itemid'];
+			
+			 $itemid = $itemInfo['itemid'];
+             $breakfastInfo = array();
+             $lunchInfo = array();
+             $dinnerInfo = array();
+             $highteaInfo = array();
+			 
+			 $cuisineItemsDesc = array();
+            
+			
+           foreach($cuisineResult as $row) {
+
+               $orderId               =     $row['id'];
+               $breakfast_items_desc  = 	$row['breakfast_items_desc']; $cuisineItemsDesc['breakfast'] = $breakfast_items_desc;
+               $lunch_items_desc      = 	$row['lunch_items_desc'];     $cuisineItemsDesc['lunch'] = $lunch_items_desc;
+               $hightea_items_desc    = 	$row['hightea_items_desc'];	  $cuisineItemsDesc['hightea'] = $hightea_items_desc;
+               $dinner_items_desc     = 	$row['dinner_items_desc'];    $cuisineItemsDesc['dinner'] = $dinner_items_desc;
+               
+               $customerEmail = $row['email'];
+               
+               $customer='';
+               $customer = Mage::getModel("customer/customer");
+               $customer->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
+               $customer->loadByEmail($customerEmail);
+               $customerName = 	$customer->getFirstname();
+               // if($customer->getSpicy() == 3){
+               // 	$extraspciyc; 
+               // }elseif($customer->getSpicy() == 1){ $nonspicy; }
+               
+               foreach($cuisineItemsDesc as $cuisine=>$itemDesc)
+               {
+
+				 $orderItemsArray = array();
+				 $cuisineDescItems = explode(",",$itemDesc);
+				  
+				 if(count($cuisineDescItems)>0)
+				 {	 
+				   foreach($cuisineDescItems as $singleItem)
+					{
+					  $singleItemInfo = explode("_",$singleItem);
+					
+					  if($singleItemInfo[1]==$itemid)
+					  {       
+						    //echo "<br>start<br>";
+						   //echo "<br>-------------$itemid---$orderId-------<br>"; 
+							
+						//echo "<pre>";  print_r($singleItemInfo);
+					    $productid = $singleItemInfo[1]; 
+
+					    $QgetOrderItemsDetails = "select * from  healitemdetails where orderid='$orderId' and cuisine='$cuisine' and productid='$productid'" ;
+					
+					    $orderItems = $dbRead->fetchAll($QgetOrderItemsDetails) ;
+					    if(count($orderItems) >0)
+					    {
+                          $countQtyOfCuisineItem =0; 
+						  foreach($orderItems as $orderdetailitem)
+						  {
+							  
+							  $itemId   =  trim($orderdetailitem['productid']);
+							  $product=Mage::getModel("catalog/product")->load($itemId);
+							  $qty      =  trim($orderdetailitem['qty']);
+							  $mealItemInfo['itemName'] =  trim($orderdetailitem['itemname']);
+							
+							  $productIdValue = array();
+							  // Without Onion Garlic(1) and normal spicy(1)
+							  if($customer->getNogarlicnoonion() ==1 && $customer->getSpicy()==1 ){   
+							  	if($cuisine=='dinner') {   
+									if(!array_key_exists($qty,$nogarliconiondinnerOrderItemsArray) ){
+									   
+									   $nogarliconiondinnerOrderItemsArray[$qty] = 1;
+									   $nogarliconionfinalQty+=$qty;
+									} else  {  
+										if(array_key_exists($qty,$nogarliconiondinnerOrderItemsArray) ) {  
+											$extraalreadyCountedQty  = $nogarliconiondinnerOrderItemsArray[$qty];
+
+										    $lessnewQtyCount = $extraalreadyCountedQty + 1;
+										    $nogarliconiondinnerOrderItemsArray[$qty]  = $lessnewQtyCount;
+											$nogarliconionfinalQty+=$qty;
+									    } else {
+										  $nogarliconiondinnerOrderItemsArray[$qty] = 1;
+										  $nogarliconionfinalQty+=$qty;
+										}
+
+									}
+							  	}
+							  	if($cuisine=='breakfast') {
+									if(!array_key_exists($qty,$nogarliconionbreakfastOrderItemsArray) )  {
+									   
+									   $nogarliconionbreakfastOrderItemsArray[$qty] = 1;
+									   $nogarliconionfinalQty+=$qty;
+									} else  {
+										if(array_key_exists($qty,$nogarliconionbreakfastOrderItemsArray) ) {
+										    $alreadyCountedQty       = $nogarliconionbreakfastOrderItemsArray[$qty];
+										    $lessnewQtyCount         = $alreadyCountedQty + 1;
+										    $nogarliconionbreakfastOrderItemsArray[$qty]  = $lessnewQtyCount;
+											 $nogarliconionfinalQty+=$qty;
+										} else {
+										  $nogarliconionbreakfastOrderItemsArray[$qty] = 1;
+										  $nogarliconionfinalQty+=$qty;
+										}
+									}
+							  	}
+							  	if($cuisine=='lunch') {
+									if(!array_key_exists($qty,$nogarliconionlunchOrderItemsArray) ){
+									   
+									   $nogarliconionlunchOrderItemsArray[$qty] = 1;
+									   $nogarliconionfinalQty+=$qty;
+									} else  {
+										if(array_key_exists($qty,$nogarliconionlunchOrderItemsArray) ) {
+										    $alreadyCountedQty                    = $nogarliconionlunchOrderItemsArray[$qty];
+										    $lessnewQtyCount = $alreadyCountedQty + 1;
+										    $nogarliconionlunchOrderItemsArray[$qty]  = $lessnewQtyCount;
+											$nogarliconionfinalQty+=$qty;
+										} else {
+										   $nogarliconionlunchOrderItemsArray[$qty] = 1;
+										   $nogarliconionfinalQty+=$qty;
+										}
+									}
+							  	}
+							  	if($cuisine=='hightea') {
+									if(!array_key_exists($qty,$nogarliconionhighteaOrderItemsArray) ) {
+									   $nogarliconionhighteaOrderItemsArray[$qty] = 1;
+									   $nogarliconionfinalQty+=$qty;
+									} else  {
+										if(array_key_exists($qty,$nogarliconionhighteaOrderItemsArray) ) {
+										    $alreadyCountedQty                    = $nogarliconionhighteaOrderItemsArray[$qty];
+										    $lessnewQtyCount  = $alreadyCountedQty + 1;
+										    $nogarliconionhighteaOrderItemsArray[$qty]  = $lessnewQtyCount;
+											$nogarliconionfinalQty+=$qty;
+										} else {
+										   $nogarliconionhighteaOrderItemsArray[$qty] = 1;
+										   $nogarliconionfinalQty+=$qty;
+										}
+									}
+							  	}
+							  
+							  }
+							   // With onion/garlic(0) and normal Spicy(1)
+							  else if($customer->getNogarlicnoonion() ==0 && $customer->getSpicy()==1 ){   
+							  	if($cuisine=='dinner') {  
+									if(!array_key_exists($qty,$normaldinnerOrderItemsArray) )  {
+									   $normaldinnerOrderItemsArray[$qty] = 1;
+									   $normalfinalQty+=$qty;
+									} else  {  
+										if(array_key_exists($qty,$normaldinnerOrderItemsArray) ) {  
+											$alreadyCountedQty                     = $normaldinnerOrderItemsArray[$qty];
+
+										    $newQtyCount                           = $alreadyCountedQty + 1;
+										    $normaldinnerOrderItemsArray[$qty]  = $newQtyCount;
+											$normalfinalQty+=$qty;
+									    } else {
+										  $normaldinnerOrderItemsArray[$qty] = 1;
+										  $normalfinalQty+=$qty;
+										}
+									}
+							  	}
+							  	if($cuisine=='breakfast') {
+									if(!array_key_exists($qty,$noramlbreakfastOrderItemsArray) )  {
+									   
+									   $noramlbreakfastOrderItemsArray[$qty] = 1;
+									   $normalfinalQty+=$qty;
+									} else  {
+										if(array_key_exists($qty,$noramlbreakfastOrderItemsArray) ) {
+										    $alreadyCountedQty       = $noramlbreakfastOrderItemsArray[$qty];
+										    $normalnewQtyCount         = $alreadyCountedQty + 1;
+										    $noramlbreakfastOrderItemsArray[$qty]  = $normalnewQtyCount;
+											 $normalfinalQty+=$qty;
+										} else {
+										  $noramlbreakfastOrderItemsArray[$qty] = 1;
+										  $normalfinalQty+=$qty;
+										}
+									}
+							  	}
+							  	if($cuisine=='lunch') {
+									if(!array_key_exists($qty,$normallunchOrderItemsArray) ){
+									   
+									   $normallunchOrderItemsArray[$qty] = 1;
+									   $normalfinalQty+=$qty;
+									} else  {
+										if(array_key_exists($qty,$normallunchOrderItemsArray) ) {
+										    $alreadyCountedQty                    = $normallunchOrderItemsArray[$qty];
+										    $noramlnewQtyCount                          = $alreadyCountedQty + 1;
+										    $normallunchOrderItemsArray[$qty]  = $noramlnewQtyCount;
+											$normalfinalQty+=$qty;
+										} else {
+										   $normallunchOrderItemsArray[$qty] = 1;
+										   $normalfinalQty+=$qty;
+										}
+									}
+							  	}
+							  	if($cuisine=='hightea') {
+									if(!array_key_exists($qty,$normalhighteaOrderItemsArray) ) {
+									   
+									   $normalhighteaOrderItemsArray[$qty] = 1;
+									   $normalfinalQty+=$qty;
+									} else  {
+										if(array_key_exists($qty,$normalhighteaOrderItemsArray) ) {
+										    $alreadyCountedQty                    = $normalhighteaOrderItemsArray[$qty];
+										    $noramlnewQtyCount  = $alreadyCountedQty + 1;
+										    $normalhighteaOrderItemsArray[$qty]  = $noramlnewQtyCount;
+											$normalfinalQty+=$qty;
+										} else {
+										   $normalhighteaOrderItemsArray[$qty] = 1;
+										   $normalfinalQty+=$qty;
+										}
+									}
+							  	}
+							  }	// normal item close
+							 
+
+							  // With Onion Garlic and less spicy
+							  elseif ( $customer->getNogarlicnoonion() ==0 && $customer->getSpicy() == 4 ){
+							  	if($cuisine=='dinner') {   
+									if(!array_key_exists($qty,$lessspicydinnerOrderItemsArray) ){
+									   
+									   $lessspicydinnerOrderItemsArray[$qty] = 1;
+									   $lessfinalQty+=$qty;
+									} else  {  
+										if(array_key_exists($qty,$lessspicydinnerOrderItemsArray) ) {  
+											$extraalreadyCountedQty  = $lessspicydinnerOrderItemsArray[$qty];
+
+										    $lessnewQtyCount = $extraalreadyCountedQty + 1;
+										    $lessspicydinnerOrderItemsArray[$qty]  = $lessnewQtyCount;
+											$lessfinalQty+=$qty;
+									    } else {
+										  $lessspicydinnerOrderItemsArray[$qty] = 1;
+										  $lessfinalQty+=$qty;
+										}
+
+									}
+							  	}
+							  	if($cuisine=='breakfast') {
+									if(!array_key_exists($qty,$lessbreakfastOrderItemsArray) )  {
+									   
+									   $lessbreakfastOrderItemsArray[$qty] = 1;
+									   $lessfinalQty+=$qty;
+									} else  {
+										if(array_key_exists($qty,$lessbreakfastOrderItemsArray) ) {
+										    $alreadyCountedQty       = $lessbreakfastOrderItemsArray[$qty];
+										    $lessnewQtyCount         = $alreadyCountedQty + 1;
+										    $lessbreakfastOrderItemsArray[$qty]  = $lessnewQtyCount;
+											 $lessfinalQty+=$qty;
+										} else {
+										  $lessbreakfastOrderItemsArray[$qty] = 1;
+										  $lessfinalQty+=$qty;
+										}
+									}
+							  	}
+							  	if($cuisine=='lunch') {
+									if(!array_key_exists($qty,$lesslunchOrderItemsArray) ){
+									   
+									   $lesslunchOrderItemsArray[$qty] = 1;
+									   $lessfinalQty+=$qty;
+									} else  {
+										if(array_key_exists($qty,$lesslunchOrderItemsArray) ) {
+										    $alreadyCountedQty                    = $lesslunchOrderItemsArray[$qty];
+										    $lessnewQtyCount = $alreadyCountedQty + 1;
+										    $lesslunchOrderItemsArray[$qty]  = $lessnewQtyCount;
+											$lessfinalQty+=$qty;
+										} else {
+										   $lesslunchOrderItemsArray[$qty] = 1;
+										   $lessfinalQty+=$qty;
+										}
+									}
+							  	}
+							  	if($cuisine=='hightea') {
+									if(!array_key_exists($qty,$lesshighteaOrderItemsArray) ) {
+									   $lesshighteaOrderItemsArray[$qty] = 1;
+									   $lessfinalQty+=$qty;
+									} else  {
+										if(array_key_exists($qty,$lesshighteaOrderItemsArray) ) {
+										    $alreadyCountedQty                    = $lesshighteaOrderItemsArray[$qty];
+										    $lessnewQtyCount  = $alreadyCountedQty + 1;
+										    $lesshighteaOrderItemsArray[$qty]  = $lessnewQtyCount;
+											$lessfinalQty+=$qty;
+										} else {
+										   $lesshighteaOrderItemsArray[$qty] = 1;
+										   $lessfinalQty+=$qty;
+										}
+									}
+							  	}
+							  }
+							  
+							  // Without Onion Garlic and less spicy
+							  elseif ( $customer->getNogarlicnoonion() ==1 && $customer->getSpicy() == 4 ){
+							  	if($cuisine=='dinner') {   
+									if(!array_key_exists($qty,$withoutOnionlessspicydinnerOrderItemsArray) ){
+									   
+									   $withoutOnionlessspicydinnerOrderItemsArray[$qty] = 1;
+									   $withoutOnionlessfinalQty+=$qty;
+									} else  {  
+										if(array_key_exists($qty,$withoutOnionlessspicydinnerOrderItemsArray) ) {  
+											$withoutOnionextraalreadyCountedQty  = $withoutOnionlessspicydinnerOrderItemsArray[$qty];
+
+										    $withoutOnionlessnewQtyCount = $withoutOnionextraalreadyCountedQty + 1;
+										    $withoutOnionlessspicydinnerOrderItemsArray[$qty]  = $withoutOnionlessnewQtyCount;
+											$withoutOnionlessfinalQty+=$qty;
+									    } else {
+										  $withoutOnionlessspicydinnerOrderItemsArray[$qty] = 1;
+										  $withoutOnionlessfinalQty+=$qty;
+										}
+
+									}
+							  	}
+							  	if($cuisine=='breakfast') {
+									if(!array_key_exists($qty,$withoutOnionlessbreakfastOrderItemsArray) )  {
+									   
+									   $withoutOnionlessbreakfastOrderItemsArray[$qty] = 1;
+									   $withoutOnionlessfinalQty+=$qty;
+									} else  {
+										if(array_key_exists($qty,$withoutOnionlessbreakfastOrderItemsArray) ) {
+										    $withoutOnionalreadyCountedQty       = $withoutOnionlessbreakfastOrderItemsArray[$qty];
+										    $withoutOnionlessnewQtyCount         = $withoutOnionalreadyCountedQty + 1;
+										    $withoutOnionlessbreakfastOrderItemsArray[$qty]  = $withoutOnionlessnewQtyCount;
+											 $withoutOnionlessfinalQty+=$qty;
+										} else {
+										  $withoutOnionlessbreakfastOrderItemsArray[$qty] = 1;
+										  $withoutOnionlessfinalQty+=$qty;
+										}
+									}
+							  	}
+							  	if($cuisine=='lunch') {
+									if(!array_key_exists($qty,$withoutOnionlesslunchOrderItemsArray) ){
+									   
+									   $withoutOnionlesslunchOrderItemsArray[$qty] = 1;
+									   $withoutOnionlessfinalQty+=$qty;
+									} else  {
+										if(array_key_exists($qty,$withoutOnionlesslunchOrderItemsArray) ) {
+										    $withoutOnionalreadyCountedQty                    = $withoutOnionlesslunchOrderItemsArray[$qty];
+										    $withoutOnionlessnewQtyCount = $withoutOnionalreadyCountedQty + 1;
+										    $withoutOnionlesslunchOrderItemsArray[$qty]  = $withoutOnionlessnewQtyCount;
+											$withoutOnionlessfinalQty+=$qty;
+										} else {
+										   $withoutOnionlesslunchOrderItemsArray[$qty] = 1;
+										   $withoutOnionlessfinalQty+=$qty;
+										}
+									}
+							  	}
+							  	if($cuisine=='hightea') {
+									if(!array_key_exists($qty,$withoutOnionlesshighteaOrderItemsArray) ) {
+									   $withoutOnionlesshighteaOrderItemsArray[$qty] = 1;
+									   $withoutOnionlessfinalQty+=$qty;
+									} else  {
+										if(array_key_exists($qty,$withoutOnionlesshighteaOrderItemsArray) ) {
+										    $withoutOnionalreadyCountedQty                    = $withoutOnionlesshighteaOrderItemsArray[$qty];
+										    $withoutOnionlessnewQtyCount  = $withoutOnionalreadyCountedQty + 1;
+										    $withoutOnionlesshighteaOrderItemsArray[$qty]  = $withoutOnionlessnewQtyCount;
+											$withoutOnionlessfinalQty+=$qty;
+										} else {
+										   $withoutOnionlesshighteaOrderItemsArray[$qty] = 1;
+										   $withoutOnionlessfinalQty+=$qty;
+										}
+									}
+							  	}
+							  }
+							  // With Onion Garlic and Extra spicy
+							  elseif ($customer->getNogarlicnoonion() ==0 && $customer->getSpicy() == 3 ) {
+							  	if($cuisine=='dinner') {   
+									if(!array_key_exists($qty,$extradinnerOrderItemsArray) ){
+									   
+									   $extradinnerOrderItemsArray[$qty] = 1;
+									   $extrafinalQty+=$qty;
+									} else  {  
+										if(array_key_exists($qty,$extradinnerOrderItemsArray) ) {  
+											$extraalreadyCountedQty  = $extradinnerOrderItemsArray[$qty];
+
+										    $extranewQtyCount = $extraalreadyCountedQty + 1;
+										    $extradinnerOrderItemsArray[$qty]  = $extranewQtyCount;
+											$extrafinalQty+=$qty;
+									    } else {
+										  $extradinnerOrderItemsArray[$qty] = 1;
+										  $extrafinalQty+=$qty;
+										}
+
+									}
+							  	}
+							  	if($cuisine=='breakfast') {
+									if(!array_key_exists($qty,$extrabreakfastOrderItemsArray) )  {
+									   
+									   $extrabreakfastOrderItemsArray[$qty] = 1;
+									   $extrafinalQty+=$qty;
+									} else  {
+										if(array_key_exists($qty,$extrabreakfastOrderItemsArray) ) {
+										    $alreadyCountedQty       = $extrabreakfastOrderItemsArray[$qty];
+										    $extranewQtyCount         = $alreadyCountedQty + 1;
+										    $extrabreakfastOrderItemsArray[$qty]  = $extranewQtyCount;
+											 $extrafinalQty+=$qty;
+										} else {
+										  $extrabreakfastOrderItemsArray[$qty] = 1;
+										  $extrafinalQty+=$qty;
+										}
+									}
+							  	}
+							  	if($cuisine=='lunch') {
+									if(!array_key_exists($qty,$extralunchOrderItemsArray) ){
+									   
+									   $extralunchOrderItemsArray[$qty] = 1;
+									   $extrafinalQty+=$qty;
+									} else  {
+										if(array_key_exists($qty,$extralunchOrderItemsArray) ) {
+										    $alreadyCountedQty                    = $extralunchOrderItemsArray[$qty];
+										    $extranewQtyCount = $alreadyCountedQty + 1;
+										    $extralunchOrderItemsArray[$qty]  = $extranewQtyCount;
+											$extrafinalQty+=$qty;
+										} else {
+										   $extralunchOrderItemsArray[$qty] = 1;
+										   $extrafinalQty+=$qty;
+										}
+									}
+							  	}
+							  	if($cuisine=='hightea') {
+									if(!array_key_exists($qty,$extrahighteaOrderItemsArray) ) {
+									   $extrahighteaOrderItemsArray[$qty] = 1;
+									   $extrafinalQty+=$qty;
+									} else  {
+										if(array_key_exists($qty,$extrahighteaOrderItemsArray) ) {
+										    $alreadyCountedQty                    = $extrahighteaOrderItemsArray[$qty];
+										    $extranewQtyCount  = $alreadyCountedQty + 1;
+										    $extrahighteaOrderItemsArray[$qty]  = $extranewQtyCount;
+											$extrafinalQty+=$qty;
+										} else {
+										   $extrahighteaOrderItemsArray[$qty] = 1;
+										   $extrafinalQty+=$qty;
+										}
+									}
+							  	}
+							  }
+							  // Without Onion Garlic and Extra spicy
+							  elseif ($customer->getNogarlicnoonion() ==1 && $customer->getSpicy() == 3 ) {
+							  	if($cuisine=='dinner') {   
+									if(!array_key_exists($qty,$withoutOnionextradinnerOrderItemsArray) ){
+									   
+									   $withoutOnionextradinnerOrderItemsArray[$qty] = 1;
+									   $withoutOnionextrafinalQty+=$qty;
+									} else  {  
+										if(array_key_exists($qty,$withoutOnionextradinnerOrderItemsArray) ) {  
+											$withoutOnionextraalreadyCountedQty  = $withoutOnionextradinnerOrderItemsArray[$qty];
+
+										    $withoutOnionextranewQtyCount = $withoutOnionextraalreadyCountedQty + 1;
+										    $withoutOnionextradinnerOrderItemsArray[$qty]  = $withoutOnionextranewQtyCount;
+											$withoutOnionextrafinalQty+=$qty;
+									    } else {
+										  $withoutOnionextradinnerOrderItemsArray[$qty] = 1;
+										  $withoutOnionextrafinalQty+=$qty;
+										}
+
+									}
+							  	}
+							  	if($cuisine=='breakfast') {
+									if(!array_key_exists($qty,$withoutOnionextrabreakfastOrderItemsArray) )  {
+									   
+									   $withoutOnionextrabreakfastOrderItemsArray[$qty] = 1;
+									   $withoutOnionextrafinalQty+=$qty;
+									} else  {
+										if(array_key_exists($qty,$withoutOnionextrabreakfastOrderItemsArray) ) {
+										    $withoutOnionalreadyCountedQty       = $withoutOnionextrabreakfastOrderItemsArray[$qty];
+										    $withoutOnionextranewQtyCount         = $withoutOnionalreadyCountedQty + 1;
+										    $withoutOnionextrabreakfastOrderItemsArray[$qty]  = $withoutOnionextranewQtyCount;
+											 $withoutOnionextrafinalQty+=$qty;
+										} else {
+										  $withoutOnionextrabreakfastOrderItemsArray[$qty] = 1;
+										  $withoutOnionextrafinalQty+=$qty;
+										}
+									}
+							  	}
+							  	if($cuisine=='lunch') {
+									if(!array_key_exists($qty,$withoutOnionextralunchOrderItemsArray) ){
+									   
+									   $withoutOnionextralunchOrderItemsArray[$qty] = 1;
+									   $withoutOnionextrafinalQty+=$qty;
+									} else  {
+										if(array_key_exists($qty,$withoutOnionextralunchOrderItemsArray) ) {
+										    $withoutOnionalreadyCountedQty                    = $withoutOnionextralunchOrderItemsArray[$qty];
+										    $withoutOnionextranewQtyCount = $withoutOnionalreadyCountedQty + 1;
+										    $withoutOnionextralunchOrderItemsArray[$qty]  = $withoutOnionextranewQtyCount;
+											$withoutOnionextrafinalQty+=$qty;
+										} else {
+										   $withoutOnionextralunchOrderItemsArray[$qty] = 1;
+										   $withoutOnionextrafinalQty+=$qty;
+										}
+									}
+							  	}
+							  	if($cuisine=='hightea') {
+									if(!array_key_exists($qty,$withoutOnionextrahighteaOrderItemsArray) ) {
+									   $withoutOnionextrahighteaOrderItemsArray[$qty] = 1;
+									   $withoutOnionextrafinalQty+=$qty;
+									} else  {
+										if(array_key_exists($qty,$withoutOnionextrahighteaOrderItemsArray) ) {
+										    $withoutOnionalreadyCountedQty                    = $withoutOnionextrahighteaOrderItemsArray[$qty];
+										    $withoutOnionextranewQtyCount  = $withoutOnionalreadyCountedQty + 1;
+										    $withoutOnionextrahighteaOrderItemsArray[$qty]  = $withoutOnionextranewQtyCount;
+											$withoutOnionextrafinalQty+=$qty;
+										} else {
+										   $withoutOnionextrahighteaOrderItemsArray[$qty] = 1;
+										   $withoutOnionextrafinalQty+=$qty;
+										}
+									}
+							  	}
+							  }
+							  // With Onion Garlic and Non spicy
+							  elseif ($customer->getNogarlicnoonion() ==0 && $customer->getSpicy() == 2 ) {
+							  	if($cuisine=='dinner') {   
+									if(!array_key_exists($qty,$nonspicydinnerOrderItemsArray) ){
+									   
+									   $nonspicydinnerOrderItemsArray[$qty] = 1;
+									   $nonfinalQty+=$qty;
+									} else  {  
+										if(array_key_exists($qty,$nonspicydinnerOrderItemsArray) ) {  
+											$extraalreadyCountedQty  = $nonspicydinnerOrderItemsArray[$qty];
+
+										    $nonnewQtyCount = $extraalreadyCountedQty + 1;
+										    $nonspicydinnerOrderItemsArray[$qty]  = $nonnewQtyCount;
+											$nonfinalQty+=$qty;
+									    } else {
+										  $nonspicydinnerOrderItemsArray[$qty] = 1;
+										  $nonfinalQty+=$qty;
+										}
+
+									}
+							  	}
+							  	if($cuisine=='breakfast') {
+									if(!array_key_exists($qty,$nonbreakfastOrderItemsArray) )  {
+									   
+									   $nonbreakfastOrderItemsArray[$qty] = 1;
+									   $nonfinalQty+=$qty;
+									} else  {
+										if(array_key_exists($qty,$nonbreakfastOrderItemsArray) ) {
+										    $alreadyCountedQty       = $nonbreakfastOrderItemsArray[$qty];
+										    $nonnewQtyCount         = $alreadyCountedQty + 1;
+										    $nonbreakfastOrderItemsArray[$qty]  = $nonnewQtyCount;
+											 $nonfinalQty+=$qty;
+										} else {
+										  $nonbreakfastOrderItemsArray[$qty] = 1;
+										  $nonfinalQty+=$qty;
+										}
+									}
+							  	}
+							  	if($cuisine=='lunch') {
+									if(!array_key_exists($qty,$nonlunchOrderItemsArray) ){
+									   
+									   $nonlunchOrderItemsArray[$qty] = 1;
+									   $nonfinalQty+=$qty;
+									} else  {
+										if(array_key_exists($qty,$nonlunchOrderItemsArray) ) {
+										    $alreadyCountedQty                    = $nonlunchOrderItemsArray[$qty];
+										    $nonnewQtyCount                          = $alreadyCountedQty + 1;
+										    $nonlunchOrderItemsArray[$qty]  = $nonnewQtyCount;
+											$nonfinalQty+=$qty;
+										} else {
+										   $nonlunchOrderItemsArray[$qty] = 1;
+										   $nonfinalQty+=$qty;
+										}
+									}
+							  	}
+							  	if($cuisine=='hightea') {
+									if(!array_key_exists($qty,$nonhighteaOrderItemsArray) ) {
+									   
+									   $nonhighteaOrderItemsArray[$qty] = 1;
+									   $nonfinalQty+=$qty;
+									} else  {
+										if(array_key_exists($qty,$nonhighteaOrderItemsArray) ) {
+										    $alreadyCountedQty                    = $nonhighteaOrderItemsArray[$qty];
+										    $nonnewQtyCount  = $alreadyCountedQty + 1;
+										    $nonhighteaOrderItemsArray[$qty]  = $nonnewQtyCount;
+											$nonfinalQty+=$qty;
+										} else {
+										   $nonhighteaOrderItemsArray[$qty] = 1;
+										   $nonfinalQty+=$qty;
+										}
+									}
+							  	}
+							  }
+							  // Without Onion Garlic and Non spicy
+							  elseif ($customer->getNogarlicnoonion() ==1 && $customer->getSpicy() == 2 ) {
+								  
+								  if($cuisine=='dinner') {   
+									if(!array_key_exists($qty,$withoutOnionnonspicydinnerOrderItemsArray) ){
+									   
+									   $withoutOnionnonspicydinnerOrderItemsArray[$qty] = 1;
+									   $withoutOnionnonfinalQty+=$qty;
+									} else  {  
+										if(array_key_exists($qty,$withoutOnionnonspicydinnerOrderItemsArray) ) {  
+											$withoutOnionextraalreadyCountedQty  = $withoutOnionnonspicydinnerOrderItemsArray[$qty];
+
+										    $withoutOnionnonnewQtyCount = $withoutOnionextraalreadyCountedQty + 1;
+										    $withoutOnionnonspicydinnerOrderItemsArray[$qty]  = $withoutOnionnonnewQtyCount;
+											$withoutOnionnonfinalQty+=$qty;
+									    } else {
+										  $withoutOnionnonspicydinnerOrderItemsArray[$qty] = 1;
+										  $withoutOnionnonfinalQty+=$qty;
+										}
+
+									}
+							  	}
+							  	if($cuisine=='breakfast') {
+									if(!array_key_exists($qty,$withoutOnionnonbreakfastOrderItemsArray) )  {
+									   
+									   $withoutOnionnonbreakfastOrderItemsArray[$qty] = 1;
+									   $withoutOnionnonfinalQty+=$qty;
+									} else  {
+										if(array_key_exists($qty,$withoutOnionnonbreakfastOrderItemsArray) ) {
+										    $withoutOnionalreadyCountedQty       = $withoutOnionnonbreakfastOrderItemsArray[$qty];
+										    $withoutOnionnonnewQtyCount         = $withoutOnionalreadyCountedQty + 1;
+										    $withoutOnionnonbreakfastOrderItemsArray[$qty]  = $withoutOnionnonnewQtyCount;
+											 $withoutOnionnonfinalQty+=$qty;
+										} else {
+										  $withoutOnionnonbreakfastOrderItemsArray[$qty] = 1;
+										  $withoutOnionnonfinalQty+=$qty;
+										}
+									}
+							  	}
+							  	if($cuisine=='lunch') {
+									if(!array_key_exists($qty,$withoutOnionnonlunchOrderItemsArray) ){
+									   
+									   $withoutOnionnonlunchOrderItemsArray[$qty] = 1;
+									   $withoutOnionnonfinalQty+=$qty;
+									} else  {
+										if(array_key_exists($qty,$withoutOnionnonlunchOrderItemsArray) ) {
+										    $withoutOnionalreadyCountedQty                    = $withoutOnionnonlunchOrderItemsArray[$qty];
+										    $withoutOnionnonnewQtyCount                          = $withoutOnionalreadyCountedQty + 1;
+										    $withoutOnionnonlunchOrderItemsArray[$qty]  = $withoutOnionnonnewQtyCount;
+											$withoutOnionnonfinalQty+=$qty;
+										} else {
+										   $withoutOnionnonlunchOrderItemsArray[$qty] = 1;
+										   $withoutOnionnonfinalQty+=$qty;
+										}
+									}
+							  	}
+							  	if($cuisine=='hightea') {
+									if(!array_key_exists($qty,$withoutOnionnonhighteaOrderItemsArray) ) {
+									   
+									   $withoutOnionnonhighteaOrderItemsArray[$qty] = 1;
+									   $withoutOnionnonfinalQty+=$qty;
+									} else  {
+										if(array_key_exists($qty,$withoutOnionnonhighteaOrderItemsArray) ) {
+										    $withoutOnionalreadyCountedQty                    = $withoutOnionnonhighteaOrderItemsArray[$qty];
+										    $withoutOnionnonnewQtyCount  = $withoutOnionalreadyCountedQty + 1;
+										    $withoutOnionnonhighteaOrderItemsArray[$qty]  = $withoutOnionnonnewQtyCount;
+											$withoutOnionnonfinalQty+=$qty;
+										} else {
+										   $withoutOnionnonhighteaOrderItemsArray[$qty] = 1;
+										   $withoutOnionnonfinalQty+=$qty;
+										}
+									}
+							  	}
+							  }
+	
+
+						  }
+						  
+
+					    }
+					 
+					}
+				}
+			}
+				
+			 
+               }
+               
+           }
+         }  
+		 //$product=Mage::getModel("catalog/product")->load($mealItemInfo['itemid']);
+	
+		 $mealItemInfo['extrafinalQty'] = $extrafinalQty;
+		 $mealItemInfo['withoutOnionextrafinalQty'] = $withoutOnionextrafinalQty;
+		 $mealItemInfo['nonfinalQty'] = $nonfinalQty;
+		 $mealItemInfo['withoutOnionnonfinalQty'] = $withoutOnionnonfinalQty;
+		 $mealItemInfo['lessfinalQty'] = $lessfinalQty;
+		 $mealItemInfo['withoutOnionlessfinalQty'] = $withoutOnionlessfinalQty;
+		 $mealItemInfo['nogarliconionfinalQty'] = $nogarliconionfinalQty;
+		 $mealItemInfo['normalfinalQty'] = $normalfinalQty;
+		 // echo "<pre>"; print_r($mealItemInfo['normalfinalQty']); echo "</br>";
+		 // print_r($mealItemInfo['extrafinalQty']); 
+		 // die();
+		
+			 $mealItemInfo['normaldinnerArray'] = $normaldinnerOrderItemsArray;
+			 $mealItemInfo['extradinnerArray'] = $extradinnerOrderItemsArray;
+			 $mealItemInfo['withoutOnionextradinnerArray'] = $withoutOnionextradinnerOrderItemsArray;
+			 $mealItemInfo['nondinnerArray'] = $nonspicydinnerOrderItemsArray;
+			 $mealItemInfo['withoutOnionnondinnerArray'] = $withoutOnionnonspicydinnerOrderItemsArray;
+			 $mealItemInfo['lessdinnerArray'] = $lessspicydinnerOrderItemsArray;
+			 $mealItemInfo['withoutOnionlessdinnerArray'] = $withoutOnionlessspicydinnerOrderItemsArray;
+			 $mealItemInfo['nogarliconiondinnerArray'] = $nogarliconiondinnerOrderItemsArray;
+
+			 ksort($mealItemInfo['normaldinnerArray']);
+			 ksort($mealItemInfo['extradinnerArray']);
+			 ksort($mealItemInfo['withoutOnionextradinnerArray']);
+			 ksort($mealItemInfo['nondinnerArray']);
+			 ksort($mealItemInfo['withoutOnionnondinnerArray']);
+			 ksort($mealItemInfo['lessdinnerArray']);
+			 ksort($mealItemInfo['withoutOnionlessdinnerArray']);
+			 ksort($mealItemInfo['nogarliconiondinnerArray']);
+			 
+			 $mealItemInfo['normalbreakfastArray'] = $noramlbreakfastOrderItemsArray;
+			 $mealItemInfo['extrabreakfastArray'] = $extrabreakfastOrderItemsArray;
+			  $mealItemInfo['withoutOnionextrabreakfastArray'] = $withoutOnionextrabreakfastOrderItemsArray;
+			 $mealItemInfo['nonbreakfastArray'] = $nonbreakfastOrderItemsArray;
+			 $mealItemInfo['withoutOnionnonbreakfastArray'] = $withoutOnionnonbreakfastOrderItemsArray;
+			 $mealItemInfo['lessbreakfastArray'] = $lessbreakfastOrderItemsArray;
+			  $mealItemInfo['withoutOnionlessbreakfastArray'] = $withoutOnionlessbreakfastOrderItemsArray;
+			 $mealItemInfo['nogarliconionbreakfastArray'] = $nogarliconionbreakfastOrderItemsArray;
+			 
+			 ksort($mealItemInfo['normalbreakfastArray']);
+			 ksort($mealItemInfo['extrabreakfastArray']);
+			  ksort($mealItemInfo['withoutOnionextrabreakfastArray']);
+			 ksort($mealItemInfo['nonbreakfastArray']);
+			  ksort($mealItemInfo['withoutOnionnonbreakfastArray']);
+			 ksort($mealItemInfo['lessbreakfastArray']);
+			  ksort($mealItemInfo['withoutOnionlessbreakfastArray']);
+			 ksort($mealItemInfo['nogarliconionbreakfastArray']);
+			 //ksort($mealItemInfo['breakfastArray']);
+
+			  //$mealItemInfo['lunchArray'] = $lunchOrderItemsArray;
+			 $mealItemInfo['normallunchArray'] = $normallunchOrderItemsArray;
+			 $mealItemInfo['extralunchArray'] = $extralunchOrderItemsArray;
+			  $mealItemInfo['withoutOnionextralunchArray'] = $withoutOnionextralunchOrderItemsArray;
+			 $mealItemInfo['nonlunchArray'] = $nonlunchOrderItemsArray;
+			  $mealItemInfo['withoutOnionnonlunchArray'] = $withoutOnionnonlunchOrderItemsArray;
+			 $mealItemInfo['lesslunchArray'] = $lesslunchOrderItemsArray;
+			 $mealItemInfo['withoutOnionlesslunchArray'] = $withoutOnionlesslunchOrderItemsArray;
+			 $mealItemInfo['nogarliconionlunchArray'] = $nogarliconionlunchOrderItemsArray;
+			 //ksort($mealItemInfo['lunchArray']);
+			 ksort($mealItemInfo['normallunchArray']);
+			 ksort($mealItemInfo['extralunchArray']);
+			  ksort($mealItemInfo['withoutOnionextralunchArray']);
+			 ksort($mealItemInfo['nonlunchArray']);
+			  ksort($mealItemInfo['withoutOnionnonlunchArray']);
+			 ksort($mealItemInfo['lesslunchArray']);
+			 ksort($mealItemInfo['withoutOnionlesslunchArray']);
+			 ksort($mealItemInfo['nogarliconionlunchArray']);
+
+			 //$mealItemInfo['highteaArray'] = $highteaOrderItemsArray;
+			 $mealItemInfo['normalhighteaArray'] = $normalhighteaOrderItemsArray;
+			 $mealItemInfo['extrahighteaArray'] = $extrahighteaOrderItemsArray;
+			 $mealItemInfo['withoutOnionextrahighteaArray'] = $withoutOnionextrahighteaOrderItemsArray;
+			 $mealItemInfo['nonhighteaArray'] = $nonhighteaOrderItemsArray;
+			 $mealItemInfo['withoutOnionnonhighteaArray'] = $withoutOnionnonhighteaOrderItemsArray;
+			 $mealItemInfo['lesshighteaArray'] = $lesshighteaOrderItemsArray;
+			 $mealItemInfo['withoutOnionlesshighteaArray'] = $withoutOnionlesshighteaOrderItemsArray;
+			 $mealItemInfo['nogarliconionhighteaArray'] = $nogarliconionhighteaOrderItemsArray;
+			 //ksort($mealItemInfo['highteaArray']);
+			 ksort($mealItemInfo['normalhighteaArray']);
+			 ksort($mealItemInfo['extrahighteaArray']);
+			 ksort($mealItemInfo['withoutOnionextrahighteaArray']);
+			 ksort($mealItemInfo['nonhighteaArray']);
+			 ksort($mealItemInfo['withoutOnionnonhighteaArray']);
+			 ksort($mealItemInfo['lesshighteaArray']);
+			 ksort($mealItemInfo['withoutOnionlesshighteaArray']);
+			 ksort($mealItemInfo['nogarliconionhighteaArray']);
+			 //print_r($mealItemInfo['dinnerArray']); die();
+
+
+			 ?>
+	<?php 
+	//without garlic and normal spicy
+	if($mealItemInfo['nogarliconionfinalQty'] > 0) { ?>
+		<tr>
+      <td><?php echo $countItemRecords;?></td>
+      <td style="width:20%;"><?php echo $mealItemInfo['itemName'];?> <br> <strong>No Onion/Garlic</strong><br><strong>Normal Spicy </strong></td>
+      <td><?php echo $mealItemInfo['nogarliconionfinalQty'];?> gm</td>
+      
+       <td style="valign:top"><?php if(count($mealItemInfo['nogarliconionbreakfastArray'])>0){
+		            foreach($mealItemInfo['nogarliconionbreakfastArray'] as  $gram=>$value) {
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+	          } 
+		  ?>
+		</td>
+       <td style="valign:top"><?php if(count($mealItemInfo['nogarliconionlunchArray'])>0){
+		            foreach($mealItemInfo['nogarliconionlunchArray'] as  $gram=>$value) {
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+       <td style="valign:top"><?php if(count($mealItemInfo['nogarliconionhighteaArray'])>0){
+		            foreach($mealItemInfo['nogarliconionhighteaArray'] as  $gram=>$value) {
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+		
+		<td style="valign:top" ><?php if(count($mealItemInfo['nogarliconiondinnerArray'])>0){
+		            foreach($mealItemInfo['nogarliconiondinnerArray'] as $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+		<td> </td>
+        <td> </td> 
+        <td> </td> 
+
+    </tr>			 
+	<?php } 
+	// with garlic and normal spice
+	if($mealItemInfo['normalfinalQty'] > 0) { ?>	 
+	<tr>
+      <td><?php echo $countItemRecords;?></td>
+      <td style="width:20%;"><?php echo $mealItemInfo['itemName'];?><br>With Onion/Garlic<br>Normal Spicy</td>
+      <td><?php echo $mealItemInfo['normalfinalQty'];?> gm</td>
+      
+       <td style="valign:top"><?php if(count($mealItemInfo['normalbreakfastArray'])>0){
+		            foreach($mealItemInfo['normalbreakfastArray'] as  $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+       <td style="valign:top"><?php if(count($mealItemInfo['normallunchArray'])>0){
+		            foreach($mealItemInfo['normallunchArray'] as  $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+       <td style="valign:top"><?php if(count($mealItemInfo['normalhighteaArray'])>0){
+		            foreach($mealItemInfo['normalhighteaArray'] as  $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+		
+		<td style="valign:top" ><?php if(count($mealItemInfo['normaldinnerArray'])>0){
+		            foreach($mealItemInfo['normaldinnerArray'] as $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+		<td> </td>
+        <td> </td> 
+        <td> </td> 
+
+    </tr>
+		<?php  }  
+	
+	
+	
+	if($mealItemInfo['lessfinalQty'] > 0) { ?>
+		<tr>
+      <td><?php echo $countItemRecords;?></td>
+      <td style="width:20%;"><?php echo $mealItemInfo['itemName'];?> <br><strong>With Onion/Garlic</strong> <br><strong> Less Spicy </strong></td>
+      <td><?php echo $mealItemInfo['lessfinalQty'];?> gm</td>
+      
+       <td style="valign:top"><?php if(count($mealItemInfo['lessbreakfastArray'])>0){
+		            foreach($mealItemInfo['lessbreakfastArray'] as  $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+       <td style="valign:top"><?php if(count($mealItemInfo['lesslunchArray'])>0){
+		            foreach($mealItemInfo['lesslunchArray'] as  $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+       <td style="valign:top"><?php if(count($mealItemInfo['lesshighteaArray'])>0){
+		            foreach($mealItemInfo['lesshighteaArray'] as  $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+		<td style="valign:top" ><?php if(count($mealItemInfo['lessdinnerArray'])>0){
+		            foreach($mealItemInfo['lessdinnerArray'] as $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+		<td> </td>
+        <td> </td> 
+        <td> </td> 
+
+    </tr>			 
+	<?php }
+	
+	
+		if($mealItemInfo['withoutOnionlessfinalQty'] > 0) { ?>
+		<tr>
+      <td><?php echo $countItemRecords;?></td>
+      <td style="width:20%;"><?php echo $mealItemInfo['itemName'];?>  <br><strong>No Onion/Garlic</strong><br><strong>Less Spicy </strong></td>
+      <td><?php echo $mealItemInfo['withoutOnionlessfinalQty'];?> gm</td>
+      
+       <td style="valign:top"><?php if(count($mealItemInfo['withoutOnionlessbreakfastArray'])>0){
+		            foreach($mealItemInfo['withoutOnionlessbreakfastArray'] as  $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+       <td style="valign:top"><?php if(count($mealItemInfo['withoutOnionlesslunchArray'])>0){
+		            foreach($mealItemInfo['withoutOnionlesslunchArray'] as  $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+       <td style="valign:top"><?php if(count($mealItemInfo['withoutOnionlesshighteaArray'])>0){
+		            foreach($mealItemInfo['withoutOnionlesshighteaArray'] as  $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+		<td style="valign:top" ><?php if(count($mealItemInfo['withoutOnionlessdinnerArray'])>0){
+		            foreach($mealItemInfo['lessdinnerArray'] as $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+		<td> </td>
+        <td> </td> 
+        <td> </td> 
+
+    </tr>			 
+	<?php }
+
+
+
+	if($mealItemInfo['nonfinalQty'] > 0) { ?>
+		<tr>
+      <td><?php echo $countItemRecords;?></td>
+      <td style="width:20%;"><?php echo $mealItemInfo['itemName'];?> <br><strong>With Onion/Garlic</strong><br><strong>Non Spicy</strong></td>
+      <td><?php echo $mealItemInfo['nonfinalQty'];?> gm</td>
+      
+       <td style="valign:top"><?php if(count($mealItemInfo['nonbreakfastArray'])>0){
+		            foreach($mealItemInfo['nonbreakfastArray'] as  $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+       <td style="valign:top"><?php if(count($mealItemInfo['nonlunchArray'])>0){
+		            foreach($mealItemInfo['nonlunchArray'] as  $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+       <td style="valign:top"><?php if(count($mealItemInfo['nonhighteaArray'])>0){
+		            foreach($mealItemInfo['nonhighteaArray'] as  $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+		<td style="valign:top" ><?php if(count($mealItemInfo['nondinnerArray'])>0){
+		            foreach($mealItemInfo['nondinnerArray'] as $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+		<td> </td>
+        <td> </td> 
+        <td> </td> 
+
+    </tr>		 
+	<?php }
+
+
+if($mealItemInfo['withoutOnionnonfinalQty'] > 0) { ?>
+		<tr>
+      <td><?php echo $countItemRecords;?></td>
+      <td style="width:20%;"><?php echo $mealItemInfo['itemName'];?> <br><strong>No Onion/Garlic</strong><br><strong>Non Spicy</strong></td>
+      <td><?php echo $mealItemInfo['withoutOnionnonfinalQty'];?> gm</td>
+      
+       <td style="valign:top"><?php if(count($mealItemInfo['withoutOnionnonbreakfastArray'])>0){
+		            foreach($mealItemInfo['withoutOnionnonbreakfastArray'] as  $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+       <td style="valign:top"><?php if(count($mealItemInfo['withoutOnionnonlunchArray'])>0){
+		            foreach($mealItemInfo['withoutOnionnonlunchArray'] as  $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+       <td style="valign:top"><?php if(count($mealItemInfo['withoutOnionnonhighteaArray'])>0){
+		            foreach($mealItemInfo['withoutOnionnonhighteaArray'] as  $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+		<td style="valign:top" ><?php if(count($mealItemInfo['withoutOnionnondinnerArray'])>0){
+		            foreach($mealItemInfo['withoutOnionnondinnerArray'] as $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+		<td> </td>
+        <td> </td> 
+        <td> </td> 
+
+    </tr>		 
+	<?php }
+
+
+	if($mealItemInfo['extrafinalQty'] > 0) { ?>
+		<tr>
+      <td><?php echo $countItemRecords;?></td>
+      <td style="width:20%;"><?php echo $mealItemInfo['itemName'];?> <br><strong>With Onion/Garlic</strong><br><strong>Extra Spicy</strong></td>
+      <td><?php echo $mealItemInfo['extrafinalQty'];?> gm</td>
+      
+       <td style="valign:top"><?php if(count($mealItemInfo['extrabreakfastArray'])>0){
+		            foreach($mealItemInfo['extrabreakfastArray'] as  $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+       <td style="valign:top"><?php if(count($mealItemInfo['extralunchArray'])>0){
+		            foreach($mealItemInfo['extralunchArray'] as  $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+       <td style="valign:top"><?php if(count($mealItemInfo['extrahighteaArray'])>0){
+		            foreach($mealItemInfo['extrahighteaArray'] as  $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+		<td style="valign:top" ><?php if(count($mealItemInfo['extradinnerArray'])>0){
+		            foreach($mealItemInfo['extradinnerArray'] as $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+		<td> </td>
+        <td> </td> 
+        <td> </td> 
+
+    </tr>
+
+	<?php } 
+	
+	if($mealItemInfo['withoutOnionextrafinalQty'] > 0) { ?>
+		<tr>
+      <td><?php echo $countItemRecords;?></td>
+      <td style="width:20%;"><?php echo $mealItemInfo['itemName'];?><br><strong>No Onion/Garlic</strong><br><strong>Extra Spicy</strong></td>
+      <td><?php echo $mealItemInfo['withoutOnionextrafinalQty'];?> gm</td>
+      
+       <td style="valign:top"><?php if(count($mealItemInfo['withoutOnionextrabreakfastArray'])>0){
+		            foreach($mealItemInfo['withoutOnionextrabreakfastArray'] as  $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+       <td style="valign:top"><?php if(count($mealItemInfo['withoutOnionextralunchArray'])>0){
+		            foreach($mealItemInfo['withoutOnionextralunchArray'] as  $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+       <td style="valign:top"><?php if(count($mealItemInfo['withoutOnionextrahighteaArray'])>0){
+		            foreach($mealItemInfo['withoutOnionextrahighteaArray'] as  $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+		<td style="valign:top" ><?php if(count($mealItemInfo['withoutOnionextradinnerArray'])>0){
+		            foreach($mealItemInfo['withoutOnionextradinnerArray'] as $gram=>$value)
+					{
+						echo $gram.' gm'. ' - ' .$value; echo "<br>";
+					}
+		  
+	          } 
+		  ?>
+		</td>
+		<td> </td>
+        <td> </td> 
+        <td> </td> 
+
+    </tr>
+
+	<?php } 
+	
+	
+
+            // echo "<pre>"; print_r($mealItemInfo); echo "<hr>";	//die;	 
+       }
+	 	
+     }
+	 ?>
+	   </tbody>
+      </table>
+	 </div>
+	  
+	 <div class="noprint" style="text-align:right;"><input type="button" onclick="javascript:print()" style="margin: 10px auto;padding: 0px 10px;background: #0EB58F;border: 1px solid #0EB58F;color: #fff;font-size: 14px;height: 35px;width:auto;line-height: 35px;float: none;margin:auto;" value="Print" /></div>
+  </section>
+</div>
+ <?php 
+ }
+?>
+
+

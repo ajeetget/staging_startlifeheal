@@ -1,0 +1,270 @@
+  <?php error_reporting( E_ALL ); ?>
+  
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+ 
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+	   $("#tooltip-1").tooltip();
+  } );
+  </script>
+	<style>
+		.col1-layout .col-main {
+    float: left;
+    width: 100%;
+    padding: 0;
+}
+		table{  
+					margin-top: 30px;
+		}	
+		.footer-container {
+    padding: 0px !important;
+    width: 100%;
+    float: left!important;
+}
+	table td {
+    border-top: thin solid; 
+    border-bottom: thin solid;
+	padding-left: 10px;
+	padding-right: 10px;
+	/*width:80%;*/
+	text-align:left;
+}
+.ui-datepicker td {
+    border: 0;
+    padding: 1px;
+    width: 10%;
+}
+table td:first-child {
+     border-left: thin solid;
+	padding-left: 10px;
+	padding-right: 10px;
+	width: 10%;
+}
+
+table td:last-child {
+     border-right: thin solid;
+	padding-left: 10px;
+	padding-right: 10px;
+	    padding: 10px;
+		width: 10%;
+}
+.hasDatepicker{width: 78% !important;
+
+max-width: 100%;
+
+background: #f6fcfc;
+
+height: 35px;
+
+box-shadow: 0px 0px 2px rgba(0,0,0,0.3);
+
+border: 0px;
+
+float: left;
+margin:10px;
+margin-right: 15px;}
+
+@media print
+{
+.noprint {display:none;}
+}
+
+@media print 
+{
+    @page {
+      size: A4; /* DIN A4 standard, Europe */
+      margin:0;
+    }
+    html, body {
+        width: 210mm;
+        /* height: 297mm; */
+        height: 282mm;
+        font-size: 11px;
+        background: #FFF;
+        overflow:visible;
+    }
+    body {
+        padding-top:15mm;
+    }
+}
+@media screen and (min-width:260px) and (max-width:760px){
+.hasDatepicker{width: 100% !important;
+
+max-width: 100%;
+
+background: #f6fcfc;
+
+height: 35px;
+
+box-shadow: 0px 0px 2px rgba(0,0,0,0.3);
+
+border: 0px;
+
+float: left;
+margin:10px auto;}	
+}
+		
+	</style>
+
+<div class="container">
+<table border="1" align="center" style="padding-left: 20px;padding-top:10px;"><!--margin: 25px;margin-right: 50px -->
+  <tbody>
+    <tr class="noprint">
+     
+      <td style="margin:3px"> 
+	  <form action="<?php echo Mage::getBaseUrl();?>all-dish-base-items" method="POST">
+	  <p style="margin-bottom: 0px;float: left;width: 100%;">
+      <span style="width:auto;float: left;height: 35px;line-height: 35px;margin:10px auto;">Order Date:</span>
+      <input type="text" id="datepicker" name="orderDate">
+      <input name="datesubmit" type="submit" value="Order Details"  style="margin: 10px auto;padding: 0px 10px;background: #c31f41;border: 1px solid #a61d3f;color: #fff;font-size: 14px;height: 35px;width:auto;line-height: 35px;float: left;"></p>
+	  
+	  </td>
+	  
+	  
+    </tr>
+	
+	
+    <tr class="print">
+		
+      <td  id="resultTable" style="text-align:center;margin-left:0px;padding-left:10px;padding-bottom: 34px;">
+	  
+	  <?php
+
+      if(isset($_POST['datesubmit']))
+	  {
+		$params      = $this->getRequest()->getParams(); 
+		$orderdate   = $params['orderDate'];
+		$dateInfo = explode("/",$orderdate);
+		$tmpOrderdateToShow = $dateInfo[2]."-".$dateInfo[0]."-".$dateInfo[1];	
+		$month = date("M",strtotime($tmpOrderdateToShow));
+		$orderdateToShow = $dateInfo[1]."-".$month."-".$dateInfo[2];
+		
+		  $orderItemsArray = Mage::helper("heal")->getProductsQtyOfOrderDate($orderdate);
+		  
+		//echo "<pre>";  print_r($orderItemsArray);
+		
+		$baseProductArray = array();
+		if(count($orderItemsArray)>0)
+		{
+			
+	  	    $countOrderItems=0; 
+			$result.='<div><strong>Order Date: '.$orderdateToShow.'</strong></div>';
+			
+			foreach($orderItemsArray as $productid =>$customDishTotalQty)
+			{
+				
+				$product = Mage::getModel('catalog/product')->load($productid);
+				$dishWeightAndPrice =  Mage::helper("heal")->getDishPrice($product);
+	            $dishTotalWeight = $dishWeightAndPrice['totalWeightOfDish'];
+				$baseAssociatedSkus =  $product->getBaseAssociatedSku(); 
+			    if($baseAssociatedSkus!='')
+			    {
+				   $baseAssociatedSkuWeightArray = explode(",",$baseAssociatedSkus);
+				   foreach($baseAssociatedSkuWeightArray as $key =>$value)
+				   {
+						
+						$skuWeightArray = explode("_",$value);
+						$baseSku        =  $skuWeightArray[0];
+						$baseWeight     =  $skuWeightArray[1];
+						$baseProduct    = Mage::getModel('catalog/product')->loadByAttribute("sku",$baseSku);
+						if(is_object($baseProduct) && sizeof($skuWeightArray)==3 )
+						{
+							$defaultBaseWastagePercent = $baseProduct->getBaseWastagePercent();
+							
+							$customQtyValue = ($baseWeight/$dishTotalWeight)*$customDishTotalQty;
+							$wastage = ($customQtyValue* $defaultBaseWastagePercent)/100;
+							$totalQtyAfterWastage = round($customQtyValue + $wastage);
+				            $name=  trim($baseProduct->getName());
+							
+							
+							$basePriceAfterWastage = $baseProduct->getBasePriceAfterWastage();
+							$totalBaseItemPrice = round($totalQtyAfterWastage * $basePriceAfterWastage);
+							//////////////////////////
+							if(!array_key_exists($name,$baseProductArray) )
+							{
+							   $baseProductArray[$name] = array($customQtyValue,$defaultBaseWastagePercent,$totalQtyAfterWastage,$basePriceAfterWastage,$totalBaseItemPrice);
+							}
+							else 
+							{    $tmpCustomQty=0;
+								 $tmpCustomQty = $baseProductArray[$name][0];
+								 $newCustomQtyValue = $tmpCustomQty + $customQtyValue;
+										 
+								 $tmpCustomQtyAfterWastage=0;
+								 $tmpCustomQtyAfterWastage = $baseProductArray[$name][2];
+								 $newTotalQtyAfterWastage= round($tmpCustomQtyAfterWastage + $totalQtyAfterWastage);
+								 
+								 $newTotalBaseItemPrice = round($newTotalQtyAfterWastage * $basePriceAfterWastage);
+								 
+								 
+									 
+								 $baseProductArray[$name] = array($newCustomQtyValue,$defaultBaseWastagePercent,$newTotalQtyAfterWastage,$basePriceAfterWastage,$newTotalBaseItemPrice);
+
+							}
+									
+							///////////////////////////////////		
+				        }
+				   }
+			    }
+						
+				
+				
+			  }
+			
+		
+			$result.='<table cellpadding="2" cellspacing="2" width="100%" >';
+			$result.='<tr><th>S.No</th> <th>Item Name</th><th>Qty</th><th>Wastage %</th><th>Total Needed Qty</th>
+			          <th>Price After Wastage</th><th>Total Cost</th>
+			</tr>';
+			$countBaseItem=0;
+			$totalCost=0;
+			foreach($baseProductArray as $baseItemName=>$baseArrayInfo)
+			{   ++$countBaseItem;
+			
+				$result.='<tr>';
+				$result.='<td>'.$countBaseItem.'</td>';
+				$result.='<td>'.$baseItemName.'</td>';
+				$result.='<td>'.number_format((float)$baseArrayInfo[0], 1, '.', '').'</td>';
+				$result.='<td>'.$baseArrayInfo[1].'</td>';
+				$result.='<td>'.number_format((float)$baseArrayInfo[2], 1, '.', '').'</td>';
+				$result.='<td>'.$baseArrayInfo[3].'</td>';
+				$result.='<td>'.$baseArrayInfo[4].'</td>';
+				$result.='</tr>';
+				$totalCost+=$baseArrayInfo[4];
+			}
+               $result.='<tr>';
+				$result.='<td colspan="6">&nbsp;</td>';
+				$result.='<td><strong>Total=</strong> '.round($totalCost).'</td>';
+				$result.='</tr>';
+				
+			$result.='</table>';
+			if(count($baseProductArray)>0)
+			{	
+			$result.='<table cellpadding="2" cellspacing="2" ><tr class="noprint"><td style="margin: auto;float: none;width: 100%;"><input type="button" name="print" value="print" onclick="window.print();" class="printbtnid" /></td></tr></table>';
+		    }
+			
+				
+			echo $result;	
+			 
+			
+			
+		}
+		else
+		{
+		   $result='There is no order on'.$orderdate;
+		   echo $result;
+		}
+	}				
+	  ?>
+	  
+	  </td>
+			
+    </tr>
+   
+   
+  </tbody>
+</table>
+</div>

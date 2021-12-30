@@ -1,0 +1,324 @@
+<?php
+  $categoryCollection = Mage::getModel("foodpdf/foodcategory")->getCollection()
+									  ->addFieldToFilter('status', 1)
+									  ->setOrder('name', 'ASC')
+									  ->load();									  
+  $uploadDir = Mage::getBaseDir('media').DS.'foodpdf'.DS;	
+   if(sizeof($categoryCollection)>0)  {	
+	 foreach($categoryCollection as $catInfo){
+?>
+ 
+<div class="container mypdf">
+	<div class="table-container">
+	<?php
+		$categoryId = $catInfo->getCatId();
+		$foodtemCollection = Mage::getModel("foodpdf/fooditem")->getCollection()
+									  ->addFieldToFilter('category',$categoryId  )
+									  ->addFieldToFilter('status',1  )
+									  ->setOrder('name', 'ASC')
+									  ->load();
+		if(sizeof($foodtemCollection)>0){           
+		  $catModel = Mage::getModel("foodpdf/foodcategory")->load($categoryId);
+		  $catName = $catModel->getName();
+		  
+		?>
+		<div class="table_item">
+			<div class="cat_name"><h2><span><?php echo $catName;?> </span></h2></div>
+	    	<div class="outer_table">
+				<table cellpadding="2" cellspacing="2"  frame="rules" class="cat_table">
+				
+					<?php foreach($foodtemCollection as $fooditem){	  
+			  			$pdf = $fooditem->getPdf();
+						$videoUrl = $fooditem->getVideo();
+		 			?>
+					<tr> 			
+			    		<th>
+			    			<div class="ineer-flex">
+			    				<div class="f-item"> <?php echo $fooditem->getName();?>	</div>				
+								<div style="display: flex; align-items: center; cursor: pointer;">
+									<?php if($pdf!=''){ ?> 
+										<span onclick="downloadPdf('<?php echo $pdf;?>')" title="<?php echo $pdf;?>">
+											<img style="width:22px; margin-right: 20px;" src="http://lifeheal.americanarearugs.com/skin/frontend/rwd/default/images/pdf-download-icon.jpg" />
+										</span> 
+									<?php }?>
+							<?php if($videoUrl!=''){ ?> 
+									<a href="<?php echo $fooditem->getVideo();?>"  target="_blank" ><img style="width:24px;" src="http://lifeheal.americanarearugs.com/skin/frontend/rwd/default/images/youtube-link.png" /></a>
+								<?php }?>	
+								<div>
+							</div>
+						</th>			
+					</tr>
+				<?php } ?>
+				</table>
+			</div><!--end of outer table-->
+		</div><!--end of table-item-->
+	<?php } ?>
+	</div>
+</div><!--end of container -->
+   <?php } 
+   } ?>
+
+<script type="text/javascript">
+function downloadPdf(pdf)
+{
+	var baseUrl = window.location.origin;
+	var pdfPath = baseUrl+'/media/foodpdf/'+pdf;
+	//alert(pdfPath);
+	
+	var req = new XMLHttpRequest();
+  req.open("GET", pdfPath, true);
+  req.responseType = "blob";
+
+  req.onload = function (event) {
+    var blob = req.response;
+    console.log(blob.size);
+    var link=document.createElement('a');
+    link.href=window.URL.createObjectURL(blob);
+    link.download=pdf;
+    link.click();
+  };
+
+  req.send();
+}
+</script>
+
+<style type="text/css">
+#myHeaderhead {   
+    z-index: 500;
+}
+	.cat_table tr{
+		width:50%;
+		display: inline-flex;
+		border:1px solid #dadada;
+	}
+	.breadcrumbs {
+		padding: 20px 0;
+	}
+.ineer-flex{
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+}
+.mypdf .pdf_form{
+	width: 60%;
+	padding: 30px;
+	box-sizing: border-box;	
+	margin: 30px auto;
+	box-shadow: 0 0 1px 0 rgba(0,0,0,0.2); 
+	position: relative;
+}
+.form-row{
+	/*margin-bottom: 1.8rem;*/
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.select-category, .form-upload, .select-status{
+	box-sizing: border-box;
+	width:100%;
+	position: relative;
+	height:40px;
+	border:1px solid #dadada;
+	background: #fff;
+	border-right: 0;
+	margin-bottom: 20px;
+}
+.form-upload{	
+	padding: 5px 25px;
+	border:1px solid #dadada;
+}
+/*.select-status{
+	width:32%;
+}*/
+.pdf_form input[type="text"] {
+	border:0;
+	border:1px solid #dadada;
+	width:100%;
+	height: 40px;
+	box-sizing: border-box;
+	outline: none;
+	padding: 0 15px;
+	background:#fff;
+	margin-bottom: 20px;
+}
+
+.select-category select, .select-status select {
+	width: 100%;
+	display: block;
+	box-sizing: border-box;
+	position: relative;
+	appearance:none;
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	background: transparent;
+	cursor: pointer;
+	height:40px;
+	border:0;
+	outline: none;
+	z-index: 100;
+	padding: 0 15px;
+}
+	
+.select-category:before, .select-status:before {
+	position: absolute;
+	content: '';
+	right:0;
+	width:40px;
+	height: 40px;
+	background: #c21c45;
+	border:1px solid #c21c45;
+	z-index: 5;			
+} 
+
+.select-category:after, .select-status:after {
+	content: '';
+	position: absolute;	
+	top:20px;
+	right: 12px;
+	z-index: 5;
+	width: 0; 
+  	height: 0; 
+	border-left: 8px solid transparent;
+  	border-right: 8px solid transparent;  
+  	border-top: 8px solid #fff
+}
+.pdf_form input[type="submit"]{
+	display: block;
+	width:230px;
+	margin:0 auto;
+	height: 45px;
+	line-height: 45px;
+	text-align: center;
+	cursor: pointer;
+	border:0;
+	outline: none;
+	/*background: #007f00;
+    border: 1px solid #66d50d;
+    background: #d31f02;
+    border: 1px solid #fe5a52;*/
+    background: #c21c45;
+    border: 1px solid #c21c45;
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+.mypdf	.outer_table{
+	width:100%;
+	padding: 0 0 25px 0;
+	box-sizing: border-box;
+	/*box-shadow: 0 2px 1px 1px rgba(0,0,0,0.2);*/
+}
+.cat_table{
+	width:100%;
+	border:1px solid #dadada;
+	border-collapse: collapse;
+}
+.cat_table th{ 
+    padding: 6px 15px;
+    box-sizing: border-box;
+    /* border: 1px solid #dadada; */
+    width: 100%;
+}
+    /*border:1px solid #dadada;*/
+}
+.cat_table td { 
+    padding: 2px 15px;
+}
+.cat_table tr:nth-child(even) { 
+    /*background:#f6f6f6;*/
+}
+.table-icon{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+.form-footer{
+	position: relative;
+}
+.cancel{
+	position: absolute;
+	right: 35px;
+	bottom: 30px;
+	border:0;
+	outline: none;
+	cursor: pointer;
+	background: #d31f02;
+    border: 1px solid #fe5a52;
+    color: #fff;
+    height: 35px;
+    line-height: 35px;
+    font-weight: 600;
+    padding: 0 20px;
+    font-size: 1.2rem;
+}
+.msg-box{
+	text-align: center;
+    font-size: 1.5rem;  
+    font-weight: 600;
+}
+.green_msg{
+	  color: green;
+}
+.red_msg{
+	  color: red;
+}
+.cat_name{
+	text-align: center;
+}
+.cat_name h2{
+	position: relative;
+}
+.cat_name h2:after, .cat_name h2:before{
+	position: absolute;
+	content: '';
+	left: 25%;
+	width:50%;
+	height: 1px;
+	background: #fcda9a;
+	top:42%;
+}
+.cat_name h2:after{
+	content: '';
+	top:58%;
+	left: 27.5%;
+	width:45%;
+	background: #f0c067;
+}
+.cat_name span{
+	position: relative;
+	z-index: 100;
+	display: inline-block;
+	padding: 10px 25px;
+	background: #fff;
+	color: #269a9b;
+	font-weight: 700; 
+}
+.mobilemenu{
+	z-index: 500;
+}
+@media (min-width: 310px) and (max-width: 767px){
+	.container.mypdf, .container{
+		width: 100%;
+		max-width: 100%;
+	}
+
+.container.mypdf:first-child{
+	margin-top: 80px;
+}
+.f-item{
+	font-size: 13px
+}
+}
+@media (min-width: 310px) and (max-width: 480px){
+.cat_table tr {
+    width: 100%;    
+}
+}
+
+@media screen and (min-width: 540px) and (max-width: 767px){
+.logomob {
+    width: 30% !important;    
+}
+}
+</style>

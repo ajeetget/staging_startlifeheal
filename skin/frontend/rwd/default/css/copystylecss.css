@@ -1,0 +1,1277 @@
+@charset "utf-8";
+
+/* CSS Document */
+.fresh-tasty-wrap {
+    background-image: url(../images/fresh_and_tasty_meals_bg.png);
+}
+.fresh-tasty-cell {
+    display: inline-block;
+    max-width: 200px !important;
+    vertical-align: top;
+}
+.how-it-work-description p{
+  color:#f0f1f1;
+font-size: 16px;
+width: 180px;
+margin: .5em auto;
+font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI";
+text-align: center;
+font-weight: 100;
+}
+.fresh-tasty-h2 {
+ color:#fff;
+text-transform: uppercase;
+padding-bottom: 30px;
+padding-top: 30px;
+float: left;
+text-align: center;
+width: 100%;
+font-size: 30px;
+line-height: 53px;
+font-weight: 500;
+}
+
+.fresh-tasty-table {
+    display: table;
+    margin: 20px auto 0;
+}
+
+.fresh-tasty-wrap .icon {
+  text-align: center;
+width: 220px;
+height: 100%;
+display: block;
+float: none;
+margin: auto;
+}
+.icon-Icon_03, .icon-Icon_04, .icon-Icon_05, .icon-Icon_01, .icon-Icon_02{vertical-align: top;}
+.Icon_01.icon span,
+.icon span {
+  width: 80px;
+text-align: center;
+display: block;
+float: none;
+margin: auto;
+}
+.hero-content .viewplanbtn{color: #fff;
+background: #f28424;
+font-weight: 600;
+float: left;
+height: 40px;
+line-height: 40px;
+border-radius: 4px;
+margin: auto 35%;
+text-align: center;
+width: 200px;}
+.hero-content .viewplanbtn a{text-decoration: none;
+color: #fff;
+transition: all 0.15s ease-out;
+font-size: 20px;
+font-weight: normal;
+width: 100%;
+float: left;}
+.how-it-work-content {
+    display: table;
+    margin: 20px 40px;
+}
+.how-it-work-box, .how-it-work-flow {
+    display: table-cell;
+   max-width: 180px;
+	 /*max-width:25%;*/
+    text-align: center;
+font-weight: 100;
+}
+
+.how-it-work-wrap h3 {
+font-weight: 600;
+color:#269a9b;
+text-transform: uppercase;
+padding-bottom: 30px;
+padding-top: 30px;
+float: left;
+text-align: center;
+width: 100%;
+font-size: 30px;
+line-height: 53px;
+}
+.how-it-work-number {
+    font-weight: 700;
+    letter-spacing: 4px;
+    font-size: 20px;
+    margin: 1.2em 0 10px;
+  
+}
+.how-it-work-description{margin-bottom:1em;}
+.get_started {
+    margin: 20px 0 3em;
+}
+.get_started a:hover{background-color:#c11f3e;
+/*border-bottom: 4px solid #a51d3e;*/}
+.get_started a {
+background-color:#269a9b;
+color:#fff;
+padding: 10px;
+max-width: 160px;
+display: block;
+margin: auto;
+/*border-bottom: 4px solid #0b7777;*/
+letter-spacing: 2px;
+font-weight: 600;
+font-size: 15px;
+text-align: center;
+border-radius: 4px;
+}
+
+.get_started a, .testimonial-description p {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI";
+}
+@media screen and (min-width:260px) and (max-width:767px)
+{
+.hero-content .viewplanbtn a {
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.15s ease-out;
+    font-size: 20px;
+    font-weight: normal;
+    width: 100%;
+    float: left;
+    padding: 0px 10px;
+}
+.hero-content .viewplanbtn {
+    color: #fff;
+    background: #f28424;
+    font-weight: 600;
+    float: left;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 4px;
+    margin: auto;
+    text-align: center;
+    width: auto;
+}
+.how-it-work-content {
+    display: table;
+    margin: auto;
+}
+.fresh-tasty-cell {
+    display: inline-block;
+    max-width: 260px !important;
+    vertical-align: top;
+    margin-bottom: 40px;
+}
+	
+	.how-it-work-box, .how-it-work-flow {
+    display: block;
+    max-width: 100%;
+    width: 100%;
+    padding: 15px;
+}
+}
+
+
+/*homepagenew*/
+.login-trigger {
+font-weight: bold;
+color: #fff;
+background: #F28424;
+border-radius: 4px;
+top: 58%;
+text-align: center;
+width: 200px;
+display: block;
+position: relative;
+margin: auto;
+float: none;
+font-size: 24px;
+height: 60px;
+line-height: 60px;
+text-transform: capitalize;
+}
+
+
+.mousescroll{background-image: url('../images/mousescroll.png');
+width:50px;
+height: 50px;
+position: absolute;
+background-size: 100% 100%;
+margin: auto;
+z-index: 1;
+left: 45%;
+bottom: 10%;
+}
+.hero-block {
+    position: relative;
+    height:80vh;
+    max-height:700px;
+    min-height:650px;
+   
+}
+	.hero-content-wrap {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    height: 100%;
+    margin-bottom: 0px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+.hero-block2 .hero-container {left:5%; top:34%;}
+.hero-block3 .hero-container, .hero-block3new .hero-container, .hero-block3gif .hero-container  {left:2%; top:25%;}
+.hero-block3a .hero-container {margin-left: auto;
+margin-right: auto;
+max-width: 500px;
+left: 64%;
+top: 15%;}
+.hero-block3b .hero-container {margin-left: auto;
+margin-right: auto;
+max-width: 800px;
+left: 43%;
+top: 22%;}
+.hero-block4 .hero-container {left:60%; top:15%;max-width: 100%;}
+.hero-block5 .hero-container {left:20%; top:13%;}
+.hero-block4 .w-container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width:500px;
+}
+	.hero-container {
+    position: absolute;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    max-width: 1280px;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: 0px;
+    padding-right: 15px;
+    padding-left: 15px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-align-self: auto;
+    -ms-flex-item-align: auto;
+    -ms-grid-row-align: auto;
+    align-self: auto;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 auto;
+    -ms-flex: 0 auto;
+    flex: 0 auto;
+left:20%;
+top:20%;
+}
+	.w-container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 940px;
+}
+	.hero-content {
+    width: 100%;
+    max-width:80%;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    -webkit-align-self: auto;
+    -ms-flex-item-align: auto;
+    -ms-grid-row-align: auto;
+    align-self: auto;
+}
+
+	h1 {
+	margin-bottom: 10px;
+	font-family:'Avant Garde Book BT';
+	color: #269a9b;
+	font-size:60px;
+	line-height: 80px;
+	font-weight: 600;
+}
+.imgtext2 span{font-size: 45px;
+font-style: italic;
+font-weight: 100;color:#938c8c;}
+.imgtext2 h1{margin-bottom: 10px;
+font-family: 'Avant Garde Book BT';
+color:#5a5959;
+font-size: 70px;
+line-height: 60px;
+font-weight: 400;
+text-transform: initial;
+text-align: left;}
+.imgtext3b span{font-size:50px;
+font-weight: 100;
+width: 100%;
+color:#938c8c;
+float: left;
+line-height: 50px;
+text-align: left;}
+.imgtext3a span{font-size: 50px;
+font-weight: 100;
+width: 100%;
+color:#938c8c;
+float: left;
+line-height: 50px;
+text-align: left;}
+.imgtext3 span, .imgtext3new span{font-size:48px;
+font-weight: 100;
+width: 100%;
+color:#938c8c;
+float: left;
+line-height: 48px;
+text-align: justify;}
+.imgtext3b h1{margin-bottom: 10px;
+font-family: 'Avant Garde Book BT';
+color:#269a9b;
+font-size: 60px;
+line-height: 60px;
+font-weight: 400;
+text-transform: initial;
+text-align: left;}
+.imgtext3a h1{margin-bottom: 10px;
+font-family: 'Avant Garde Book BT';
+color:#269a9b;
+font-size: 65px;
+line-height: 70px;
+font-weight: 400;
+text-transform: initial;
+text-align: left;}
+.imgtext3 h1, .imgtext3new h1{margin-bottom: 10px;
+font-family: 'Avant Garde Book BT';
+color: #269a9b;
+font-size: 54px;
+line-height:70px;
+font-weight: 400;
+text-transform: initial;
+text-align: left;}
+.imgtext4 span{font-size: 41px;
+font-weight: bold;
+width: 100%;
+color: #187a7b;
+float: left;
+line-height: 50px;
+text-align: right;
+margin-top: 20px;}
+.imgtext4 h1{margin-bottom: 10px;
+font-family: 'Avant Garde Book BT';
+color:#000;
+font-size:60px;
+line-height: 60px;
+font-weight:bold;
+text-transform: initial;
+text-align: right;}
+.imgtext4{max-width:100%;}
+	.hero-image {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-image: url("https://lifeheal.in/skin/frontend/rwd/default/images/WebsiteBanner1-page-001.png");
+    background-position: 0% 0%;
+   background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.imgtext5{max-width:32%;
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-image: url("https://lifeheal.in/skin/frontend/rwd/default/images/text-sign-up.png");
+    background-position: 0% 0%;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    height: 505px;
+}
+	
+.hero-image2 {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-image: url("https://lifeheal.in/skin/frontend/rwd/default/images/Target-Desktop.jpg");
+    background-position: 0% 0%;
+   background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.hero-image3a {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-image: url("../images/1519x650-1-HP-banner-(TECHNOLOGY).jpg");
+    background-position: 0% 0%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.hero-image3b {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-image: url("../images/1519x650-1-HP-banner(TECH-1).jpg");
+    background-position: 0% 0%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.hero-image3 {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-image: url("https://lifeheal.in/skin/frontend/rwd/default/images/tech-HP-banner.jpg");
+    background-position: 0% 0%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.hero-image3new {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-image: url("../images/1519x650-1-HP-banner2a.jpg");
+    background-position: 0% 0%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.hero-image3gif {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-image: url("../images/1519x650-1-HP-banner2.jpg");
+    background-position: 0% 0%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.hero-image4 {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-image: url("https://lifeheal.in/skin/frontend/rwd/default/images/Vegan-Food-Banner.jpg");
+    background-position: 0% 0%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.hero-image5 {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-image: url("https://lifeheal.in/skin/frontend/rwd/default/images/Sign-up.jpg");
+    background-position: 0% 0%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.fullwidthhome{background: #ededed;
+    width: 100%;
+    float: left;
+    position: relative;}
+
+	 /*Trigger Button*/
+
+@media only screen and (max-width:480px) {
+
+.hero-block {
+    max-height: 520px;
+    min-height: 380px;
+width:100%;
+}
+.hero-image {
+    background-position: 40% 50%;
+}
+.hero-image {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-image: url("../images/Doctor-mob.jpg");
+background-size: 100% 100%;
+background-repeat: no-repeat;
+background-position:0% 0%;
+}
+.hero-image2{
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-image: url('../images/Target-Mobile.jpg');
+   
+}
+
+
+.hero-block3a .imgtext3a{max-width: 100%;padding-bottom:0px;}
+.hero-block3b .imgtext3b{max-width: 100%;padding-top:30px;}
+.hero-block3a .hero-container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    left: 0%;
+    top: 0%;
+}
+ .imgtext3a span {
+    font-size: 26px;
+    font-weight: 100;
+    width: 100%;
+    color: 
+    #fff;
+    float: left;
+    line-height: 30px;
+    text-align: justify;
+}
+.hero-image3a {
+      position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-image: url("../images/Mobile-Banner(TECH).jpg");
+  
+}
+.hero-image3 {
+      position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-image: url("https://lifeheal.in/skin/frontend/rwd/default/images/Tec-Mobile.jpg");
+  
+}
+.hero-image3gif {
+      position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-image: url("../images/tech-Mobile-Banner.jpg");
+  
+}
+	.hero-image3new {
+      position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-image: url("../images/1519x650-1-HP-banner2a.jpg");
+  
+}
+.imgtext3a h1 {
+    margin-bottom: 10px;
+    font-family: 'Avant Garde Book BT';
+    color: #fff;
+    font-size: 30px;
+    line-height: 10px;
+    font-weight: 400;
+    text-transform: initial;
+    text-align: left;
+}
+
+.imgtext3b h1 {
+    margin-bottom: 10px;
+    font-family: 'Avant Garde Book BT';
+    color:     #269a9b;
+    font-size: 30px;
+    line-height:30px;
+    font-weight: 600;
+    text-transform: initial;
+    text-align: left;
+}
+.hero-block3b .hero-container {
+  margin-left: auto;
+margin-right: auto;
+max-width: 51%;
+left:47%;
+top: 0%;
+}
+ .imgtext3b span {
+   font-size: 26px;
+font-weight: 100;
+width: 100%;
+color:#a5a1a1;
+float: left;
+line-height: 26px;
+text-align: justify;
+margin-top: 10px !important;
+}
+.imgtext3b .biosense{margin-top: 0px !important;}
+.hero-image3b {
+      position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-image: url("../images/Mobile-Banner(TEC1).jpg");
+  
+}
+
+
+.hero-image4 {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+     background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-image: url("https://lifeheal.in/skin/frontend/rwd/default/images/Vegan-Mobile.jpg");
+  
+}
+.hero-container {
+left:0%;
+top:20%;
+}
+.mousescroll {
+    background-image: url('../images/mousescroll.png');
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    background-size: 100% 100%;
+    margin: auto;
+        margin-left: auto;
+    z-index: 1;
+    left: 45%;
+    bottom: 10%;
+}
+.hero-content {
+    width: 100%;
+    max-width: 60%;
+    padding-top:0px;
+    padding-bottom: 30px;
+    -webkit-align-self: auto;
+    -ms-flex-item-align: auto;
+    -ms-grid-row-align: auto;
+    align-self: auto;
+}
+.hero-block4 .hero-container {
+    left: 0%;
+    top: 2%;
+    max-width: 100%;
+}
+.imgtext4 h1 {
+    margin-bottom: 0px;
+    font-family: 'Avant Garde Book BT';
+    color: #000;
+    font-size: 28px;
+    line-height: 30px;
+    font-weight: bold;
+    text-transform: initial;
+    text-align: center;
+}
+.hero-block4  .hero-content {
+    width: 100%;
+    max-width: 100%;}
+.imgtext4 span {
+    font-size: 20px;
+    font-weight: bold;
+    width: 100%;
+    color: #187a7b;
+    float: left;
+    line-height: 20px;
+    text-align: center;
+    margin-top:10px;
+}
+.hero-block5 .hero-container {
+    left: 0%;
+    top: 10%;
+}
+.hero-image5 {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-image: url("https://lifeheal.in/skin/frontend/rwd/default/images/sign-in-Mobile-Banner.jpg");
+     background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.login-trigger {
+font-weight: bold;
+color: #fff;
+background: #F28424;
+border-radius: 4px;
+top: 88%;
+text-align: center;
+width: 200px;
+display: block;
+position: absolute;
+font-size: 19px;
+border: 0px;
+left: 25%;
+height: 50px;
+line-height: 50px;
+}
+.imgtext5 {
+    max-width:100%;
+position: absolute;
+left: 0%;
+top: 0%;
+right: 0%;
+bottom: 0%;
+background-image: url("https://lifeheal.in/skin/frontend/rwd/default/images/text-Mobile-Banner.png");
+ background-size: 100% 100%;
+background-repeat: no-repeat;
+height: 129px;
+}
+.imgtext2 h1{
+margin-bottom: 10px;
+font-family: 'Avant Garde Book BT';
+color:#269a9b;
+font-size: 28px;
+line-height: 30px;
+font-weight: 600;
+text-align: left;
+}
+.hero-block2 .hero-content {
+    width: 100%;
+    max-width: 100%;}
+.imgtext2 span{font-size:18px;
+font-style: italic;
+font-weight: 100;}
+h1 {
+    margin-bottom: 10px;
+   font-family:'Avant Garde Book BT';
+    color:  #269a9b;
+    font-size:26px;
+    line-height:32px;
+    font-weight: 600;
+    text-align: left;
+text-transform: full-size-kana;
+}
+
+.imgtext3 span{
+    font-size: 18px;
+    font-weight: 100;
+    width: 100%;
+    color:     #938c8c;
+    float: left;
+    line-height: 20px;
+    text-align: left;
+}
+.imgtext3new span{
+    font-size: 25px;
+    font-weight: 100;
+    width: 100%;
+    color:     #938c8c;
+    float: left;
+    line-height:25px;
+    text-align: left;
+}
+.imgtext3 .biosense b, .imgtext3new .biosense b{font-weight:normal;}
+.hero-block3 .hero-content, .hero-block3new .hero-content {
+    width: 100%;
+    max-width: 60%;}
+.hero-block3gif .hero-content {
+    width: 100%;padding-top: 20px;
+    max-width:100%;}
+.imgtext3 h1{
+    margin-bottom: 10px;
+    font-family: 'Avant Garde Book BT';
+    color:     #269a9b;
+    font-size: 30px;
+line-height: 30px;
+    font-weight: 600;
+    text-transform: initial;
+    text-align: left;
+}
+.imgtext3new h1{
+    margin-bottom: 10px;
+    font-family: 'Avant Garde Book BT';
+    color:     #269a9b;
+    font-size: 27px;
+line-height:40px;
+    font-weight: 600;
+    text-transform: initial;
+    text-align: left;
+}
+.hero-block3 .hero-container, .hero-block3new .hero-container {
+    left: 0%;
+    top: 25%;
+}
+ .hero-block3gif .hero-container {
+    left: 0%;
+    top: 2%;
+}
+ }
+@media screen and (min-width:768px) and (max-width:999px) {
+.hero-content .viewplanbtn a {
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.15s ease-out;
+    font-size: 20px;
+    font-weight: normal;
+    width: 100%;
+    float: left;
+    padding: 0px 10px;
+}
+.hero-content .viewplanbtn {
+    color: #fff;
+    background: #f28424;
+    font-weight: 600;
+    float: left;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 4px;
+    margin: auto;
+    text-align: center;
+    width: auto;
+}
+.hero-block3a .hero-container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    left: 15%;
+    top: 0%;
+}
+.imgtext3a{max-width:100% !important;padding-bottom: 20px;}
+.imgtext3a span {
+    font-size: 34px;
+    font-weight: 100;
+    width: 100%;
+    color:     #fff;
+    float: left;
+    line-height: 34px;
+    text-align: justify;
+}
+ .hero-block3a .imgtext3a h1{margin-bottom: 10px;
+font-family: 'Avant Garde Book BT';
+color:#fff;
+font-size: 50px;
+line-height: 30px;
+font-weight: 600;
+bottom: 0px;}
+#myHeaderhead {
+    position: relative;
+}
+.hero-block3b .hero-container {
+  margin-left: auto;
+margin-right: auto;
+max-width: 60%;
+left: 50%;
+top: 10%;
+}
+.imgtext3b{max-width:100% !important;padding-top: 10px !important;
+padding-bottom: 20px;}
+.imgtext3b span {
+    font-size: 34px;
+    font-weight: 100;
+    width: 100%;
+    color:#ada9a9;
+    float: left;
+    line-height: 34px;
+    text-align: justify;
+}
+.hero-block3b .imgtext3b h1{margin-bottom:0px;
+font-family: 'Avant Garde Book BT';
+color:#269a9b;
+font-size: 50px;
+line-height: 50px;
+font-weight: 600;}
+
+
+.hero-image5 {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-image: url("https://lifeheal.in/skin/frontend/rwd/default/images/Sign-up.jpg");
+    background-position: 0% 0%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+ .hero-block {
+position: relative;
+height: 80vh;
+max-height: 650px;
+min-height: 600px;
+}
+.hero-content {
+    width: 100%;
+    max-width: 50%;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    -webkit-align-self: auto;
+    -ms-flex-item-align: auto;
+    -ms-grid-row-align: auto;
+    align-self: auto;
+}
+
+.hero-image3 {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-image: url("https://lifeheal.in/skin/frontend/rwd/default/images/tech-HP-banner.jpg");
+    background-position: 0% 0%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.hero-image4 {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-image: url("https://lifeheal.in/skin/frontend/rwd/default/images/Vegan-Food-Banner.jpg");
+    background-position: 0% 0%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.imgtext4 {
+    max-width: 100% !important;
+}
+.hero-block4 .hero-container {
+ left: 58%;
+top: 15%;
+max-width: 300px;
+width: auto;
+}
+
+.hero-image5 {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-image: url("https://lifeheal.in/skin/frontend/rwd/default/images/Sign-up.jpg");
+    background-position: 0% 0%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.imgtext5 {
+    max-width: 32%;
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-image: url("https://lifeheal.in/skin/frontend/rwd/default/images/text-sign-up.png");
+    background-position: 0% 0%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    height: 505px;
+}
+.hero-block5 .hero-container {
+    left: 10%;
+    top: 10%;
+}
+.login-trigger {
+font-weight: bold;
+color: #fff;
+background: #F28424;
+border-radius: 4px;
+top: 50%;
+text-align: center;
+width: 150px;
+display: block;
+position: relative;
+margin: auto;
+float: none;
+font-size: 19px;
+left: 3%;
+}
+
+.hero-image2 {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-image: url("https://lifeheal.in/skin/frontend/rwd/default/images/Target-Desktop.jpg");
+    background-position: 0% 0%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.slide .slide__img img {
+    max-width: 100%;
+    height:700px !important;
+}
+
+.hero-image {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-image: url("https://lifeheal.in/skin/frontend/rwd/default/images/WebsiteBanner1-page-001.png");
+    background-position: 0% 0%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+	.show-in-mobile {
+    display: block;max-width: 180px;
+}
+.how-it-work-box-break {
+    clear: both;
+    display: table-row;
+    width: 100%;
+    height: 100%;
+}
+.how-it-work-content {
+	display: table;
+	margin: 20px 30px;
+}
+.how-it-work-box, .how-it-work-flow {
+ display: block;
+width: 30%;
+text-align: center;
+float: left;
+margin: auto 10px;
+}
+
+.Icon_arrow{display: none !important;}
+}
+@media screen and (min-width:800px) and (max-width:1200px) {
+.hero-content .viewplanbtn a {
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.15s ease-out;
+    font-size: 20px;
+    font-weight: normal;
+    width: 100%;
+    float: left;
+    padding: 0px 0px;
+}
+.hero-content .viewplanbtn {
+    color: #fff;
+    background: #f28424;
+    font-weight: 600;
+    float: left;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 4px;
+    margin: auto;
+    text-align: center;
+    width: 200px;
+}
+.hero-block3a .hero-container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 85%;
+    left: 15%;
+    top: 0%;
+}
+	.w-container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 80%;
+    width: 100%;
+}
+.hero-block3a .imgtext3a{max-width:100% !important;
+padding-bottom:0px;}
+.imgtext3a span {
+    font-size: 34px;
+    font-weight: 100;
+    width: 100%;
+    color:     #fff;
+    float: left;
+    line-height: 34px;
+    text-align: justify;
+}
+.hero-block3a .imgtext3a h1{margin-bottom: 0px;
+font-family: 'Avant Garde Book BT';
+color:#269a9b;
+font-size: 50px;
+line-height: 30px;
+font-weight: 600;}
+#myHeaderhead {
+    position: relative;
+}
+.hero-block3b .hero-container {
+margin-left: auto;
+margin-right: auto;
+max-width: 26%;
+left: 38%;
+top: 20%;
+}
+.imgtext3b{max-width:100% !important;}
+.hero-block3b .imgtext3b span {
+    font-size: 34px;
+    font-weight: 100;
+    width: 100%;
+    color:#938c8c;
+    float: left;
+    line-height: 34px;
+    text-align: left;}
+ .hero-block3b .imgtext3b h1{margin-bottom: 10px;
+font-family: 'Avant Garde Book BT';
+color:#269a9b;
+font-size: 50px;
+line-height: 50px;
+font-weight: 600;}
+#myHeaderhead {
+    position: relative;
+}
+.hero-image5 {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-image: url("https://lifeheal.in/skin/frontend/rwd/default/images/Sign-up.jpg");
+    background-position: 0% 0%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+ .hero-block {
+    position: relative;
+    height: 80vh;
+    max-height: 600px;
+    min-height: 550px;
+}
+.hero-content {
+    width: 100%;
+    max-width: 50%;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    -webkit-align-self: auto;
+    -ms-flex-item-align: auto;
+    -ms-grid-row-align: auto;
+    align-self: auto;
+}
+
+.hero-image3 {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-image: url("https://lifeheal.in/skin/frontend/rwd/default/images/tech-HP-banner.jpg");
+    background-position: 0% 0%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.hero-image4 {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-image: url("https://lifeheal.in/skin/frontend/rwd/default/images/Vegan-Food-Banner.jpg");
+    background-position: 0% 0%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.hero-block4 .hero-container {
+    left: 45%;
+    top: 15%;
+    max-width: 50%;
+}
+	.hero-block4 .imgtext4 {
+    max-width: 100%;
+}
+.hero-image5 {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-image: url("https://lifeheal.in/skin/frontend/rwd/default/images/Sign-up.jpg");
+    background-position: 0% 0%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.hero-block5 .hero-container {
+    left: 10%;
+    top: 10%;
+}
+.login-trigger {
+font-weight: bold;
+color: #fff;
+background: #F28424;
+border-radius: 4px;
+top: 47%;
+text-align: center;
+width: 250px;
+display: block;
+position: relative;
+margin: auto;
+float: none;
+font-size: 20px;
+}
+
+.hero-image2 {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-image: url("https://lifeheal.in/skin/frontend/rwd/default/images/Target-Desktop.jpg");
+    background-position: 0% 0%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.hero-image {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    background-image: url("https://lifeheal.in/skin/frontend/rwd/default/images/WebsiteBanner1-page-001.png");
+    background-position: 0% 0%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+	.show-in-mobile {
+    display: block;max-width: 180px;
+}
+.how-it-work-box-break {
+    clear: both;
+    display: table-row;
+    width: 100%;
+    height: 100%;
+}
+.how-it-work-content {
+	display: table;
+	margin: 20px 30px;
+}
+.how-it-work-box, .how-it-work-flow {
+ display: block;
+width: 30%;
+text-align: center;
+float: left;
+margin: auto 10px;
+}
+
+.Icon_arrow{display: none !important;}
+}

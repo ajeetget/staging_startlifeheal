@@ -1,0 +1,1320 @@
+.card-row h3 {
+ margin-bottom: 0;
+}
+.closer .h3 {
+ margin: 0 0 0em;
+}
+.closer .button-wrapper {
+    margin-top: 10px;
+}
+.bot-mar-0 {
+ margin-bottom: 0;
+}
+li.h6 a {
+ color: #ce0f69;
+ text-decoration: underline;
+}
+li.h6 a:hover {
+ text-decoration: none;
+}
+.generic-page-template {
+ background-image: url();
+}
+.generic-page-template .breadcrumb {
+ top: 9em;
+}
+.generic-page-template .page-content {
+ margin: 0em auto 0;
+ background: transparent;
+ padding-top: 5em;
+ padding-bottom: 3em;
+}
+.generic-page-template .site-header {
+ top: 48px;
+}
+.hero-bg {
+ background: #EBFBFA;
+ padding:6em 0 0em;
+}
+.hero-container h1 sup {
+ font-size: 50%;
+ top: -.85em;
+} /* plan section */
+.card-row {
+ position: relative;
+}
+.hero-bg .well {
+ margin-bottom: 36px;
+ padding: 0px 0px;
+}
+.well p.h6 {
+ font-size: 16px;
+}
+.body-reboot img.new-img {
+ position: absolute;
+ top: 10px;
+ left: 85px;
+ width: 34px;
+ height: 24px;
+}
+.body-reboot h3 {
+ padding-top: 11px;
+ line-height: 1.1;
+}
+.silver,
+.gold,
+.platinum,
+.reboot {
+ padding-bottom: 20px;
+}
+.silver-content {
+ border: 3px solid #b2d8ed;
+}
+.gold-content {
+ border: 3px solid #feda8c;
+}
+.platinum-content {
+ border: 6px solid #10cfc8;
+}
+.body-reboot {
+ /*border: 3px solid #ffabab;*/
+}
+img.plan-icon {
+ height: 50px;
+ width: 50px;
+ display: inline-block;
+ vertical-align: middle;
+ margin-right: 8px;
+ margin-top: 12px;
+}
+.silver h3 {
+ display: inline-block;
+ vertical-align: middle;
+ margin-top: 6px;
+}
+.gold h3 {
+ display: inline-block;
+ vertical-align: middle;
+}
+.platinum h3 {
+ display: inline-block;
+ vertical-align: middle;
+ padding-top: 10px;
+}
+.plan-header {
+ height: 68px;
+ border-top-left-radius: .2em;
+ border-top-right-radius: .2em;
+ background-color: #fff;
+ padding-top: 5px;
+}
+.body-reboot .plan-header {
+ position: relative;
+}
+.body-reboot .btn-default {
+ padding: .5em 1.5em .7em 2.0em;
+}
+.silver {
+}
+.gold {
+}
+.platinum {
+}
+.diabetes-gold {
+ padding-bottom: 24px;
+}
+.silver .cta-container,
+.gold .cta-container,
+.platinum .cta-container,
+.diabetes-gold .cta-container {
+ display: inline-block;
+}
+.diabetes-gold img.d-gold-logo {
+ display: inline-block;
+ width: 44px;
+ height: 64px;
+ vertical-align: middle;
+}
+.diabetes-gold h3 {
+ display: inline-block;
+ font-size: 1.438em;
+ text-align: left;
+ vertical-align: middle;
+ margin: 10px 0 0 14px;
+}
+.hero-bg .diabetes-gold .well {
+ padding: 16px 5px 0px;
+}
+.diabetes-gold p.h6 {
+ margin: 14px auto;
+ padding: 0 15px;
+}
+.hero-bg img.call-out {
+ position: absolute;
+ right: 10%;
+ width: 89px;
+ height: 60px;
+ top: 28.5%;
+ z-index: 1;
+} /* PRICE */
+.shop-plans .weekly-price-container {
+ display: inline-block;
+ vertical-align: middle;
+ top: 0;
+ line-height: 0;
+ text-align: left;
+ padding-top: 9px;
+ padding-right: 20px;
+}
+.shop-plans .body-reboot .weekly-price-container {
+ vertical-align: bottom;
+}
+.shop-plans .weekly-price-container p {
+ font-size: 1em;
+margin: 0;
+text-align: center;
+padding: 10px 0 10px 6px;
+top: 0px;
+position: relative;
+}
+.shop-plans .weekly-price {
+ font-size: 1.8em;
+ line-height: 50px;
+ font-weight: 400;
+}
+.shop-plans .body-reboot .weekly-price {
+ font-size: 2.5em;
+ margin-right: 10px;
+}
+.shop-plans .per-week {
+ border-top: none;
+ border-bottom: none;
+ font-size: 0.90em;
+ letter-spacing: 0px;
+ padding: 0;
+ line-height: 1;
+ margin: 0px;
+ position: relative;
+ right: 6px;
+ font-weight: 600;
+}
+.shop-plans .weekly-price-container sup {
+ top: -.4em;
+ font-weight: 600;
+}
+.weekly-price-container span.slash {
+ font-weight: 600;
+ position: relative;
+ right: 2px;
+ top: 1px;
+}
+.weekly-price-container sup.dollar-sign {
+ font-size: 100%;
+} /* below plan section */
+.below-plan-sect {
+margin-top: 15px;
+font-size: 18px;
+}
+.below-plan-sect .list-checked.pink-bullet > li:before {
+color: #f25153;
+content: "\2022";
+top: -1px;
+left: 0px;
+margin-right: 5px;position: relative;
+}
+.material-icons {
+    vertical-align: text-bottom;
+    margin-top: 0%;
+    position: absolute;
+    color: #000;
+    font-weight: 500;
+    font-style: normal;
+    font-size: large;
+    text-indent: 10px;
+    display: contents;
+}
+.below-plan-sect li {
+ margin-bottom: 6px;
+ line-height: 1.3;
+ font-size: 15px;float:left;width:100%;
+}
+.below-plan-sect .list-checked.blue-check > li:before {
+ color: #f25153;position: relative;
+margin-right: 5px;
+}
+.below-plan-sect h3.h4 {
+ font-size: 21px;
+ font-weight: 600;
+}
+.below-plan-sect h3.h5 {
+ font-size: 19px;
+ font-weight: 700;
+}
+.below-plan-sect ul.list-checked.blue-check {
+ margin-bottom: 15px;
+float: left;
+}
+.body-reboot .list-checked > li:before,
+.gold .list-checked > li:before,
+.silver .list-checked > li:before,
+.platinum .list-checked > li:before {
+color: #c11f44;
+}
+.shop-plans .closer .btn-default:after,
+.btn.bg-white:after {
+ content: '\005E';
+}
+.hero-bg img.call-out {
+ display: none !important;
+}
+.plan-callout {
+position: relative;
+padding: 2px 10px 1px;
+font-weight: 700;
+font-size: 14px;
+text-align: center;
+margin: -11px auto !important;
+z-index: 2;
+}
+.gold .plan-callout,
+.platinum .plan-callout {
+ top: -8px;
+ margin-bottom: 0;
+ left:0;
+ right:0;
+ margin-left: auto;
+ margin-right: auto;
+ width: 135px;
+ text-align: center;
+}
+.diabetes-gold ul.moreinfo-collapse {
+ text-align: left;
+}
+.diabetes-gold .list-checked > li:before {
+ color: #d30067;
+}
+.silver .btn,
+.gold .btn,
+.platinum .btn {
+ border: 2px solid #eb4f12;
+}
+.btn-info:after {
+ content: '\e5cc';
+ font-family: 'Material Icons';
+ font-weight: 400;
+ font-size: 1.33em;
+ line-height: .8;
+ text-transform: none;
+ white-space: nowrap;
+ word-wrap: normal;
+ position: relative;
+ right: 0;
+ bottom: -6px;
+}
+@media (max-width: 767px) {
+
+ .card-row .unstyled-link:hover {
+  color: #222;
+ }
+ .more-info-link {
+  display: block;
+  line-height:40px;
+  margin: 10px 10px 0;
+  text-align: center;
+  text-decoration: none;
+ }
+ .body-reboot .more-info-link {
+  margin: 10px 10px 0;width: 100%;
+ }
+ .hero-bg .well {
+  margin-bottom: 0;
+  padding-bottom: 0;
+ }
+ .moreinfo-collapse {
+  margin-top:0px;
+  margin-bottom: 0;
+  padding: 10px 10px;
+visibility: visible;
+ }
+ .body-reboot .well {
+  padding-bottom: 0px 
+ }
+ .body-reboot .cta-container {
+  display: inline-block;
+ }
+ .body-reboot .plan-header {
+  height: 48px;
+ }
+ .body-reboot h3 {
+  font-size: 1.375em;
+  padding-top: 12px;
+ }
+ .btn-default:after,
+ .btn.bg-white:after,
+ .btn-info:after {
+  bottom: -5px 
+ }
+}
+@media (max-width: 320px) {
+.plans-sub-nav-dt {
+    background: #1acccd;
+    position: absolute;
+    min-width: 100%;
+    top: 3.5em;
+    height:45px;
+    padding: 0;
+    margin: 0 0px 0 0;
+}
+ .diabetes-gold h3 {
+  width: 200px;
+ }
+ .body-reboot img.new-img {
+  left: 59px;
+ }
+ .platinum img.plan-icon {
+  margin-right: 0px;
+ }
+}
+@media (min-width: 360px) {
+.plans-sub-nav-dt {
+    background: #1acccd;
+    position: absolute;
+    min-width: 100%;
+    top: 3.5em;
+    height:45px;
+    padding: 0;
+    margin: 0 0px 0 0;
+}
+ .hero-bg img.call-out {
+  right: 15%;
+ }
+}
+@media (min-width: 414px) {
+.plans-sub-nav-dt {
+    background: #1acccd;
+    position: absolute;
+    min-width: 100%;
+    top: 3.7em;
+    height:45px;
+    padding: 0;
+display:none;
+    margin: 0 0px 0 0;
+}
+ .hero-bg img.call-out {
+  right: 18%;
+ }
+ .body-reboot img.new-img {
+  left: 105px;
+ }
+}
+@media screen and (min-width:260px) and (max-width:767px)
+{
+
+.plans-sub-nav-dt {
+    background: #1acccd;
+    position: absolute;
+    min-width: 100%;
+    top:4em !important;
+    height:45px;
+    padding: 0;display: none;
+
+    margin: 0 0px 0 0;
+}
+.hero-bg {
+    background: #EBFBFA;
+    padding:6em 0 0em;
+}
+}
+@media (min-width: 568px) {
+.plans-sub-nav-dt {
+    background: #1acccd;
+    position: absolute;
+    min-width: 100%;
+    top: 3.5em;
+    height:45px;
+    padding: 0;
+    margin: 0 0px 0 0;
+}
+ .hero-bg img.call-out {
+  right: 28%;
+  top: 29.5%;
+ }
+ .body-reboot img.new-img {
+  left: 180px;
+ }
+}
+@media (min-width: 768px) {
+.plans-sub-nav-dt {
+background: #1acccd;
+position: absolute;
+min-width: auto;
+top: 0em;
+height: auto;
+padding: 0;
+margin: 0 0px 0 0;
+}
+ .generic-page-template .page-content {
+  padding: 0em;
+  margin: 10em auto 0;
+  border-radius: 4px;
+ }
+ .generic-page-template {
+  background-image: url();
+  background-size: 100%;
+ }
+ h1.h2 {
+  margin-bottom: 0;
+ }
+ .hero-container h2 sup {
+  top: -1.75em;
+  font-size: 30%;
+ }
+ ul.list-checked.pink-bullet {
+ margin-bottom: 0px;
+float: left;
+ }
+ .hero-bg .headline h4 {
+  margin-bottom: 35px;
+ } /* plan section */
+ .platinum .plan-callout {
+  top: -7px;
+  padding: 3px 0px;
+  line-height: 11px;
+  width: 110px;
+ }
+ .more-info-link {
+  display: none;
+ }
+ .plan-header {
+  padding-top: 15px;
+ }
+ .plan-header h3 {
+  margin-top: 0;
+  padding-top: 5px;
+ }
+ .body-reboot h3,
+ .silver h3,
+ .gold h3,
+ .platinum h3 {
+  font-size: 1.250em;
+  line-height: 1.1;
+ }
+ .body-reboot h3 {
+  padding-top: 13px;
+  padding-left: 3px;
+ }
+ .body-reboot img.new-img {
+  left: 3px;
+  top: 5px;
+  width: 26px;
+  height: 19px;
+ }
+ img.plan-icon {
+  width: 40px;
+  margin-right: 0;
+  margin-top: 0;
+ }
+ .hero-bg .well {
+ padding: 0px 0px;
+margin-bottom: 0;
+ }
+ .shop-plans .weekly-price-container {
+  padding-right: 0;
+ }
+ .weekly-price-container sup.dollar-sign {
+  padding-left: 0;
+ }
+ .hero-bg h6,
+ .hero-bg .h6 {margin: 0;font-size: 14px;
+  line-height: 1.2;
+ }
+ .hero-bg img.call-out {
+  right: 53%;
+  width: 110px;
+  height: 85px;
+  top: 8%;
+ }
+ .shop-plans .weekly-price {
+  font-size: 2em;
+  line-height: 1;
+ }
+ .shop-plans .weekly-price-container p {
+ font-size: 1.125em;
+  margin: 0;
+  text-align: center;
+  padding: 10px 0 13px 0px;
+ }
+ .hero-bg hr {
+  margin: 24px auto;
+ }
+ .hero-bg .list-checked > li {
+  line-height: 1.3;
+ }
+ .gold .list-checked > li:before,
+ .platinum .list-checked > li:before {
+  content: "\e145";
+  font-weight: 600;
+  top: 0px;
+  font-size: 18px;
+ }
+ .gold .well {
+  min-height: 690px;
+ }
+ .gold .well p.h6,
+ .silver .well p.h6,
+ .platinum .well p.h6 {
+  margin: 12px auto;
+  min-height: 100px;
+ }
+ .silver .well p.h6 {
+  min-height: 84px;
+ }
+ .body-reboot .well p.h6 {
+  margin: 12px auto;
+  min-height: 100px;
+ }
+ .hero-bg .diabetes-gold .well {
+  padding: 16px 5px;
+ }
+ #d-gold-mob {
+  padding-top: 20px;
+  padding-left: 140px;
+ }
+ .card-row .collapse {
+  display: block;visibility: visible;
+ } /* below plan section */
+ .below-plan-sect {
+      margin: 40px 0px;
+ }
+ .below-plan-sect .col-xs-12.col-sm-5.col-lg-5 {
+  border-left: 2px solid #dfdfdf;
+  padding-left: 10px;
+  padding-right: 5px;
+ }
+ .below-plan-sect ul.list-checked.blue-check {
+  margin-bottom: 12px;
+ }
+ .below-plan-sect h3.h4 {
+  font-size:25px;margin-bottom: 20px;
+ }
+ .below-plan-sect h3.h5 {
+  font-size: 22px;
+ }
+ .closer .button-wrapper {
+  margin-top: 0px;
+ }
+ .bg-white p.small {
+  margin: 0 0 24px 22px;
+ }
+ .platinum .well {
+  min-height: 259px;
+ }
+}
+.columnsplan {
+  float: left;
+  width:20%;
+  padding: 5px;
+}
+
+.priceplan {
+  list-style-type: none;
+  border: 4px solid #269a9b;
+  margin: 0;
+ padding: 0 15px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+	background: #fff;
+}
+
+.priceplan:hover {
+  box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2)
+}
+
+.priceplan .headerplan {
+    background-color: #fff;
+    color: #000;
+    line-height: normal !important;
+    padding-top: 10px;
+    font-size: 1.425em !important;
+    font-weight: 600;
+    padding-bottom: 0px;
+    margin: 0px;
+}
+
+.priceplan li {
+padding: 0px;
+text-align: center;
+font-size: 14px;
+}
+	.priceplan h2{font-size: 1.5em;
+font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI";
+letter-spacing: 0;text-transform: inherit;
+font-weight: 400;}
+.priceplan .greyplan {
+padding: 0px;
+font-size: 20px;
+height: 50px;margin:0px;
+line-height: 50px !important;
+}
+
+.buttonplan {
+  background-color: #f28424;
+  border: none;
+  color: white;
+  padding: 5px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;border-radius: 4px;
+}
+.list-checkedplan .text-left {
+    text-align: center !important;
+}
+	.list-checkedplan > li{padding: 0px 0px;
+text-align:center;font-size: 14px;
+border-bottom: 0px solid #eee;line-height:1.5;}
+	.list-checkedplan > li::before {
+top: 0;
+content: "\2713";
+font-family: 'Material Icons';
+background: 0;
+font-weight: 600;
+line-height: 1;
+text-transform: none;
+white-space: nowrap;
+word-wrap: normal;
+vertical-align: middle;
+font-size: 15px;
+color: #222;
+margin-right: 5px;
+position: relative;
+left: 0px;
+}
+	.greyplan a:hover{color:#fff;}
+	
+{
+@media (min-width: 768px) and (max-width: 999px) {
+
+.list-checkedplan > li {
+    padding: 0px 0px;
+    text-align: center;
+    font-size: 11px;
+    border-bottom: 0px solid #eee;
+    line-height: 1.5;
+}
+.priceplan .headerplan {
+    background-color: #fff;
+    color: #000;
+    line-height: normal !important;
+    padding-top: 10px;
+    font-size: 1.425em !important;
+    font-weight: 600;
+    padding-bottom: 0px;
+    margin: 0px;
+}
+.priceplan li {
+    padding: 0px;
+    text-align: center;margin: 0px;
+}
+}
+@media (min-width: 768px) and (max-width: 991px) {
+.priceplan .headerplan {
+    background-color: #fff;
+    color: #000;
+    line-height: normal !important;
+    padding-top: 10px;
+    font-size: 1.325em !important;
+    font-weight: 600;
+    height: auto;
+    padding-bottom: 0px;
+}
+.priceplan li {
+    padding: 0px;
+    text-align: center;margin: 0px;
+}
+.buttonplan {
+    background-color: #f28424;
+    border: none;
+    color: white;
+    padding:5px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    border-radius: 4px;
+}
+.priceplan .greyplan {
+padding: 0px;
+height: 50px;
+line-height: 50px !important;
+}
+
+.priceplan h2 {
+    font-size: 1.5em;
+font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI";
+letter-spacing: 0;margin: 0px;
+}
+.columnsplan {
+    float: left;
+    width: 20%;
+    padding: 4px;
+}
+ul {
+    padding: 0 10px 0 10px;
+}
+.priceplan {
+    list-style-type: none;
+    border: 4px solid #269a9b;
+    margin: 0;
+    padding: 0 10px;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    background: #fff;
+    height: 570px;
+}
+.digitalbox {
+    height: 600px;
+}
+.plan-callout {
+    position: relative;
+    padding: 2px 10px 1px;
+    font-weight: 700;
+    font-size: 14px;
+    text-align: center;
+    margin:-11px auto !important;
+    z-index: 2;
+}
+.list-checkedplan > li {
+padding: 0px 0px;
+text-align: left;
+border-bottom: 0px solid #eee;
+font-size: 14px !important;
+line-height: 1.4 !important;
+}
+.list-checkedplan > li {
+    padding: 0px 0px;
+    text-align: left;
+    border-bottom:0px solid #eee;
+}
+ .hero-bg {
+  padding:12em 0 0em;
+ }
+ .btn-default:after,
+ .btn.bg-white:after,
+ .btn-info:after {
+  bottom: -4px;
+ }
+ .btn-info {
+  padding: .5em .9em .7em 1.4em 
+ }
+}
+@media screen and (min-width:260px) and (max-width:767px){
+ul {
+    padding: 18px 18px 0 18px;
+}
+.priceplan .headerplan {
+    background-color: #fff;
+    color: #000;
+    line-height: normal !important;
+    font-size:1.5em !important;margin:0;
+    font-weight: 600;height: auto;
+}
+.hero-bg {
+    background: #EBFBFA;
+    padding: 8em 0 0em;
+}
+}
+/* Landscape*/
+
+    @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (-webkit-min-device-pixel-ratio: 2)  and (orientation: landscape)  
+{
+nav.main-navigation ul.plans-sub-nav-dt {
+    left: auto;
+    float: right;
+    right: 50% !important;
+}
+}
+
+    /* Portrait*/
+    @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (-webkit-min-device-pixel-ratio: 2)  and (orientation: portrait) 
+ {
+nav.main-navigation ul.plans-sub-nav-dt {
+    left: auto;
+    float: right;
+    right: 7em !important;
+}
+nav.main-navigation ul.list-inline.plans-sub-nav-dt > li a, nav.main-navigation ul.list-inline.success-stories-sub-nav-dt > li a {
+    text-decoration: none;
+    font-size: 12px;
+    padding: 5px 6px 5px 6px;
+    background: #269a9b;
+    font-weight: 500;
+}
+}
+
+
+@media (max-width: 991px) {
+.plan-callout {
+    position: relative;
+    padding: 2px 10px 1px;
+    font-weight: 700;
+    font-size: 14px;
+    text-align: center;
+    margin: 0px auto;
+    z-index: 2;
+}
+.priceplan .headerplan {
+    background-color: #fff;
+    color: #000;
+    line-height: normal !important;
+    font-weight: 600;
+}
+ .plans-sub-nav-dt {
+  background: #1acccd;
+  position: absolute;
+  min-width: 100%;
+top: 4em;
+height: 50px;
+  padding: 0;
+  margin: 0 0px 0 0;
+ }
+.plans-sub-nav-dt li {
+display: inline-block;
+padding-left: 0px;
+padding-right: 0px;
+width: 48%;
+margin: 0px;
+font-size: 13px;
+vertical-align: middle;
+text-transform: capitalize !important;
+text-align: center;
+}
+ .plans-sub-nav-dt a {
+text-decoration: none;
+font-size: 15px;
+display: inline-block;
+line-height:50px;
+padding: 0 8px 0 8px;
+font-weight: 500;
+ }
+ .breadcrumb {
+  top: 14.5em;
+  right: 10px;
+ }
+}
+@media (min-width: 992px) {
+ li#BodyRebootSubNav {
+  padding-right: 0;
+ }
+ nav.main-navigation ul.plans-sub-nav-dt {
+left: auto;
+float: right;
+right: 5em;
+ }
+ .generic-page-template {
+  background: none;
+  background-size: 200%;
+ }
+ .generic-page-template .site-header {
+  top: 0px;
+ }
+ .generic-page-template .breadcrumb {
+  top: 13em;
+ }
+ .generic-page-template .page-content {
+  padding: 2em 0em 1em;
+ }
+.priceplan h2 {
+text-transform: inherit;
+font-size: 1.5em;
+font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI";
+letter-spacing:0;
+font-weight: 400;
+color: #222;
+margin: 0;
+}
+ul {
+    padding: 20px 20px 0 20px;
+}
+.list-checkedplan > li {
+padding: 0px;
+text-align: left;
+border-bottom: 0px solid #eee;
+font-size: 14px;
+padding-left: 30px;
+}
+ .hero-bg {
+/*background:url(../images/palm-bg-dt.jpg)no-repeat top center;*/
+  background: url(../images/gbb-shop-plans-hero-bg-sbd-19714.jpg)no-repeat top center;
+    background-size: auto;
+padding: 5em 0 0em;
+width: 100%;
+background-size: 100% 100%;
+ }
+ .hero-bg h1.h2 {
+  font-size: 2.4em;
+ }
+ .hero-bg h2.h4 {font-size: 1.7em;
+  margin-bottom: 2.6em;
+ }
+ .shop-plans .weekly-price {
+  font-size: 3.5em;
+ }
+ .shop-plans .weekly-price-container sup {
+  top: -.6em;
+  font-weight: 600;
+  font-size: 50%;
+ }
+ .weekly-price-container sup.dollar-sign {
+  padding-left: 6px;
+  top: -.9em;
+  font-size: 125%;
+ }
+ .silver-content .weekly-price-container sup.dollar-sign {
+  padding-left: 14px;
+ }
+ .body-reboot .weekly-price-container sup.dollar-sign {
+  padding-left: 10px;
+  top: -.4em;
+  font-size: 125%;
+ }
+ .shop-plans .body-reboot .weekly-price {
+  font-size: 3em;
+  margin-right: 10px;
+ }
+ .weekly-price-container span.slash {
+  right: 4px;
+  top: 1px;
+  font-size: 3em;
+  font-family: 'open sans', sans-serif;
+  font-weight: 400;
+ }
+ .shop-plans .per-week {
+  font-size: 1em;
+  right: 6px;
+  bottom: 7px;
+ }
+ .hero-bg h6,
+ .hero-bg .h6 {
+  margin:6px auto;
+ }
+ .hero-bg .well {
+  padding-top: 12px;
+ }
+ .body-reboot h3,
+ .silver h3,
+ .gold h3,
+ .platinum h3 {
+  font-size: 1.625em;
+ }
+ .hero-bg .headline h4 {
+  margin-bottom: 40px;
+ }
+ .hero-bg img.call-out {
+  top: 2%;
+  right: 54%;
+ }
+ .silver-content,
+ .gold-content {
+  margin-top: 0px;
+ }
+ .body-reboot h3.h5 {
+  padding: 35px 5px 
+ }
+ .body-reboot h3 {
+  padding-top: 30px;
+  margin-left: 6px;
+ }
+ .body-reboot img.new-img {
+  left: 4px;
+  top: 8px;
+  width: 36px;
+  height: 26px;
+ }
+ img.plan-icon {
+  width: 50px;
+ }
+ .plan-header {
+  height: 100px;
+  padding-top: 0;
+ }
+ .silver .plan-header,
+ .gold .plan-header,
+ .platinum .plan-header {
+  padding-top: 15px 
+ }
+ .silver .well p.h6 {
+  min-height: 50px;
+ }
+ .gold .well p.h6,
+ .platinum .well p.h6 {
+  min-height: 90px;
+ }
+ .body-reboot .well p.h6 {
+  min-height: 72px;
+ }
+ p.list-head {
+  margin-bottom: 10px;text-align:center !important;
+  line-height: 1.3;font-size: 1em;
+ }
+ .silver .list-checked > li:before,
+ .body-reboot .list-checked > li:before {
+  top: -2px;
+  font-size: 20px;
+ }
+ .platinum .plan-callout {
+  font-size: 14px;
+  padding: 5px 11px 4px;
+  top: -8px;
+  width: 130px;
+ }
+ .gold .list-checked > li,
+ .platinum .list-checked > li {
+  line-height: 1.3;
+  padding: 0 0 0 20px;
+ }
+ .silver .well {
+  min-height: 425px;
+ }
+ .platinum .well {
+  min-height: 615px;
+ }
+ .gold .well {
+  min-height: 590px;
+ } /* diabetes gold */
+ .diabetes-gold .no-pad-right {
+  padding-right: 0;
+ }
+ .hero-bg .diabetes-gold .well {
+  padding: 36px 30px 30px;
+ }
+ .diabetes-gold img.d-gold-logo {
+  float: left;
+ }
+ #d-gold-mob {
+  padding-top: 0;
+  padding-left: 0;
+ }
+ .diabetes-gold h3 {
+  float: left;
+  font-size: 1.625em;
+  margin: 0px 0 0 14px;
+ }
+ .diabetes-gold .weekly-price-container {
+  float: left;
+  padding-left: 15px;
+ }
+ .diabetes-gold .cta-container {
+  float: right;
+  margin-top: 12px;
+ }
+ .diabetes-gold p.h6 {
+  text-align: left;
+  padding: 0 0px 0 58px;
+  margin: -26px auto 0;
+ }
+ .hero-bg .diabetes-gold hr {
+  margin-left: 53px;
+ }
+ .diabetes-gold ul.list-inline.list-checked {
+  text-align: left;
+  margin-bottom: 0;
+  margin-left: 53px;
+ }
+ .diabetes-gold .list-inline > li {
+  padding-left: 30px;
+  margin-bottom: 0;
+ }
+ .diabetes-gold .list-inline > li.first {
+  padding-right: 30px;
+ }
+ .diabetes-gold .list-checked > li:before {
+  font-size: 25px;
+  left: 0px;
+  top: -4px;
+ }
+ .diabetes-gold .list-checked > li:before {
+  color: #d30067;
+ }
+ ul#d-gold-mob {
+  display: block;
+  margin-bottom: 0;
+ }
+ ul#d-gold-mob li {
+  display: inline-block;
+ }
+ .diabetes-gold li {
+  margin: 0 0 0 15px;
+ }
+ .diabetes-gold li.first {
+  margin: 0 0 0 58px;
+ } /* below */
+ .below-plan-sect .h4 {
+  margin-bottom: 4px;
+ }
+ .below-plan-sect .list-checked.pink-bullet > li:before {
+  top: 0px;
+  font-size: 18px;
+ }
+ .below-plan-sect .list-checked.blue-check > li:before {
+  top: 2px;
+ }
+ .below-plan-sect .h5.text-primary {
+  line-height: 1.1;
+ }
+ .below-plan-sect .col-xs-12.col-sm-5.col-lg-5 {
+  padding-bottom: 20px;
+ }
+ .below-plan-sect ul.list-checked.blue-check li:last-child,
+ .below-plan-sect ul.list-checked.blue-check {
+  margin-bottom: 0;
+ }
+ .below-plan-sect ul.list-checked.blue-check {
+  line-height: 1.2;
+ }
+ .below-plan-sect .h5.text-primary,
+ .below-plan-sect ul.list-checked.blue-check {
+  margin-left: 0px;
+ }
+ .fw-400 {
+  font-weight: 400;
+ }
+ a:hover .well,
+ a:hover .plan-header {
+  background-color: rgb(255,255,255,.40);
+ }
+ .well:hover span.btn-primary {
+  background-color: #f2f2f2;
+  color: #026271;
+  border: 2px solid #026271;
+ }
+ .unstyled-link:hover,
+ .unstyled-link:hover {
+  color: #222;
+ }
+ .card-row .btn-xs {
+  font-size: 1.2em;
+  letter-spacing: normal;
+ }
+}
+@media (min-width: 1130px) {
+ nav.main-navigation ul.plans-sub-nav-dt {
+left: auto;
+background: #269a9b;
+padding: 0px 0px;
+margin: 0px;
+right: 10em;
+top:0em;
+float: right;
+width: auto;
+ }
+nav.main-navigation ul.plans-sub-nav-dt li{margin-bottom:0px;line-height:40px;padding:0px;}
+}
+@media screen and (min-width:800px) and (max-width:1200px)
+{
+.list-checkedplan > li {
+    padding: 0px 0px;
+    text-align: center;
+    font-size: 13px;
+    border-bottom: 0px solid #eee;
+    line-height: 1.5;
+}
+.priceplan .headerplan {
+    background-color: #fff;
+    color: #000;
+    line-height: normal !important;   
+    padding:0px 10px;
+padding-top:40px;font-size: 1.8em !important;
+
+}
+ul {
+    padding: 20px 5px 0 5px;
+}
+.digitalbox {
+    height: 570px;
+}
+}
+@media (min-width: 1200px) {
+nav.main-navigation ul.plans-sub-nav-dt{
+    top: 0em;
+    left: auto;
+  right: 60%;
+}
+.list-checkedplan > li {
+padding: 0px;text-align: left;
+border-bottom: 0px solid #eee;
+font-size: 14px;
+padding-left:20px;list-style-position: inside;
+}
+nav.main-navigation ul.list-inline.plans-sub-nav-dt > li a {
+    text-decoration: none;
+    font-size: 13px;
+    display: inline-block;
+    line-height: 40px;
+    padding: 0 12px 0 12px;
+}
+ .generic-page-template {
+  background: none;
+  background-size: 115%;
+ }
+ .hero-bg .headline h4,
+ .hero-bg .headline .h4 {
+  margin-bottom: 50px;
+ }
+ .hero-bg {
+  padding:8em 0 0em;
+ }
+ .hero-bg .well {
+  padding: 12px 15px;
+ }
+ .shop-plans .weekly-price-container p {
+  padding: 10px 0 16px 0px;
+ }
+ .body-reboot img.new-img {
+  left: 20px;
+  top: 7px;
+  width: 40px;
+  height: 30px;
+ }
+ .hero-bg img.call-out {
+  top: 2.5%;
+  right: 53%;
+ }
+ .body-reboot h3 {
+  padding-top: 40px;
+ }
+ .silver .well {
+  min-height: 385px;
+ }
+ .platinum .well {
+  min-height: 545px;
+ }
+ .gold .well {
+  min-height: 523px;
+ }
+ .gold .well p.h6,
+ .platinum .well p.h6 {
+  min-height: 75px;
+ }
+ .silver .well p.h6 {
+  min-height: 50px;
+ }
+ .body-reboot .well p.h6 {
+  min-height: 75px;
+ }
+ .diabetes-gold .list-inline > li.first {
+  padding-right: 50px;
+ }
+ .diabetes-gold .cta-container {
+  margin-right: 40px;
+ }
+ .weekly-price-container {
+  padding-top: 6px;
+ }
+ .well p.h6 {
+  padding-top: 6px;
+ }
+}
+@media (max-width: 360px) {
+ .plans-sub-nav-dt a {
+  font-size: 11px;
+ }
+}

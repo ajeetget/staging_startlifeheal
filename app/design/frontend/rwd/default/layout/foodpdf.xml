@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+
+<foodpdf_index_category>
+    <reference name="root">
+      <action method="setTemplate"><template>page/1column.phtml</template></action>
+    </reference>
+    <reference name="content">
+      <block type="foodpdf/index" name="foodpdf_category" template="foodpdf/category.phtml"/>
+    </reference>
+  </foodpdf_index_category> 
+
+  <foodpdf_index_index>
+    <reference name="root">
+      <action method="setTemplate"><template>page/1column.phtml</template></action>
+    </reference>
+    <reference name="content">
+      <block type="foodpdf/index" name="foodpdf_index" template="foodpdf/index.phtml"/>
+    </reference>
+  </foodpdf_index_index>
+  
+   <foodpdf_index_uploadcsv>
+    <reference name="root">
+      <action method="setTemplate"><template>page/1column.phtml</template></action>
+    </reference>
+    <reference name="content">
+      <block type="foodpdf/index" name="foodpdf_uploadcsv" template="foodpdf/uploadcsv.phtml"/>
+    </reference>
+  </foodpdf_index_uploadcsv>
+
+<foodpdf_index_show>
+    <reference name="root">
+      <action method="setTemplate"><template>page/1column.phtml</template></action>
+    </reference>
+    <reference name="content">
+      <block type="foodpdf/index" name="foodpdf_index" template="foodpdf/show.phtml"/>
+    </reference>
+  </foodpdf_index_show>  
+</layout>
+	

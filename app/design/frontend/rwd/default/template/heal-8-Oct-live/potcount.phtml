@@ -1,0 +1,151 @@
+<style type="text/css">
+	.main {
+    width: 100%;
+    margin-top: 7rem;
+    height: 100%;
+    margin-bottom: 1.5rem;
+}
+	* {box-sizing: border-box}
+	.labelbox{width:30%;float:left;}
+input[type=radio] {
+    margin: 0px 10px;   
+}
+	.formboxpot{ width: 600px;
+    margin: auto;
+    padding: 30px;
+    max-width: 100%;
+    height: 400px;
+    background: #f6f6f6;}
+.loader {
+  position: fixed;
+  left: 40%;
+  top: 50%;
+  z-index: 9999;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #0eb58f;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+	@media screen and (min-width:260px) and (max-width:760px){		
+	.labelbox {
+    width: 100%;
+    float: left;
+}
+		input[type="text"], .btn-info {
+			    width: 100% !important;}
+		.formboxpot {
+    width: 100%;
+    margin: auto;
+    padding: 30px;
+    max-width: 100%;
+    background: 
+    #f6f6f6;
+    height: 480px;
+}
+	}
+</style>
+<div id="pageloader" class="loader" style="display: none;"></div>
+<div class="container">
+ 
+  <div class="formboxpot">
+	<div style="margin: 10px auto;">
+  <label  class="radio-inline"><input type="radio" name="sentreceived" value="sent">Sent</label>  
+
+  <label  class="radio-inline"><input type="radio" name="sentreceived" value="received">Received</label>
+	  </div>
+    <div class="form-group">
+      <label for="orderid" class="labelbox"> Order Id:</label>
+		 <input type="text" name="OrderId" id="orderid" class="OrderId"> 
+        </div>
+    <div class="form-group">
+     <label for="totalss" class="labelbox">Total SS Box:</label>
+		 <input type="text" name="ssbox" id="totalss" class="ssbox"> 
+        </div>
+    
+<div class="form-group">
+     <label for="srssbox" class="labelbox"> SR no of SSBox:</label>
+		 <input type="text" name="srssbox" id="srssbox" class="srssbox"> 
+        </div>
+
+	<div class="form-group">
+     	 <label for="imageupload" class="labelbox"> Image upload:</label>
+		 <input type="file" id="file" name="file" size="10"/>
+    </div>
+
+   
+<div class="form-group">
+     <label for="SubmittedBy" class="labelbox">Submitted By:</label>
+		 <input type="text" name="SubmittedBy" id="SubmittedBy" class="submittedby"> 
+        </div>
+ 
+  
+    <input type="submit" class="btn btn-info" onclick="onsubmitcount()" value="Submit">
+		<div class="errormsg" style="color: red;clear:both;"> </div>
+  </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+	//var jQuery = $.noConflict();
+function onsubmitcount() { 
+		jQuery(".loader").css("display", "block");
+		jQuery('.btn-info').prop('disabled', true);
+		var sentreceived = jQuery('input[name=sentreceived]:checked').val();
+		var orderid = jQuery(".OrderId").val().trim();
+		var ssbox = jQuery(".ssbox").val().trim();
+		var srssbox = jQuery(".srssbox").val();
+		var submittedby = jQuery(".submittedby").val();
+		jQuery(".errormsg").text("");
+		
+
+		if( (sentreceived == 'sent' || sentreceived =='received') && orderid !== "" && ssbox !== "") {
+			var formData = new FormData();
+			formData.append('image', jQuery('input[type=file]')[0].files[0]);
+			formData.append('sentreceived',sentreceived);
+			formData.append('orderid',orderid);
+			formData.append('ssbox',ssbox);
+			formData.append('srssbox',srssbox);
+			formData.append('submittedby',submittedby);
+			
+
+			console.log(jQuery('input[type=file]')[0].files[0]);
+
+			//console.log(sentreceived); console.log(orderid); console.log(ssbox);
+			
+			jQuery.ajax({
+						url: "<?php echo Mage::getBaseUrl().'heal/index/potcontroller' ?>",
+						type: "POST", 
+						data: formData,
+						contentType: false,
+		                cache: false,
+		                processData: false,
+						  success: function(data){
+							jQuery(".loader").css("display", "none");
+						  	jQuery(".errormsg").text(data.results);
+						  	setTimeout(function(){ 
+						  		jQuery('.btn-info').prop('disabled', false);
+						  	}, 6000);
+						  	
+						}
+			});
+		} else {
+				jQuery(".loader").css("display", "none");
+				if(sentreceived === undefined){
+					alert("Please Select Received or Sent");
+				}else{ alert("Please Fill the fields"); }				
+				setTimeout(function(){ 
+			  		jQuery('.btn-info').prop('disabled', false);
+			  	}, 6000);
+		}
+	}
+</script>
+

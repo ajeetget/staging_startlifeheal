@@ -1,0 +1,408 @@
+
+    <link rel="stylesheet" href="<?php echo $this->getSkinUrl();?>css/preloader.css">
+
+    <link rel="stylesheet" href="<?php echo $this->getSkinUrl();?>css/perfect-scrollbar.min.css">
+   
+    <link rel="stylesheet" href="<?php echo $this->getSkinUrl();?>css/catalog-page.css">
+ <script src="<?php echo $this->getSkinUrl();?>js/jquery-3.2.1.min.js"></script>
+
+<script src="<?php echo $this->getSkinUrl();?>js/catalog.min.js"></script>
+ <style>
+	 /* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+	 
+	 .jrxrSi {
+    align-self: center;
+    width: 100%;
+}
+	 .jrxrSi button > span {
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+	 .jrxrSi button {
+    border-radius: 10px;
+    outline: currentcolor none medium;
+    text-transform: uppercase;
+    padding: 0.5em 1em;
+    border: medium none;
+    width: 100%;
+}
+	 .box, .box2, .box3, .box4{
+        float: left;
+overflow: hidden;
+background:#f0e68c;
+height: 142px;
+width: 100%;
+position: absolute;
+z-index: 3;
+right: 0%;
+		 display:none;
+    }
+	 
+    /* Add padding and border to inner content
+    for better animation effect */
+    .box-inner{
+        width: 100%;		
+        padding: 5px;
+        border: 1px solid #a29415;
+    }
+	 .cCbxqa .itm-dsc__actn__sz {
+    flex-flow: column nowrap;
+    width: 100%;
+    margin: auto;
+}
+	 .SSFcO {
+   float: right;
+color:#3d4152;
+cursor: pointer;
+font-size: 24px;
+position: absolute;
+right: 10px;
+padding: 5px;
+top: -5px;
+}
+	
+#myInput {
+  box-sizing: border-box;
+background-position: 14px 12px;
+background-repeat: no-repeat;
+font-size: 14px;
+padding: 0px 0px 0px 15px;
+border: none;
+	text-align: left;
+    border-bottom-color: currentcolor;
+    border-bottom-style: none;
+    border-bottom-width: medium;
+border-bottom: 1px solid #ddd;
+
+height: 50px !important;
+border-radius: 4px;
+background:#fff;
+color:#000;
+width: 100% !important;
+}
+
+#myInput:focus {outline: 3px solid #ddd;}
+
+
+
+	/*.main-container .container{max-width:100%;padding:0px;}*/
+
+	@media screen and (min-width:260px) and (max-width:760px)
+	{
+		.catalog__list {
+    max-width: 100%;
+    margin: 20px auto;
+}
+		.SSFcO {
+    float: right;
+    color: 
+    #fff;
+    cursor: pointer;
+    font-size: 24px;
+    position: absolute;
+    right: 10px;
+    padding: 5px;
+    top: -5px;
+}
+		.stickyhead{position: fixed;
+top:23px !important;
+width: 100%;
+}
+	 }
+	 
+</style>
+    <!-- site -->
+    <div class="site">
+
+        <!-- site__content -->
+        <div class="site__content">
+			<!--<p class="productcategoryname">INDIAN</p>-->
+
+            <!-- catalog -->
+            <div class="catalog">
+
+              
+          <div class="catalog__frame">  
+					
+					<div class="bannertext">
+					</div>
+				</div>
+					
+					
+                  
+                    <!-- catalog__wrap -->
+                    <div class="catalog__wrap" id="category-products-container">
+
+                        <!-- catalog__wrap -->
+                        <div class="catalog__list">
+							<div class="showdeluxe">
+<ul class="products-grid products-grid--max-3-col">
+                           <li class="item last">
+				<div class="itm-wrppr">
+		<div class="sc-bbmXgH gfbLKA">
+		<div class="injectStyles-sc-1jy9bcf-0 eRJwMX">
+			<div class="wd-100">
+				<div class="sc-ksYbfQ PVrMb">
+					<div class="img-cvr">
+						<img id="product-collection-image-1844" class="img-wrpr__img" src="https://lifeheal.in/media/catalog/product/cache/1/small_image/9df78eab33525d08d6e5fb8d27136e95/k/a/kaali-dal-600x400.jpg" alt="Kaali Dal (Combo)">
+						
+					</div>
+					
+					<div class="img-wrpr__fav" data-label="favorite">
+						<div class="injectStyles-sc-1jy9bcf-0 iBNnip"></div>
+						<div class="injectStyles-sc-1jy9bcf-0 iwmcbq"></div>
+					</div>
+					<div class="img-wrpr__typ">
+						<div class="injectStyles-sc-1jy9bcf-0 veg"></div>
+					</div>
+						<!--<div class="injectStyles-sc-1jy9bcf-0 fkPpkx">
+						<button data-label="customise" class="btn--cstmz">
+							<span>4.2</span>
+							<div class="injectStyles-sc-1jy9bcf-0 FTAhK"></div>
+						</button>
+					</div>-->
+				</div>
+			</div>
+			<div class="sc-hmzhuo cCbxqa">
+				<div class="itm-nm-dsc ">
+					<span class="itm-dsc__nm">Kaali Dal (Combo)</span>
+					
+						<span class="itm-dsc__dscrptn" title="Kaali Dal (Combo)">The all time favorite dish. Ours is vegan, which means it
+has no cream, no butter and no oil. Our recipe uses
+cashew paste to create the rich taste and is heart-healthy</span>
+				</div>
+				<div id="itm-action">
+				<div class="itm-dsc__actn">
+				<!--Sabji start-->
+                                         					<div class="itm-dsc__actn__sz">
+						
+						<div style="width:100%; float:left;">
+						
+							<div class="injectStyles-sc-1jy9bcf-0 dVfvkq2 ">
+									<!--dd-wrpr-->
+								<div class="dd-wrpr" id="sabji_Div_1844">
+								</div>
+							<!--dd-wrpr-->
+								<div class="nm-icn">
+									<div datalabel="sabji" onclick="myitembox()" class="itm-dsc__actn__sz__dd-ttl" style="box-shadow: 0px 0px 3px rgba(0,0,0,0.2);padding:10px 10px;border-radius:8px;">Select Course 1: Soup(<span class="rupee">50</span>)</div>
+									<input type="hidden" id="sabji_h_1844" optionid="" selectionid="" price="" value="" position="2">
+								</div>
+								
+							</div>
+						</div>
+						
+					</div>
+                                         					<!--Subji end-->
+				</div>
+				
+				<div class="itm-dsc__actn">
+					<!--salad start-->
+					<div class="itm-dsc__actn__sz">
+					
+						<div style="width:100%; float:left;">
+							
+							<div class="injectStyles-sc-1jy9bcf-0 dVfvkq3">
+								<!--dd-wrpr-->
+								<div class="dd-wrpr" id="salad_Div_1844">
+									
+								</div>
+							<!--dd-wrpr-->
+								<div class="nm-icn">
+									<div datalabel="salad" id="boxitem" class="slide-toggle2 itm-dsc__actn__sz__dd-ttl" style="box-shadow: 0px 0px 3px rgba(0,0,0,0.2);padding:10px 10px;border-radius:8px;">Select Course 2: Salad(<span class="rupee">50</span>)</div>
+									<input type="hidden" id="salad_h_1844" optionid="" selectionid="" price="" value="" position="3">
+								</div>
+								
+
+							</div>
+						</div>
+						
+							</div>
+					<!--salad end-->
+					
+				</div>
+				
+				<div class="itm-dsc__actn">
+					<!--Sabji start-->
+                                         					<div class="itm-dsc__actn__sz">
+						
+						<div style="width:100%; float:left;">
+						
+							<div class="injectStyles-sc-1jy9bcf-0 dVfvkq2 ">
+									<!--dd-wrpr-->
+								<div class="dd-wrpr" id="sabji_Div_1844">
+								</div>
+							<!--dd-wrpr-->
+								<div class="nm-icn">
+									<div datalabel="sabji" id="boxitem" class="slide-toggle3 itm-dsc__actn__sz__dd-ttl" style="box-shadow: 0px 0px 3px rgba(0,0,0,0.2);padding:10px 10px;border-radius:8px;">Select Course 3: Subji(<span class="rupee">50</span>)</div>
+									<input type="hidden" id="sabji_h_1844" optionid="" selectionid="" price="" value="" position="2">
+								</div>
+								
+							</div>
+						</div>
+						
+					</div>
+                                         					<!--Subji end-->
+				</div>
+			
+				<div class="itm-dsc__actn">
+					<!--salad start-->
+					<div class="itm-dsc__actn__sz">
+					
+						<div style="width:100%; float:left;">
+							
+							<div class="injectStyles-sc-1jy9bcf-0 dVfvkq3">
+								<!--dd-wrpr-->
+								<div class="dd-wrpr" id="salad_Div_1844">
+									
+								</div>
+							<!--dd-wrpr-->
+								<div class="nm-icn">
+									<div datalabel="salad" id="boxitem" class="slide-toggle4 itm-dsc__actn__sz__dd-ttl" style="box-shadow: 0px 0px 3px rgba(0,0,0,0.2);padding:10px 10px;border-radius:8px;">Select Course 4: Rice/ Roti(<span class="rupee">50</span>)</div>
+									<input type="hidden" id="salad_h_1844" optionid="" selectionid="" price="" value="" position="3">
+								</div>
+								
+
+							</div>
+						</div>
+						
+							</div>
+					<!--salad end-->
+						</div>
+					 <div class="box" id="boxdropdown">
+        <div class="box-inner">Brown Rice Pluao</div>
+		<div class="box-inner">Cauliflower Rice</div>
+		<div class="box-inner">Cream of Carrot Soup</div>
+       <div class="box-inner">Italian Minestrone Soup</div>
+								</div>
+				</div>
+					<div class="itm-dsc__actn__adCrt">
+                                            <span style="position: absolute;width: 100%;float: left;z-index: 1;background: #cfcfcf;padding: 10px;display:none;"></span>						
+                                            <div class="injectStyles-sc-1jy9bcf-0 jrxrSi addTocartBtn">
+                                                    <button  class="addcombo" onclick="openForm()"><span>save</span></button>
+                                            </div>						
+					</div>
+				<div class="form-popup" id="myloginForm">
+  <form action="/action_page.php" class="form-container">
+    <h1>Login</h1>
+
+    <label for="email"><b>Email</b></label>
+    <input type="text" placeholder="Enter Email" name="email" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" required>
+
+    <button type="submit" class="btn">Login</button>
+    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+  </form>
+</div>
+					</div>
+				
+				</div>
+			</div>
+		</div>
+				
+              
+            </li>
+							</ul>
+								</div>
+                        </div>
+
+                    </div>
+                    <!-- /catalog__wrap -->
+
+                  
+
+                </div>
+                <!-- /catalog__frame -->
+
+            </div>
+            <!-- /catalog -->
+
+           
+           
+        <!-- /site__content -->
+
+
+    </div>
+    <!-- /site -->
+    <script src="<?php echo $this->getSkinUrl();?>js/perfect-scrollbar.jquery.min.js"></script>
+
+<script type="text/javascript">
+	function openForm() {
+  document.getElementById("myloginForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myloginForm").style.display = "none";
+}
+	
+ function myitembox() {
+  var x = document.getElementById("boxdropdown");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+    $('#itm-action').click(function() {
+        $('#boxdropdown').hide(); //Hide the menus if visible
+    });
+
+   $('#itm-action').click(function(e){
+     e.stopPropagation();
+ });
+</script>   
+	
+

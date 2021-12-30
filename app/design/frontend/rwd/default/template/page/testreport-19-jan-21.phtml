@@ -1,0 +1,364 @@
+<style type="text/css">
+.loader {
+  position: fixed;
+  left: 40%;
+  top: 50%;
+  z-index: 9999;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #a61d3f;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+.testreport-wrapper{
+	margin: 70px 0 30px 0;
+	background: #269a9b;
+	box-sizing: border-box;
+	padding: 20px;
+}
+.testreport-inner{
+	background: #fff;
+	box-sizing: border-box;
+	padding: 20px;
+}
+.breadcrumbs {
+	position: absolute;
+	top:30px;
+}
+
+.base-select{
+	width: 60%;
+margin: 0 auto 35px auto;
+}
+
+ label{
+    display: block;  
+    font-size: 13px;
+ }
+.testreport-inner ul,.disto-sisto{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+} 
+.testreport-inner ul li{
+    width: 31%;
+    margin-bottom: 15px;
+}
+.testreport-inner input[type="text"]{
+    display: inline-block;
+    width:100%;
+    box-sizing: border-box;
+    padding: 10px 15px;
+    margin:0;
+    border: 0;
+    outline: 0;
+    border:1px solid rgba(0,0,0,0.2);
+    background: #fff;
+}
+.testreport-inner .bptext{
+	width:47% !important;
+}
+.testreport-inner .date_field input[type="date"]{
+    display: block;
+    width:18%;
+    box-sizing: border-box;
+    padding: 6px 15px;
+    margin:0;
+    border: 0;
+    outline: 0;
+    border:1px solid rgba(0,0,0,0.2);
+    background: #f6fcfc;
+}
+.testreport-inner input[type="submit"]{
+    display: block;
+    width:240px;
+    margin:0 auto;
+    border: 0;
+    outline:none;
+    background: #c21f42;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1.3rem;
+    box-shadow: 0 6px 3px 0px rgba(0,0,0,0.05);
+    color: #fff;
+}
+.testreport-inner input[type="submit"]:hover{
+    box-shadow: 0 3px 2px 0px rgba(0,0,0,0.05);
+}
+.testreport-inner li span{
+    display: inline-block;
+    width:80px;
+}
+.testreport-inner input[type="radio"]{
+    display: inline-block;
+    width: 40px;
+    position: relative;
+    top:5px;
+}
+h2{
+	text-align: center;
+    font-size: 1.5rem;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding-bottom: 10px;
+}
+</style>						
+<?php  
+$LoggedIncustomer = Mage::helper('customer')->getCustomer();
+$custId = $LoggedIncustomer->getId();
+$customerName = $LoggedIncustomer->getFirstname();
+$mobileNo = $LoggedIncustomer->getPrimarymobileno();
+?>
+<div class="container">	
+	<div class="testreport-wrapper">
+		<div class="testreport-inner">
+			<h2>Test Submit Form</h2>
+			<form id="testreport_form" action="liver.php" method="post">
+                <div class="date_field">
+                    <label>Date In MM-DD-YYYY Format</label>                    
+                    <input type="date" name="mydate" id="mydate" placeholder="dd-mm-yyyy" required="required" />
+                </div>
+                <ul>
+                    <li>
+                        <label>Bilirubin</label>
+                        <input  type="text" name="bilirubin" id="bilirubin" placeholder="Bilirubin Value" />
+                    </li>
+                    <li>
+                        <label>Blood Pressure</label>
+                        <div class="disto-sisto">
+                        	<input  type="text" class="bptext" name="bp_diastolic" id="bp_diastolic" placeholder="Diastolic" />
+                        	<input  type="text" class="bptext" name="bp_systolic" id="bp_systolic" placeholder="Systolic" />
+                        </div>
+                    </li>
+                    <li>
+                        <label>Creatinine Value</label>
+                        <input  type="text" name="creatinine" id="creatinine" placeholder="Creatinine Value" />
+                    </li>
+                    <li>
+                        <label>Fatty Liver Ultra Sound Stage Value</label>
+                        <input  type="text" name="fattyliverultrasound" id="fattyliverultrasound" placeholder="Fatty Liver Ultra Sound Stage Value" />
+                    </li>
+                    <li>
+                        <label>Fatty Liver Fibroscan CAP score Value</label>
+                        <input  type="text" name="fattyliverfirbscan" id="fattyliverfirbscan" placeholder="Fatty Liver Fibroscan CAP score Value" />
+                    </li>
+                    <li>
+                        <label>Fatty Liver Fibroscan E score Value</label>
+                        <input  type="text" name="fattyliverescore" id="fattyliverescore" placeholder="Fatty Liver Fibroscan E score Value" />
+                    </li>
+                    <li>
+                       <label>HBA1c Value</label>
+                       <input  type="text" name="hba1c" id="hba1c" placeholder="HBA1c Value" />
+                    </li>
+                    <li>
+                       <label>HOMA IR</label>
+                       <input  type="text" name="homa" id="homa" placeholder="HBA1c Value" />
+                    </li>
+                    <li>
+                        <label>Homocysteine Value</label>
+                        <input  type="text" name="homocysteine" id="homocysteine" placeholder="Homocysteine Value " />
+                    </li>
+                    <li>                
+                        <label>HSCRP Value</label>               
+                        <input  type="text" name="hscrp" id="hscrp" placeholder="HSCRP Value" />
+                    </li>                    
+                    <li>
+                        <label>HDL Value</label>
+                        <input  type="text" name="hdl" id="hdl" placeholder="HDL Value" />
+                    </li>
+                    <li>
+                        <label>LDL Value</label>
+                        <input  type="text" name="ldl" id="ldl" placeholder="LDL Value" />
+                    </li>
+                    <li>
+                        <label>TriGlycerides Value</label>
+                        <input  type="text" name="triglycerides" id="triglycerides" placeholder="TriGlycerides Value" />
+                    </li>
+                    <li> 
+                        <label>SGOT Value</label>
+                        <input  type="text" name="sgot" id="sgot" placeholder="SGOT Value" />
+                    </li>
+                    <li>
+                        <label>SGPT Value</label>
+                        <input  type="text" name="sgpt" id="sgpt" placeholder="SGPT Value" />
+                    </li> 
+                    
+                    <li>
+                        <label>Sodium Value</label>
+                        <input  type="text" name="sodium" id="sodium" placeholder="Sodium Value" />
+                    </li>
+                    <li>
+                        <label>Potassium Value</label>
+                        <input  type="text" name="potassium" id="potassium" placeholder="Potassium Value" />
+                    </li>
+                    <li>
+                        <label>TSH Value</label>
+                        <input  type="text" name="tsh" id="tsh" placeholder="TSH Value " />
+                    </li>
+                     <li>
+                        <label>T3 Value</label>
+                        <input  type="text" name="t3" id="t3" placeholder="T3 Value " />
+                    </li>
+                     <li>
+                        <label>T4 Value</label>
+                        <input  type="text" name="t4" id="t4" placeholder="T4 Value " />
+                    </li>
+                    
+                    <li>
+                        <label>Uric Acid Value</label>
+                        <input  type="text" name="uricacid" id="uricacid" placeholder="Uric Acid Value" />
+                    </li>  
+
+
+                    <li>
+                        <label>Urea Value</label>
+                        <input  type="text" name="urea" id="urea" placeholder="urea Value" />
+                    </li> 
+
+
+                    <li>
+                        <label>Fasting Glucose</label>
+                        <input  type="text" name="fasting_glucose" id="fasting_glucose" placeholder="Fasting Glucose Value" />
+                    </li> 
+
+                    <li>
+                        <label>P P Sugar</label>
+                        <input  type="text" name="ppsugar" id="ppsugar" placeholder="p p sugar Value" />
+                    </li> 
+
+                     <li>
+                        <label>Waist</label>
+                        <input  type="text" name="waist" id="waist" placeholder="Waist Value" />
+                    </li>   
+
+                    <li>
+                        <label>Height</label>
+                        <input  type="text" name="height" id="height" placeholder="Height Value" />
+                    </li>
+
+                    <li>
+                        <label>Family History</label>
+                        <span>
+                            <input type="radio" name="family_history" id="h1" value="1"> Yes
+                        </span>
+                        <span>
+                            <input type="radio" name="family_history" id="h2" value="0"> No
+                        </span>
+                    </li> 
+
+                    <li>
+                        <label>Diabetes </label>
+                        <span>
+                            <input type="radio" name="diabetes" id="d1" value="on"> Yes
+                        </span>
+                        <span>
+                            <input type="radio" name="diabetes" id="d2" value="0"> No
+                        </span>
+                    </li>  
+
+                    <li>                                   
+                        <input  type="hidden" name="custid" id="custid" value="<?php echo $custId; ?>" />
+                         <input  type="hidden" name="name" id="name" value="<?php echo $customerName; ?>" />
+                          <input  type="hidden" name="mobileno" id="mobileno" value="<?php echo $mobileNo; ?>" />
+                    </li>
+                </ul>                   
+                <input  type="submit" name="" value="Submit Report" />
+            </form>
+		</div>
+	</div>
+</div>
+<script>
+	
+jQuery("#testreport_form").submit(function(event){	
+    event.preventDefault();		
+    var date = jQuery("#mydate").val();	
+    var bilirubin = jQuery("#bilirubin").val();	
+    var bp_diastolic = jQuery("#bp_diastolic").val();	
+    var bp_systolic = jQuery("#bp_systolic").val();	
+    var creatinine = jQuery("#creatinine").val();	
+    var fattyliverultrasound = jQuery("#fattyliverultrasound").val();	
+    var fattyliverfirbscan = jQuery("#fattyliverfirbscan").val();	
+    var fattyliverescore = jQuery("#fattyliverescore").val();	
+    var hba1c = jQuery("#hba1c").val();	
+    var homa = jQuery("#homa").val();	
+    var homocysteine = jQuery("#homocysteine").val();	
+    var hscrp = jQuery("#hscrp").val();	
+    var hdl = jQuery("#hdl").val();	
+    var ldl = jQuery("#ldl").val();	
+    var triglycerides = jQuery("#triglycerides").val();	
+    var sgot = jQuery("#sgot").val();	
+    var sgpt = jQuery("#sgpt").val();	
+    var sodium = jQuery("#sodium").val();	
+    var potassium = jQuery("#potassium").val();	
+    var tsh = jQuery("#tsh").val();	
+    var t3 = jQuery("#t3").val();	
+    var t4 = jQuery("#t4").val();	  
+    var uricacid = jQuery("#uricacid").val();
+    var urea = jQuery("#urea").val(); 
+    var fasting_glucose = jQuery("#fasting_glucose").val(); 
+    var ppsugar = jQuery("#ppsugar").val(); 
+    var waist = jQuery("#waist").val();
+    var height = jQuery("#height").val(); 
+    var family_history = jQuery("input[name='family_history']:checked").val();
+    var diabetes = jQuery("input[name='diabetes']:checked").val();            
+    var custid = jQuery("#custid").val();
+    var name = jQuery("#name").val();
+    var mobileno = jQuery("#mobileno").val();    	
+
+	var FormData = {
+			'date':date,
+			'bilirubin':bilirubin,
+			'bp_diastolic':bp_diastolic,
+			'bp_systolic':bp_systolic,
+			'creatinine':creatinine,
+			'fattyliverultrasound':fattyliverultrasound,
+			'fattyliverfirbscan':fattyliverfirbscan,
+			'fattyliverescore':fattyliverescore,
+			'hba1c':hba1c,
+			'homa':homa,
+			'homocysteine':homocysteine,
+			'hscrp':hscrp,
+			'hdl':hdl,
+			'ldl':ldl,
+			'triglycerides':triglycerides,
+			'sgot':sgot,
+			'sgpt':sgpt,
+			'sodium':sodium,
+			'potassium':potassium,
+			'tsh':tsh,
+			't3':t3,
+			't4':t4,
+			'uricacid':uricacid,
+            'urea':urea,
+            'fasting_glucose':fasting_glucose,
+            'ppsugar':ppsugar,
+            'waist':waist,
+            'height':height,
+            'family_history':family_history,
+            'diabetes':diabetes,
+            'name':name,
+            'mobileno':mobileno,			
+			'custid':custid  
+		};
+
+		jQuery.ajax({
+			url: "<?php echo Mage::getBaseUrl().'override/index/getapitestreport' ?>",
+			type:'POST',
+			data: FormData	
+			})
+			.done(function(data){		
+					//alert(data);
+					var redirect = "<?php echo Mage::getBaseUrl().'customer/account/newdashboard?patientid=' ?>"+data;				
+					console.log(data);
+					window.location.href = redirect;							
+				})					
+			.fail(function(textStatus){
+					alert(textStatus)
+					});
+});
+</script>
+
+

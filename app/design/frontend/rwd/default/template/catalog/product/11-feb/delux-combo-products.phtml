@@ -1,0 +1,627 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ */
+/* @var $this Mage_Catalog_Block_Product_List */
+?>
+    <link rel="stylesheet" href="<?php echo $this->getSkinUrl();?>css/catalog-page.css">
+   <style>
+	   .dd-wrpr{position: absolute;
+z-index: 2;width: 90%;}
+	   	 /* The popup form - hidden by default */
+.form-popup {
+display: none;
+position: fixed;
+z-index: 9;
+float: left;
+width: 100%;
+background:rgba(0,0,0,0.4);
+left: 0;
+top: 0;
+	box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.8);
+height: 100%;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+padding: 10px;
+background-color:white;
+border: 3px solid #f1f1f1;
+margin: auto;
+	margin-top:10%;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color:#269A9B;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+ background-color:red;
+width: 10%;
+border-radius: 50%;
+padding: 2px 0px;
+	box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.8);
+	float: right;
+margin-top: -18%;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+	
+	   .cCbxqa .itm-dsc__dscrptn {
+    height: auto;
+}
+	   .products-grid > li
+	   {height:780px;}
+	   .eRJwMX{height:800px;}
+ .jrxrSi {
+
+    align-self: center;
+    width: 100%;
+    justify-content: flex-end;
+    display: flex;
+
+}
+	 .jrxrSi button > span {
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+	 .jrxrSi button {
+    border-radius: 10px;
+    outline: currentcolor none medium;
+    text-transform: uppercase;
+    padding: 0.5em 1em;
+    border: medium none;
+    width: 100%;
+}
+	.dd--crst {
+    list-style: outside none none;
+    border-radius: 2px;
+    box-shadow: 
+rgba(0, 0, 0, 0.24) 0px 5px 8px 0px,
+rgba(0, 0, 0, 0.12) 0px 0px 8px 0px;
+padding: 0em;
+width: auto;
+margin-top: 0em;
+margin-left: -0.2em;
+text-align: left;
+background:
+    #f0e68c;
+}
+	 
+    /* Add padding and border to inner content
+    for better animation effect */
+    .dd--crst li{
+        width: 100%;		
+        padding: 5px;
+        border: 1px solid #a29415;
+    }
+	 .cCbxqa .itm-dsc__actn__sz {
+    flex-flow: column nowrap;
+    width: 100%;
+    margin: auto;
+}
+	 .SSFcO {
+   float: right;
+color:#3d4152;
+cursor: pointer;
+font-size: 24px;
+position: absolute;
+right: 10px;
+padding: 5px;
+top: -5px;
+}
+	
+#myInput {
+  box-sizing: border-box;
+background-position: 14px 12px;
+background-repeat: no-repeat;
+font-size: 14px;
+padding: 0px 0px 0px 15px;
+border: none;
+	text-align: left;
+    border-bottom-color: currentcolor;
+    border-bottom-style: none;
+    border-bottom-width: medium;
+border-bottom: 1px solid #ddd;
+
+height: 50px !important;
+border-radius: 4px;
+background:#fff;
+color:#000;
+width: 100% !important;
+}
+
+#myInput:focus {outline: 3px solid #ddd;}
+
+
+
+	/*.main-container .container{max-width:100%;padding:0px;}*/
+
+	@media screen and (min-width:260px) and (max-width:760px)
+	{
+		.catalog__list {
+    max-width: 100%;
+    margin: 20px auto;
+}
+		.SSFcO {
+    float: right;
+    color: 
+    #fff;
+    cursor: pointer;
+    font-size: 24px;
+    position: absolute;
+    right: 10px;
+    padding: 5px;
+    top: -5px;
+}
+		.stickyhead{position: fixed;
+top:0px !important;
+width: 100%;
+}
+		.cCbxqa .itm-dsc__actn__adCrt {
+    display: flex;
+    -moz-box-pack: justify;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    margin-top: 1rem;
+   position: relative !important;
+bottom: 0%;
+width: 100% !important;
+}
+		 .products-grid > li
+	   {height:100%;}
+	   .eRJwMX{height:100%;}
+	 }
+	.cCbxqa .itm-dsc__actn__adCrt {
+    display: flex;
+    -moz-box-pack: justify;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    margin-top: 1rem;
+    position: absolute;
+    bottom: 0%;
+    width: 90%;
+} 
+</style>
+<?php
+    $_productCollection=$this->getLoadedProductCollection();
+    $_helper = $this->helper('catalog/output');
+?>
+
+<?php if(!$_productCollection->count()): ?>
+<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<?php else: ?>
+<div class="category-products catalog_product_view">
+    <?php echo $this->getToolbarHtml() ?>
+    <?php // List mode ?>
+    <?php if($this->getMode()!='grid'): ?>
+    <?php $_iterator = 0; ?>
+	<h1>Recommended</h1>
+    <ol class="products-list" id="products-list">
+    <?php foreach ($_productCollection as $_product): ?>
+        <li class="item<?php if( ++$_iterator == sizeof($_productCollection) ): ?> last<?php endif; ?>">
+            <?php // Product Image ?>
+            <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
+                <?php /* Based on the native RWD styling, product images are displayed at a max of ~400px wide when viewed on a
+                        one column page layout with four product columns from a 1280px viewport. For bandwidth reasons,
+                        we are going to serve a 300px image, as it will look fine at 400px and most of the times, the image
+                        will be displayed at a smaller size (eg, if two column are being used or viewport is smaller than 1280px).
+                        This $_imgSize value could even be decreased further, based on the page layout
+                        (one column, two column, three column) and number of product columns. */ ?>
+                <?php $_imgSize =180; ?>
+                <img id="product-collection-image-<?php echo $_product->getId(); ?>"
+                     src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($_imgSize); ?>"
+                     alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+               
+            </a>
+            <?php // Product description ?>
+            <div class="product-shop">
+                <div class="f-fix">
+                    <div class="product-primary">
+                        <?php $_productNameStripped = $this->stripTags($_product->getName(), null, true); ?>
+                        <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped; ?>"><?php echo $_helper->productAttribute($_product, $_product->getName() , 'name'); ?></a></h2>
+                        <?php if($_product->getRatingSummary()): ?>
+                        <?php echo $this->getReviewsSummaryHtml($_product) ?>
+                        <?php endif; ?>
+                        <?php
+                        // Provides extra blocks on which to hang some features for products in the list
+                        // Features providing UI elements targeting this block will display directly below the product name
+                        if ($this->getChild('name.after')) {
+                            $_nameAfterChildren = $this->getChild('name.after')->getSortedChildren();
+                            foreach ($_nameAfterChildren as $_nameAfterChildName) {
+                                $_nameAfterChild = $this->getChild('name.after')->getChild($_nameAfterChildName);
+                                $_nameAfterChild->setProduct($_product);
+                                echo $_nameAfterChild->toHtml();
+                            }
+                        }
+                        ?>
+                    </div>
+                    <div class="product-secondary">
+                        <?php echo $this->getPriceHtml($_product, true) ?>
+                    </div>
+                    <div class="product-secondary">
+                                 <div class="number">
+                                        open
+                                 </div>
+                        <?php if(!$_product->canConfigure() && $_product->isSaleable()): ?>
+                            <p class="action"><button type="button" title="<?php echo $this->quoteEscape($this->__('Add')) ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add') ?></span></span></button>
+						</p>
+                        <?php elseif($_product->getStockItem() && $_product->getStockItem()->getIsInStock()): ?>
+                            <p class="action"><a title="<?php echo $this->quoteEscape($this->__('View Details')) ?>" class="button" href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->__('View Details') ?></a></p>
+                        <?php else: ?>
+                            <p class="action availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                        <?php endif; ?>
+                   
+                    </div>
+					
+
+                    <div class="desc std">
+                        <?php echo $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description') ?>
+                        <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped ?>" class="link-learn"><?php echo $this->__('Learn More') ?></a>
+                    </div>
+                </div>
+            </div>
+        </li>
+    <?php endforeach; ?>
+    </ol>
+    <script type="text/javascript">decorateList('products-list', 'none-recursive')</script>
+
+    <?php else: ?>
+
+    <?php // Grid Mode ?>
+
+    <?php $_collectionSize = $_productCollection->count();?>
+    <?php $_columnCount = $this->getColumnCount(); ?>
+	
+
+		</div>
+	
+    <ul class="products-grid products-grid--max-<?php echo $_columnCount; ?>-col">
+        <?php $i=0; foreach ($_productCollection as $_product): ?>
+            <?php /*if ($i++%$_columnCount==0): ?>
+            <?php endif*/ ?>
+          <?php $vegNonvegClass ='';
+                $tmpVegnonveg = $_product->getData('veg_notveg');
+                if(isset($tmpVegnonveg) && $tmpVegnonveg=='0'){  $vegNonvegClass='nonveg'; } else {  $vegNonvegClass ='veg'; }
+               ?>
+            <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
+				<div class="itm-wrppr">
+		<div class="sc-bbmXgH gfbLKA" data-label="Nargis Gobi">
+		<div class="injectStyles-sc-1jy9bcf-0 eRJwMX">
+			<div class="wd-100">
+				<div class="sc-ksYbfQ PVrMb">
+					<div class="img-cvr">
+						<img id="product-collection-image-<?php echo $_product->getId(); ?>"  class="img-wrpr__img"
+                         src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($_imgSize); ?>"
+                         alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+						
+					</div>
+					
+					<div class="img-wrpr__fav" data-label="favorite">
+						<div class="injectStyles-sc-1jy9bcf-0 iBNnip"></div>
+						<div class="injectStyles-sc-1jy9bcf-0 iwmcbq"></div>
+					</div>
+					<div class="img-wrpr__typ">
+						<div class="injectStyles-sc-1jy9bcf-0 <?php echo $vegNonvegClass;?>"></div>
+					</div>
+					
+				</div>
+			</div>
+			<div class="sc-hmzhuo cCbxqa">
+				<div class="itm-nm-dsc ">
+					<span class="itm-dsc__nm"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></span>
+					
+						<span class="itm-dsc__dscrptn" title="<?php echo $_product->getName();?>"><?php echo $_helper->productAttribute($_product, $_product->getShortDescription(), 'Short_description') ?></span>
+				</div>
+                            
+                            <?php    $bundled_product = Mage::getModel("catalog/product")->load($_product->getEntityId());
+                                   $optionsCollection = $bundled_product->getTypeInstance(true)->getOptionsCollection($bundled_product);
+                                   foreach ($optionsCollection as $options) 
+                                   {
+                                     $optionId    = $options->getOptionId();
+                                     $optionTitle = $options->getDefaultTitle();
+                                     $optionPosition = $options->getPosition();
+                              ?> 
+                            
+				<!--Option start-->
+				<div class="itm-dsc__actn">
+			   	    <div class="itm-dsc__actn__sz" >
+					<div style="width:100%; float:left;">
+						
+							<div class="injectStyles-sc-1jy9bcf-0 dVfvkq2">
+							      <div class="dd-wrpr" id="<?php echo $_product->getEntityId();?>_Div_<?php echo $optionId;?>" ></div>
+							      <div class="nm-icn">
+								  <div datalabel="<?php echo $optionTitle ;?>" id="<?php echo $_product->getEntityId();?>_<?php echo $optionId;?>" onclick="showhideDeluxCuisine('<?php echo $_product->getEntityId();?>','<?php echo $optionId;?>','<?php echo $optionPosition;?>')" class="itm-dsc__actn__sz__dd-ttl" style="box-shadow: 0px 0px 3px rgba(0,0,0,0.2);padding:10px 10px;border-radius:8px;">Add <?php echo $optionTitle ;?></div>
+								  <input type="hidden" id="h_<?php echo $_product->getEntityId();?>_<?php echo $optionId;?>" optionid="" selectionid="" price="" value="" position="<?php echo  $optionPosition;?>"  />
+							      </div>
+							</div>
+					</div>
+				    </div>
+				</div>
+					<!--Option end-->
+                          <?php } ?>
+					
+				
+				
+					
+					
+				
+				
+					<div class="itm-dsc__actn__adCrt">
+                                            <span id="success_<?php echo $_product->getEntityId();?>" style="position: absolute;width: 100%;float: left;z-index: 1;background: #cfcfcf;padding: 10px;display:none;"></span>						
+                                            <div class="injectStyles-sc-1jy9bcf-0 jrxrSi addTocartBtn">
+                                                    <button  class="addcombo" onclick="openForm()"><span>Save</span></button>
+                                            </div>						
+					</div>
+				
+					</div>
+				
+				</div>
+			</div>
+		</div>
+				
+              
+            </li>
+            <?php /*if ($i%$_columnCount==0 || $i==$_collectionSize): ?>
+            <?php endif*/ ?>
+        <?php endforeach ?>
+    </ul>
+<div class="form-popup" id="myloginForm">
+  <form action="/action_page.php" class="form-container">
+    <h1>Login</h1>
+<button type="button" class="btn cancel" onclick="closeForm()">X</button>
+    <label for="email"><b>Email</b></label>
+    <input type="text" placeholder="Enter Email" name="email" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" required>
+
+    <button type="submit" class="btn">Login</button>
+    
+  </form>
+</div>
+<div id="bottomcartdetails"></div>
+	<!-- The Modal -->
+	<!-- Trigger/Open The Modal -->
+
+<div id="myModalcombo" class="modal">
+ 
+ </div>
+    <script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
+    <?php endif; ?>
+
+    <div class="toolbar-bottom">
+        <?php echo $this->getToolbarHtml() ?>
+    </div>
+
+<?php endif; ?>
+<?php
+// Provides a block where additional page components may be attached, primarily good for in-page JavaScript
+if ($this->getChild('after')) {
+    $_afterChildren = $this->getChild('after')->getSortedChildren();
+    foreach ($_afterChildren as $_afterChildName) {
+        $_afterChild = $this->getChild('after')->getChild($_afterChildName);
+        //set product collection on after blocks
+        $_afterChild->setProductCollection($_productCollection);
+        echo $_afterChild->toHtml();
+    }
+}
+?>
+<script>
+	function openForm() {
+  document.getElementById("myloginForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myloginForm").style.display = "none";
+}
+	
+	jQuery(document).ready(function() { 
+            
+                        jQuery(".wrapper").click(function() { jQuery(".dd-wrpr").html(''); })
+			
+		});
+	
+  	
+   function showhideDeluxCuisine(productId,optionId,optionPosition)
+   {   
+       
+       jQuery.ajax({
+                        url: "<?php echo Mage::getBaseUrl().'override/index/getdeluxoptionitems' ?>",
+                        type: "POST",
+                        data: {
+                                 entityid: productId,
+                                 optionid:optionId
+                              }, 
+                        success: function(response) { //alert(response);
+                          var cuisineDivId = productId+'_Div_'+optionId; 
+                           
+                            jQuery("#"+cuisineDivId).html(response);
+                            
+                        }
+                      }); 
+   }
+   
+   function setDeluxCuisineItem(basePrice,productId,opId,selId,name,price)
+   {
+     
+      var cuisineId = productId+'_'+opId;
+       jQuery("#"+cuisineId).html(name);
+            
+      var cuisineDivId = productId+'_Div_'+opId; 
+      var SelectedLiId = opId+'_'+selId;
+      var selectedHid = 'h_'+productId+'_'+opId;
+      
+     
+     
+      jQuery('#'+selectedHid).val(opId+','+selId+','+price);
+      jQuery('#'+selectedHid).attr('price',price);
+      jQuery('#'+selectedHid).attr('optionid',opId);
+      jQuery('#'+selectedHid).attr('selectionid',selId);
+      // alert( 'showdata='+jQuery("#"+cuisine+'_h_'+productId).attr('price') ); return false;
+       jQuery('#'+cuisineDivId).html('');
+       jQuery('.class'+opId).removeClass('slctd');
+       jQuery('#'+SelectedLiId).addClass('slctd');
+     
+      var comboPrice =  setPrice(productId,basePrice);
+      jQuery("#price_"+productId).text(comboPrice);
+   }
+   
+   function setPrice(productId,basePrice)
+   {
+       var cuisines = ['riceroti','sabji','salad'];
+       var comboPrice = parseInt(basePrice);
+       jQuery.each(cuisines, function(index,cuisine ) {
+           
+          var cuisinePrice = parseInt(jQuery('#'+cuisine+'_h_'+productId).attr('price'));
+         
+            if( typeof cuisinePrice !== "undefined" && cuisinePrice >0 )
+            {
+                 //alert(cuisine+'-inside setprice--'+cuisinePrice);
+                comboPrice = comboPrice  + parseInt(cuisinePrice);
+            }
+           
+        
+      });
+      return comboPrice;
+       
+   }
+   
+   function comboAddtocart(productId)
+   {    
+         var cuisines = ['riceroti','sabji','salad'];
+          var output='';
+         jQuery.each(cuisines, function(index,cuisine ) {
+             
+          var position = jQuery('#'+cuisine+'_h_'+productId).attr('position');
+          var optionid = jQuery('#'+cuisine+'_h_'+productId).attr('optionid');
+          var selectionid = jQuery('#'+cuisine+'_h_'+productId).attr('selectionid');
+          
+          
+           
+           output+=position;
+          
+            
+            if((typeof optionid !== "undefined"  && optionid!='') && ( typeof selectionid !== "undefined"  && selectionid!='') )
+            {
+               
+               
+               output+=','+optionid+','+selectionid;
+               
+            }
+            
+           output+='_';
+        
+      });
+      
+      //alert(output); 
+      jQuery.ajax({
+                        url: "<?php echo Mage::getBaseUrl().'checkout/cart/addcombotocart' ?>",
+                        type: "POST",
+                        data: {
+                                entityid:productId, 
+                                qty:1,
+                                options:output
+                              }, 
+                        success: function(response) { //alert(response);
+                        //  var cuisineDivId = cuisine+'_Div_'+productId; 
+                          
+                            var successId = 'success_'+productId;
+                            jQuery('#'+successId).html('<b>combo added to cart.</b>');
+                            jQuery('#'+successId).show();
+                            jQuery('#'+successId).hide( 2000 );
+                            
+                            
+                            showbottomCartInfo();
+                              
+                        }
+                      }); 
+     // alert(output);
+   }
+   function setDeluxSelection(opId,selId)
+   {
+      jQuery(".class"+opId).removeClass('slctd');
+     // jQuery("#"+opId+'_'+selId).removeClass('class'.opId);
+       jQuery("#"+opId+'_'+selId).addClass('slctd');
+   }
+   
+   function unsetDeluxSelection(opId,selId)
+   {
+    //  jQuery("."+cuisine).removeClass('slctd');
+     // jQuery("#"+opId+'_'+selId).removeClass('class'.opId);
+       jQuery("#"+opId+'_'+selId).removeClass('slctd');
+   }
+   
+  function showbottomCartInfo()
+   {
+        jQuery.ajax({
+                        url: "<?php echo Mage::getBaseUrl().'checkout/cart/getcartinfo' ?>",
+                        type: "POST",                         
+                        success: function(cartresponse) {
+                                                           if(cartresponse!='')
+                                                           {
+                                                                jQuery('#bottomcartdetails').show();
+                                                                 jQuery("#bottomcartdetails").html(cartresponse);
+                                                                // jQuery('#bottomcartdetails').hide(10000);
+                                                           }
+                                }
+                             });
+   }
+ 
+</script>

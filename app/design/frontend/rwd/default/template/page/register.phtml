@@ -1,0 +1,264 @@
+      <style>
+		  .registered-users{width: 450px;
+margin: 5% 0%;
+height: 100%;
+display: block;
+position: relative;
+float: left;
+left: 30%;}
+		   .text-secondary {
+    color: #fff !important;
+}
+@keyframes spinner-border {
+  to { transform: rotate(360deg); }
+}
+.spinner-border {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    vertical-align: text-bottom;
+    border: .25em solid currentColor;
+        border-right-color: currentcolor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    -webkit-animation: spinner-border .75s linear infinite;
+    animation: spinner-border .75s linear infinite;
+}
+
+		   @media screen and (min-width:260px) and (max-width:767px)
+		   {
+			   .registered-users {
+    width: 90%;
+margin: 20% 5% 5% 5%;
+height: 100%;
+display: block;
+position: relative;
+padding: 10px;
+float: left;
+left: 0;
+}
+		   }
+@media screen and (min-width:768px) and (max-width:999px)
+{
+	.registered-users h2{color:#000;font-weight:600;}
+	.registered-users {
+    width: 450px;
+    margin: auto;
+        margin-top: auto;
+    margin-top: 10%;
+    height: 100%;
+    display: block;
+    position: relative;
+    float: left;
+    left: 20%;
+}
+		   }
+</style> 
+ 
+
+<div class="<?php if ($this->helper('customer')->isRegistrationAllowed()): ?><?php else: ?>col-1<?php endif; ?> registered-users">
+	<div style="background: rgba(206, 226, 226, 0.4);box-shadow: 0px 4px 3px rgba(3, 37, 38, 0.4);height: 100%;float: left;padding: 20px;">
+                <div class="fieldset">
+                    <h2><?php echo $this->__('Create account') ?></h2>
+                    <p class="form-instructions" style="display:none;"><?php echo $this->__('If you do not have an account with us, please create here.') ?></p>
+                    <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+                    <ul class="form-list">
+					    <li>
+                            <label for="name" class="required"><em>*</em>Name</label>
+                            <div class="input-box">
+                                <input type="text" autocapitalize="off" autocorrect="off" spellcheck="false" name="name" 
+								id="name" class="input-text required-entry name" title="Name" style="text-align: left;width: 100%;"/>
+                                <div class="name_error" style="color:red;font-size: 12px;"></div>
+                            </div>
+                        </li>
+					
+                        <li>
+                            <label for="email" class="required"><em>*</em>Mobile No</label>
+                            <div class="input-box">
+                                <input type="text" autocapitalize="off" autocorrect="off" spellcheck="false" name="login[username]" id="email" class="input-text required-entry getmobilenumber" title="Mobile No " style="text-align: left;width: 100%;" />
+                                <div class="mobile_error" style="color:red;font-size: 12px;"></div>
+                            </div>
+                        </li>
+                        <li class="otp_verification" style="display: none">
+                            <label for="email" class="required"><em>*</em>OTP</label>
+                            <div class="input-box">
+                                <input type="text" autocapitalize="off" autocorrect="off" spellcheck="false" name="otp" value="" id="onetimepass" class="input-text required-entry" title="Please Enter OTP" style="text-align: left;width: 100%;"/>
+                            </div>
+                        </li> 
+                        <div class="otp_msg" style="color:red;font-size: 12px;"></div>
+                        <li style="display: none;"> 
+                         <?php $vales = mt_rand(1000, 9999);
+                            // $ciphertext = base64_encode($vales);
+                            // $plaintext = base64_decode($ciphertext); 
+                        ?>
+                        <input type="hidden" id="verification" value="<?php echo $vales; ?>" />
+                         <input type="hidden" id="otpurl" value="<?php echo Mage::getBaseUrl().'override/index/newaccountmobile' ?>">
+                         <input type="hidden" id="verifyotpurl" value="<?php echo Mage::getBaseUrl().'override/index/newloginmobile' ?>">
+                        </li>
+                       
+                        
+                        
+                    </ul>
+                  
+                </div>
+                <div class="buttons-set getotpstep">
+					 <div class="text-center" style="position: absolute;left: 12%;">
+							<div id="spinner" style="display:none" class="spinner-border text-secondary" role="status">
+						       <span class="sr-only">Loading...</span>
+						</div>
+	                </div>
+                    <button onclick="checkdata()" type="submit" class="button" title="Get OTP" name="send" id="send2"><span><span>Register</span></span></button>
+                </div>
+                <div class="buttons-set verifyotpstep" style="display: none">
+                    <button onclick="verify()" type="submit" class="button" title="Verify OTP" name="send" id="send2"><span><span>Verify</span></span></button>
+                </div>
+                <div class="buttons-set resend_button" style="display: none">
+                <button type="button" onclick="resend()" class="button "><span><span>Resend</span></span></button>
+                </div>
+                <div class="buttons-set" style="display: none">
+                    <button type="submit" class="button" title="Login" name="send" id="send2"><span><span>Login</span></span></button>
+                </div>
+	</div>
+	<p style="text-align:center;width:100%;float: left;margin-top: 10%;font-size: 13px;">If you do not receive OTP please call +919990536388</p>
+            </div>
+			
+			
+			
+			<script type="text/javascript">
+        function resend(){
+        jQuery('.otp_msg').text();
+        checkdata();
+        jQuery('.otp_msg').text('A New OTP has been send to your number');
+    }
+    function verify(){
+        jQuery('.otp_msg').text('');
+        jQuery('.mobile_error').text('');
+		jQuery('.name_error').text('');
+        var newmobile       = jQuery('.getmobilenumber').val();
+		var name            = jQuery('.name').val();
+        var otp_code = jQuery('#onetimepass').val();
+        var decodedString      = jQuery('#verification').val();
+        var urls            = jQuery('#verifyotpurl').val();
+        var reditts = "welcome";
+        if(otp_code == decodedString){
+            if(newmobile){
+                new Ajax.Request(urls, {
+                       method: 'Post',
+                       dataType: 'json', 
+                       parameters: {phone:newmobile,reditts:reditts,name:name},
+                       onComplete: function(response) {
+                       window.location.href="/welcome";  
+                    
+                    }
+                });
+            }
+        } else{ 
+            jQuery('.otp_msg').text('Invalid OTP code'); 
+        }
+    }
+    function finalloginverify(){
+        jQuery('.otp_msg').text('');
+		jQuery('.name_error').text('');
+        jQuery('.mobile_error').text('');
+		
+		var name            = jQuery('.name').val();
+        var newmobile       = jQuery('.getmobilenumber').val();
+        var otp_code        = jQuery('#onetimepass').val();
+        var decodedString      = jQuery('#verification').val();
+        var urls            = jQuery('#verifyotpurl').val();
+        var reditts = "welcome";
+        //if(otp_code == decodedString){
+            if(newmobile){
+				jQuery("#spinner").show();
+                new Ajax.Request(urls, {
+                       method: 'Post',
+                       dataType: 'json', 
+                       parameters: {phone:newmobile,reditts:reditts,name:name},
+                       onComplete: function(response) {
+                       //location.reload();
+					   jQuery("#spinner").hide();
+					   window.location.href="/welcome";
+                    
+                    }
+                });
+            }else{
+                jQuery('.otp_msg').text('Please enter mobile number');
+            }
+        /*} else{ 
+            jQuery('.otp_msg').text('Invalid OTP code'); 
+        }*/
+    }
+    function checkdata(){
+        newmobile       = jQuery('.getmobilenumber').val();
+        urls            = jQuery('#otpurl').val();
+        decodedString   = jQuery('#verification').val();
+		name           =  jQuery('#name').val();
+        
+        // return false;
+        // var decodedString = atob(ciphertext);
+		
+        if(name.length<=0){
+            jQuery('.name_error').text('Please enter your name');
+			jQuery('.otp_msg').text('');
+            jQuery('.mobile_error').text('');
+			
+            return false;
+        }
+
+        if(newmobile.length != 10){
+            jQuery('.mobile_error').text('Please enter 10 digit number');
+			jQuery('.otp_msg').text('');
+            jQuery('.name_error').text('');
+            return false;
+        }
+        if(isNaN(newmobile)){
+            jQuery('.mobile_error').text('Please enter 10 digit number');
+			jQuery('.otp_msg').text('');
+            jQuery('.name_error').text('');
+            return false;
+        }
+		
+		
+      
+	 //  var mobilearray = ["9760834516","9650817851",,"9999922102","9540275225","9999563395","7956814214"];
+	  //  var mobilearray = ["9999114772","9999956766"]; //junior sir, jasmine, geetangali
+		 var mobilearray = [];
+        console.log(mobilearray);
+        if (jQuery.inArray(newmobile, mobilearray) != -1) {
+          finalloginverify();
+          return false;
+        }
+      //  console.log(decodedString);
+        
+        if(newmobile){
+            jQuery('.otp_msg').text('');
+            jQuery('.mobile_error').text('');
+			 jQuery('.name_error').text('');
+			 jQuery("#spinner").show();
+			 
+			 
+            new Ajax.Request(urls, {
+                       method: 'Post',
+                       dataType: 'json', 
+                       parameters: {phone:newmobile,otp:decodedString,name:name},
+                       onComplete: function(response) {
+                        var data = JSON.parse(response.responseText);
+                        if( data['status'] == 'error'){
+                            jQuery('.otp_msg').text('This number '+newmobile+' is already registered.');
+                        }else{
+					    		
+                        jQuery('.otp_verification').show();
+                        jQuery('.getotpstep').hide();
+                        // jQuery('.control').hide();
+                        jQuery('.verifyotpstep').show();
+                        jQuery('.resend_button').show();
+                        jQuery('.mobile_error').text();
+                        jQuery('.otp_msg').text('Please enter the One-Time Password (OTP) that has been sent to your registered mobile number.');
+                        } 
+
+                     jQuery("#spinner").hide();						
+                    }
+            }); 
+        }
+     }
+    </script>

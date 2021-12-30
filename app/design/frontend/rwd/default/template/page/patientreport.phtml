@@ -1,0 +1,1344 @@
+<?php  error_reporting(E_ALL);
+	       ob_start();
+	 
+
+$groupId = Mage::getSingleton('customer/session')->getCustomerGroupId(); 
+if(!isset($groupId) || $groupId!=5)
+{
+	header("Location:".Mage::getBaseUrl()."customer/account/login/"); exit;
+}
+?>
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl();?>css/preloader.css">
+ <link rel="stylesheet" href="<?php echo $this->getSkinUrl();?>css/perfect-scrollbar.min.css">
+ <link rel="stylesheet" href="<?php echo $this->getSkinUrl();?>css/catalog-page.css">
+ <script src="<?php echo $this->getSkinUrl();?>js/catalog.min.js"></script>
+
+<style>
+    .suggestionbox tbody{padding-bottom:40px;}
+    .suggestionbox tbody tr .ths1{width:30%; float:left;margin: 10px auto;text-align:left;}
+    .suggestionbox tbody tr .ths2{width:30%; float:left;margin:10px;text-align:center;}
+    .suggestionbox tbody tr .ths3{width:30%; float:left;margin:10px;text-align:center;}
+    .suggestionbox th {font-weight: bold;font-style: normal;font-size: 15px;text-transform: capitalize;}
+    .suggestionbox textarea{background: #edf3f3 !important;box-shadow: none;resize: initial;}
+    
+    .thankyoumsg {
+    width: 100%;
+    float: left;
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+        background:rgba(0,0,0,0.4)
+}
+    .thankyoumsg p {
+    position: fixed;
+    top: 40%;
+    width: 50%;
+    float: none;
+    margin: auto;
+    left: 25%;
+    background: #40b8b9;
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+    
+    .catch{margin:0px 5px 0px 0px;float: left;width: 48%;}
+    
+    .breadcrumbs{float: right;position: inherit;}
+    .highlight{color:#fff; background:#269a9b;}
+    
+
+    
+@media screen and (min-width:768px) and (max-width:999px){      
+    .ths1 label, .ths2 label, .ths3 label{
+        margin: 0px 0px !important;
+        height:auto;
+        line-height: 40px;
+    }       
+}
+    
+@media screen and (min-width:800px) and (max-width:1200px)  {
+            .boxonew div label, .boxtwow div label, .boxthreew div label {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    align-items: center;
+}
+            .suggestionbox tbody tr .ths1 {
+    width: 32%;
+    float: left;
+    margin: 5px auto;
+    text-align: left;
+}
+            .suggestionbox tbody tr .ths2 {
+    width: 32%;
+    float: left;
+    margin: 5px;
+    text-align: center;
+}
+    .suggestionbox tbody tr .ths3 {
+    width: 34%;
+    float: left;
+    margin: 5px auto;
+    text-align: left;
+}
+    .callbutton {
+    padding: 5px 10px;
+    background: #269a9b;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+    margin: 2% 0px;
+}
+            
+        }
+
+    
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background: none;
+}
+.hrline{
+  padding-top:0px;
+}
+/* Modal Content */
+.modal-content {
+  margin: auto;
+margin-top: 30%;
+  width:50%;
+}
+
+    .highlight{color:#fff;
+background:#269a9b;}
+    .stand-out__content .itm-dsc__actn {
+    flex-basis: auto;
+    flex-flow: row nowrap;
+    display: flex;
+    margin-top: 0.4rem;
+    margin-bottom: 1.5rem;
+    margin-top: 0rem;
+    margin-bottom: 0.5rem;
+    width: 100%;
+}
+    p {
+    margin-top: 0;
+    margin-bottom: 0rem;
+}
+    .itm-dsc__actn__sz__dd-ttl {
+    font-size: 13px;
+    }
+    .iwmcbq {   
+    min-width: 3.3em;
+    min-height: 3.3em;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    right: 0px;
+}
+    .jrxrSi button {
+    cursor: pointer;
+    padding: 0.433rem;
+    border: 0px solid 
+rgb(38, 154, 155) !important;
+color:
+    rgb(38, 154, 155);
+    background: none;
+}
+    .box, .box2, .box3, .box4{
+        float: left;
+overflow: hidden;
+background:#f0e68c;
+height: 142px;
+width: 100%;
+position: absolute;
+z-index: 3;
+right: 0%;
+         display:none;
+    }
+     
+    /* Add padding and border to inner content
+    for better animation effect */
+    .box-inner{
+        width: 100%;        
+        padding: 5px;
+        border: 1px solid #a29415;
+    }
+     .cCbxqa .itm-dsc__actn__sz {
+    flex-flow: column nowrap;
+    width: 100%;
+    margin: auto;
+}
+     .SSFcO {
+   float: right;
+color:#3d4152;
+cursor: pointer;
+font-size: 24px;
+position: absolute;
+right: 10px;
+padding: 5px;
+top: -5px;
+}
+
+
+
+
+    /*.main-container .container{max-width:100%;padding:0px;}*/
+
+    @media screen and (min-width:260px) and (max-width:760px)
+    {
+.site{padding:15% 15px;}
+.eRJwMX{box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 2px 0px, rgba(0, 0, 0, 0.12) 1px 2px 4px 1px;}
+.catalog_product_view {
+    display: block;
+}
+.catalog__filter, .catalog__filter-item {
+    display: block;
+}
+.catalog__list {
+    max-width: 100%;
+    margin: 20px auto;
+}
+.SSFcO {
+    float: right;
+    color: 
+    #fff;
+    cursor: pointer;
+    font-size: 24px;
+    position: absolute;
+    right: 10px;
+    padding: 5px;
+    top: -5px;
+}
+.stickyhead{position: fixed; top:0px !important; width: 100%; }
+     }
+    @media screen and (min-width:768px) and (max-width:1200px)  {
+        .site{padding:0px 15px;}
+    }    
+</style>
+
+<!--==================NEW CSS START ==============-->
+
+<style> 
+    .formbluebox{margin-top:7rem;}
+    .heading-top{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-bottom: 2px solid #e4f4f5;
+    }    
+    .heading-top img{
+        width:14%;
+    }
+    .heading-top p{
+        color:#5ac5c7;
+        font-size: 1.4rem;
+    }
+
+    .subheading{
+        padding: 8px 0;
+        border-bottom: 2px solid #e4f4f5; 
+        margin-bottom: 3rem; 
+    }
+    .subheading p {
+        font-size: 1.6rem;
+        font-weight:bold;color: #00ae8e;
+        text-transform: capitalize;
+        text-align: center;
+    }
+    .whitebox{
+        background:#fff; 
+        width:100%;
+    }
+    .formbluebox input[type="submit"]{
+        background:#0eb58f;
+        color:#fff;
+        width:182px;
+        display: inline-block;
+        margin:25px auto;
+        border:0;
+        outline: 0;
+        font-size: 1rem;
+        text-transform: uppercase;
+        line-height: 3.2rem;
+        border-radius: 1.6rem;
+        text-align: center
+    }
+    .form-personal, .form-personal-left, 
+    .form-personal-right, .gender, 
+    .form-personal-long,
+    .form-personal-long-left,
+    .form-personal-long-right,
+    .preferred-inner, .form-lifestyle,
+    .form-personal-veg-left, 
+    .form-personal-veg-right,
+    .chicken_per_week, .tofu-left, .tofu-left-inner,
+    .tofu-right, .tofu-right-inner{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between; 
+        align-items: center;      
+    }
+   
+    .form-personal, .form-personal-long, .form-lifestyle{       
+        margin-bottom: 15px;
+    }
+    .form-personal > label, 
+    .form-personal-left > label, 
+    .gender > label,     
+    .form-personal-long-right > label {
+        width:125px;
+    }
+    .waist > label{
+        width:100px;
+    }
+    .form-personal-veg-right > label {
+        width:90px;
+    }
+    .form-personal-right > label{
+        width:145px;
+    }
+    .form-personal-long-right2 > label{
+        width:180px;
+    }
+    .form-chicken-long > label{
+        width: 300px;
+    }
+    .tofu-right > label{
+        width:90px;
+    }
+    .weight > label, .height > label{
+        width:115px;
+        text-align: right;
+        box-sizing: border-box;
+        padding-right: 12px;
+    }
+    .form-personal-long > label,
+    .form-personal-long-left > label {
+        width:225px;
+    }
+    .form-personal > input[type="text"],
+    .form-personal-left > input[type="text"],
+    .form-personal-right > input[type="text"],
+    .weight > input[type="text"],
+    .height > input[type="text"],
+    .waist > input[type="text"],
+    .weight > input[type="date"],
+    .form-personal-long > input[type="text"],
+    .form-personal-long-right >  input[type="text"],
+    .form-personal-long-left >  input[type="text"],
+    .form-personal-long-right2 > input[type="date"],
+    .form-lifestyle > input[type="text"],    
+    .chicken_per_week > input[type="number"],
+    .nutritional-history-top > input[type="text"], 
+.water-intake > input[type="text"],
+.bottom-sec-top-left input[type="text"],
+.bottom-sec-top-right input[type="date"],
+.lifestyle-medication > input[type="text"],
+.lifestyle-medication > input[type="number"],
+.chicken_per_week > select,   
+.lifestyle-medication > select  {
+        width: calc(100% - 130px);
+        border:0;
+        outline: 0;
+        height: 45px;
+        background: #e4f4f5;
+        border-radius: 5px;
+        box-sizing: border-box;
+        padding: 0 20px;
+        box-shadow: none;
+    }
+     .waist > input[type="text"]{
+         width: calc(100% - 105px);
+     }
+    .gender-inner, .egg-inner, .veg-inner{
+        width: calc(100% - 130px);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .egg-inner{
+        width: calc(100% - 95px);
+    }
+    .form-personal-right > input[type="text"]{
+        width: calc(100% - 145px);
+    }
+    .form-personal-long > input[type="text"],
+    .preferred-inner, 
+    .form-personal-long-left >  input[type="text"] {
+        width: calc(100% - 230px);
+    }
+     .form-personal-long-right2 > input[type="date"] {
+         width: calc(100% - 185px);
+     }
+     .form-chicken-long > input[type="text"]{
+        width: calc(100% - 305px);
+     }
+    .weight > input[type="text"],
+    .height > input[type="text"],
+    .weight > input[type="date"]{
+        width: calc(100% - 120px);
+    }
+    .form-personal > textarea, .form-lifestyle > textarea,
+    .medication-textarea textarea{
+        width: calc(100% - 130px);
+        border:0;
+        outline: 0;
+        height: 110px;
+        background: #e4f4f5 !important;
+        border-radius: 5px;
+        box-sizing: border-box;
+        padding: 0 20px;
+        box-shadow: none;
+    }
+    .form-personal-left, .form-personal-right{
+        width:45%;
+    }
+    .gender{
+        width:76%;
+    }
+    .weight, .height{
+        width:31%;
+    }
+    .waist{
+        width:28%;
+    }
+    .tofu-left{
+        width:45%;
+    }
+    .tofu-right{
+        width:28%;
+    }
+    .form-personal-long-left,
+    .form-personal-long-right{
+        width:45%;
+    }
+
+    .form-personal-veg-left {
+        width:45%;
+    }
+
+    .form-personal-veg-right {
+        width:28%;
+    }
+    .chicken_per_week{
+        width:45%;
+    }
+ .chicken_per_week > select {
+        width: calc(100% - 225px);
+    } 
+    .lifestyle-section, .challenges{
+        margin-bottom: 35px;
+    }
+    .lifestyle-section h3, .symptoms h3, .challenges h3{
+        color:#08515c;
+        font-size: 15px;
+        font-weight: 700;
+        text-transform: capitalize;
+        margin-bottom: 15px;
+        font-weight: 600;
+        text-align: left;
+    }
+    .form-lifestyle{}
+
+    .form-lifestyle > label,
+    .form-personal-veg-left > label,
+    .chicken_per_week > label, .tofu-left > label {
+        width: 220px;
+    }
+    .symptoms .lifestyle-medication > label {
+        width:180px;
+        margin:0.5rem 0;
+    }
+    .lifestyle-medication > label{
+        width: 240px;
+    }
+    .form-lifestyle > input[type="text"], .form-lifestyle > textarea,
+    .veg-inner, .chicken_per_week > input[type="number"],
+    .tofu-left-inner {
+        width: calc(100% - 225px);
+    }
+    .tofu-right-inner{
+        width: calc(100% - 95px);
+    }
+    .lifestyle-medication > input[type="text"] {
+         width: calc(100% - 225px);
+    }
+    .lifestyle-medication > input[type="number"],
+    .lifestyle-medication > select {
+        max-width: 280px;
+         width: calc(100% - 185px);
+    }
+    .lifestyle-medication{
+        margin-bottom: 15px;
+        width:40%;
+        display: flex;
+    }
+    .symptoms .lifestyle-medication{
+        margin-bottom: 15px;
+        width:100%;
+    }
+
+/*============RADIO CONTAINER ==================*/
+    .radio_container {
+      display: block;
+      position: relative;
+      padding-left: 35px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      font-size: 14px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    .veg-inner .radio_container, 
+    .tofu-left-inner .radio_container {   
+        padding-left: 0px;    
+    }
+
+.radio_container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 22px;
+  width: 22px;
+  background-color: #fff;
+  border-radius: 50%;
+  border:2px solid #c1e6eb;
+}
+.veg-inner .checkmark, .tofu-left-inner .checkmark {   
+         left: -35px;    
+    }
+
+.radio_container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+.radio_container input:checked ~ .checkmark {
+  background-color: #bcf4fc;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.radio_container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.radio_container .checkmark:after {
+    top: 5px;
+    left: 5px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: white;
+}
+
+.challenges{}
+.challenges-top, .symptoms-inner{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background: #e4f4f5;
+    padding:25px;
+    box-sizing: border-box;
+    width:100%;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+.challenges-checkbox{
+    width:30%;
+}
+/* The container */
+.checkbox_container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  font-size: 12px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.checkbox_container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmarks {
+  position: absolute;
+  top: -5px;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #fff;
+  border: 2px solid #c1e6eb;
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox_container:hover input ~ .checkmarks {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox_container input:checked ~ .checkmarks {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmarks:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbox_container input:checked ~ .checkmarks:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkbox_container .checkmarks:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.challenges-bottom{}
+.challenges-bottom-inner{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.health_goals_left, .health_goals_right,
+.bottom-sec-top-left, .bottom-sec-top-right{
+    width:48%;
+}
+.challenges-bottom-inner-left {
+     width:45%;
+     display: flex;
+}
+.challenges-bottom-inner-right{
+     width:45%;
+     display: flex;
+}
+.challenges-eating-inner-left{
+     width:100%;
+} 
+.challenges-eating-inner-right{
+    width:48%;
+}
+.challenges-bottom-inner-left > label,
+.challenges-bottom-inner-right > label {
+    width:185px;
+}
+.challenges-eating-inner-left > label{
+    width: 185px;
+}
+.challenges-eating-inner-right > label{
+    width:240px;
+}
+.challenges-bottom-inner-left > input[type="number"],
+.challenges-bottom-inner-right > input[type="number"],
+.challenges-bottom-inner-left > input[type="text"],
+.challenges-bottom-inner-right > input[type="text"],
+.challenges-eating-inner-left > input[type="number"],
+.challenges-eating-inner-right > input[type="number"],
+.challenges-eating-inner-left > input[type="text"],
+.challenges-eating-inner-right > input[type="text"],
+.challenges-bottom-inner-left > select,
+.challenges-bottom-inner-right > select,
+.challenges-eating-inner-left > select,
+.challenges-eating-inner-right > select {
+        width: calc(100% - 190px);
+        border:0;
+        outline: 0;
+        height: 45px;
+        background: #e4f4f5;
+        border-radius: 5px;
+        box-sizing: border-box;
+        padding: 0 20px;
+        box-shadow: none;
+    }
+
+ .challenges-bottom-inner-right > input[type="number"],
+ .challenges-bottom-inner-right > input[type="text"],
+ .challenges-bottom-inner-right > select {
+    width: calc(100% - 130px);
+ } 
+ .challenges-eating-inner-left > input[type="number"],
+.challenges-eating-inner-left > input[type="text"],
+.challenges-eating-inner-left > select {
+     width: calc(100% - 305px);
+}   
+.challenges-eating-inner-left > input[type="text"]{
+    width: calc(100% - 190px);
+}
+.challenges-eating-inner-right > input[type="number"],
+.challenges-eating-inner-right > input[type="text"],
+.challenges-eating-inner-right > select {
+    width: calc(100% - 245px); 
+}
+.medication-history,
+.medication-left-checkbox,
+.nutritional-history-top, 
+.nutritional-history-middle,
+.water-intake, .water-intake-inner,
+.health_goals, .plan_action, .bottom-sec-top,
+.bottom-sec-top-left, .bottom-sec-top-right {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.health_goals, .plan_action, .bottom-section{
+    width:100%;
+    margin-bottom: 15px;
+}
+.medication-history{
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+}  
+.medication-history h3{
+    color: #08515c;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-transform: capitalize;
+}
+.medication-history-left p{
+    margin:25px 0 25px 0;
+}
+.medication-history-left,
+.medication-history-right{
+    width:47%;
+}  
+.nutritional-history-top > label, .water-intake > label {
+    width:285px;
+}
+.bottom-sec-top-left > label, .bottom-sec-top-right > label {
+    width: 100px;
+}
+.bottom-sec-top-left input[type="text"],
+.bottom-sec-top-right input[type="date"] {
+        width: calc(100% - 105px);
+        }
+.nutritional-history-top > input[type="text"], 
+.water-intake > input[type="text"], .water-intake-inner {
+    width:calc(100% - 290px);
+}
+.nutritional-history-top, .nutritional-history-middle, .water-intake,
+.high_risk, .medication-left-checkbox, .medication-textarea{
+    margin-bottom: 15px;
+}
+.medication-textarea textarea{
+    width:100%;
+    height: 135px;
+}
+.comment-textarea{
+    width:100%;
+}
+.bottom-section p{
+    margin-bottom: 15px;
+}
+.health_goals_left > textarea, 
+.health_goals_right > textarea, 
+.plan_action > textarea, 
+.comment-textarea > textarea{
+    width: 100%;
+    border:0;
+    outline: 0;
+    height: 110px;
+    background: #e4f4f5 !important;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 0 20px;
+    box-shadow: none;
+}
+.patient-summary a{
+    color:#00ae8e;
+}
+label{
+    color: #58595b;
+    font-size: 14px;
+    text-align: left;
+}
+
+/*=================END OF NEW CSS ====================*/
+
+input[type="password"]{
+        width: auto;
+         max-width: 100%;
+        background: none;
+         height: 36px;
+        border: 1px solid #000;
+        
+    }
+    
+.thankyoumsg {
+    width: 100%;
+    float: left;
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background:rgba(0,0,0,0.4)
+}
+.thankyoumsg p {
+    position: fixed;
+    top: 40%;
+    width: 50%;
+    float: none;
+    margin: auto;
+    left: 25%;
+    background: #40b8b9;
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+/*====================PROGRESS BAR ================*/
+
+#progressbar {
+    margin-bottom: 50px;
+    overflow: hidden;
+    color: lightgrey;
+}
+
+#progressbar .active {
+    color: #000000;
+}
+
+#progressbar li {
+    list-style-type: none;
+    font-size: 12px;
+    width: 20%;
+    float: left;
+    position: relative;
+    text-align:center;
+}
+
+#progressbar #account:before {
+    font-family: FontAwesome;
+    content: "";
+}
+
+#progressbar #personal:before {
+    font-family: FontAwesome;
+    content: "";
+}
+
+#progressbar #payment:before {
+    font-family: FontAwesome;
+    content: "";
+}
+
+#progressbar #confirm:before {
+    font-family: FontAwesome;
+    content: "";
+}
+
+#progressbar li:before {
+    content: '';
+    width: 30px;
+    height: 30px;
+    line-height: 25px;
+    display: block;
+    font-size: 16px;
+    color: #ffffff;
+    background: lightgray;
+    border-radius: 50%;
+    margin: 0 auto 10px auto;
+    padding: 2px;
+}
+
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: lightgray;
+    position: absolute;
+    left: 0;
+    top: 15px;
+    z-index: 1;
+}
+
+#progressbar li.active:before,
+#progressbar li.active:after {
+    background: #00ae8e;
+}
+
+.formbluebox input[type="button"] {
+    background: #0eb58f;
+    color: #fff;
+    width: 182px;
+    display: inline-block;
+    margin: 25px auto;
+    border: 0;
+    outline: 0;
+    font-size: 1rem;
+    text-transform: capitalize;
+    line-height: 3.2rem;
+    border-radius: 1.6rem;
+    text-align: center;  
+    text-transform: uppercase;    
+}
+.formbluebox input[type="button"]:hover,
+.formbluebox input[type="submit"]:hover {
+    background: #144F5A;
+}
+.formbluebox input[type="button"].action-button-previous {
+    background: #616161;
+}
+.formbluebox .btn-container{
+    width:290px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+.formbluebox fieldset{
+    text-align: center;
+}
+.formbluebox fieldset:not(:first-of-type) {
+    display: none
+}
+.form-success {
+    margin-bottom: 100px;
+}
+.success-pic {
+    width: 90px;
+    margin: 0 auto 25px auto;
+}
+.success-content {
+    text-align: center;
+}
+.success-content h3, fieldset h3 {
+    color: #08515c;
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-transform: capitalize;
+    margin-bottom: 25px;
+}
+
+
+.success-content ul li a{
+    display: inline-block;
+    width: 300px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-transform: capitalize;
+    margin-bottom: 15px;
+    border: solid 2px #0EB58F;
+    background-color: #0EB58F;
+    color: #FFFFFF;
+    border-radius: 1.6rem;
+    padding: 10px 0;
+    cursor: pointer;
+}
+.height-col{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: calc(100% - 132px);
+}
+.height-col input[type="text"],
+.height-col select{
+    width:45%;
+    border: 0;
+    outline: 0;
+    height: 45px;
+    background: #e4f4f5;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 0 20px;
+    box-shadow: none;
+}
+
+/*================ END OF PROGRESS BAR =============*/  
+    
+@media screen and (min-width:260px) and (max-width:767px){
+    
+}   
+
+.thankyoumsg p {
+    position: fixed;
+    top: 40%;
+    width: 96%;
+    float: none;
+    margin: auto;
+    left: 2%;
+    background: #40b8b9;
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+    
+@media screen and (min-width:768px) and (max-width:999px) {
+            
+    }   
+        
+    
+@media only screen and (min-width:310px) and (max-width:641px)  {
+    b, strong {
+        font-weight: 700;
+        font-size: 13px;
+    }
+    label{
+        margin: 0 auto;
+    }
+    .formbluebox{
+        width: 100%;
+        margin:3rem auto 0 auto;
+        padding:20px;
+        box-sizing: border-box;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    }
+
+    .form-personal > label, .form-personal-left > label, 
+    .gender > label, .waist > label, .form-personal-veg-right > label,
+    .form-personal-right > label, .form-personal-long-right > label,
+    .form-personal-long-right2 > label, .form-chicken-long > label,
+    .tofu-right > label, .weight > label, .height > label,
+    .form-personal-long > label, .form-personal-long-left > label,
+    .form-lifestyle > label, .form-personal-veg-left > label,
+    .chicken_per_week > label, .tofu-left > label {
+        display: block;
+        width:100%;
+        margin-bottom: 8px;
+    }
+    .form-personal > input[type="text"],
+    .form-personal-left > input[type="text"],
+    .form-personal-right > input[type="text"],
+    .weight > input[type="text"], .height > input[type="text"],
+    .waist > input[type="text"], .weight > input[type="date"],
+    .form-personal-long > input[type="text"],
+    .form-personal-long-right >  input[type="text"],
+    .form-personal-long-left >  input[type="text"],
+    .form-personal-long-right2 > input[type="date"],
+    .form-lifestyle > input[type="text"],    
+    .chicken_per_week > input[type="number"],
+    .nutritional-history-top > input[type="text"], 
+    .water-intake > input[type="text"],
+    .bottom-sec-top-left input[type="text"],
+    .bottom-sec-top-right input[type="date"],
+    .form-chicken-long > input[type="text"],
+    .weight > input[type="text"],    .height > input[type="text"],
+    .weight > input[type="date"] {
+        width:100%;
+    }
+
+    .gender-inner, .egg-inner, .veg-inner{
+        width: 100%;        
+    }      
+
+    .form-personal > textarea, .form-lifestyle > textarea,
+    .medication-textarea textarea{
+        width: 100%;        
+    }
+
+    .form-personal-left, .form-personal-right, .gender, .weight, 
+    .height, .waist,  .tofu-left, .tofu-right, .form-personal-long-left,
+    .form-personal-long-right, .form-personal-veg-left, 
+    .form-personal-veg-righ, .chicken_per_week{
+        width:100%;
+    }
+    .weight > label, .height > label {  
+        text-align: left;    
+    }
+    .form-personal-long-right2 > input[type="date"] {
+        width: 100%;
+    }
+    .challenges-checkbox {
+        width: 100%;
+    }
+    .challenges-bottom-inner-left, .challenges-bottom-inner-right, .health_goals_left, .health_goals_right, .bottom-sec-top-left, .bottom-sec-top-right {
+        width: 100%;
+    }
+    .challenges-bottom-inner-left > input[type="number"], 
+    .challenges-bottom-inner-right > input[type="number"], 
+    .challenges-bottom-inner-left > input[type="text"], 
+    .challenges-bottom-inner-right > input[type="text"] {
+        width: 100% ;    
+    }
+
+    .subheading p {
+        font-size: 1.4rem;
+    }
+    .lifestyle-section h3, .symptoms h3, .challenges h3 {   
+        font-size: 12px; 
+        font-weight: 600;   
+    }
+    label {    
+        font-size: 12px;
+        text-align: left;
+    }
+    .checkbox_container, .radio_container {   
+        font-size: 12px;   
+    }
+    .subheading {   
+        margin-bottom: 1rem;
+    }
+    .form-personal, .form-personal-left,
+    .challenges-bottom-inner, .challenges-bottom-inner-left,
+    .form-personal-veg-left, .form-lifestyle, .chicken_per_week,
+    .tofu-left{
+        margin-bottom: 20px;
+    }
+    .form-personal .radio_container, .lifestyle-medication{
+        margin-bottom: 0;
+    }
+    #progressbar {
+        margin-bottom: 25px;    
+    }
+    .challenges-bottom-inner-right,
+    .challenges-bottom-inner-left,
+    .lifestyle-medication {    
+        flex-wrap: wrap;
+    }
+    .height-col {    
+        width: 100%;
+    }
+
+    .challenges-bottom-inner-left > label, 
+    .challenges-bottom-inner-right > label,
+    .symptoms .lifestyle-medication > label,
+    .challenges-eating-inner-left > label,
+    .lifestyle-medication > label {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+    .lifestyle-medication > input[type="number"],
+    .lifestyle-medication > input[type="text"],
+    .challenges-eating-inner-left > input[type="text"],
+    .form-personal-veg-right, .tofu-left-inner,
+    .lifestyle-medication, .tofu-right-inner { 
+        width: 100%;
+        max-width: 100%;
+    }
+    .formbluebox input[type="button"] {   
+        margin: 25px auto 0 auto;
+    } 
+    .egg-inner .radio_container, 
+    .tofu-right-inner .radio_container{
+        margin-left:35px;
+    }  
+    .egg-inner .egg2{
+        margin-left: 0;
+    }
+
+}
+textarea{
+    box-sizing: border-box;
+    padding: 15px 20px !important;
+}
+</style>
+
+
+
+    <!-- site -->
+    <div class="site container">
+        <!-- site__content -->
+        <div class="site__content">
+            <!-- catalog -->
+            <div class="catalog">              
+                <!-- catalog__frame -->
+                <div class="catalog__frame">
+                    <div>     	
+                    <?php  $customerCollection = Mage::getModel('customer/customer')->getCollection()
+         ->addAttributeToSelect('*')
+        ->addAttributeToSort('firstname','ASC')
+        ->addAttributeToSort('lastname','ASC')
+        
+         ->addFieldToFilter('mealstatus', array("eq" => 1));
+         //->addFieldToFilter('group_id', array("neq" => 4));
+//echo '';
+$customerLi='';
+foreach($customerCollection as $custinfo)
+{
+    $customerId = $custinfo->getEntityId();
+    $firstName =  $custinfo->getFirstname();
+	$mobileNo = $custinfo->getPrimarymobileno();
+    $customerName='';
+    $isDr = false;
+    $isDiabetes = false;
+    
+    $foundItem = strpos( $firstName,'Dr');   if($foundItem!==false){  $isDr= true;  $firstName = str_replace("Dr",'',$firstName); }
+   $foundItem2 = strpos( $firstName,'.');   if($foundItem2!==false){   $firstName = str_replace(".",'',$firstName); }
+    $foundItem3 = strpos( $firstName,'Diabetes');   if($foundItem3!==false){ $isDiabetes = true;  $firstName = str_replace("(Diabetes Educator )",'',$firstName); }
+   
+   
+    $lastName =  $custinfo->getLastname();
+    if($firstName!='')
+    {
+        $customerName = trim($firstName);
+        
+    }
+    
+    if($lastName!='')
+    {
+        if($firstName!=''){ $customerName.=' ' ;}
+        $customerName.= trim($lastName);   
+        
+        if($isDr==true)
+        {
+          //  $customerName.= ' ( Dr )'; 
+        }
+        if($isDiabetes==true)
+        {
+          //  $customerName.= ' (Diabetes Educator )'; 
+        }
+    }
+   //  $customerName = str_replace("Dear","",$customer);
+    
+  //  print_r($custinfo); die;
+   // $customerLi.='<li id="'.$customerId.'" value="'.$customerId.'" onclick="getPatientIntakeForm('.$customerId.','.$mobileNo.')">'.$customerName.'</li>';
+	 $customerLi.='<li id="'.$customerId.'" value="'.$customerId.'" onclick="getDateWiseInfo('.$customerId.','.$mobileNo.')">'.$customerName.'</li>';
+}
+
+ $tomorrowDay = ucfirst(date("l", strtotime('tomorrow')));
+ $curentdataetime = Mage::getModel('core/date')->date('m/d/Y');
+?>
+				
+    <div id="loader" style="display:none;width:69px;height:89px;border:1px solid black;position:absolute;top:50%;left:50%;padding:2px;"><img src='<?php echo $this->getSkinUrl();?>images/demo_wait.gif' width="64" height="64" /><br>Loading..</div>
+    <div style="margin-bottom:10px; width:100%">Select Customer:</div>    
+	<ul id="my-list">
+  <?php echo $customerLi;?>
+  <div class="clearfix"></div>
+</ul>
+            
+
+
+<script src="<?php echo $this->getSkinUrl('js');?>/jquery.alphaindex.js"></script>
+
+<script> 
+
+	jQuery(document).ready(function() {  
+        //alert('before showing products');
+        jQuery('#my-list').makeAlphaIndex({
+            activateFirstIndex: false,
+            showItemsCount: false
+            })
+    });
+		
+	function getDateWiseInfo(custId,mobileNo) {  
+		jQuery('#formDiv').html('');  
+		jQuery('li').removeClass("highlight");
+			
+					
+		jQuery.ajax({
+            url: "<?php echo Mage::getBaseUrl().'override/index/getcustomerintakerows' ?>",
+            type: "POST",
+            data: {
+                    custid: custId,
+                    mobileno:mobileNo                                
+                },
+                              
+            success: function(response)	{			
+				jQuery('#'+custId).addClass("highlight");
+				jQuery('#formDate').html(response);
+				//alert(response);
+                }
+            }); 
+		}
+		
+		
+		
+	function getPatientIntakeForm(patientid,custId,mobileNo) {  
+			  
+		jQuery('li').removeClass("highlight");
+		jQuery('td span').removeClass("highlight");			
+		// alert(custId+'---'+mobileNo);
+		jQuery.ajax({
+            url: "<?php echo Mage::getBaseUrl().'override/index/getcustomerintakeinformation' ?>",
+            type: "POST",
+            data: {
+                    patientid:patientid,
+					custid: custId,
+                    mobileno:mobileNo                            
+                },
+                              
+            success: function(response)	{
+					jQuery('#'+custId).addClass("highlight");
+					jQuery('#'+mobileNo).addClass("highlight");
+					jQuery('#formDiv').html(response);
+                }
+            }); 
+		}
+        
+	function submitpaitentform() { 
+		jQuery.ajax({
+            url: "<?php echo Mage::getBaseUrl().'override/index/submitpaitentform' ?>",
+            type: "POST",
+            data: jQuery("#contactform").serialize(),
+                              
+            success: function(response)	{ 					
+					jQuery('#formDiv').html('<h2 style="font-size:20px; font-weight:700; color:green; text-align:center;">'+ response + '</h2>');
+                }
+            }); 
+		}   
+</script>
+<div id="formDate"></div>
+<div class="clearfix"></div>
+<div id="formDiv">
+
+	<div class="container"></div></div>
+</div> 
+            
+
+			 <!-- /catalog__frame -->
+
+            </div>
+            <!-- /catalog -->
+
+        </div>
+        <!-- /site__content -->
+
+
+    </div>
+    <!-- /site --> 

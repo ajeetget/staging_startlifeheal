@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <calorycarbslevel_adminhtml_calorycarbslevel_index>
+	<reference name="content">
+	  <block type="calorycarbslevel/adminhtml_calorycarbslevel" name="calorycarbslevel" />
+	</reference>
+  </calorycarbslevel_adminhtml_calorycarbslevel_index>
+</layout>

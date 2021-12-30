@@ -1,0 +1,597 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+error_reporting(E_ALL);
+ini_set('display_errors', TRUE);
+ini_set('display_startup_errors', TRUE);
+?>
+<?php 
+if($this->getRequest()->getParam('webmail')){
+  $logincustomer = Mage::getModel("customer/customer");
+  $logincustomer->setWebsiteId(Mage::app()->getWebsite()->getId());
+  // Load our customer by email
+  $logincustomer->loadByEmail($this->getRequest()->getParam('webmail'));
+  // Load the session up
+  $sess = Mage::getSingleton("customer/session");
+  // Login by ID
+  $sess->loginById($logincustomer->getId());
+  // Set the customer as logged in
+  $sess->setCustomerAsLoggedIn($logincustomer);
+  // redirect to the homepage
+  Mage::app()->getFrontController()->getResponse()->setRedirect('/onestepcheckout/')->sendResponse();
+}
+$moduleName = Mage::app()->getRequest()->getModuleName();
+$controller=$this->getRequest()->getControllerName();
+$action = Mage::app()->getRequest()->getActionName();
+
+$groupId = Mage::getSingleton('customer/session')->getCustomerGroupId(); 
+$identifier = Mage::getSingleton('cms/page')->getIdentifier();
+
+//echo $moduleName."--".$controller."--".$action."---".$identifier."---".$groupId;
+if($moduleName=='cms' && $identifier=='foodrecipes')
+{
+	    if($groupId>=0 && !in_array($groupId,array(5)))
+		{
+	     	header("Location:".Mage::getBaseUrl()."customer/account/login/"); exit;
+		}
+}
+
+if($moduleName=='cms' && in_array($identifier,array('dish-qty-details','all-dish-base-items','customer-allergy','customer-report-of-week')) )	
+{
+	    if($groupId>=0 && !in_array($groupId,array(4,5)))
+		{
+	     	header("Location:".Mage::getBaseUrl()."customer/account/login/"); exit;
+		}
+}
+
+if($moduleName=='foodpdf' && $controller=='index')
+{
+	    if($groupId>=0 && !in_array($groupId,array(5)))
+		{
+	     	header("Location:".Mage::getBaseUrl()."customer/account/login/"); exit;
+		}
+}
+if($moduleName=='heal' && $controller=='index' && in_array($action,array('qtydetails','creport','qty','creport','customermeals','meallabel') ) )
+{
+	$groupId = Mage::getSingleton('customer/session')->getCustomerGroupId(); 
+		if($groupId>=0 && !in_array($groupId,array(4,5)))
+		{
+		header("Location:".Mage::getBaseUrl()."customer/account/login/"); exit;
+		}
+} 
+elseif($moduleName=='heal' && $controller=='index' && in_array($action,array('index') ) )
+{
+	  
+		if($groupId>=0 && $groupId!=5)
+		{
+		header("Location:".Mage::getBaseUrl()."customer/account/login/"); exit;
+		}
+} 
+if(!in_array($action,array('print') ) ){
+?>
+<link href="<?php echo $this->getSkinUrl('css/mobilemenu.css') ?>" rel="stylesheet" type="text/css" />
+<style>
+
+
+.hiddenbox li a:hover{background:#1acccd !important;width:100%}
+.hiddenbox {
+margin-top: .8%;
+display: none;
+position: absolute;
+padding: 0px;
+margin: 0px;
+float: left;
+width: 100%;
+}	
+.showplan:hover .hiddenbox {
+display: block;
+width: 100%;
+float: left;
+padding: 0;
+margin: 0;
+}
+.hiddenbox li{width:auto;float: left;display: block;margin: 0;}
+.hiddenbox li a{padding: 8px;
+width: 100%;
+font-size: 12px;
+background: #269a9b !important;
+float: left;
+margin-top: 1%;}
+	
+.nav-item .active {
+background-color:yellow;
+}
+#list-inline{padding: 0px 0px;
+position: absolute;
+list-style: none;
+margin-left: 0px;
+width:100%;
+line-height: 33px;
+float: left;
+height: 35px;}
+#list-inline li{padding-left: 0px;
+padding-right: 0px;
+width: auto;
+text-align: center;
+margin-top: 0px;
+font-size: 13px;
+text-transform: capitalize !important;
+background: #269a9b;
+margin: 0;
+display: table-cell;
+list-style: none;
+float: right;}
+#list-inline li:hover{background: #1acccd;}
+#list-inline li a{color:#fff;padding:5px 10px;font-weight: 500;}
+.content {
+  padding: 16px;
+}
+.stickyhead {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+.stickyhead + .main-container {
+  padding-top: 200px;
+}
+.stickyheadmob {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+.stickyheadmob + .main-container {
+  padding-top: 200px;
+}
+#myHeaderhead svg{float:none}
+#myHeaderhead{z-index:4;box-shadow: 0px 0px 4px rgba(0,0,0,0.4);}
+.navbar{background:#fff; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji" !important;}
+
+
+.noprint {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji" !important;
+   border-collapse: unset;
+    width: 100%;
+    max-width: 100% !important;
+    margin: auto !important;
+}
+	
+	
+.dropdown {
+  float: left;
+overflow: hidden;
+position: inherit;
+}
+
+.dropdown .dropbtn {
+font-size: .89em !important;
+border: none;
+outline: none;
+color: #000;
+padding: 9px 16px;
+background-color: inherit;
+margin: 0;
+text-transform: uppercase;
+font-weight: 600;
+}
+
+
+.dropdown-content {
+  display: none;
+position: fixed;
+background-color: #fff;
+width: 50%;
+box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+z-index: 4;
+}
+
+.dropdown-content .header { 
+  padding: 16px;
+  color: #000;
+}
+
+.dropdown-menudiet {
+	box-sizing: border-box;
+    top: 22px;
+    left:16%;   
+    position: absolute;
+    padding: 0;
+    background-color: #f9f9f9;
+    border: 0px;
+    box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.2);
+   padding: 3px 3px !important;
+   /*width:160px;*/
+   width:230px;
+    display: none;
+    z-index: 50;	
+}
+
+.dropdown-submenudiet {
+	position: relative;	
+}	
+.dropdown-submenudiet:hover .dropdown-menudiet{
+	display: block;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+  background: #f9f9f9;
+}
+/* Create three equal columns that floats next to each other */
+.column {
+float: left;
+width:32%;
+padding: 10px;
+background-color: #f9f9f9;
+/*height: 440px;*/
+height: auto;
+}
+
+.column a {
+display: inline-block;
+color: black !important;
+padding: 7px 0px;
+text-decoration: none;
+text-align: left;
+font-size: 12px;
+width:100%;
+}
+.dropdown-menudiet a{
+width: 100%;
+text-align: left;
+padding: 0;
+}
+
+.dropdownmenuheader h3, .column h3{
+	margin: auto;
+	text-transform: capitalize;
+	color: #000;font-size: 1.2em;
+	font-weight: 600;
+}
+
+
+</style>
+<!--desktop-->
+<section id="myHeaderhead" class="desktopmenu">
+
+<div class="bg-light noprint">
+   <div class="container">
+        <div class="row top-bar">
+             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-uppercase">
+               <a href="tel:+91-9999-84-6622">
+			   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" 
+			   viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve" width="20px" height="20px">
+			   <g>
+			   <path style="fill:#4CAF50;" d="M256.064,0h-0.128l0,0C114.784,0,0,114.816,0,256c0,56,18.048,107.904,48.736,150.048l-31.904,95.104  
+			   l98.4-31.456C155.712,496.512,204,512,256.064,512C397.216,512,512,397.152,512,256S397.216,0,256.064,0z" data-original="#4CAF50"/>
+			   <path style="fill:#FAFAFA" d="M405.024,361.504c-6.176,17.44-30.688,31.904-50.24,36.128c-13.376,2.848-30.848,5.12-89.664-19.264  
+			   C189.888,347.2,141.44,270.752,137.664,265.792c-3.616-4.96-30.4-40.48-30.4-77.216s18.656-54.624,26.176-62.304  
+			   c6.176-6.304,16.384-9.184,26.176-9.184c3.168,0,6.016,0.16,8.576,0.288c7.52,0.32,11.296,0.768,16.256,12.64  
+			   c6.176,14.88,21.216,51.616,23.008,55.392c1.824,3.776,3.648,8.896,1.088,13.856c-2.4,5.12-4.512,7.392-8.288,11.744  
+			   c-3.776,4.352-7.36,7.68-11.136,12.352c-3.456,4.064-7.36,8.416-3.008,15.936c4.352,7.36,19.392,31.904,41.536,51.616  c28.576,25.44,51.744,33.568,60.032,37.024c6.176,2.56,13.536,1.952,18.048-2.848c5.728-6.176,12.8-16.416,20-26.496  c5.12-7.232,11.584-8.128,18.368-5.568c6.912,2.4,43.488,20.48,51.008,24.224c7.52,3.776,12.48,5.568,14.304,8.736  C411.2,329.152,411.2,344.032,405.024,361.504z" data-original="#FAFAFA" class="active-path" data-old_color="#FAFAFA"/></g> 
+			   </svg> or CALL
+			   +91-9999-84-6622</a>
+            </div> 
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <?php echo $this->getChildHtml('topLinks') ?>
+	
+		 </div>
+        </div>
+   </div>
+   </div>
+ <nav class="navbar navbar-expand-lg navbar-light noprint" style="padding: 0px 0px">
+ <div class="container p-0">
+    <a class="logo navbar-brand p-0" href="<?php echo $this->getUrl('') ?>">
+        <img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" class="large" />
+        <img src="<?php echo $this->getLogoSrcSmall() ?>" alt="<?php echo $this->getLogoAlt() ?>" class="small" />
+    </a>
+<button class="navbar-toggler" type="button" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="navbar-collapse col-lg-10 col-md-10 col-sm-10 col-xs-12" id="navbarNavAltMarkup">
+<div class="navbar-nav text-uppercase">       
+<span class="showplan">  
+<a class="nav-item nav-link" id="nav-view-plan" href="<?php echo Mage::getBaseUrl();?>plans">View Plans</a>
+<ul class="hiddenbox">		
+		<li id="foodsub"><a href="<?php echo Mage::getBaseUrl();?>food" class="text-white text-center">Food Subscription</a></li>
+<li id="individual"><a href="<?php echo Mage::getBaseUrl();?>individualplan" class="text-white text-center">Individual Weight Loss</a></li>
+<li id="family"><a href="<?php echo Mage::getBaseUrl();?>familyplan" class="text-white text-center">Family Weight Loss</a></li>
+<li id="diabetesreversal"><a href="<?php echo Mage::getBaseUrl();?>healthrepairplan" class="text-white text-center">Diabetes Reversal</a></li>
+</ul>
+</span>
+<a class="nav-item nav-link" id="how-it-work" href="<?php echo Mage::getBaseUrl();?>how">How It Works</a>      
+           <?php if(in_array($groupId,array(4,5))) { ?>
+	<div class="dropdown">
+    <button class="dropbtn">Dietician 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">    
+     
+       
+        <div class="column">
+          <h3>Kitchen</h3>
+          	<a href="<?php echo Mage::getBaseUrl();?>heal/index/qty">Qty Order Report</a>
+			<a href="<?php echo Mage::getBaseUrl();?>customer-allergy">Customer Allergy And Dislike</a> 
+			<a href="<?php echo Mage::getBaseUrl();?>heal/index/qtydetails">Qty Details Report</a>
+			<a href="<?php echo Mage::getBaseUrl();?>dish-qty-details">Breakdown of Ingredients by Item</a>
+			<a href="<?php echo Mage::getBaseUrl();?>all-dish-base-items">Ingredients Summary for Day</a> 
+			<a href="<?php echo Mage::getBaseUrl();?>heal/index/meallabel">Meal Labels</a>
+			<a href="<?php echo Mage::getBaseUrl();?>heal/index/mealdetails">Meal Details Report</a>
+			<a href="<?php echo Mage::getBaseUrl();?>heal/index/creport">Meals Sent Report</a>
+			<a href="<?php echo Mage::getBaseUrl();?>heal/index/customerallmeals">Customer Detailed Report</a>
+	        <a href="<?php echo Mage::getBaseUrl();?>heal/index/customermeals">Customer All Weekly-Meal Report</a>
+			<a href="<?php echo Mage::getBaseUrl();?>customer-meal-report-of-week">Customer Meal Report Of A Week</a>
+			<a href="<?php echo Mage::getBaseUrl();?>heal/index/deliveryreport">Box Tracking Report</a>	
+			<div class="dropdown-submenudiet">
+				<a href="<?php echo Mage::getBaseUrl();?>foodrecipes">Food Recipes</a>
+				<div class="dropdown-menudiet">	
+					<a href="<?php echo Mage::getBaseUrl();?>foodpdf/index/index">Update Food Recipes</a>
+				</div>
+			</div>
+
+			<div class="dropdown-submenudiet">
+				<a href="#"> Dish and Recipes</a>
+				<div class="dropdown-menudiet">	
+					<a href="<?php echo Mage::getBaseUrl();?>base-dish-info">Database</a>
+					<a href="<?php echo Mage::getBaseUrl();?>base-dish-items">Costing</a>
+					
+				</div>
+			</div>
+        </div>
+        <div class="column">
+          <h3>Patient</h3>
+				
+            <div class="dropdown-submenudiet">
+            	<a href="<?php echo Mage::getBaseUrl();?>heal/index">All Orders</a>
+				
+				<div class="dropdown-menudiet">
+					<a href="<?php echo Mage::getBaseUrl();?>heal/index/printall">Print All
+					</a>
+				</div>
+		    </div>
+							 
+          			<a href="<?php echo Mage::getBaseUrl();?>customer-favourite" style="width:100%;">Customer Favourites</a>
+					   <a href="<?php echo Mage::getBaseUrl();?>patientreport" style="width:100%;">Patient Report</a>
+        </div>
+			
+     
+    </div>
+  </div> 
+	
+			<? php /*<div class="dropdownmenuheader">
+				<div class="dropdownplan">
+				<a href="javascript:void(0)" class="dropbtndiet">Dietician</a>
+	
+					
+					 <div class="">
+						 <div class="dropdown-contentdiet dropdown-contentplan">
+				  <span class="dropdown-submenudiet"><a href="<?php echo Mage::getBaseUrl();?>heal/index">All Orders</a>
+				  <div class="dropdown-menudiet"><a tabindex="-1" href="<?php echo Mage::getBaseUrl();?>heal/index/printall">Print All</a></div>
+		          </span>
+				   <a href="<?php echo Mage::getBaseUrl();?>customer-favourite">Customer Favourites</a>
+					   <a href="<?php echo Mage::getBaseUrl();?>patientreport">Patient Report</a>
+						
+				  <a href="<?php echo Mage::getBaseUrl();?>heal/index/qty">Qty Order Report</a>
+					 <a href="<?php echo Mage::getBaseUrl();?>heal/index/qtydetails">Qty Details Report</a>
+					<a href="<?php echo Mage::getBaseUrl();?>heal/index/meallabel">Meal Labels</a>
+					<a href="<?php echo Mage::getBaseUrl();?>heal/index/mealdetails">Meal Details Report</a>
+					<a href="<?php echo Mage::getBaseUrl();?>heal/index/creport">Meals Sent Report</a>
+					<a href="<?php echo Mage::getBaseUrl();?>heal/index/customerallmeals">Customer Detailed Report</a>
+				     <a href="<?php echo Mage::getBaseUrl();?>heal/index/customermeals">Customer Weekly-Meal Report</a>
+					 <a href="<?php echo Mage::getBaseUrl();?>heal/index/deliveryreport">Box Tracking Report</a>			 
+				 
+				  
+                 
+					  
+				
+				  
+					 <a href="<?php echo Mage::getBaseUrl();?>menuorder" style="display:none;">Menu & Ordering</a>
+				  <a href="<?php echo Mage::getBaseUrl();?>setmenuorder" style="display:none;">Set/Unset Menu</a>	
+         
+				</div>
+					</div>
+        </div>
+			</div> */?>
+			
+		<?php }?>
+			  <a class="nav-item nav-link last" href="<?php echo Mage::getBaseUrl();?>research">Research</a>
+        </div>
+      </div>
+  </div>
+</nav>
+	
+	        <ul id="list-inline" style="display:none;">					
+	
+				<li><a href="<?php echo Mage::getBaseUrl();?>diabetes">Diabetes</a></li>
+				<li><a href="<?php echo Mage::getBaseUrl();?>plans">Weight Loss</a></li>
+				
+</ul>
+	
+</section>
+<?php
+$groupId = Mage::getSingleton('customer/session')->getCustomerGroupId(); 
+?>    
+<!--mobilemenu-->
+<nav role='navigation' class="mobilemenu me_sticky" id="mobilemenu">
+  <div id="menuToggle">
+    <!--
+    A fake / hidden checkbox is used as click reciever,
+    so you can use the :checked selector on it.
+    -->
+    <input type="checkbox" />
+    
+    <!--
+    Some spans to act as a hamburger.
+    
+    They are acting like a real hamburger,
+    not that McDonalds stuff.
+    -->
+    <span></span>
+    <span></span>
+    <span></span>
+    
+    <!--
+    Too bad the menu has to be inside of the button
+    but hey, it's pure CSS magic.
+    -->
+    <ul id="menu">
+    
+			<li><a href="<?php echo Mage::getBaseUrl();?>register">Register</a> </li>
+			 <li id="nav-view-plan"><a href="<?php echo Mage::getBaseUrl();?>plans">View Plans</a><div class="dropdownplan">▾</li>
+			  
+			  <ul style="background: #1acccd;width: 100%;float: left;">		
+				  	<li><a href="<?php echo Mage::getBaseUrl();?>food" style="width:100%">Food Subscription</a></li>
+	            <li><a href="<?php echo Mage::getBaseUrl();?>individualplan" style="width:100%">Individual Weight Loss</a></li>
+				   <li><a href="<?php echo Mage::getBaseUrl();?>familyplan" style="width:100%">Family Weight Loss</a></li>
+			    <li><a href="<?php echo Mage::getBaseUrl();?>healthrepairplan" style="width:100%">Disease Reversal</a></li>
+</ul>
+      
+		<li><a href="<?php echo Mage::getBaseUrl();?>how">How It Works</a> </li>
+         
+ 
+      <?php if($groupId==4) { ?>
+			<div class="dropdownmenuheader">
+				<a href="javascript:void(0)">Dietician</a><div class="dropdownplan">▾</div>
+				
+				<div class="dropdown-contentdiet dropdown-contentplan">
+					<h3>Patient</h3>
+				  <span class="dropdown-submenudiet"><a href="<?php echo Mage::getBaseUrl();?>heal/index">All Orders</a>
+				  <div class="dropdown-menudiet"><a tabindex="-1" href="<?php echo Mage::getBaseUrl();?>heal/index/printall">Print All</a></div>
+		          </span>		
+			   <a href="<?php echo Mage::getBaseUrl();?>customer-favourite">Customer Favourites</a>
+					   <a href="<?php echo Mage::getBaseUrl();?>patientreport">Patient Report</a>
+						<h3>Kitchen</h3>
+				  <a href="<?php echo Mage::getBaseUrl();?>heal/index/qty">Qty Order Report</a>
+					 <a href="<?php echo Mage::getBaseUrl();?>heal/index/qtydetails">Qty Details Report</a>
+					<a href="<?php echo Mage::getBaseUrl();?>heal/index/meallabel">Meal Labels</a>
+					<a href="<?php echo Mage::getBaseUrl();?>heal/index/mealdetails">Meal Details Report</a>
+					<a href="<?php echo Mage::getBaseUrl();?>heal/index/creport">Meals Sent Report</a>
+					<a href="<?php echo Mage::getBaseUrl();?>heal/index/customerallmeals">Customer Detailed Report</a>
+				    <a href="<?php echo Mage::getBaseUrl();?>heal/index/customermeals">Customer All Weekly-Meal Report</a>
+					<a href="<?php echo Mage::getBaseUrl();?>customer-report-of-week">Customer Meal Report Of A Week</a>
+					<a href="<?php echo Mage::getBaseUrl();?>heal/index/deliveryreport">Box Tracking Report</a>
+				</div> 
+        </div>
+		<?php }?>
+     <li> <a href="<?php echo Mage::getBaseUrl().'research'; ?>">Research</a></li>
+	
+     <?php if(!Mage::getSingleton('customer/session')->isLoggedIn()){ ?>
+     <li>   <a href="<?php echo Mage::getBaseUrl().'customer/account/login/'; ?>">Log In</a></li>
+    <?php }else{ ?>
+       <li> <a href="<?php echo Mage::getBaseUrl().'customer/account/logout/'; ?>">Log Out</a></li>
+    <?php } ?>
+    
+	<li><a href="<?php echo Mage::getBaseUrl().'customer/account/'; ?>">My Account</a></li>
+	<li><a href="<?php echo Mage::getBaseUrl().'checkout/cart/'; ?>">Cart</a></li>
+	<li><a href="<?php echo Mage::getBaseUrl().'onestepcheckout'; ?>">Checkout</a></li>
+		
+    </ul>
+  </div>
+	
+<a href="https://lifeheal.in"  class="logomob"><img src="https://lifeheal.in/skin/frontend/rwd/default/images/Logo-lifehealing-food-PNG.png"></a>	
+	<!--<div class="locationmob"><u><a href="https://lifeheal.in/location" style="color:#fff;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve" class="" width="24px" height="30px"><g><g>
+	<g>
+		<path d="M256,0C161.896,0,85.333,76.563,85.333,170.667c0,28.25,7.063,56.26,20.49,81.104L246.667,506.5    c1.875,3.396,5.448,5.5,9.333,5.5s7.458-2.104,9.333-5.5l140.896-254.813c13.375-24.76,20.438-52.771,20.438-81.021    C426.667,76.563,350.104,0,256,0z M256,256c-47.052,0-85.333-38.281-85.333-85.333c0-47.052,38.281-85.333,85.333-85.333    s85.333,38.281,85.333,85.333C341.333,217.719,303.052,256,256,256z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#FFFFFF"/>
+	</g>
+</g></g> </svg></a></u></div>-->
+	
+</nav>
+<script>
+
+var stickyEl = document.querySelector('.me_sticky')
+var stickyPosition = stickyEl.getBoundingClientRect().top;
+var offset = -20
+window.addEventListener('scroll', function() {
+    if (window.pageYOffset >= stickyPosition + offset) {
+        stickyEl.style.position = 'fixed';
+        stickyEl.style.top = '0px';
+    } else {
+        stickyEl.style.position = 'static';
+        stickyEl.style.top = '';
+    }
+});
+	
+window.onscroll = function() {myFunction()};
+
+var header = document.getElementById("myHeaderhead");
+var sticky = header.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset > sticky) {
+	
+    header.classList.add("stickyhead");
+  } else {
+	
+    header.classList.remove("stickyhead");
+  }
+}
+</script>
+<script>
+jQuery(document).ready(function(){
+  jQuery(".navbar-toggler").click(function(){
+	   jQuery("#navbarNavAltMarkup").animate({
+       height: 'toggle'
+	   });
+  });
+  jQuery(".dropbtndiet").click(function(){	 
+	   jQuery(".dropdown-contentdiet").toggle();
+  });
+  /*
+  jQuery(".dropdown-submenudiet").hover(function(){	 
+	   //jQuery(".dropdown-menudiet").toggle();
+	   $(this).children('.dropdown-menudiet').toggle();
+  });*/
+  jQuery(".wrapper").mouseout(function(){
+	   jQuery("#dropdown-contentdiet").toggle();
+  });
+	  jQuery(".dropdownmenuheader").click(function(){
+	   jQuery(".dropdown-contentdiet").toggle();
+  });
+	
+	jQuery('.nav-link').click(function() {
+       jQuery('.nav-link').removeClass('active');
+       jQuery(this).addClass('active');
+    });
+});
+</script>
+
+<script>
+ 
+	
+function myplan() {
+
+  var x = document.getElementById("list-inline");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+	
+
+</script>
+
+<?php }?>

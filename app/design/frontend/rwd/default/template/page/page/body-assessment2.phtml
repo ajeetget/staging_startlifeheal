@@ -1,0 +1,303 @@
+
+<?php
+$post = $this->getRequest()->getPost();
+//echo '<pre>'; print_r($post); // die;
+$heightInMeter =  (( ( $post['height'] * 12 ) +  $post['inches'] ) * 2.54)/100; 
+ $weight = $post['weight'];
+$bmiCalulated = ( $weight/($heightInMeter *$heightInMeter) ) ;
+$BMI = round($bmiCalulated, 1);
+$nutritionalStatus = '';
+
+$class_underweight ='underweight';
+$class_healthy      ='normal';
+$class_overweight  ='overweight';
+$class_obese='obese';
+$class_obeseselect='scale_pointer unselected';
+$class_healthyselect='scale_pointer unselected';
+$class_underweightselect='scale_pointer unselected';
+$class_overweightselect='scale_pointer unselected';
+
+if($BMI <18.5)
+{ $nutritionalStatus='Underweight'; $class_underweight='underweight selected';
+$class_underweightselect='scale_pointer';
+}
+
+else if($BMI >=18.5 && $BMI <=22.9)
+{ $nutritionalStatus='Normal'; $class_healthy='normal selected';$class_healthyselect='scale_pointer';}
+
+else if($BMI >=23 && $BMI <=24.9)
+{ $nutritionalStatus='Overweight'; $class_overweight='overweight selected';$class_overweightselect='scale_pointer';}
+
+else if($BMI >=25 && $BMI <=29.9)
+{ $nutritionalStatus='Pre-Obese'; $class_obese='obese selected';$class_obeseselect='scale_pointer'; }
+
+else if($BMI >=30 && $BMI <=40)
+{ $nutritionalStatus='Obese Type 1 (Obese)'; $class_obese='obese selected';$class_obeseselect='scale_pointer';}
+
+else if($BMI >=40.1 && $BMI <=50)
+	
+{ $nutritionalStatus='Obese Type 2 (Morbid Obese)'; $class_obese='obese selected';$class_obeseselect='scale_pointer';}
+
+else if($BMI >50 )
+{ $nutritionalStatus='Obese Type 3 (Super Obese)'; $class_obese='obese selected'; $class_obeseselect='scale_pointer';}
+//echo "---".$BMI."---";echo '<br>';
+$bmi = (int)$BMI;
+$info = array();
+$info['height_ft'] = $post['height'];
+$info['height_in']  = $post['inches'];
+$info['weight'] = $post['weight'];
+$info['gender'] =  $post['gender'];
+$info['email'] = $post['email'];
+$info['living_with_diabetes'] = $post['diabetes'];
+$info['bmi_result'] = $bmi;
+$info['bmi_status'] = $nutritionalStatus;
+$info['created_at'] = date('Y-m-d');
+$model = Mage::getModel('bmi/bmi');
+$model->setData($info);
+$model->save($info);
+//echo '<pre>';
+//print_r($info);
+//	die;
+?>
+<script src="<?php echo $this->getSkinUrl();?>js/jquery-3.4.1.js"></script>
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl();?>css/viewpagebootstrap.css" type="text/css"/>
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl();?>css/silverform.css" type="text/css"/>
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl();?>css/bmi_min.css" type="text/css"/>
+
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl();?>css/bodymeasure_min.css" type="text/css"/>
+<style>
+	.recommend a:hover, #diabeticText a:hover{color:#000 !important;}
+	.page-bmi  .unselected{display:none;}</style>
+<main id="content" tabindex="-1" class="page-bmi">
+<div id="pane">
+<section class="hero full-img"><!-- NAME: sbd_hlth_ass_signup_results_divs -->
+<!-- KEY:div-container -->
+<div class="container"><!-- NAME: sbd_hlth_ass_signup_results_divs -->
+<!-- KEY: div-row -->
+<div class="cta-row">
+    <div class=""><!-- NAME: sbd_hlth_ass_signup_results_divs -->
+<!-- KEY: div-bmi-wrapper -->
+<div class="bmi-wrapper col-xs-11 center-block"><!-- NAME: sbd_hlth_ass_signup_results_divs -->
+<!-- KEY: hero-content-no-lose-weight -->
+
+           
+                <div class="text-center intro-text col-xs-12">
+                    <h1 class="no-margin h6 text-uppercase text-primary fw-300">DIET ANALYSIS:
+                        <span class="fw-600">YOUR BMI IS <?php echo $bmi;?></span>
+                    </h1>
+                    <hr style="margin:auto; float:none;margin-top: .5em;margin-bottom:2.5em;">
+                      <!-- <h3 class="need-to-lose">You are in the healthy range</h3> -->
+                </div>
+         
+	<!-- bmi scale param -->
+		<!-- NAME: sbd_hlth_ass_signup_results_divs -->
+<!-- KEY: bmi-scale-parameter  -->
+<input type="hidden" id="bmiValue" name="bmiValue" value="15">
+<div class="bmi-scale">
+    <div class="col-xs-12">
+        <!-- Insert left:X%; to move bmi-marker from -1%-16%-->
+        
+        <div class="type <?php echo $class_underweight ;?> pull-left text-center ">
+			<div class="<?php echo $class_underweightselect ;?>"></div>
+            <p class="fw-600 no-margin">Underweight</p>
+        </div>
+        <div class="type <?php echo $class_healthy ;?> pull-left text-center">
+			<div class="<?php echo $class_healthyselect ;?>"></div>
+            <p class="fw-600 no-margin">Healthy</p>
+        </div>
+        <div class="type <?php echo $class_overweight ;?> pull-left text-center">
+			<div class="<?php echo $class_overweightselect ;?>"></div>
+            <p class="fw-600 no-margin">Overweight</p>
+        </div>
+        <div class="type <?php echo $class_obese ;?> pull-left text-center">
+			<div class="<?php echo $class_obeseselect ;?>" ></div>
+            <p class="fw-600 no-margin">Obese</p>
+        </div>
+    </div>
+</div>
+	<!-- bmi height weight -->
+		<!-- NAME: sbd_hlth_ass_signup_results_divs -->
+<!-- KEY: div-row -->
+<div class="cta-row">
+ <!-- NAME: sbd_hlth_ass_signup_results_divs -->
+
+
+    <div class="details col-xs-12 col-sm-8 col-sm-push-5 col-md-7 col-md-push-4 col-md-offset-1">
+       <h5 class="fw-400" style="float: left;width: 100%;">Your Height:
+            <span class="height fw-600"><?php echo $post['height'];?> ft. <?php echo $post['inches'];?> in.</span>
+            <br class="visible-xs visible-sm"> &amp; Your Weight:
+            <span class="weight fw-600"><?php echo $post['weight'];?>.</span>
+        </h5><!-- bmi description -->
+		<!-- NAME: sbd_bmi_des_female_normal KEY: html-content -->
+
+<div class="description" style="float: left;width: 100%;">
+  <p>The Life Heal individual plan can help keep your BMI in the healthy range, with healthy protein, plus heart-healthy fats and good carbs from fruit, veggies and whole grains. &nbsp; <br class="visible-xs">
+    <a href="plans" class="btn btn-link" onclick="omni_track('SeeHow')">View All Plans</a> </p>
+</div>
+<div class="text-wrapper" style="float: left;width: 100%;">
+  <hr>
+  <h4 class="fw-600 text-secondary">RECOMMENDED FOR YOU</h4>
+  <h5 class="fw-600">Top-Rated! <br class="visible-xs">
+   Life Heal Individual Weight Loss Plan</h5>
+  
+    <div class="recommend" style="float: left;width: 100%;">
+     <p>Burn Fat and transform your metabolism with our customized, easy to follow <b><a href="individualplan" style="color:#026271;">Individual Weight Loss Plan.</a></b> It’s our most complete plan with maximum meal variety and convenience.</p>
+		
+    </div>
+	
+	<?php if(isset($post['diabetes']) && $post['diabetes']==true) { ?>
+	<span id="diabeticText" style="float: left;width: 100%;" class="text-wrapper">
+	<h5 class="fw-600"><br class="visible-xs">
+    Life Heal Diabetes Plan</h5>
+  <p>Safely control your blood sugar and lower your A1C with our personalized, heart-healthy <b><a href="healthrepairplan" style="color:#026271;font-weight:bold;">Body Repair</a></b>. It’s easy to follow, diabetes-friendly, and designed to fit your lifestyle.</p>
+  
+  </span>
+	<?php } ?>
+	
+    <div class="">
+      
+      <div class="cta-wrap"> <a href="individualplan" class="btn btn-default" onclick="omni_track('ViewMyPlan');">View My Plan </a> </div>
+    </div>
+ 
+</div>
+</div>
+<div class="col-xs-12 col-sm-4 col-sm-pull-7 aime-dant-bg col-md-4 col-md-pull-7"> <img src="<?php echo $this->getSkinUrl('images/index.png') ?>" class="img-responsive center-block" alt="Betsey and Scott walking on the beach.">
+	<p class="small text-center">Rohit Das Gupta
+Lost 22 Kg on Life Heal
+*Individual Results Vary</p>
+  
+</div>
+
+	
+ 
+<!-- section that displays error or best plan based on BMI result -->
+		<!-- NAME: sbd_hlth_ass_signup_results_divs -->
+<!-- KEY: under-weight-error -->
+
+	</div><!-- NAME: sbd_hlth_ass_signup_results_divs -->
+<!-- KEY:div-close  -->
+
+<!-- NAME: sbd_hlth_ass_signup_results_divs -->
+<!-- KEY:div-close  -->
+</div>
+<!-- NAME: sbd_hlth_ass_signup_results_divs -->
+<!-- KEY:div-close  -->
+</div>
+<!-- NAME: sbd_hlth_ass_signup_results_divs -->
+<!-- KEY: section-close  -->
+</div>
+	</div>
+	</div>
+	</section>
+	</div>
+</main>
+<!-- Note :
+   - You can modify the font style and form style to suit your website. 
+   - Code lines with comments ���Do not remove this code���  are required for the form to work properly, make sure that you do not remove these lines of code. 
+   - The Mandatory check script can modified as to suit your business needs. 
+   - It is important that you test the modified form before going live.-->
+<div id='crmWebToEntityForm' style='width:600px;margin:auto;'>
+   <META HTTP-EQUIV ='content-type' CONTENT='text/html;charset=UTF-8'>
+   <form action='https://crm.zoho.in/crm/WebToLeadForm' name=WebToLeads126676000000334006 method='POST' onSubmit='javascript:document.charset="UTF-8"; return checkMandatory126676000000334006()' accept-charset='UTF-8'>
+ <input type='text' style='display:none;' name='xnQsjsdp' value='b43efcd5d07598c5a2dec7cbbd9f0a4a4778bde7ffbd77b08070784d65801fa2'></input> 
+ <input type='hidden' name='zc_gad' id='zc_gad' value=''></input> 
+ <input type='text' style='display:none;' name='xmIwtLD' value='5f229f01e98885a79974c37c8c9fe2b56409c8a68157a3dd9f61c84ac1b2dbee'></input> 
+ <input type='text'  style='display:none;' name='actionType' value='TGVhZHM='></input>
+ <input type='text' style='display:none;' name='returnURL' value='https://lifeheal.in/' > </input><br></br>
+	 <!-- Do not remove this code. -->
+	<style>
+		#crmWebToEntityForm tr , #crmWebToEntityForm td { 
+			padding:6px;
+			border-spacing:0px;
+			border-width:0px;
+			}
+	</style>
+	<table style='width:600px;background-color:#ffffff;background-color:white;color:black'><tr><td colspan='2' align='left' style='color:black;font-family:Arial;font-size:14px;word-break: break-word;'><strong>Landing Page Get Your Plan</strong></td></tr> <br></br><tr style='display:none;' ><td style='word-break: break-word;text-align:left;font-size:12px;font-family:Arial;width:30%'>Health Goal</td><td style='width:40%;'>
+		<select style='width:100%;box-sizing:border-box;' name='LEADCF1' multiple>
+		<option selected value='Weight&#x20;Loss'>Weight Loss</option>
+			<option value='Diabetes'>Diabetes</option>
+			<option value='Cardiac'>Cardiac</option>
+			<option value='Fatty&#x20;Liver'>Fatty Liver</option>
+			<option value='Fitness'>Fitness</option>
+			<option value='Thyroid'>Thyroid</option>
+			<option value='PCOD'>PCOD</option>
+			<option value='Pregnancy'>Pregnancy</option>
+			<option value='Gut&#x20;Issues'>Gut Issues</option>
+			<option value='Constipation'>Constipation</option>
+			<option value='Immunity'>Immunity</option>
+		</select></td><td style='width:30%;'></td></tr><tr style='display:none;' ><td style='word-break: break-word;text-align:left;font-size:12px;font-family:Arial;width:30%'>Height &#x28;feet&#x29;</td><td style='width:40%;' ><input type='text' style='width:100%;box-sizing:border-box;'  maxlength='9' name='LEADCF51' value='0'></input></td><td style='width:30%;'></td></tr><tr style='display:none;' ><td style='word-break: break-word;text-align:left;font-size:12px;font-family:Arial;width:30%'>Height &#x28;inches&#x29;</td><td style='width:40%;' ><input type='text' style='width:100%;box-sizing:border-box;'  maxlength='9' name='LEADCF52' value='0'></input></td><td style='width:30%;'></td></tr><tr style='display:none;' ><td style='word-break: break-word;text-align:left;font-size:12px;font-family:Arial;width:30%'>Weight &#x28;in kilos&#x29;</td><td style='width:40%;' ><input type='text' style='width:100%;box-sizing:border-box;'  maxlength='9' name='LEADCF53' value='0'></input></td><td style='width:30%;'></td></tr><tr style='display:none;' ><td style='word-break: break-word;text-align:left;font-size:12px;font-family:Arial;width:30%'>GenderNew</td><td style='width:40%;'>
+		<select style='width:100%;box-sizing:border-box;' name='LEADCF3' multiple>
+		<option selected value='Male'>Male</option>
+			<option value='Female'>Female</option>
+		</select></td><td style='width:30%;'></td></tr><tr><td  style='word-break: break-word;text-align:left;font-size:12px;font-family:Arial;width:30%;'>Email</td><td style='width:40%;' ><input type='text' style='width:100%;box-sizing:border-box;'  maxlength='100' name='Email' ftype='email'/></td><td style='width:30%;'></td></tr><tr><td  style='word-break: break-word;text-align:left;font-size:12px;font-family:Arial;width:30%;'>Last Name<span style='color:red;'>*</span></td><td style='width:40%;' ><input type='text' style='width:100%;box-sizing:border-box;'  maxlength='80' name='Last Name' /></td><td style='width:30%;'></td></tr><tr style='display:none;' ><td style='word-break: break-word;text-align:left;font-size:12px;font-family:Arial;width:30%'>Diabetes </td><td style='width:40%;' ><input type='checkbox'  name='LEADCF101' checked='true'/> </td><td style='width:30%;'></td></tr>
+
+	<tr><td colspan='2' style='text-align:center; padding-top:15px;font-size:12px;'>
+		<input style='margin-right: 5px;cursor: pointer;font-size:12px;color:#000000' id='formsubmit' type='submit' value='Submit'  ></input> <input type='reset' name='reset' style='cursor: pointer;font-size:12px;color:#000000' value='Reset' ></input> </td></tr></table>
+	<script>
+ 	  var mndFileds=new Array('Last Name');
+ 	  var fldLangVal=new Array('Last Name'); 
+		var name='';
+		var email='';
+	function validateEmail()
+	{
+		var emailFld = document.querySelectorAll('[ftype=email]');
+		var i;
+		for (i = 0; i < emailFld.length; i++)
+		{
+			var emailVal = emailFld[i].value;
+			if((emailVal.replace(/^\s+|\s+$/g, '')).length!=0 )
+			{
+				var atpos=emailVal.indexOf('@');
+				var dotpos=emailVal.lastIndexOf('.');
+				if (atpos<1 || dotpos<atpos+2 || dotpos+2>=emailVal.length)
+				{
+					alert('Please enter a valid email address. ');
+					emailFld[i].focus();
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+ 	  function checkMandatory126676000000334006() {
+		for(i=0;i<mndFileds.length;i++) {
+		  var fieldObj=document.forms['WebToLeads126676000000334006'][mndFileds[i]];
+		  if(fieldObj) {
+			if (((fieldObj.value).replace(/^\s+|\s+$/g, '')).length==0) {
+			 if(fieldObj.type =='file')
+				{ 
+				 alert('Please select a file to upload.'); 
+				 fieldObj.focus(); 
+				 return false;
+				} 
+			alert(fldLangVal[i] +' cannot be empty.'); 
+   	   	  	  fieldObj.focus();
+   	   	  	  return false;
+			}  else if(fieldObj.nodeName=='SELECT') {
+  	   	   	 if(fieldObj.options[fieldObj.selectedIndex].value=='-None-') {
+				alert(fldLangVal[i] +' cannot be none.'); 
+				fieldObj.focus();
+				return false;
+			   }
+			} else if(fieldObj.type =='checkbox'){
+ 	 	 	 if(fieldObj.checked == false){
+				alert('Please accept  '+fldLangVal[i]);
+				fieldObj.focus();
+				return false;
+			   } 
+			 } 
+			 try {
+			     if(fieldObj.name == 'Last Name') {
+				name = fieldObj.value;
+ 	 	 	    }
+			} catch (e) {}
+		    }
+		}
+		if(!validateEmail()){return false;}
+		
+		document.getElementById('formsubmit').disabled=true;
+	}
+</script>
+	<input type='hidden' name='eo' value='4ee3a7e9ace6ab1be7c541b329164307'/> <input type='hidden' name='te' value='true'/><img id='tr_img_5f229f01e98885a79974c37c8c9fe2b56409c8a68157a3dd9f61c84ac1b2dbee' src='https://crm.zohopublic.in/crm/WebFormAnalyticsServlet?rid=5f229f01e98885a79974c37c8c9fe2b56409c8a68157a3dd9f61c84ac1b2dbeegidb43efcd5d07598c5a2dec7cbbd9f0a4a4778bde7ffbd77b08070784d65801fa2gidf1b657f245e8beb9d4353804daebeda8gid534cb20477b1d28b5f45f7cc241888c5gid4ee3a7e9ace6ab1be7c541b329164307' style='display: none;' /> <script> if(typeof wfTRKey=='undefined'){wfTRKey = {};}wfTRKey['url_5f229f01e98885a79974c37c8c9fe2b56409c8a68157a3dd9f61c84ac1b2dbee']='https://crm.zohopublic.in/crm/WebFormAnalyticsServlet?rid=5f229f01e98885a79974c37c8c9fe2b56409c8a68157a3dd9f61c84ac1b2dbeegidb43efcd5d07598c5a2dec7cbbd9f0a4a4778bde7ffbd77b08070784d65801fa2gid488e765b872fb8d1061381e763e4c50bgid534cb20477b1d28b5f45f7cc241888c5gid4ee3a7e9ace6ab1be7c541b329164307';wfTRKey['rs_5f229f01e98885a79974c37c8c9fe2b56409c8a68157a3dd9f61c84ac1b2dbee']=false; function sf(ev){var te = ev.target ? ev.target : ev.srcElement; var nd = te.nodeName ? te.nodeName.toLowerCase() : ''; var fm; if (te.form) { fm = te.form.elements.xmIwtLD.value; } if (fm && !wfTRKey['rs_' + fm] && ((nd == 'input' && te.type != 'file') || (nd == 'input' && te.type == 'file' && ev.type == 'click') || nd == 'select' || nd == 'textarea' || nd == 'div')) { document.getElementById('tr_img_'+fm).setAttribute('src', wfTRKey['url_'+fm]);  wfTRKey['rs_'+fm] = true }} if(document.addEventListener){document.addEventListener('click', sf);document.addEventListener('change', sf);}else{document.attachEvent('onclick', sf);document.attachEvent('onchange', sf);}</script></form>
+</div>

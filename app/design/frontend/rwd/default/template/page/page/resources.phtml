@@ -1,0 +1,80 @@
+<?php 
+//define('MAGENTO', realpath(dirname(__FILE__)));
+//	require_once MAGENTO . '/app/Mage.php';
+	//Mage::app()->setCurrentStore(Mage_Core_Model_App::ADMIN_STORE_ID);
+	$skinUrl =  Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);
+	$baseUrl =  Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);
+?>
+<!-- Add icon library -->
+
+<script type="text/javascript" src="<?php echo $skinUrl;?>frontend/rwd/default/js/ajaxdownloader.min.js"></script>
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl();?>css/resourcesstyle.css" type="text/css" />
+
+<div class="container">
+<!--first1-->
+<div class="fullpdfbox">
+<h2>Toxic chemical triggers</h2>
+<div class="pdfimage" onclick="javascript:downloadPDF('Toxic chemical triggers.pdf');"><img src="<?php echo $this->getSkinUrl('images/Toxic-chemical-triggers.jpg'); ?>"></div>
+<div class="pdfdownloadbox">
+
+<span onclick="javascript:downloadPDF('Toxic chemical triggers.pdf');">
+<button class="btn"><i class="fa fa-download"></i> Download Pdf</button>
+</span>
+ </div>
+</div>
+
+<!--sec2-->
+<div class="fullpdfbox">
+<h2>Thyroid Food Triggers</h2>
+<div class="pdfimage" onclick="javascript:downloadPDF('Thyroid Food Triggers.pdf');"><img src="<?php echo $this->getSkinUrl('images/Thyroid-Food-Triggers.jpg'); ?>"></div>
+<div class="pdfdownloadbox">
+
+ <span onclick="javascript:downloadPDF('Thyroid Food Triggers.pdf');">
+<button class="btn"><i class="fa fa-download"></i> Download Pdf</button>
+</span>
+ </div>
+</div>
+
+<!--third3-->
+<div class="fullpdfbox">
+<h2>Item elimination tracker</h2>
+<div class="pdfimage" onclick="javascript:downloadPDF('Item elimination tracker.pdf');"><img src="<?php echo $this->getSkinUrl('images/Item-elimination-tracker.jpg'); ?>"></div>
+<div class="pdfdownloadbox">
+
+  <span onclick="javascript:downloadPDF('Item elimination tracker.pdf');">
+<button class="btn"><i class="fa fa-download"></i> Download Pdf</button>
+</span>
+ </div>
+</div>
+
+
+<!--four4-->
+<div class="fullpdfbox">
+<h2>Liver Function Scorecard</h2>
+<div class="pdfimage"  onclick="javascript:downloadPDF('Liver Function Scorecard.pdf');"><img src="<?php echo $this->getSkinUrl('images/Liver-Function-Scorecard.jpg'); ?>"></div>
+<div class="pdfdownloadbox">
+
+  <span onclick="javascript:downloadPDF('Liver Function Scorecard.pdf');">
+<button class="btn"><i class="fa fa-download"></i> Download Pdf</button>
+</span>
+ </div>
+</div>
+
+
+</div>
+	  <script type="text/javascript">
+		 		  
+			function downloadPDF(file)
+			{ 
+				var url2 = "<?php echo $baseUrl?>weeklyhealthcheckin/index/downloadinventory/filename/"+file;
+				
+				
+                  jQuery.AjaxDownloader({
+					url  : url2,
+					data : {
+						filename   : file
+					},
+					success: function(result){ alert("downloaded");}
+				});
+			}
+ </script>    

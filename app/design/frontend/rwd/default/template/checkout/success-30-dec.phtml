@@ -1,0 +1,265 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<style>
+#emailerr, .validation-advice {
+    color: red !important;
+    font-size: 13px !important;
+    margin: 0 !important;
+    padding: 0;
+    text-transform: initial !important;
+}
+</style>
+<div class="page-title" style="display:none;">
+    <h1><?php echo $this->__('Your order has been received.') ?></h1>
+</div>
+<?php echo $this->getMessagesBlock()->toHtml() ?>
+<div class="page-404">
+<div class="page-404__content">
+
+                    <div class="page-404__title">
+					<i>Dear Customer,</i>
+					Someone from our Lab team will call you soon, normally within 1 - 2 hours to schedule your blood test.
+					</div>
+
+<?php if ($this->getOrderId()):?>
+<?php if ($this->getCanViewOrder()) :?>
+    <p class="page-404__number" syle="display:none;"><?php echo $this->__('Your order # is: %s.', sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getViewOrderUrl()), $this->escapeHtml($this->getOrderId()))) ?></p>
+<?php  else :?>
+    <h4 class="page-404__number" syle="display:none;"><?php echo $this->__('Your order # is: %s.', $this->escapeHtml($this->getOrderId())) ?> 
+	
+<?php endif;?>
+<?
+$OrderNumber= $this->getOrderId();
+$order = Mage::getModel('sales/order')->load($OrderNumber, 'increment_id');
+$items = $order->getAllVisibleItems();
+
+$customerName ='';
+$telephone ='';
+$city='';
+$email='';
+$status='notloggedin';
+    $showPasswordFormOrNot='No';
+    $tmPCustomerName = $order->getBillingAddress()->getLastname();
+    $mobile = $order->getBillingAddress()->getTelephone();
+	$city = $order->getBillingAddress()->getCity();
+	
+	$newCustomerEmail = "Dear".$mobile."@curemydiabetes.com";
+	////////////////////////////// Check user created at checkout stage or not, if yes then show password form ///////////////////////
+	$existingCustomerEmail='';
+	$customers    = Mage::getResourceModel('customer/customer_collection')
+									 ->addAttributeToSelect('*')
+									->addAttributeToSelect('primarymobileno')
+									->addAttributeToFilter('primarymobileno', $mobile )
+									->getFirstItem();
+							
+	if(isset($customers) && count($customers)==1 && $customers->getEmail()!=''  ) //customer exists
+	{
+			$existingCustomerEmail= $customers->getEmail(); 
+			
+			if($existingCustomerEmail==$newCustomerEmail)  // it is a new customer, created at checkout page
+			{
+				$showPasswordFormOrNot='show';
+			}
+	}
+	/////////////////////////////////////////////////////////////////////////////////////////////////
+
+    $customerName = $order->getBillingAddress()->getLastname();
+    $mobile = $order->getBillingAddress()->getTelephone();
+	$city = $order->getBillingAddress()->getCity();
+	$email=$order->getBillingAddress()->getEmail();
+
+
+     
+
+
+?>
+<?php if($showPasswordFormOrNot=='show'){ ?> 
+<div id="ShowCustomerRegisteration" style="display:none">Thank you, we have sent you a confirmation email.</div>
+
+<form id="customerInfo" method="post">
+<h4 style="font-weight: 600;font-size: 15px;background: #f3f3f3;margin:0px;padding: 10px 0px;margin-bottom: 20px;">Please enter password to create an account</h4>
+<table cellpadding="2" cellspacing="2" class="tablemob">
+
+<tr><td style="padding-right: 5px;">Name</td><td><input type="text" name="customername" id="customername"value="<?php echo $customerName;?>" class="input-text required-entry" readonly> </td></tr>
+<tr><td style="padding-right: 5px;">Mobile/username</td><td><input type="text" name="mobile" id="mobile" value="<?php echo $mobile;?>" class="input-text validate-number required-entry" readonly> </td></tr>
+<tr><td style="padding-right: 5px;">City</td><td><select name="city" id ="city" class="validate-select" disabled>
+                       
+						<option value="Banglore" <?php echo($city=='Banglore')? 'selected':''?>>Banglore</option>
+						<option value="Mumbai" <?php echo($city=='Mumbai')? 'selected':''?>>Mumbai</option>
+						<option value="Chennai" <?php echo($city=='Chennai')? 'selected':''?>>Chennai</option>
+						<option value="Delhi" <?php echo($city=='Delhi')? 'selected':''?>>Delhi</option>
+						<option value="Hyderabad" <?php echo($city=='Hyderabad')? 'selected':''?>>Hyderabad</option>
+						<option value="Jaipur" <?php echo($city=='Jaipur')? 'selected':''?>>Jaipur</option>
+						<option value="Kolkata" <?php echo($city=='Kolkata')? 'selected':''?>>Kolkata</option>
+						<option value="Lucknow" <?php echo($city=='Lucknow')? 'selected':''?>>Lucknow</option>
+        </select>
+</td></tr>
+
+<tr><td style="padding-right: 5px;">Email</td><td><input type="email" name="email" id="email" value="" class="input-text validate-email" onblur="checkEmailAddress(this.id,this.value);" style="text-align:left;text-transform: initial;"/> <span id="emailerr"></span></td></tr>
+<tr><td style="padding-right: 5px;">Password</td><td><input type="password" name="password" id="password"  class="validate-password required-entry" style="text-align:left;"/> </td></tr>
+<tr><td style="padding-right: 5px;">Confirm Password</td><td><input type="password" name="cpassword" id="cpassword"   class="validate-cpassword required-entry" style="text-align:left;"/> </td></tr>
+
+<tr><td></td><td> <input style="display: block;position: relative;margin-bottom: 15px;color: #fff;background: #a61d3f !important;box-shadow: 0px 2px 3px rgba(0,0,0,0.4);border: 1px solid #a61d3f;padding: 5px 10px;width: 100%;" type="button" name="Submit" value="Submit" onclick="checkCustomerInfo('<?php echo $status;?>')"/>  </td></tr>
+
+</table>
+</form>
+<script type="text/javascript">
+
+function checkCustomerInfo(status)
+{
+	 var validator = new Validation('customerInfo');
+	 if (validator.validate()) 
+	 {      var name = jQuery("#customername").val();
+            var mobile = jQuery("#mobile").val();
+			var city = jQuery("#city option:selected").val();
+			var email = jQuery("#email").val();
+			var password = jQuery("#password").val();
+           
+			if(status=='notloggedin')
+			{
+						
+						jQuery.ajax({
+						 url:"<?php echo Mage::getBaseUrl().'checkout/cart/createuseronsuccess' ?>",
+						 type:"POST",
+						 data:{ 
+						         status:status,
+								 fullname:name,
+								 mobile:mobile,
+								 city:city,
+								 email:email,
+								 password:password
+                             },
+							  success:function(response)
+							  {
+								  
+								  jQuery("#ShowCustomerRegisteration").show(); 
+								  jQuery("#customerInfo").hide();
+							  }
+					 });
+			}
+		   
+	 }
+}
+
+function checkEmailAddress(id,value)
+{ 
+	var Url = "<?php echo Mage::getBaseUrl();?>override/index/checkemail/email/"+value;
+	
+	var st= jQuery.noConflict();
+	st( "#emailerr").hide();
+	var filter = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if (value!='' && !filter.test(value)) {
+       //alert( "wrong email "+value);
+		  st( "#emailerr" ).html("Please enter correct email." );
+		  st( "#emailerr").show();
+		  st( "#email").val('');
+		  st( "#email").focus();
+		  return false;
+    }
+       
+	
+	
+        st.post( Url, function( returntext ) 
+		{ //alert(returntext);
+			if(returntext=='exist')
+			{ 
+			  st( "#emailerr" ).html("<strong>"+value+"</strong> already registered." );
+			  st( "#emailerr").show();
+			  st( "#email").val('');
+			  st( "#email").focus();
+			  return false;
+			}
+			else
+			{
+				st( "#emailerr").html('');
+				st( "#emailerr").hide();
+				 return true;
+			}
+		});
+}
+</script>
+<?php } ?>
+ <!-- page-404__text -->
+                    <div class="page-404__text">
+    <h2 class="sub-title" style="text-transform: initial;margin: 20px auto;">In case you don't get a call for Blood Sample Collection. <br>
+	kindly email <a href="mailto:team@curemydiabetes.com" style="color: #2bb994;text-transform: initial;">Team@CureMyDiabetes.com</a> or WhatsApp <a href="telto:99-99-84-66-22" style="color: #2bb994;">99-99-84-66-22</a></h2>
+	<!-- page-404__links -->
+                <div class="page-404__links">
+
+                   <div class="page-404__link">
+                       <a href="https://www.youtube.com/channel/UCrocY4uHeWsxtnM_JpbxBVA?view_as=subscriber"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" xml:space="preserve" width="30px" height="30px" class="" style="enable-background:new 0 0 512 512;" viewBox="0 0 512 512">
+	<g>
+		<path d="M490.24,113.92c-13.888-24.704-28.96-29.248-59.648-30.976C399.936,80.864,322.848,80,256.064,80    
+		c-66.912,0-144.032,0.864-174.656,2.912c-30.624,1.76-45.728,6.272-59.744,31.008C7.36,138.592,0,181.088,0,255.904    
+		C0,255.968,0,256,0,256c0,0.064,0,0.096,0,0.096v0.064c0,74.496,7.36,117.312,21.664,141.728   
+		c14.016,24.704,29.088,29.184,59.712,31.264C112.032,430.944,189.152,432,256.064,432c66.784,0,143.872-1.056,174.56-2.816    
+		c30.688-2.08,45.76-6.56,59.648-31.264C504.704,373.504,512,330.688,512,256.192c0,0,0-0.096,0-0.16c0,0,0-0.064,0-0.096    
+		C512,181.088,504.704,138.592,490.24,113.92z M192,352V160l160,96L192,352z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#FFFFFF"></path>
+	</g>
+ </svg>Go To YouTube Channel</a>
+                    </div>
+
+                    <div class="page-404__link">
+                       <a href="http://cure.americanarearugs.com">
+					   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 155.139 155.139" style="enable-background:new 0 0 155.139 155.139;" xml:space="preserve" width="30px" height="30px" class="">
+	<g>
+		<path d="M125.967,51.533V20.314h-16.862V38.06L77.569,12.814L0,74.869h21.361v67.455h112.416v-67.45h21.361    L125.967,51.533z M125.925,134.472H97.546V82.37H57.58v52.103H29.202V71.146l48.356-38.689l48.355,38.689v63.326H125.925z" data-original="#010002" class="active-path" data-old_color="#010002" fill="#FFFFFF"/>
+	</g>
+ </svg>Go To Home page</a>
+                    </div>
+
+                    
+
+                </div>
+                <!-- /page-404__links -->
+<?php if ($this->getCanViewOrder() && $this->getCanPrintOrder()) :?>
+    <p>
+        <?php echo $this->__('Click <a href="%s" onclick="this.target=\'_blank\'">here to print</a> a copy of your order confirmation.', $this->getPrintUrl()) ?>
+        <?php echo $this->getChildHtml() ?>
+    </p>
+<?php endif;?>
+<?php endif;?>
+
+<?php if ($this->getAgreementRefId()): ?>
+    <p><?php echo $this->__('Your billing agreement # is: %s.', sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getAgreementUrl()), $this->escapeHtml($this->getAgreementRefId())))?></p>
+<?php endif;?>
+
+<?php if ($profiles = $this->getRecurringProfiles()):?>
+<p><?php echo $this->__('Your recurring payment profiles:'); ?></p>
+<ul class="disc">
+<?php foreach($profiles as $profile):?>
+<?php $profileIdHtml = ($this->getCanViewProfiles() ? sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getProfileUrl($profile)), $this->escapeHtml($this->getObjectData($profile, 'reference_id'))) : $this->escapeHtml($this->getObjectData($profile, 'reference_id')));?>
+    <li><?php echo $this->__('Payment profile # %s: "%s".', $profileIdHtml, $this->escapeHtml($this->getObjectData($profile, 'schedule_description')))?></li>
+<?php endforeach;?>
+</ul>
+<?php endif;?>
+
+<?php Mage::helper('checkout/data')->sendOrderSMS($this->getOrderId());?>
+
+
+
+

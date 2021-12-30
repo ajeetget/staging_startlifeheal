@@ -1,0 +1,179 @@
+<?php 
+
+         $entityId = 1750;
+         $bundled_product = Mage::getModel("catalog/product")->load($entityId);
+         $name =  $bundled_product->getName();
+         $price =  round($bundled_product->getPrice(),4);
+         $special_price =  round($bundled_product->getSpecialPrice(),4);
+         $status = $bundled_product->getStatus();
+         
+         
+	    $optionsCollection = $bundled_product->getTypeInstance(true)->getOptionsCollection($bundled_product);
+            echo "<pre>";  
+           
+            $optionArray = array();
+	    foreach ($optionsCollection as $options) 
+             {
+                
+                $optionArray[$options->getOptionId()]['option_id'] =  $options->getOptionId();
+	        $optionArray[$options->getOptionId()]['option_title'] = $options->getDefaultTitle();
+	        $optionArray[$options->getOptionId()]['option_type'] = $options->getType();
+                $optionId =  $options->getOptionId();
+               
+                           
+                 $selectionCollection = $bundled_product->getTypeInstance()->getSelectionsCollection(array($optionId));
+           
+               
+                $bundled_items = array();
+                $countOptions=0;
+                foreach($selectionCollection as $option) 
+                {
+
+                       // print_r( $option); echo "<br>";  die;
+                        $bundled_items[$countOptions]['product_id'] = $option->product_id;
+                        $bundled_items[$countOptions]['name'] = $option->name;
+                        $bundled_items[$countOptions]['status'] = $option->status;
+                        $bundled_items[$countOptions]['checked'] = $option->is_default;
+                        $bundled_items[$countOptions]['option_id'] = $option->option_id;
+                        $bundled_items[$countOptions]['selection_id'] = $option->selection_id;
+                        $bundled_items[$countOptions]['selection_qty'] = $option->selection_qty;
+                        $bundled_items[$countOptions]['sku'] = $option->sku;
+                        $bundled_items[$countOptions]['price'] = round($option->price,4);
+                        $bundled_items[$countOptions]['selection_price_value'] = round($option->selection_price_value,4); 
+                        $bundled_items[$countOptions]['position'] = $option->position;
+
+
+                     
+                        ++$countOptions;
+                }  
+                 $optionArray[$options->getOptionId()]['selection_items'] = $bundled_items;
+                
+	    	
+	    }
+            print_r($optionArray); 
+      
+ ?>
+
+
+
+
+
+<?php /*
+         $entityId = 1750;
+         $product = Mage::getModel("catalog/product")->load($entityId);
+     
+         $customOptionArray = array();
+         $customOptionArray['entity_id'] = $entityId;
+         $customOptionArray['product_name'] = $product->getName();
+         $customOptionArray['product_price'] = $product->getPrice();
+         $count=0;
+         $allOptionsArray= array();
+         $options = $product->getProductOptionsCollection();
+         foreach ($options as $o) 
+         { 
+              
+              $allOptionsArray[$count]['element_type'] =     $o['type'];
+              $allOptionsArray[$count]['element_title'] =    $o['title'];
+              $allOptionsArray[$count]['element_required'] =  $o['is_require'];
+              $allOptionsArray[$count]['element_option_id'] =  $o['option_id'];
+              $allOptionsArray[$count]['element_max_characters'] =  $o['max_characters'];
+               
+              $values = $o->getValues();
+            
+              $elementOptions = array();
+              $countOptions=0;
+             foreach($values as $v)
+             {
+                 
+                  
+                  $elementOptions[$countOptions]['option_title']   = $v->getTitle();
+                  $elementOptions[$countOptions]['option_sku']      = $v->getSku();
+                  $elementOptions[$countOptions]['option_price']      = $v->getPrice();
+                  $elementOptions[$countOptions]['option_type_id'] = $v->getOptionTypeId();
+                
+                  $countOptions++;
+               
+
+               }
+                                 $allOptionsArray[$count]['element_options'] =  $elementOptions;
+               $count++;
+               //echo "<hr>";
+          } 
+          
+          $customOptionArray['custom_option_details'] = $allOptionsArray;
+        //  echo "<pre>"; print_r($customOptionArray);
+          
+          echo getHtmlOfCustomOptions( $customOptionArray);
+          
+          function getHtmlOfCustomOptions( $customOptionArray)
+          {
+              $entity_id   = $customOptionArray['entity_id'];
+              $productName = $customOptionArray['product_name'];
+              $productPrice= $customOptionArray['product_price'];
+              
+              
+              $allCustomOptionDivs='';
+              foreach($customOptionArray['custom_option_details'] as $customOptions)
+              {
+                  if($customOptions['element_type']=='radio')
+                  {
+                      $element_title  = $customOptions['element_title'];
+                      $elementOptions = $customOptions['element_options'];
+                      $option_id      = $customOptions['element_option_id'];
+                      
+                      $firstOptionTitle =  $elementOptions[0]['option_title'];
+                      $firstOptionChecked =  $elementOptions[0]['option_sku']; 
+                      $firstOptionPrice=  $elementOptions[0]['option_price'] ;  
+                      $firstOptionTypeId =  $elementOptions[0]['option_type_id'];
+                     
+                      $secondOptionTitle =  $elementOptions[1]['option_title'];
+                      $secondOptionChecked =  $elementOptions[1]['option_sku']; 
+                      $secondOptionPrice=  $elementOptions[1]['option_price'] ;  
+                      $secondOptionTypeId =  $elementOptions[1]['option_type_id'];
+                      
+                      $customOptionDiv = '<div class="productnamecombo">
+					<span style="width: 100%;float: left;">
+						<span class="asterikbox">*</span>
+						'.$element_title.'
+					</span>
+                                        <label class="containerradio radio-inline" >'.$firstOptionTitle.'
+                                           <input type="radio" '.$firstOptionChecked.'  name="radio'.$option_id.'" option_type_id="'.$firstOptionTypeId.'">
+                                           <span class="checkmark"></span>
+                                         </label>
+                                       <label class="containerradio radio-inline">'.$secondOptionTitle.'
+                                           <input type="radio" '.$secondOptionChecked.' name="radio'.$option_id.'" option_type_id="'.$secondOptionTypeId.'">
+                                           <span class="checkmark"></span>
+                                         </label>
+				
+			     </div>';
+                     $allCustomOptionDivs.= $customOptionDiv;
+                  }
+     
+              }
+              
+              $finalOutput='  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+           <div class="_1EZLh">
+		 <div class="_1ZOkC icon-foodSymbol _3qfEf"></div>
+		 <div class="_1H0SZ">
+			<div class="hzcR7">
+				<div class="draJe">'.$productName.'</div>
+				<div class="_3GIu4"><span class="ueSas">'.$productPrice.'</span></div>
+				<div class="hrbox"></div>'.$allCustomOptionDivs.'
+				
+				
+		       </div>
+	          </div>
+	  
+           </div>
+	  <div class="_3coNr"><span class="mmytI">Total <span class="_3RJsr">'.$productPrice.'</span></span><span class="_38xdN" onclick="addCompboTOCart('.$entity_id.')">Add Item</span></div>	
+		
+</div>';
+              return $finalOutput;
+             
+          }
+  
+  */
+          
+?>

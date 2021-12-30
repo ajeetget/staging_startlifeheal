@@ -1,0 +1,141 @@
+<?php 
+$customerMob = $_GET['customer_contact_no'];
+$customerName = $_GET['customer_name'];
+$namearr = explode(" ",$customerName);
+
+$fname = $namearr[0];
+$lname = $namearr[1];
+$mobNo = substr($customerMob, 3);
+
+$email = $_GET['customer_email'];
+$primarymobileno = $mobNo;
+$customer = Mage::getModel('customer/customer');
+$customer->setWebsiteId(Mage::app()->getWebsite()->getId());
+$customer->loadByEmail($email);
+
+$msg='';
+
+if(!$customer->getEntityId()){
+	$websiteId = Mage::app()->getWebsite()->getId();
+	$store = Mage::app()->getStore();
+					
+	$firstName = $fname;
+	$lastName =  $lname;
+	$password = $email;
+	$repassword = $email;
+	$primarymobileno =  $mobNo;	
+	try{
+		$customer = Mage::getModel("customer/customer");
+		$customer->setWebsiteId($websiteId)
+		->setStore($store)
+		->setFirstname($firstName)
+		->setLastname($lastName)
+		->setEmail($email)
+		->setPassword($password)
+		->setMealstatus(1)			
+		->setPrimarymobileno($primarymobileno);
+		if($msg==''){
+			$customer->save();
+			$customer = Mage::getModel('customer/customer');
+			$customer->setWebsiteId(Mage::app()->getWebsite()->getId());
+			$customer->loadByEmail($email);
+			$config  = Mage::getConfig()->getResourceConnectionConfig("default_setup");
+			$dbinfo = array("host" => $config->host,"user" => $config->username,"pass" => $config->password,"dbname" => $config->dbname);    
+			$host = $dbinfo["host"];
+			$username  = $dbinfo["user"];
+			$password  = $dbinfo["pass"];
+			$dbname    =  $dbinfo["dbname"];
+			$con = mysqli_connect($host, $username,$password,$dbname);
+			if (mysqli_connect_errno()) {
+				printf("Connect failed: %s\n", mysqli_connect_error());
+				exit();
+			} 
+			$custid = $customer->getEntityId();
+			$firstName =  ucfirst( trim( $customer->getFirstname()));
+			$lastName =  ucfirst( trim($customer->getLastname()));
+			$customerName = $firstName." ".$lastName;
+			$customerName = str_replace("Dear ","",$customerName); 
+			$customerName = str_replace("Dr.","",$customerName);  
+            $date = date('Y-m-d');
+
+            $query = "insert into patientintakeform(mobileno,custid,name,date) values('".$primarymobileno."','".$custid."','".$customerName."','".$date."')";
+                $last_insert_id='';
+            if (mysqli_query($con, $query)) {
+				$last_insert_id = mysqli_insert_id($con);
+				$msgNo = 5;
+				Mage::app()->getResponse()->setRedirect(Mage::getBaseUrl().'book-appointment?msgno='.$msgNo."&custid=".$custid); 
+			}				
+		}
+	} catch (Exception $e) {
+		Zend_Debug::dump($e->getMessage());
+	}
+
+}else{
+	$msgNo = 6;
+	$test = 2;
+	$custid = $customer->getEntityId();
+	Mage::app()->getResponse()->setRedirect(Mage::getBaseUrl().'book-appointment?msgno='.$msgNo."&custid=".$custid);
+}
+
+if(isset($_GET['msgno'])) {
+	$msgNo = $_GET['msgno'];	
+	if($msgNo == 5 || $msgNo == 6){ 
+  		$customerId = $_GET['custid'];
+		$customer = Mage::getModel('customer/customer')->load($customerId);
+		$encryptedPrimarymobileno = base64_encode($customer->getPrimarymobileno());
+		$customerName = $customer->getFirstname()." ".$customer->getLastname();
+		//$msg="<h1>New customer <b>".$customerName."</b> created, patientintakeform link is below</h1>";
+		$msg = "<a href='".Mage::getBaseUrl()."patientintakeform?ctrl=".$encryptedPrimarymobileno."'>PATIENT INTAKE FORM </a>";
+	}
+}
+
+?>
+<!--<div class="zoho-booking">			
+		
+		<?php //echo $msg; ?>
+</div>-->
+
+<!-- Success Start -->
+	<div class="consultation-success">
+		<div class="consultation-success-container">
+			<div class="consultation-success-detail-wrapper">
+				<div class="consultation-success-detail">
+					<img src="https://startlifeheal.com/skin/frontend/rwd/default/images/check.png">
+					<h2>Thank You! Your consultation is booked.</h2>
+					<p>Please fill out the Patient Intake Form and submit to serve you better.</p>
+					<?php echo $msg; ?>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Success End -->
+
+<style type="text/css">
+	body, .wrapper{
+		background-color: #f5f5f5;
+	}
+	.zoho-booking{
+		margin:9em 0 3em 0;
+	}
+	.zoho-booking h1{
+		text-align: center;
+	}
+	.zoho-booking a{
+		display: block;
+		width: 450px;
+		height: 50px;
+		text-align: center;
+		line-height: 50px;
+		color:#fff;
+		background: #0eb58f;
+		margin: 30px auto;
+		text-transform: capitalize;
+		font-size: 1rem;
+	}
+</style>
+	
+
+	
+
+	
+	

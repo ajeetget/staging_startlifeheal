@@ -1,0 +1,111 @@
+<style>
+
+
+.containerpdf{
+display: inline-block;
+width: 100%;
+text-align: center;
+vertical-align: middle;
+line-height: 100px;
+} 
+	.containerpdf h1{font-size:30px}
+	.containerpdf p{font-size: 18px !important;
+margin: 12px 0 25px;
+clear: both;
+display: block;
+color:#33362B !important;
+line-height: 24px !important;}
+	.containerpdf h3{font-weight: bold;margin: 20px auto;color: #33362B;}
+	.boxback{width: 265px;
+height: 265px;
+margin: auto;
+background:#eee;}
+	.closepdf{float: right;width: 30px;background: #4c4c4c;position: relative;right: 23%;height: 33px;border: 0px;color: #e7e7e7;font-weight: bold;}
+#pdfarea{position: fixed;
+width: 100%;
+margin: auto;
+float: none;
+background:rgba(0,0,0,0.2);
+height: 100%;
+z-index: 4;
+	left:0;
+top: 0;}
+ .column-left{ float: left; width: 50%; }
+.column-right{ float: right; width: 50%;}
+.column-center{ display: inline-block; width: 33%;}
+	#myFrame{width: 800px;margin: auto;top:10%;height:700px;}
+	@media screen and (min-width:260px) and (max-width:767px)
+	{
+		.closepdf {
+    float: right;
+    width: 30px;
+    background:#4c4c4c;
+position: relative;
+right: 5%;
+height: 33px;
+border: 0px;
+color:#e7e7e7;
+    font-weight: bold;
+}
+		 .column-left{ float: left; width: 100%; }
+.column-right{ float: right; width: 100%;}
+.column-center{ display: inline-block; width: 100%;}
+	#myFrame{width: 100%;margin: auto;top:10%;height:400px;}
+	}
+	
+</style>
+<section>
+<div class="container-fluid imgfood">
+  <img src="<?php echo Mage::getBaseUrl('skin').'frontend/rwd/default/images/foodmenu.jpg' ?>" alt="food menu" class="desktopbanner"/>
+   <img src="<?php echo Mage::getBaseUrl('skin').'frontend/rwd/default/images/CMD-Menu-Mobile-Banner.jpg' ?>" alt="food menu" class="mobbanner"/>
+	</div>
+</section>
+
+
+
+
+<div id="pdfarea" style="display:none">
+	<input type="button"  value="X" class="closepdf" onclick="closePdf()"/>
+	<iframe id="myFrame" style="display:none" title=""></iframe>
+	
+	</div>
+ <div class="container">
+<div class="containerpdf">
+	<h1>MENUS</h1>
+	<p>The menus below show the complete list of our items that you would receive in our food subscription. All are made oil-free and sent in a balanced, calorie counted meal.</p>
+	<p style="margin-bottom: 40px;font-style: italic;">Italian and Ghar Ka Khana menu coming shortly...</p>
+   <div class="column-left"><div class="boxback">
+	   <img src="<?php echo Mage::getBaseUrl('skin').'frontend/rwd/default/images/Mughlai-Thumbnail-1.jpg' ?>" alt="food menu" onclick = "openPdf()"/>
+	  </div><h3>Mughlai</h3></div>
+   <div class="column-center"><div class="boxback">
+	   <img src="<?php echo Mage::getBaseUrl('skin').'frontend/rwd/default/images/Pan-Asian-Thumbnail.jpg' ?>" alt="food menu" onclick = "openPdf1()"/></div><h3>Pan-Asian</h3></div>
+   
+ 
+</div> 
+	 </div>
+
+
+<script type="text/javascript">
+function openPdf()
+{
+var omyFrame = document.getElementById("myFrame");
+omyFrame.style.display="block";
+omyFrame.src = "MughlaiMenu.pdf";
+document.getElementById("pdfarea").style.display="block";
+
+}
+function closePdf()
+{
+	
+	document.getElementById("pdfarea").style.display="none";
+}
+function openPdf1()
+{
+var omyFrame = document.getElementById("myFrame");
+omyFrame.style.display="block";
+omyFrame.src = "Pan Asian.pdf";
+document.getElementById("pdfarea").style.display="block";
+
+}
+
+</script>

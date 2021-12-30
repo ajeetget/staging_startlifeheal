@@ -1,0 +1,18 @@
+<layout version="1.1.31">
+    <razorpay_checkout_index>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="head">
+            <block type="core/text" name="razorpay.checkout">
+                <action method="setText">
+                    <text>
+                       <![CDATA[<script type="text/javascript" src="https://checkout.razorpay.com/v1/checkout.js"></script>]]>
+                    </text>
+                </action>
+            </block>
+            <action method="addJs"><file>razorpay/razorpay-utils.js</file></action>
+        </reference>
+        
+    </razorpay_checkout_index>
+</layout>

@@ -1,0 +1,293 @@
+<?php
+$post = $this->getRequest()->getPost();
+//echo "<pre>"; print_r($post); die;
+$heightInMeter =  (( ( $post['height'] * 12 ) +  $post['inches'] ) * 2.54)/100; 
+ $weight = $post['weight'];
+$bmiCalulated = ( $weight/($heightInMeter *$heightInMeter) ) ;
+$BMI = round($bmiCalulated, 1);
+$nutritionalStatus = '';
+
+$class_underweight ='underweight';
+$class_healthy      ='normal';
+$class_overweight  ='overweight';
+$class_obese='obese';
+$class_obeseselect='scale_pointer unselected';
+$class_healthyselect='scale_pointer unselected';
+$class_underweightselect='scale_pointer unselected';
+$class_overweightselect='scale_pointer unselected';
+
+if($BMI <18.5)
+{ $nutritionalStatus='Underweight'; $class_underweight='underweight selected';
+$class_underweightselect='scale_pointer';
+}
+
+else if($BMI >=18.5 && $BMI <=22.9)
+{ $nutritionalStatus='Normal'; $class_healthy='normal selected';$class_healthyselect='scale_pointer';}
+
+else if($BMI >=23 && $BMI <=24.9)
+{ $nutritionalStatus='Overweight'; $class_overweight='overweight selected';$class_overweightselect='scale_pointer';}
+
+else if($BMI >=25 && $BMI <=29.9)
+{ $nutritionalStatus='Pre-Obese'; $class_obese='obese selected';$class_obeseselect='scale_pointer'; }
+
+else if($BMI >=30 && $BMI <=40)
+{ $nutritionalStatus='Obese Type 1 (Obese)'; $class_obese='obese selected';$class_obeseselect='scale_pointer';}
+
+else if($BMI >=40.1 && $BMI <=50)
+	
+{ $nutritionalStatus='Obese Type 2 (Morbid Obese)'; $class_obese='obese selected';$class_obeseselect='scale_pointer';}
+
+else if($BMI >50 )
+{ $nutritionalStatus='Obese Type 3 (Super Obese)'; $class_obese='obese selected'; $class_obeseselect='scale_pointer';}
+//echo "---".$BMI."---";echo '<br>';
+$bmi = (int)$BMI;
+$info = array();
+$info['height_ft'] = $post['height'];
+$info['height_in']  = $post['inches'];
+$info['weight'] = $post['weight'];
+$info['gender'] =  $post['gender'];
+$info['email'] = $post['email'];
+$info['living_with_diabetes'] = $post['diabetes'];
+$info['bmi_result'] = $bmi;
+$info['bmi_status'] = $nutritionalStatus;
+$info['created_at'] = date('Y-m-d');
+$model = Mage::getModel('bmi/bmi');
+$model->setData($info);
+$model->save($info);
+//echo '<pre>';
+//print_r($info);
+//	die;
+?>
+<script src="<?php echo $this->getSkinUrl();?>js/jquery-3.4.1.js"></script>
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl();?>css/viewpagebootstrap.css" type="text/css"/>
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl();?>css/silverform.css" type="text/css"/>
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl();?>css/bmi_min.css" type="text/css"/>
+
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl();?>css/bodymeasure_min.css" type="text/css"/>
+<style>
+	.recommend a:hover, #diabeticText a:hover{color:#000 !important;}
+	.page-bmi  .unselected{display:none;}</style>
+<main id="content" tabindex="-1" class="page-bmi">
+<div id="pane">
+<section class="hero full-img"><!-- NAME: sbd_hlth_ass_signup_results_divs -->
+<!-- KEY:div-container -->
+<div class="container"><!-- NAME: sbd_hlth_ass_signup_results_divs -->
+<!-- KEY: div-row -->
+<div class="cta-row">
+    <div class=""><!-- NAME: sbd_hlth_ass_signup_results_divs -->
+<!-- KEY: div-bmi-wrapper -->
+<div class="bmi-wrapper col-xs-11 center-block"><!-- NAME: sbd_hlth_ass_signup_results_divs -->
+<!-- KEY: hero-content-no-lose-weight -->
+
+           
+                <div class="text-center intro-text col-xs-12">
+                    <h1 class="no-margin h6 text-uppercase text-primary fw-300">DIET ANALYSIS:
+                        <span class="fw-600">YOUR BMI IS <?php echo $bmi;?></span>
+                    </h1>
+                    <hr style="margin:auto; float:none;margin-top: .5em;margin-bottom:2.5em;">
+                      <!-- <h3 class="need-to-lose">You are in the healthy range</h3> -->
+                </div>
+         
+	<!-- bmi scale param -->
+		<!-- NAME: sbd_hlth_ass_signup_results_divs -->
+<!-- KEY: bmi-scale-parameter  -->
+<input type="hidden" id="bmiValue" name="bmiValue" value="15">
+<div class="bmi-scale">
+    <div class="col-xs-12">
+        <!-- Insert left:X%; to move bmi-marker from -1%-16%-->
+        
+        <div class="type <?php echo $class_underweight ;?> pull-left text-center ">
+			<div class="<?php echo $class_underweightselect ;?>"></div>
+            <p class="fw-600 no-margin">Underweight</p>
+        </div>
+        <div class="type <?php echo $class_healthy ;?> pull-left text-center">
+			<div class="<?php echo $class_healthyselect ;?>"></div>
+            <p class="fw-600 no-margin">Healthy</p>
+        </div>
+        <div class="type <?php echo $class_overweight ;?> pull-left text-center">
+			<div class="<?php echo $class_overweightselect ;?>"></div>
+            <p class="fw-600 no-margin">Overweight</p>
+        </div>
+        <div class="type <?php echo $class_obese ;?> pull-left text-center">
+			<div class="<?php echo $class_obeseselect ;?>" ></div>
+            <p class="fw-600 no-margin">Obese</p>
+        </div>
+    </div>
+</div>
+	<!-- bmi height weight -->
+		<!-- NAME: sbd_hlth_ass_signup_results_divs -->
+<!-- KEY: div-row -->
+<div class="cta-row">
+ <!-- NAME: sbd_hlth_ass_signup_results_divs -->
+
+
+    <div class="details col-xs-12 col-sm-8 col-sm-push-5 col-md-7 col-md-push-4 col-md-offset-1">
+       <h5 class="fw-400" style="float: left;width: 100%;">Your Height:
+            <span class="height fw-600"><?php echo $post['height'];?> ft. <?php echo $post['inches'];?> in.</span>
+            <br class="visible-xs visible-sm"> &amp; Your Weight:
+            <span class="weight fw-600"><?php echo $post['weight'];?>.</span>
+        </h5><!-- bmi description -->
+		<!-- NAME: sbd_bmi_des_female_normal KEY: html-content -->
+
+<div class="description" style="float: left;width: 100%;">
+  <p>The Life Heal individual plan can help keep your BMI in the healthy range, with healthy protein, plus heart-healthy fats and good carbs from fruit, veggies and whole grains. &nbsp; <br class="visible-xs">
+    <a href="plans" class="btn btn-link" onclick="omni_track('SeeHow')">View All Plans</a> </p>
+</div>
+<div class="text-wrapper" style="float: left;width: 100%;">
+  <hr>
+  <h4 class="fw-600 text-secondary">RECOMMENDED FOR YOU</h4>
+  <h5 class="fw-600">Top-Rated! <br class="visible-xs">
+  LIFE HEAL FOOD SUBSCRIPTION</h5>
+  
+    <div class="recommend" style="float: left;width: 100%;">
+     <p>Burn Fat and transform your metabolism with our customized, easy to follow <b><a href="food" style="color:#026271;">Food Subscription.</a></b> It’s our most complete plan with maximum meal variety and convenience. Try a 10 day trial today.</p>
+		
+    </div>
+	
+	<?php if(isset($post['diabetes']) && $post['diabetes']==true) { ?>
+	<span id="diabeticText" style="float: left;width: 100%;" class="text-wrapper">
+	<h5 class="fw-600"><br class="visible-xs">
+    Life Heal Diabetes Plan</h5>
+  <p>Safely control your blood sugar and lower your A1C with our personalized, heart-healthy <b><a href="healthrepairplan" style="color:#026271;font-weight:bold;">Body Repair</a></b>. It’s easy to follow, diabetes-friendly, and designed to fit your lifestyle.</p>
+  
+  </span>
+	<?php } ?>
+	
+    <div class="">
+      
+      <div class="cta-wrap"> <a href="https://lifeheal.in/food" class="btn btn-default" onclick="omni_track('ViewMyPlan');">View My Plan </a> </div>
+    </div>
+ 
+</div>
+</div>
+<div class="col-xs-12 col-sm-4 col-sm-pull-7 aime-dant-bg col-md-4 col-md-pull-7"> <img src="<?php echo $this->getSkinUrl('images/index.png') ?>" class="img-responsive center-block" alt="Betsey and Scott walking on the beach.">
+	<p class="small text-center">Rohit Das Gupta
+Lost 22 Kg on Life Heal
+*Individual Results Vary</p>
+  
+</div>
+
+	
+ 
+<!-- section that displays error or best plan based on BMI result -->
+		<!-- NAME: sbd_hlth_ass_signup_results_divs -->
+<!-- KEY: under-weight-error -->
+
+	</div><!-- NAME: sbd_hlth_ass_signup_results_divs -->
+<!-- KEY:div-close  -->
+
+<!-- NAME: sbd_hlth_ass_signup_results_divs -->
+<!-- KEY:div-close  -->
+</div>
+<!-- NAME: sbd_hlth_ass_signup_results_divs -->
+<!-- KEY:div-close  -->
+</div>
+<!-- NAME: sbd_hlth_ass_signup_results_divs -->
+<!-- KEY: section-close  -->
+</div>
+	</div>
+	</div>
+	</section>
+	</div>
+</main>
+<?php
+  $email = $post['email'];
+  if($email!='' && email_validation($email)==true)
+  {
+	 $First_Name = "First Name";
+	 $Last_Name =  "Last Name";
+	 $Weight_in_kilos = $post['weight'];
+	 $Height_feet = $post['height'];
+	 $Height_inches = $post['inches'];
+	 $Description='';
+	 if(isset($post['diabetes']) && $post['diabetes']==true)
+	 {
+		 $Description =  "ALSO DIABETES";
+	 }
+	  
+    insert_leads($First_Name,$Last_Name,$email,$Weight_in_kilos,$Height_feet,$Height_inches,$Description);
+  }
+
+
+
+function email_validation($str) { 
+    return (!preg_match( 
+"^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^", $str)) 
+        ? false : true; 
+} 
+
+
+ function insert_leads($First_Name,$Last_Name,$email,$Weight_in_kilos,$Height_feet,$Height_inches,$Description)
+ {
+		$access_token = generate_access_token();
+		$post_data = [
+		               'data'=>[
+					             [
+								   
+									  
+									 "First_Name"        => $First_Name,
+									 "Last_Name"         => $Last_Name,  
+									 "Email"             => $email,    //mandatory
+									 "Weight_in_kilos"    => $Weight_in_kilos,
+									 "Height_feet"        => $Height_feet,
+									 "Height_inches"       => $Height_inches,
+									 "Description"         => $Description,
+									 "Company"             =>"Default Company" //,
+									// "value_LEADCF1"         =>"Weight Loss"
+									
+								 ]
+					           ],
+		               
+					  'trigger'=>[
+					                "approval",
+									"workflow",
+									"blueprint"
+								 ]
+					];			 
+		
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL,"https://zohoapis.in/crm/v2/Leads");
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_data));
+
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);  
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+		'Authorization: Zoho-oauthtoken '.$access_token,
+		'Content-type: application/x-www-form-urlencoded')
+		);
+
+		$response = curl_exec($ch);
+		$response = json_decode($response);
+		//return $response;
+		//var_dump($response);
+ }
+
+function generate_access_token()
+ {
+		$post = [
+				  'refresh_token'=>'1000.1a7133be900c641b3ac8ddeb05bcbf0d.c1d63d9bf306de654bc79a45e0f3d7af',
+				  
+				  'client_id'=>'1000.QG6I1UVFV6A4AICNPNEZLEBCJMNCTL',
+				  'client_secret'=>'e6e4ffcfeb851f261a3cdfaba08d1598a994e4aeda',
+				  'grant_type'=>'refresh_token'
+				  ];
+
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL,"https://accounts.zoho.in/oauth/v2/token");
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
+
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);  
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: application/x-www-form-urlencoded'));
+
+		$response = curl_exec($ch);
+		$decodedText = html_entity_decode($response);
+        $accessTokenArray = json_decode($decodedText, true);
+		//var_dump($response);
+		
+		return  $accessTokenArray['access_token'];
+ }
+
+?>

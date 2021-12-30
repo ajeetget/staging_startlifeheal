@@ -1,0 +1,365 @@
+<?php
+if(isset($_POST['submit']))
+{
+	
+	//echo '<pre>';
+	//print_r($_POST); //die; 
+	
+	
+	$fields="";
+	$values="";
+	$size= sizeof($_POST);
+	
+	$config  = Mage::getConfig()->getResourceConnectionConfig("default_setup");
+$dbinfo = array("host" => $config->host,"user" => $config->username,"pass" => $config->password,"dbname" => $config->dbname);
+  
+  $host      = $dbinfo["host"];
+  $username  = $dbinfo["user"];
+  $password  = $dbinfo["pass"];
+  $dbname    = $dbinfo["dbname"]; 
+  
+  $con = mysqli_connect($host  , $username,  $password ,$dbname);
+
+  if ($mysqli -> connect_errno) {
+  echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
+  exit();
+}
+     
+
+    $count=0;
+	foreach($_POST as $key=>$value)
+	{
+		$count++;
+		if($key!='submit')
+		{
+			//$key= str_replace("-","_",$key);
+			$fields.=$key;
+			$values.="'".$value."'";
+			if($count<($size-1) )
+			{
+				$fields.=',';   		
+			    $values.=','; 
+			 }
+			
+			
+		}
+		
+	}
+	
+	$custId = $_POST['custid'];
+	$customer = Mage::getModel('customer/customer')->load($custId);
+	$customerName = $customer->getLastname();
+	$mobileNo = $_POST['mobileno'];
+	$date = date('Y-m-d');
+	$param = $_POST['param'];
+	
+	 $checkQuery = "select * from patientintakeform where custid='".$custId."' and mobileno='".$mobileNo."' and date='".$date."'";
+	$checkRowResult = mysqli_query($con,$checkQuery);
+	 $countExisting = mysqli_num_rows($checkRowResult); 
+	$last_id ='';
+	if($countExisting==0)
+	{	
+	
+	$query="insert into patientintakeform(";
+	$query.=$fields.") values(".$values.")";
+	//echo $query;  die;
+	
+	
+            
+            if (mysqli_query($con, $query)) {
+				$last_insert_id = mysqli_insert_id($con);
+				$last_id=base64_encode($last_insert_id);
+               //echo "New record created successfully";
+			   
+            } else {
+               echo "Error: " . $query . "" . mysqli_error($conn); 
+            }
+			
+			//die;
+	}
+	else
+	{
+		
+		 $row   = '';
+		 while ($rowInfo = mysqli_fetch_assoc($checkRowResult)) {
+            
+			 $row = $rowInfo;
+         }
+		// print_r($row); die;
+		 $last_id=base64_encode($row['patientid'] );
+		 $count=0;
+		foreach($_POST as $key=>$value)
+		{
+			$count++;
+			if($key!='submit')
+			{
+				//$key= str_replace("-","_",$key);
+				$updateFields.=$key."='".$value."'";
+				
+				if($count<($size-1) )
+				{
+					$updateFields.=',';   		
+					
+				 }
+				
+				
+			}
+			
+		}
+		/*
+		$query="update patientintakeform ";
+		$query.="set ".$updateFields." where patientid=".$row['patientid'];
+		
+		
+		if (mysqli_query($con, $query)) {
+				   
+				} else {
+				   echo "Error: " . $query . "" . mysqli_error($con);
+				}
+		*/		
+				
+	}
+	
+	$to ="diet@lifeheal.in, st.homespice@gmail.com, nehabhale@gmail.com, yash.munot@gmail.com";
+	$from ="team@lifeheal.in";
+
+	   // Always set content-type when sending HTML email
+	$headers = "MIME-Version: 1.0" . "\r\n";
+	$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+	// More headers
+	$headers .= "From: ".$from . "\r\n";
+	$subject = "New Customer Registered through Patientintake Form";
+	$message="Hi, a new customer ".$customerName." (".$mobileNo.") filled patientintake form on ".date("d-m-Y");
+ 	mail($to,$subject,$message,$headers); 
+	
+	
+
+	//die;
+}
+?>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style>
+body, html {
+  height: 100%;
+  margin: 0;
+}
+	.anh-quote .h6{margin-top: 24px;font-size: 1em;font-weight:lighter;color: #000;}
+	.anh-quote h3 {
+   font-size: 1.2em;
+font-weight: lighter;color: #000;
+}
+.anh-quote hr, .kris-quote hr {
+    border-top: 5px solid #10cfc9;
+    margin: 0 0 12px;
+    width: 65px;border-bottom: 0;
+    text-align: left;
+}
+.bgimg {
+  background:#fff;
+  height: 500px;
+  width:100%;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  color: white;
+  font-size: 25px;
+}
+
+.topcenter{
+ padding-top: 5%;
+margin: auto;
+width: 100px;
+float: none;
+display: block;
+}
+
+.bottomleft {
+    margin: 9% auto auto auto;
+    width: 200px;
+    float: none;
+    display: block;
+    text-align: center;
+}
+	.bottomleft span{background: #269a9b;
+color: #fff;
+padding: 10px;
+height: 40px;
+border-radius: 8px;
+font-size: 14px;
+font-weight: bold;
+float: left;
+margin: 1% auto;
+text-align: center;
+display: block;
+width: 100%;}
+	.bottomleft span a{color:#fff;}
+.middle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+	.middle h1{text-transform: capitalize;color:#000;}
+	.middle p{color:#000;}
+hr {
+  margin: auto;
+  width: 40%;
+	}
+	@media screen and (min-width:640px) and (max-width:767px){
+		.logomob {
+    width: 25% !important;
+    float: right;
+    margin-left: 0;
+    margin-top: 0%;
+}
+		.bottomleft span {
+    background: #269a9b;
+    color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    float: none;
+    margin: 1% auto;
+    text-align: center;
+    width: 200px;
+    display: block;
+}
+.bottomleft {
+    margin: 20% auto auto auto;
+    width: 100%;
+    float: none;
+    display: block;
+}
+		.topcenter {
+    padding-top: 12%;
+    margin: auto;
+    width: 100px;
+    float: none;
+    display: block;
+}
+		.anh-quote h3 {
+    font-size:20px;
+    font-weight: lighter;
+    color: #000;
+}
+		.container {
+    max-width: 670px;
+}
+	}
+	@media screen and (min-width:260px) and (max-width:640px){
+		.anh-quote h3 {
+    font-size:20px;
+    font-weight: lighter;
+    color: #000;
+}
+		.topcenter {
+    padding-top: 20%;
+    margin: auto;
+    width: 100px;
+    float: none;
+    display: block;
+}
+		.middle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+		.bottomleft span {
+    background: #269a9b;
+    color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    float: none;
+    margin: 1% auto;
+    text-align: center;
+    width: 200px;
+    display: block;
+}
+		.bottomleft {
+    margin: 40% auto auto auto;
+    width: 100%;
+    float: none;
+    display: block;
+}
+	}
+	@media screen and (min-width:800px) and (max-width:1200px)
+	{
+		.anh-quote h3 {
+    font-size: 1em;
+    font-weight: lighter;
+    color: #000;
+}
+		.bottomleft {
+    margin: 15% auto auto auto;
+    width: 200px;
+    float: none;
+    display: block;
+}
+	}
+	@media screen and (min-width:768px) and (max-width:999px)
+	{
+		.anh-quote h3 {
+    font-size: 1em;
+    font-weight: lighter;
+    color: #000;
+}
+		.bottomleft {
+    margin: 16% auto auto auto;
+    width: 200px;
+    float: none;
+    display: block;
+}
+		.topcenter {
+    padding-top: 11%;
+    margin: auto;
+    width: 100px;
+    float: none;
+    display: block;
+}
+	}
+</style>
+
+<div class="bgimg">
+  <div class="topcenter">
+    <img src="<?php echo $this->getSkinUrl('images/tickcircle.png') ?>" >
+  </div>
+  <div class="middle">
+    <h1>Thank you</h1>
+    
+    <p id="demo" style="font-size:15px">Your Next Steps:</p>
+  </div>
+  <div class="bottomleft">
+	  <span><a href="<?php echo Mage::getBaseUrl();?>food"  style="cursor:pointer; width:100%;float: left;">Sign up for a 10 day trial</a></span>
+	   <span><a href="https://lifeheal.zohobookings.in/#/customer/healthreview"  style="cursor:pointer; width:100%;float: left;">Book a consultation</a></span>
+	  
+	
+  </div>
+	<div class="testimonialopen" style="width: 100%;float: left;margin: 4% auto;">
+		<div class="anh-quote">
+	<div class="container">
+    <div class="">
+       <div class="col-xs-12 col-sm-6 col-lg-5">
+		   <iframe width="100%" height="300" style="margin-top: 24px;width:100%" src="https://www.youtube.com/embed/pWYxb6OzseY" class="center-block" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+             
+       </div>
+       <div class="col-xs-12 col-sm-6 col-lg-offset-1"><h2 class="fw-400 h6" style="margin-top: 24px;">ADITYA LOST <b>24 KGS .</b></h2>
+          <hr>
+          <h3 style="float: left;">“I NEVER THOUGHT I WOULD BE ABLE TO LOSE WEIGHT AND HAD TRIED EVERYTHING BEFORE. I DIDN'T EVEN HAVE TO EXERCISE”</h3>
+          
+          <p class="small visible-xs">Average weight loss expected 6 Kgs per month.</p>
+       </div>
+    </div>
+ </div>
+		</div>
+</div>
+	
+</div>

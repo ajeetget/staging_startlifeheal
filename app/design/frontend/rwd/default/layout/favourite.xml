@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <favourite_index_index>
+    <reference name="root">
+      <action method="setTemplate"><template>page/1column.phtml</template></action>
+    </reference>
+    <reference name="content">
+      <block type="favourite/index" name="favourite_index" template="favourite/index.phtml"/>
+    </reference>
+  </favourite_index_index> 
+</layout>
+	

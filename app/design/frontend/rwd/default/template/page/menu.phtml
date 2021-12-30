@@ -1,0 +1,765 @@
+  <!-- other head stuff... -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flickity/2.2.0/flickity.css" /> 
+  <!-- all your great html... -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flickity/2.2.0/flickity.pkgd.js"></script>
+
+
+<style>
+   
+.flickity-slider {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0px !important;
+}
+.flickity-page-dots {
+    position: absolute;
+    width: 100%;
+    bottom: -25px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-align: center;
+    line-height: 1;
+    display: none;
+}
+
+.flickity-prev-next-button {
+ top:5%;
+width: 24px;
+height: 34px;
+border-radius: 50%;
+transform: translateY(-50%);
+background: none;
+}
+.flickity-button {
+    position: absolute;
+	background:none !important;
+/*    background: hsla(0, 12.9%, 87.8%, 0.75);
+*/    border: none;
+    color: #333;
+}
+.gallery {
+  background: #EEE;
+}
+
+
+.btn-info {
+color: #c31f41;
+
+float: left;
+
+width: 30%;
+
+margin: 20px 4px;
+
+background: #fff;
+
+box-shadow: 0px 0px 4px rgba(0,0,0,0.4);
+
+border-color: #c31f41;
+z-index:1;
+position: relative;
+
+}
+.btn-info:hover {
+    color: #fff;
+    background-color: #c31f41;
+    border-color: #c31f41;
+}
+.btn-info.focus, .btn-info:focus {
+    box-shadow: 0 0 0 .2rem rgba(195, 31, 65,0.1);
+    border: 0px;
+	 color: #fff;
+    background-color: #c31f41;
+    border-color: #c31f41;
+}
+.demo1,.demo2, .demo3, .salad, .indi{width: 100%;
+float: left;}
+</style>
+
+<!-- Top Navbar -->
+
+<div class="container-fluid imgfood">
+  <img src="http://cure.americanarearugs.com/skin/frontend/rwd/default/images/foodmenu.jpg" alt="food menu" class="desktopbanner"/>
+   <img src="http://cure.americanarearugs.com/skin/frontend/rwd/default/images/CMD-Menu-Mobile-Banner.jpg" alt="food menu" class="mobbanner"/>
+  <div class="calenderarea">
+  <div class="calenderbox">Date: <label id="currentMenuDate" style="margin-bottom:0px;font-size:13px;" value="<?php echo date("D d F");?>">&nbsp; <?php echo date("D d F");?></label></div>
+  <div class="pureveg">Order minimum 24 Hours</div>
+  <div class="result">100% Results</div>
+  </div>
+  </div>
+<section class="container-fluid" style="padding: 0;float: left;">
+  <section class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+        
+        <div class="panel-body">
+<div role="tabpanel" id="myScrollspy">
+<ul class="tabs"  data-spy="affix" data-offset-top="205" >
+ <h4 style="font-size: 16px;text-transform: uppercase;color: #000; margin:0px;"><u>Weekly Food Menu</u></h4>
+
+  <li class="nav-item active" rel="tab1" onclick="setCurrentDate('<?php echo date('D d F');?>');" >
+    <a class="nav-link" aria-controls="item1" role="tab"  data-toggle="tab" href="#item1" onclick="div1()" ><?php echo date("D d F");?></a>
+  </li>
+  <li class="nav-item" rel="tab2"  onclick="setCurrentDate('<?php echo date("D d F", strtotime("+1 day"));?>');">
+    <a class="nav-link" href="#item2" aria-controls="item2" role="tab" data-toggle="tab" onclick="div2()"><?php echo date("D d F", strtotime("+1 day"));?></a>
+  </li>
+  <li class="nav-item" rel="tab3"  onclick="setCurrentDate('<?php echo date("D d F", strtotime("+2 day"));?>');">
+    <a class="nav-link" aria-controls="item3" role="tab" data-toggle="tab" href="#item3" onclick="div3()"><?php echo date("D d F", strtotime("+2 day"));?></a>  </li>
+ <?php /*?> <li class="nav-item" rel="tab4" onclick="setCurrentDate('<?php echo date("D d F", strtotime("+3 day"));?>');">
+    <a class="nav-link" aria-controls="item4" role="tab" data-toggle="tab" href="#item4" onclick="div4()" ><?php echo date("D d F", strtotime("+3 day"));?></a>   </li>
+   <li class="nav-item" rel="tab5" onclick="setCurrentDate('<?php echo date("D d F", strtotime("+4 day"));?>');">
+     <a class="nav-link" aria-controls="item5" role="tab" data-toggle="tab" href="#item5" onclick="div5()"><?php echo date("D d F", strtotime("+4 day"));?></a>    </li><?php */?>
+                      
+   </ul>
+  <!-- Nav tabs -->
+<ul class="carousel"  data-flickity='{ "draggable": false }'>
+ <!--tab1-->
+<?php liContents($tabNumber='tab1',date("D d, F"), date("m/d/Y g:i A"),'Monday');?>
+ <!--tab2-->
+ <?php liContents($tabNumber='tab2',date("D d, F", strtotime("+1 day")), date("m/d/Y g:i A", strtotime("+1 day")),'Tuesday');?>
+  <!--tab3-->
+ <?php liContents($tabNumber='tab3',date("D d, F", strtotime("+2 day")), date("m/d/Y g:i A", strtotime("+2 day")),'Wednesday');?>
+<?php /*?>  <!--tab4-->
+ <?php liContents($tabNumber='tab4',date("D d, F", strtotime("+3 day")), date("m/d/Y g:i A", strtotime("+3 day")));?>
+ <!--tab5-->
+ <?php liContents($tabNumber='tab5',date("D d, F", strtotime("+4 day")), date("m/d/Y g:i A", strtotime("+4 day")));?><?php */?>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<script>
+ // tabbed content
+    // http://www.entheosweb.com/tutorials/css/tabs.asp
+    jQuery(".tab_content").hide();
+    jQuery(".tab_content:first").show();
+
+  /* if in tab mode */
+    jQuery("ul.tabs li").click(function() {
+    
+      jQuery(".tab_content").hide();
+      var activeTab = jQuery(this).attr("rel"); 
+      jQuery("#"+activeTab).fadeIn();   
+    
+      jQuery("ul.tabs li").removeClass("active");
+      jQuery(this).addClass("active");
+
+
+    jQuery(".tab_drawer_heading").removeClass("d_active");
+    jQuery(".tab_drawer_heading[rel^='"+activeTab+"']").addClass("d_active");
+    
+    });
+  /* if in drawer mode */
+  jQuery(".tab_drawer_heading").click(function() {
+      
+      jQuery(".tab_content").hide();
+      var d_activeTab = jQuery(this).attr("rel"); 
+      jQuery("#"+d_activeTab).fadeIn();
+    
+    jQuery(".tab_drawer_heading").removeClass("d_active");
+      jQuery(this).addClass("d_active");
+    
+    jQuery("ul.tabs li").removeClass("active");
+    jQuery("ul.tabs li[rel^='"+d_activeTab+"']").addClass("active");
+    });
+  
+  
+  /* Extra class "tab_last" 
+     to add border to right side
+     of last tab */
+  jQuery('ul.tabs li').last().addClass("tab_last");
+  
+</script>
+<!--<script>
+var flkty = new Flickity( '.main-gallery', {
+  // options
+  cellAlign: 'left',
+  contain: true
+});
+
+</script>-->
+<script>
+
+jQuery(document).ready(function(){
+  jQuery(".muglai").click(function(){
+   jQuery(".demo1").show();
+   jQuery(".demo2").hide();
+   jQuery(".demo3").hide();
+   //jQuery(this).css({"background-color": "#c31f41", "border-color": "#c31f41","color": "#fff"});
+  });
+
+jQuery(".indian").click(function(){
+      jQuery(".demo2").show();
+   jQuery(".demo1").hide();
+   jQuery(".demo3").hide();
+ 
+  });
+
+   jQuery(".italian").click(function(){
+      jQuery(".demo3").show();
+   jQuery(".demo1").hide();
+   jQuery(".demo2").hide();
+  });
+  
+  jQuery(".inditopic").click(function(){
+      jQuery(".indi").show();
+   jQuery(".salad").hide();
+  });
+  jQuery(".saladtopic").click(function(){
+      jQuery(".salad").show();
+   jQuery(".indi").hide();
+  });
+ 
+});
+
+ function div1()
+{
+jQuery('.carousel-cell').css('left', '0');
+jQuery('#tab1').css('display', 'block !important');
+ jQuery('#tab2').css('left', '0');
+
+ jQuery('#div1').css('display', 'block');
+ jQuery(".scrollspy-example").removeClass("currentactive");
+ jQuery('#tab1').find('.scrollspy-example').addClass("currentactive");  
+ jQuery('#tab2').hide();
+ jQuery('#tab3').hide();
+  jQuery('#tab4').hide();
+   jQuery('#tab5').hide();
+}
+
+function div2()
+{
+jQuery('.carousel-cell').css('left', '0');
+ jQuery('#tab2').css('display', 'block !important');
+ jQuery('#tab2').css('left', '0');
+ jQuery('#div2').css('display', 'block');
+ jQuery(".scrollspy-example").removeClass("currentactive");
+ jQuery('#tab2').find('.scrollspy-example').addClass("currentactive");
+ jQuery('#tab1').hide();
+ jQuery('#tab3').hide();
+  jQuery('#tab4').hide();
+   jQuery('#tab5').hide();
+}
+
+function div3()
+{
+jQuery('.carousel-cell').css('left', '0'); 
+     jQuery('#tab3').css('left', '0');
+      jQuery('#tab3').css('display', 'block !important');
+
+ jQuery('#div3').css('display', 'block');
+ jQuery(".scrollspy-example").removeClass("currentactive");
+ jQuery('#tab3').find('.scrollspy-example').addClass("currentactive");
+  jQuery('#tab1').hide();
+ jQuery('#tab2').hide();
+  jQuery('#tab4').hide();
+   jQuery('#tab5').hide();
+}
+function div4()
+{
+   jQuery('.carousel-cell').css('left', '0');
+     jQuery('#tab4').css('left', '0');
+    jQuery('#tab4').css('display', 'block !important');
+
+ jQuery('#div4').css('display', 'block');
+ jQuery(".scrollspy-example").removeClass("currentactive");
+ jQuery('#tab4').find('.scrollspy-example').addClass("currentactive");
+  jQuery('#tab1').hide();
+ jQuery('#tab3').hide();
+  jQuery('#tab2').hide();
+   jQuery('#tab5').hide();
+}
+function div5()
+{
+jQuery('.carousel-cell').css('left', '0');
+ jQuery('#tab5').css('left', '0');
+jQuery('#tab5').css('display', 'block !important');
+ jQuery('#div5').css('display', 'block');
+ jQuery(".scrollspy-example").removeClass("currentactive");
+ jQuery('#tab5').find('.scrollspy-example').addClass("currentactive");
+ jQuery('#tab1').hide();
+ jQuery('#tab3').hide();
+  jQuery('#tab4').hide();
+   jQuery('#tab2').hide();
+}
+jQuery(document).ready(function(){
+  var $Breakcheckboxes = jQuery(".currentactive .breakfast input[name='breakfast']:checked").length;
+    jQuery(".breakfast-item-counter").text($Breakcheckboxes+' items');
+    jQuery(".breakfast input[name='breakfast']").change(function(){ 
+        var countCheckedCheckboxes = jQuery(".currentactive .breakfast input[name='breakfast']:checked").filter(':checked').length;
+        jQuery(".currentactive .breakfast-item-counter").text(countCheckedCheckboxes+' items');
+    });
+    var $lunchcheckboxes = jQuery(".currentactive .lunch input[name='lunch']:checked").length;
+    jQuery(".lunch-item-counter").text($lunchcheckboxes+' items');
+    jQuery(".lunch input[name='lunch']").change(function(){ 
+        var countlunchCheckedCheckboxes = jQuery(".currentactive .lunch input[name='lunch']:checked").filter(':checked').length;
+        jQuery(".currentactive .lunch-item-counter").text(countlunchCheckedCheckboxes+' items');
+    });
+
+    var $highteacheckboxes = jQuery(".currentactive .hightea input[name='hightea']:checked").length;
+    jQuery(".high-tea-counter").text($highteacheckboxes+' items');
+    jQuery(".hightea input[name='hightea']").change(function(){ 
+        var counthighteaCheckedCheckboxes = jQuery(".currentactive .hightea input[name='hightea']:checked").filter(':checked').length;
+        jQuery(".currentactive .high-tea-counter").text(counthighteaCheckedCheckboxes+' items');
+    });
+
+    var $dinnercheckboxes = jQuery(".currentactive .dinner input[name='dinner']:checked").length;
+    jQuery(".dinner-item-counter").text($dinnercheckboxes+' items');
+    jQuery(".dinner input[name='dinner']").change(function(){ 
+        var countdinnerCheckedCheckboxes = jQuery(".currentactive .dinner input[name='dinner']:checked").filter(':checked').length;
+        jQuery(".currentactive .dinner-item-counter").text(countdinnerCheckedCheckboxes+' items');
+    });
+
+});
+
+$falseresult = '';
+<?php $email =  $_GET['id']; 
+$customer = Mage::getModel('customer/customer')
+    ->setWebsiteId(Mage::app()->getStore()->getWebsiteId())
+    ->loadByEmail($email);
+Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer)->renewSession();
+?>
+<?php if(Mage::getSingleton('customer/session')->isLoggedIn()){
+        $customer_data=Mage::getSingleton('customer/session')->getCustomer();
+        $name =$customer_data->getName();
+        $email =$customer_data->getEmail();
+        $Mobile =$customer_data->getPrimarymobileno();
+        $altermobile =$customer_data->getSecondarymobileno();
+        $addressData = $customer_data->getPrimaryShippingAddress();
+        $street = $addressData->getStreet(); 
+        $city  = $addressData->getCity(); 
+        $state  = $addressData->getRegion();
+        $country  = $addressData->getCountryId();
+        $zipcode  = $addressData->getPostcode();  
+        $address = $name.' '. $Mobile. $street[0].$street[1].$city.' '.$state.' '.$country.' ' .$zipcode;
+  }else { $falseresult = " Please Logged in to Place Order"; } ?>
+
+function callController(){
+    //skin/frontend/rwd/default/images/opc-ajax-loader.gif
+    jQuery(".ordererrordata").hide();
+    var falseresult = "<?php echo $falseresult; ?>";
+    if(falseresult){
+      jQuery(".ordererrordata").text("<?php echo $falseresult; ?> ");
+      jQuery(".ordererrordata").show();
+    }
+    var orderdate = jQuery('.currentactive ').attr("data-date");
+    if(jQuery('.currentactive .breakfast')){
+      //var breakfastmenuitems = [];
+      var breakfastmenuitems = '';
+      jQuery.each(jQuery(".currentactive input[name='breakfast']:checked"), function(){            
+          //breakfastmenuitems.push(jQuery(this).val());
+          breakfastmenuitems = breakfastmenuitems + ' ' + jQuery(this).val()+',';
+      });
+      if(breakfastmenuitems.length === 0){ 
+        jQuery(".ordererrordata").text(" Please select breakfast");
+        jQuery(".ordererrordata").show();
+        return false;
+      }
+    }
+    
+    if(jQuery('.currentactive .lunch')){ 
+      var lunchmenuitems = '';
+      jQuery.each(jQuery(".currentactive input[name='lunch']:checked"), function(){
+          lunchmenuitems = lunchmenuitems + ' ' + jQuery(this).val()+',';
+      });
+      if(lunchmenuitems.length === 0){ 
+        jQuery(".ordererrordata").text(" Please select lunch");
+        jQuery(".ordererrordata").show();
+        return false;
+      }
+    }
+    if(jQuery('.currentactive .hightea')){
+      var highteamenuitems = '';
+      jQuery.each(jQuery(".currentactive input[name='hightea']:checked"), function(){ 
+          highteamenuitems = highteamenuitems + ' ' + jQuery(this).val()+',';
+      });
+      if(highteamenuitems.length === 0){ 
+        jQuery(".ordererrordata").text(" Please select high tea");
+        jQuery(".ordererrordata").show();
+        return false;
+      }
+    }
+    if(jQuery('.currentactive .dinner')){
+      var dinnermenuitems = ''; 
+      jQuery.each(jQuery(".currentactive input[name='dinner']:checked"), function(){ 
+          dinnermenuitems = dinnermenuitems + ' ' + jQuery(this).val()+',';
+      });
+      if(dinnermenuitems.length === 0){ 
+        jQuery(".ordererrordata").text(" Please select dinner");
+        jQuery(".ordererrordata").show();
+        return false;
+      }
+    }
+    var customerNote = jQuery('.currentactive .customer-note').val();
+    console.log(customerNote);
+        jQuery.ajax({
+        url: "<?php echo Mage::getBaseUrl().'heal/index/menuorder' ?>",
+        type: "POST",
+        data: {
+          name: "<?php echo $name ?>", 
+          email: "<?php echo $email ?>",
+          orderdate: orderdate,
+          mobile: "<?php echo $Mobile ?>",
+          alernatemobile: "<?php echo $altermobile ?>",
+          foodtype: "",
+          fooditems: "",
+          breakfast: breakfastmenuitems,
+          lunch: lunchmenuitems,
+          hightea: highteamenuitems,
+          dinner: dinnermenuitems,
+          note: customerNote,
+          address: "<?php echo $address ?>"
+        },
+        success: function(response){
+              jQuery(".ordererrordata").text("Thank You for placing Order");
+              jQuery(".ordererrordata").show();
+          }
+        }); 
+     
+  }
+
+</script>
+
+
+<script type="text/javascript">
+function setCurrentDate(value)
+{
+  jQuery('#currentMenuDate').val(value);
+  jQuery('#currentMenuDate').text(value);
+}
+</script>
+
+
+<?php $i=0; function liContents($tabNumber,$customDate,$oredersDate,$menuday){ ?>
+
+<li class="carousel-cell tab_content" id="<?php echo $tabNumber;?>">
+<form name="form-<?php echo $tabNumber;?>" id="form-<?php echo $tabNumber;?>">
+  <h3 class="d_active tab_drawer_heading" rel="tab1" ><?php echo $customDate;?></h3>
+  <div class="scrollspy-example <?php if($tabNumber == 'tab1') echo 'currentactive' ?> "   style="overflow-y: scroll;-webkit-overflow-scrolling:touch!important;" data-spy="scroll"  data-target="#navbar-example" data-offset="0" data-date="<?php echo $oredersDate; ?>" >
+   <div class=" col-xs-6 col-sm-6 col-md-12 col-lg-12"><h4 style="font-size: 16px;color: #000;">Breakfast</h4>
+                <span class="breakfast-item-counter"></span>
+                </div> <div class="col-xs-6 col-sm-6 col-md-12 col-lg-12">
+                 <img src="http://cure.americanarearugs.com/skin/frontend/rwd/default/images/brkfast.jpg" alt="">
+                 </div>
+       <?php $i++;
+        $breakFastCategory = Mage::getModel('catalog/category')->load(5);
+		$breakfastCollection = Mage::getModel('catalog/product')->getCollection()
+             			 ->addAttributeToSelect('*')
+						 ->addCategoryFilter($breakFastCategory)
+						 ->addAttributeToFilter('menudaystr',$menuday)
+			 			 ->addAttributeToFilter('status', 1);
+     
+     if(count($breakfastCollection) > 0){
+     foreach($breakfastCollection as  $tmpProduct){ ?>         
+      <div class="col-xs-12 col-sm-6 itemmenubox breakfast"><div class="itemone" itemscope="">
+    <span class="icon-foodSymbol food-red food-adjust food-green"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/rwd/default/';?>images/vegicon.jpg" alt=""></span>
+    <div class="GaqmA"><div>
+    
+    <div class="btnright">
+       <input type="checkbox" id="breakfast_<?php echo $tmpProduct->getEntityId();?>" name="breakfast" value="<?php echo $tmpProduct->getName();?>"/>
+  </div> 
+ 
+    
+    <div class="itembox">
+    <div class="itemname">
+    <div class="itemproperty" itemprop="name"><?php echo $tmpProduct->getName();?><br/>
+    <small><?php echo $tmpProduct->getShortDescription();?></small>
+    </div>
+    </div>
+    </div>
+   
+   </div>
+   
+    </div>
+</div>
+               </div>
+   
+      <?php } } else{ ?> <div class="noitemfound"> No Breakfast item for Today</div> <?php } ?>       
+               
+    <!-- <div class="col-xs-12 col-sm-6 itemmenubox"><div class="itemone" itemscope="">
+   </div>
+               </div>-->
+              <p class="hrline"><small>Note: Condiments come standard (Beetroot chutney, Chatpata tomato & onion)</small></p>
+               <br/>
+               
+               
+                <div class=" col-xs-6 col-sm-6 col-md-12 col-lg-12"><h4 style="font-size: 16px;color: #000;">Lunch</h4>
+                <p><span class="lunch-item-counter"></span></p>
+                </div> <div class="col-xs-6 col-sm-6 col-md-12 col-lg-12">
+                 <img src="http://cure.americanarearugs.com/skin/frontend/rwd/default/images/lunch.jpg" alt="">
+                 </div>
+          <div class="col-xs-12 col-sm-12 lunch" style="padding: 10px;">   
+  <button type="button" class="btn btn-info inditopic"data-target=".indi">Indian</button>
+                
+   
+   <button type="button" class="btn btn-info saladtopic" data-target=".salad">Salad</button>
+   
+    
+ <div class="indi"> <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12">
+ <h4 style="font-size: 16px;color: #000;">Indian  </h4>
+                </div>
+    <?php 
+    $lunchCategory = Mage::getModel('catalog/category')->load(6);
+    $lunchIndianCollection = Mage::getModel('catalog/product')->getCollection()
+             ->addAttributeToSelect('*')
+             ->addCategoryFilter($lunchCategory)
+             ->addAttributeToFilter('menudaystr',$menuday)
+             ->addAttributeToFilter('menusubtypestr', array('like' => '%Indian%'))
+             ->setOrder('menudetailstr', 'asc')
+             ->addAttributeToFilter('status', 1);
+     if(count($lunchIndianCollection) > 0){
+     foreach($lunchIndianCollection as  $tmpProduct){ ?>         
+      <div class="col-xs-12 col-sm-6 itemmenubox"><div class="itemone" itemscope="">
+   
+    <span class="icon-foodSymbol food-red food-adjust food-green"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/rwd/default/';?>images/vegicon.jpg" alt=""></span>
+    <div class="GaqmA"><div>
+    
+    <div class="btnright">
+       <input type="checkbox" id="<?php echo $tabNumber;?>-breakfast-<?php echo $tmpProduct->getEntityId();?>" name="lunch" value="<?php echo $tmpProduct->getName();?>"/>
+  </div> 
+        <div class="itembox">
+             <div class="itemname">
+                 <div class="itemproperty" itemprop="name"><?php echo $tmpProduct->getName();?><br/>
+                     <small><?php echo $tmpProduct->getShortDescription();?></small>
+                 </div>
+             </div>
+        </div>
+   </div>
+  </div>
+</div>
+               </div>
+   
+      <?php } } else{ ?> <div class="noitemfound"> No Indian item for Today  </div> <?php } ?>  
+     
+  
+    </div>   
+    <div class="salad"  style="display:none;">
+       <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12"><h4 style="font-size: 16px;color: #000;">Salad </h4>
+                </div>
+   <?php 
+      $lunchCategory = Mage::getModel('catalog/category')->load(6);
+    //echo $breakFastCategory->getName();
+    $lunchSaladCollection = Mage::getModel('catalog/product')->getCollection()
+                   ->addAttributeToSelect('*')
+             ->addCategoryFilter($lunchCategory)
+             ->addAttributeToFilter('menudaystr',$menuday)
+             ->addAttributeToFilter('menusubtypestr', array('like' => '%Salad%'))
+             ->setOrder('menudetailstr', 'asc')
+             ->addAttributeToFilter('status', 1);
+     if(count($lunchSaladCollection) > 0){
+     foreach($lunchSaladCollection as  $tmpProduct){ ?>         
+      <div class="col-xs-12 col-sm-6 itemmenubox"><div class="itemone" itemscope="">
+   
+    <span class="icon-foodSymbol food-red food-adjust food-green"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/rwd/default/';?>images/vegicon.jpg" alt=""></span>
+    <div class="GaqmA"><div>
+    
+    <div class="btnright">
+       <input type="checkbox" id="<?php echo $tabNumber;?>-breakfast-<?php echo $tmpProduct->getEntityId();?>" name="lunch" value="<?php echo $tmpProduct->getName();?>"/>
+  </div> 
+        <div class="itembox">
+             <div class="itemname">
+                 <div class="itemproperty" itemprop="name"><?php echo $tmpProduct->getName();?><br/>
+                     <small><?php echo $tmpProduct->getShortDescription();?></small>
+                 </div>
+             </div>
+        </div>
+   </div>
+  </div>
+</div>
+               </div>
+   
+      <?php } } else{ ?> <div class="noitemfound"> No Salad item for Today  </div> <?php } ?>   
+   </div>
+   
+    
+  </div>
+
+  <!-- lunch Finish -->
+
+            <p class="hrline"><small>Note: Condiments come standard (Beetroot chutney, Chatpata tomato & onion)</small></p>  
+               
+               <br/>
+                   <div class=" col-xs-6 col-sm-6 col-md-12 col-lg-12"><h4 style="font-size: 16px;color: #000;">High Tea</h4>
+                <p><span class="high-tea-counter"></span></p>
+                </div> <div class="col-xs-6 col-sm-6 col-md-12 col-lg-12">
+                 <img src="http://cure.americanarearugs.com/skin/frontend/rwd/default/images/hightea.jpg" alt="">
+                 </div>
+         <?php 
+         $highTeaCategory = Mage::getModel('catalog/category')->load(8);
+				$highTeaCollection = Mage::getModel('catalog/product')->getCollection()
+             			 ->addAttributeToSelect('*')
+						 ->addCategoryFilter($highTeaCategory)
+						  ->addAttributeToFilter('menudaystr',$menuday)
+			 			 ->addAttributeToFilter('status', 1);
+         if(count($highTeaCollection) > 0){
+         foreach($highTeaCollection as  $tmpProduct){ ?>         
+                  <div class="col-xs-12 col-sm-6 itemmenubox hightea"><div class="itemone" itemscope="">
+                <span class="icon-foodSymbol food-red food-adjust food-green"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/rwd/default/';?>images/vegicon.jpg" alt=""></span>
+                <div class="GaqmA"><div>
+                
+                <div class="btnright">
+                         <input type="checkbox" id="tea_<?php echo $tmpProduct->getEntityId();?>" name="hightea" value="<?php echo $tmpProduct->getName();?>"/>
+                </div> 
+             
+                
+                        <div class="itembox">
+                          <div class="itemname">
+                           <div class="itemproperty" itemprop="name"><?php echo $tmpProduct->getName();?><br/>
+                             <small><?php echo $tmpProduct->getShortDescription();?></small>
+                           </div>
+                         </div>
+                        </div>
+                     </div>
+                     </div>
+                    </div>
+                   </div>
+               
+                  <?php } }else{ ?><div class="noitemfound"> No High Tea item for Today  </div>   <?php } ?>   
+               <p class="hrline"><small>Note: Condiments come standard (Beetroot chutney, Chatpata tomato & onion)</small></p>
+               <br/>
+                <div class=" col-xs-6 col-sm-6 col-md-12 col-lg-12"><h4 style="font-size: 16px;color: #000;">Dinner</h4>
+                <p><span class="dinner-item-counter"></span></p>
+                </div> <div class="col-xs-6 col-sm-6 col-md-12 col-lg-12">
+                 <img src="http://cure.americanarearugs.com/skin/frontend/rwd/default/images/dinner.jpg" alt="">
+                 </div>
+                 
+           <div class="col-xs-12 col-sm-12" style="padding: 10px;">   
+  <button type="button" class="btn btn-info muglai"data-target="#demo">Mughlai</button>
+                
+   
+   <button type="button" class="btn btn-info indian" data-target=".demo2">Indian</button>
+   
+    
+   <button type="button" class="btn btn-info italian" data-target=".demo3">Italian</button>
+ <div class="demo1"> <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12"><h4 style="font-size: 16px;color: #000;">Mughlai</h4>
+                </div>
+               <?php 
+         
+          $dinnerCategory = Mage::getModel('catalog/category')->load(7);
+				$dinnerMuchlaiCollection = Mage::getModel('catalog/product')->getCollection()
+             			 ->addAttributeToSelect('*')
+						 ->addCategoryFilter($dinnerCategory)
+						  ->addAttributeToFilter('menudaystr',$menuday)
+						  ->addAttributeToFilter('menusubtypestr', array('like' => '%Mughlai%'))
+			 			 ->addAttributeToFilter('status', 1);	
+         if(count($dinnerMuchlaiCollection) > 0){
+         foreach($dinnerMuchlaiCollection as  $tmpProduct){ ?>         
+                  <div class="col-xs-12 col-sm-6 itemmenubox dinner"><div class="itemone" itemscope="">
+                <span class="icon-foodSymbol food-red food-adjust food-green"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/rwd/default/';?>images/vegicon.jpg" alt=""></span>
+                <div class="GaqmA"><div>
+                
+                <div class="btnright">
+                         <input type="checkbox" id="mughlai_<?php echo $tmpProduct->getEntityId();?>" name="dinner" value="<?php echo $tmpProduct->getName();?>"/>
+                </div> 
+             
+                
+                        <div class="itembox">
+                          <div class="itemname">
+                           <div class="itemproperty" itemprop="name"><?php echo $tmpProduct->getName();?><br/>
+                             <small><?php echo $tmpProduct->getShortDescription();?></small>
+                           </div>
+                         </div>
+                        </div>
+                     </div>
+                     </div>
+                    </div>
+                   </div>
+               
+              <?php } } else{ ?> <div class="noitemfound"> No Mughlai item for Today  </div> <?php } ?>
+    </div>   
+    <div class="demo2"  style="display:none;">
+       <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12"><h4 style="font-size: 16px;color: #000;">Indian</h4>
+                </div>
+    <?php 
+         
+          $dinnerIndianCollection = Mage::getModel('catalog/product')->getCollection()
+       			 ->addAttributeToSelect('*')
+						 ->addCategoryFilter($dinnerCategory)
+						  ->addAttributeToFilter('menudaystr',$menuday)
+						  ->addAttributeToFilter('menusubtypestr', array('like' => '%Indian%'))
+			 			 ->addAttributeToFilter('status', 1);	 
+         if(count($dinnerIndianCollection) > 0){
+         foreach($dinnerIndianCollection as  $tmpProduct){ ?>         
+                  <div class="col-xs-12 col-sm-6 itemmenubox dinner"><div class="itemone" itemscope="">
+                <span class="icon-foodSymbol food-red food-adjust food-green"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/rwd/default/';?>images/vegicon.jpg" alt=""></span>
+                <div class="GaqmA"><div>
+                
+                <div class="btnright">
+                         <input type="checkbox" id="indian_<?php echo $tmpProduct->getEntityId();?>" name="dinner" value="<?php echo $tmpProduct->getName();?>"/>
+                </div> 
+             
+                
+                        <div class="itembox">
+                          <div class="itemname">
+                           <div class="itemproperty" itemprop="name"><?php echo $tmpProduct->getName();?><br/>
+                             <small><?php echo $tmpProduct->getShortDescription();?></small>
+                           </div>
+                         </div>
+                        </div>
+                     </div>
+                     </div>
+                    </div>
+                   </div>
+               
+                  <?php } } else{ ?><div class="noitemfound"> No Indian item for Today  </div> <?php } ?>   
+   </div>
+   
+     <div class="demo3" style="display:none;">
+      <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12"><h4 style="font-size: 16px;color: #000;">Italian</h4>
+                </div>
+   <?php 
+         $dinnerItalianCollection = Mage::getModel('catalog/product')->getCollection()
+       			 ->addAttributeToSelect('*')
+						 ->addCategoryFilter($dinnerCategory)
+						  ->addAttributeToFilter('menudaystr',$menuday)
+						  ->addAttributeToFilter('menusubtypestr', array('like' => '%Italian%'))
+			 			 ->addAttributeToFilter('status', 1);
+
+         if(count($dinnerItalianCollection) > 0){    
+         foreach($dinnerItalianCollection as  $tmpProduct){ ?>         
+                  <div class="col-xs-12 col-sm-6 itemmenubox dinner"><div class="itemone" itemscope="">
+                <span class="icon-foodSymbol food-red food-adjust food-green"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/rwd/default/';?>images/vegicon.jpg" alt=""></span>
+                <div class="GaqmA"><div>
+                
+                <div class="btnright">
+                         <input type="checkbox" id="indian_<?php echo $tmpProduct->getEntityId();?>" name="dinner" value="<?php echo $tmpProduct->getName();?>"/>
+                </div> 
+             
+                
+                        <div class="itembox">
+                          <div class="itemname">
+                           <div class="itemproperty" itemprop="name"><?php echo $tmpProduct->getName();?><br/>
+                             <small><?php echo $tmpProduct->getShortDescription();?></small>
+                           </div>
+                         </div>
+                        </div>
+                     </div>
+                     </div>
+                    </div>
+                   </div>
+               
+              <?php } } else{ ?> <div class="noitemfound">No Italian item for Today  </div>  <?php } ?>   
+   
+   
+                  </div>
+  </div>
+            <p class="hrline"><small>Note: Condiments come standard (Beetroot chutney, Chatpata tomato & onion)</small></p>  
+              
+               <br/>
+                <div class="preference"><h4 style="font-size: 16px;color: #000;">Preference</h4>
+    <p class="col-xs-6 col-sm-6"><small>Extra Instructions</small></p><p class="col-xs-6 col-sm-6 p2"><small>List any special requests</small></p>
+    <textarea rows="4" cols="50" class="input-text customer-note"></textarea><br/>
+    <div class="ordererrordata" style="display: none;clear: both;text-align: center;color:#a21e3b;font-size:24px;font-weight: 600;">  </div>
+     <button type="button" class="button submit" onClick="callController()"><span>Submit</span></button> 
+           
+             </div>
+</div>
+  <!-- #tab1 -->
+  </form>
+  
+  </li>
+<?php } ?>

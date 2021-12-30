@@ -1,0 +1,219 @@
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+ 
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+	   $("#tooltip-1").tooltip();
+  } );
+  </script>
+<style>		
+	.col1-layout {
+    width: 100%;
+    margin-top: 7rem;
+    height: 100%;
+    margin-bottom: 1.5rem;
+	}
+	.col1-layout .col-main {
+    float: left;
+    width: 100%;
+    padding: 0;
+}
+		
+.ui-datepicker td {
+    border: 0;
+    padding: 1px;
+    width: 10%;
+}
+
+.hasDatepicker{
+	
+
+}
+
+@media print{
+.noprint {display:none;}
+}
+
+@media print {
+	.header-wrapper, .footer-container, .breadcrumbs{display:none;}
+	header, footer, .bck-btn{display:none;}
+	div.print-content article.node .node-blog 
+	.clearfix div.item-body p a {display: none;}
+	.noprint {  display:none;}
+	.col1-layout {margin-top:0; margin-bottom:2rem;}
+    @page {
+      size: A4; /* DIN A4 standard, Europe */
+      margin:0;
+    }
+    html, body {
+        width: 210mm;
+        /* height: 297mm; */
+        height: 282mm;
+        font-size: 11px;
+        background: #FFF;
+        overflow:visible;
+    }
+    body {
+        padding-top:15mm;
+    }
+}
+@media screen and (min-width:260px) and (max-width:760px){
+.hasDatepicker{
+	width: 100% !important;
+	max-width: 100%;
+	background: #f6fcfc;
+	height: 35px;
+	box-shadow: 0px 0px 2px rgba(0,0,0,0.3);
+	border: 0px;
+	float: left;
+	margin:10px auto;
+	}	
+}
+	.qty-wrapper{display: flex; flex-wrap: wrap; align-items: end; padding: 20px; width: 100%; box-sizing: border-box;}	
+	.qty-inner{width:calc(100% - 150px);}
+	.qty-inner label{display: inline-block; width:130px; height: 35px;line-height: 35px;}
+	.qty-inner select, .qty-inner input{
+		width:calc(100% - 135px);
+		background: #f6fcfc;
+		height: 35px;
+		box-shadow: 0px 0px 2px rgba(0,0,0,0.3);
+		border: 0px;
+		margin-bottom: 15px;
+		display: inline-block;
+	}
+	.qty-wrapper input[type="button"]{
+		margin: 0 auto 15px auto; width: 120px;	background: #0EB58F;
+		border: 1px solid #0EB58F; color: #fff; font-size: 14px;
+		height: 35px; line-height: 35px;
+	}
+	.qty_table{
+		border: 0; 	box-sizing: border-box;
+		padding-left: 20px; padding-top:10px; width:100%;
+		border: 1px solid #333;
+		border-collapse: collapse;
+	}
+	#resultTable{text-align:center;margin:0; padding:0; padding-bottom: 40px;}
+	#resultTable table{width:80%; margin: 0 auto; border:1px solid #333;}
+	#resultTable table td{padding: 10px 8px; border-bottom: 1px solid #333; text-align: left;}
+	#resultTable table tr td:first-child{
+		width:100px;
+		border-right: 1px solid #333;
+	}
+	#resultTable table tr td:nth-child(2){
+		border-right: 1px solid #333;
+		width:600px;
+	}
+	#resultTable table tr td:last-child{
+		border-bottom: 1px solid #333;
+	}
+	#resultTable input[name="print"]{
+		display: block;
+		width:100px;
+		height:40px;
+		text-align: center;
+		line-height: 40px;
+		margin: 5px auto;
+    	padding: 0;
+    	font-size: 16px;
+    	text-transform: capitalize;
+	}
+	table{      
+	margin-top: 30px;
+    margin: auto;
+	}	
+	
+	table td {	
+		border-collapse: collapse;
+	}
+
+
+
+</style>
+
+<div class="container">
+<table class="qty_table" align="center">
+  <tbody>     
+    <tr class="noprint">     
+      	<td style="margin:3px"> 
+      		<div class="qty-wrapper">
+      			<div class="qty-inner">
+      				<label class="select_label">Select City:</label>
+	        		<select id="city" name="city">
+			    		<option value="Delhi">Delhi</option>
+			    		<option value="Gurgaon">Gurgaon</option>
+			    		<option value="Pune">Pune</option>
+						<option value="Surat">Surat</option>
+					</select>
+
+	      			<label>Order Date:</label>		
+	      			<input type="text" id="datepicker">
+      			</div>
+      			<input type="button" value="Order Details" onClick="getOrderQuantity();">
+      		</div>
+      	</td>	  
+    </tr>
+
+    <tr>
+		
+    	<td id="resultTable">
+		
+		</td>
+			
+    </tr>   
+  </tbody>
+</table>
+</div>
+<script type="text/javascript">
+	//var jQuery = $.noConflict();
+function getOrderQuantity()	{		
+		var orderDate = jQuery("#datepicker").val();
+		var city = jQuery("#city").val();
+		if(orderDate!='')	{		
+			jQuery.ajax({
+				url: "<?php echo Mage::getBaseUrl().'heal/index/datewiseorderqty' ?>",
+				type: "POST",
+				data: {
+					orderDate: orderDate,
+					city:city
+					},
+					success: function(response)	 {  
+							//  alert(response);
+						jQuery("#resultTable").html(response);
+								
+					}
+			});
+		}
+		else
+		{
+				alert("Please select the date");
+		}
+	}
+	
+	
+	function showdiv(orderdate,productid,cuisine,divId)	{		
+		jQuery.ajax({
+			url: "<?php echo Mage::getBaseUrl().'heal/index/qtyorderwisedetail' ?>",
+			type: "POST",
+			data: {
+					orderdate: orderdate,
+					productid: productid,
+					cuisine: cuisine,
+					divId:divId
+				},
+				success: function(response)	 {  
+					jQuery("div."+divId).html(response);
+							 
+					if(jQuery("div."+divId).css('display') == 'block') {
+						jQuery("div."+divId).css('display', 'none');
+					} else if(jQuery("div."+divId).css('display') == 'none') {
+								jQuery("div."+divId).css('display', 'block');
+								}
+								
+						}
+			});		
+	}
+</script>
+

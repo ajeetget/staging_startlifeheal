@@ -1,0 +1,92 @@
+<?php @ob_start();
+   $msg='';
+   if(isset($_POST['submit']))
+   {
+	   
+	 //  echo 'shailesh'; die;
+    $client_called = $_POST['client_called']; // required
+    $client_date = date("d-m-Y"); // required
+    $client_time = date("h:i:sa"); // required
+	
+	
+    $food_meal_change = $_POST['food_meal_change']; //  required
+	$food_meal_why = $_POST['food_meal_why']; //  required
+	$food_meal_any = $_POST['food_meal_any']; //  required
+	
+    $eating_timing_change = $_POST['eating_timing_change']; // required
+	$eating_timing_why = $_POST['eating_timing_why']; // required
+	$eating_timing_any = $_POST['eating_timing_any']; // required
+	
+	
+	$exercise_change = $_POST['exercise_change']; // required
+	$exercise_why = $_POST['exercise_why']; // required
+	$exercise_any = $_POST['exercise_any']; // required
+	
+	$stress_change = $_POST['stress_change']; // required
+	$stress_why = $_POST['stress_why']; // required
+	$stress_any = $_POST['stress_any']; // required
+	
+	$email_from = "team@gmail.com";
+	$email_to = "junior@lifeheal.in";
+    $email_subject = "Nutritionist Call Recorder";
+ 
+    $email_message .= "Client Name: ".trim($client_called)."\n";
+    $email_message .= "Date: ".trim($client_date)."\n";
+    $email_message .= "Time: ".trim($client_time)."\n";
+	
+	$email_message .= "Food Change Suggested: ".trim($food_meal_change)."\n";
+	$email_message .= "Why: ".trim($food_meal_why)."\n";
+	$email_message .= "Other Notes: ".trim($food_meal_any)."\n";
+		
+    $email_message .= "Eating Time/Fasting Changes: ".trim($eating_timing_change)."\n";
+	$email_message .= "Why: ".trim($eating_timing_why)."\n";
+	$email_message .= "Other Notes: ".trim($eating_timing_any)."\n";
+		
+	$email_message .= "Exercise Changes Suggested: ".trim($exercise_change)."\n";
+	$email_message .= "Why: ".trim($exercise_why)."\n";
+	$email_message .= "Other Notes: ".trim($exercise_any)."\n";
+	
+	
+    $email_message .= "Sleep/Stress Changes: ".trim($stress_change)."\n";
+	$email_message .= "Why: ".trim($stress_why)."\n";
+	$email_message .= "Other Notes: ".trim($stress_any)."\n";
+	
+	//echo $email_message; die;
+// create email headers
+$headers = 'From: '.$email_from."\r\n".
+'Reply-To: '.$email_to."\r\n" .
+'X-Mailer: PHP/' . phpversion();
+@mail($email_to, $email_subject, $email_message, $headers); 
+ $msg= '<div class="thankyoumsg"><p>Thanks for contacting us</p></div>';
+
+   }
+   
+  
+?>
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+</head>
+
+<body>
+	<style>
+		.thankyoumsg{width: 100%;float: left;position: absolute;height: 100%;top: 0;left: 0;}
+	.thankyoumsg p{position: fixed;
+top: 40%;
+width:50%;
+float: none;
+margin: auto;
+left: 25%;
+background: #40b8b9;
+color: #fff;
+text-align: center;
+padding: 5px 10px;
+font-size: 1.5em;
+text-transform: uppercase;
+font-weight: bold;}
+	</style>
+	<div class="thankyoumsg"><p>Thanks for contacting us</p></div>
+</body>
+</html>

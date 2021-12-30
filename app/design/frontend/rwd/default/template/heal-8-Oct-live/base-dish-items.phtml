@@ -1,0 +1,564 @@
+<style type="text/css">
+
+		.col1-layout{margin-top:7rem;margin-bottom:2rem;width:100%; height:100%;}
+	
+.loader {
+  position: fixed;
+  left: 40%;
+  top: 50%;
+  z-index: 9999;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #0eb58f;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+.base-inner{
+	margin: 80px 0 30px 0;
+	background: #269a9b;
+	box-sizing: border-box;
+	padding: 30px;
+}
+.base-content{
+	background: #fff;
+	box-sizing: border-box;
+	padding: 20px;
+}
+.breadcrumbs {
+	position: absolute;
+	top:30px;
+}
+.base-content table{
+	width:100%;
+}
+.base-content table tr td{
+padding: 6px 10px;
+}
+.base-content table tr td:nth-child(2){
+width: 58%;
+padding: 6px 25px 6px 10px;
+}
+.base-select{
+	width: 60%;
+margin: 0 auto 35px auto;
+}
+.selectmybase{
+	position: relative;
+	width: 100%;
+	background: #fff;
+    border: 1px solid #bbbbbb;
+    border-right: 0;
+    height: 45px;    
+}
+.selectmybase::before {
+    content: '';
+    position: absolute;
+    height: 45px;
+    width: 40px;
+    right: 0;
+    background: #0eb58f;
+    border: 1px solid #0eb58f;
+    z-index: 5;
+}
+.selectmybase::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    right: 12px;
+    z-index: 5;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #fff;
+}
+.selectmybase select {
+    width: 100%;
+    height: 45px;
+    margin: 0 0 1.3rem 0;
+    box-sizing: border-box;
+    padding: 0 15px;
+    border: 0;
+    outline: none;
+    background: transparent;
+    position: relative;
+    z-index: 10;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    position: relative;
+    cursor: pointer;
+}
+	@media print
+{
+	.header-wrapper, .footer-container, .breadcrumbs, .bck-btn{display:none;}
+	header, footer{display:none;}
+	
+.noprint {display:none;}
+}
+
+@media print {
+	.header-wrapper, .footer-container, .breadcrumbs{display:none;}
+	header, footer, .bck-btn{display:none;}
+	 div.print-content article.node .node-blog .clearfix div.item-body p a {
+    display: none;}
+    @page {
+      size: A4; /* DIN A4 standard, Europe */
+      margin:0;
+		font-size:10pt;
+    }
+    html, body {
+       /* width: 210mm;
+         height: 297mm;
+        height: 282mm; */
+        
+        background: #FFF;
+        overflow:visible;
+    }
+    
+		}
+</style>
+       
+<?php  $item=$_GET['item'];		
+	$bSelected ='';
+	$dSelected ='';
+	$d100Selected ='';
+	if(!isset($item) || (isset($item) && $item=='base'))	{          
+       $bSelected ='selected';
+	   $dSelected ='';
+	   $d100Selected='';
+	}	
+	
+    if(isset($item) && $item=='dish')	{          
+       $bSelected ='';
+	   $dSelected ='selected';
+	   $d100Selected='';
+	}
+	
+	if(isset($item) && $item=='dish100gm')	{          
+       $bSelected ='';
+	   $dSelected ='';
+	   $d100Selected='selected';
+	}
+
+   ?>
+						
+<script type="text/javascript">
+function setItem(item)
+{ var baseUrl = window.location.origin;
+  var fileName = 'base-dish-items'; 
+	window.location = baseUrl+"/"+fileName+"?item="+item; return;
+}
+</script>						
+
+<div class="container">
+	<div class="base-inner">
+		<div class="base-content">						
+			<div class="base-select">
+				<label>Select Base Items or Dish Items</label>
+				<div class="selectmybase">
+					<select id="allitemslist"  onchange="setItem(this.value)"></div>';
+				  		<option value="base" <?php echo $bSelected;?>>Base Items</option>
+				  		<option value="dish" <?php echo $dSelected;?>>Dish Items</option>
+						<option value="dish100gm" <?php echo $d100Selected;?>>Dish Price Of 100 Gm</option>
+					</select>
+				</div>
+			</div>
+<!--Start  Base Items Collection -->
+
+<?php if(!isset($item) || (isset($item) && $item=='base'))
+	{   
+
+       $baseItemCollection = Mage::getModel('catalog/product')
+                        ->getCollection()
+						 ->addAttributeToSelect(array('entity_id','name','sku','is_base_item'))
+                        ->addAttributeToSort('name', 'asc')
+                       	->addAttributeToFilter('is_base_item', '1')
+						->addAttributeToFilter('status', '1')
+                        ->load();
+	 // echo "No Of Base Items".sizeof($baseItemCollection); echo "<br>";
+	
+	  ?>
+	  <table  border=0 >
+	  <tr><th>S.No</th><th>Name</th><th>Price Per Kg</th></tr>
+	  <?php 
+	  $count=0;
+	  
+       foreach($baseItemCollection as $tmpProduct)
+        { 
+		    $product= Mage::getModel("catalog/product")->load($tmpProduct->getEntityId());
+			$itemType='';
+			if(is_object($product)  )
+			{   ++$count;
+		        $bgcolor='';
+		        if($count%2==0){ $bgcolor="style='background-color:#eeefff'";}
+		        $weight=0;
+		        $name       = $product->getName()."&nbsp;&nbsp;(".$product->getSku().")";
+				$tmpBaseQty = $product->getBaseQty();
+				$baseItemUOM  = $product->getBaseUom();
+						$defaultUOM='';
+						if($baseItemUOM=='Kgs')
+						{$defaultUOM = 'gm';}
+					    else if($baseItemUOM=='Lt')
+						{$defaultUOM = 'ml';}
+					
+				if(isset($tmpBaseQty))
+				{
+                  $weight                = ($tmpBaseQty*1000);
+				}
+                $basePriceAfterWastage = $product->getBasePriceAfterWastage();				
+				?>
+		        <tr <?php echo $bgcolor;?>>
+				    <td><?php echo $count;?></td>
+					<td><?php echo $name;?></td>
+					<?php /*<td><?php echo round($weight,1)." (".$defaultUOM.")";?></td> */?>
+					<td><?php echo round($basePriceAfterWastage,1);?></td>
+				</tr>
+				
+			<?php
+			}
+		}
+		?>
+		</table>
+	  <?php 	
+	}	
+	?>
+<!--End  Base Items Collection -->
+
+<!--Start  Dish Items Collection -->
+
+<?php if( isset($item) && $item=='dish')
+	{   
+
+       $dishItemCollection = 	Mage::getModel('catalog/product')
+                        ->getCollection()
+						 ->addAttributeToSelect(array('entity_id','name','sku','base_associated_sku'))
+                        ->addAttributeToSort('name', 'asc')
+						->addAttributeToFilter('base_associated_sku', array('neq' => ''))
+						->addAttributeToFilter('complete_dish', 1)
+						->addAttributeToFilter('status', '1')
+                        ->load();
+			//echo "No Of Dish Items=".sizeof($dishItemCollection); echo "<br>";	
+
+	
+	  ?>
+	  <table border=0 >
+	  <tr><th>S.No</th><th>Name</th><th>Weight(Gm/Ml)</th><th>Price</th></tr>
+	  <?php 
+	  $count=0;
+	  
+       foreach($dishItemCollection as $tmpProduct)
+        { 
+		    $product= Mage::getModel("catalog/product")->load($tmpProduct->getEntityId());
+			
+			
+			
+			
+			$itemType='';
+			if(is_object($product)  )
+			{   ++$count;
+		        $bgcolor='';
+		        if($count%2==0){ $bgcolor="style='background-color:#eeefff'";}
+		        $weight=0;
+		        $name       = $product->getName()."&nbsp;&nbsp;(".$product->getSku().")";
+				 // $name       = $product->getSku();
+				$baseAssociatedSkus='';
+			    $totalWeight=0;
+			    $totalPrice=0;
+			    $defaultUOM = 'gm';
+			
+			   $baseAssociatedSkus =  $product->getBaseAssociatedSku(); 
+			 if($baseAssociatedSkus!='')
+	         {
+		        $baseAssociatedSkuWeightArray = explode(",",$baseAssociatedSkus);
+				if(sizeof($baseAssociatedSkuWeightArray)>0)
+				{
+					///////////////////////Start Calculate Total Weight And Price //////////////////
+					  
+					   foreach($baseAssociatedSkuWeightArray as $key =>$value)
+						{
+											$baseSku ='';
+											$baseItemQty='';
+											$basePriceBeforeWastage=0;
+											$baseWastage=0;
+											$baseWastagePrice=0;
+											$basePriceAfterWastage=0;
+											
+											$skuWeightArray = explode("_",$value);
+											
+											$countRow++;
+											
+											if(sizeof($skuWeightArray)==3)
+											{
+											  $baseSku        =  $skuWeightArray[0];
+											}
+											else
+											{
+												$baseSku = $value;
+											}
+											
+											$baseProduct        = Mage::getModel('catalog/product')->loadByAttribute("sku",$baseSku);
+											
+											if(is_object($baseProduct))
+											{
+											
+											$defaultBaseItemQty    = $baseProduct->getBaseQty()*1000;
+											$baseItemUOM  = $baseProduct->getBaseUom();
+											
+											if($baseItemUOM=='Kgs')
+											{$defaultUOM = 'gm';}
+											else if($baseItemUOM=='Lt')
+											{$defaultUOM = 'ml';}
+										
+															
+											
+											$defaultBasePriceBeforeWastage = $baseProduct->getBasePrice1kg();
+											$defaultBaseWastagePercent = $baseProduct->getBaseWastagePercent();
+											$defaultBaseWastePrice = ($baseProduct->getBasePrice1kg() * $defaultBaseWastagePercent ) /100;
+											$defaultBasePriceAfterWastage = $baseProduct->getBasePriceAfterWastage();
+											
+																
+											$tmpWastagePercent = $baseProduct->getBaseWastagePercent();
+											$baseWastagePercent = (isset($tmpWastagePercent) && ($tmpWastagePercent>0)) ?$tmpWastagePercent:'N/a';
+											
+											
+										
+											
+											//echo "Size =".sizeof($skuWeightArray);
+											if(sizeof($skuWeightArray)==3)
+											{
+												$customQtyValue           = $skuWeightArray[1];
+												$unitOfMeasure            = $skuWeightArray[2];
+																   
+										
+											  if(strtolower($unitOfMeasure) == 'gm' || strtolower($unitOfMeasure) == 'ml' )
+											  { $baseItemQty    =   $customQtyValue  ;  }
+																   
+											   if(isset($defaultBasePriceBeforeWastage) && $defaultBasePriceBeforeWastage>0)
+											   {
+																			   
+												 $basePriceBeforeWastage =   ($defaultBasePriceBeforeWastage/1000) * $baseItemQty;
+												
+											   }
+											   
+																   
+											   
+											   $basePriceAfterWastage =  ( $defaultBasePriceAfterWastage/1000) * $baseItemQty;
+											  
+											   
+											}
+											else
+											{
+												
+												$baseItemQty           = $baseProduct->getBaseQty()*1000;
+												$basePriceAfterWastage = $baseProduct->getBasePriceAfterWastage();
+												
+											}
+											
+											
+											//echo $baseItemQty; echo "<br>";
+											$totalWeight+=  $baseItemQty;
+											$totalPrice+=   $basePriceAfterWastage;
+											
+											$baseItemName  = $baseProduct->getName();
+												
+											
+									   
+										  
+									}
+								}
+					
+					///////////////////////End Calculate Total Weight And Price //////////////////
+				}
+			 }			
+				?>
+		        <tr <?php echo $bgcolor;?>>
+				    <td><?php echo $count;?></td>
+					<td><?php echo $name;?></td>
+					<td><?php echo round($totalWeight,1)." (".$defaultUOM.")";?></td>
+					<td><?php echo round($totalPrice,1);?></td>
+				</tr>
+				
+			<?php
+			}
+		}
+		?>
+		</table>
+	  <?php 	
+	}
+
+
+    if( isset($item) && $item=='dish100gm')
+	{ 
+$dishItemCollection = 	Mage::getModel('catalog/product')
+                        ->getCollection()
+						 ->addAttributeToSelect(array('entity_id','name','sku','base_associated_sku'))
+                        ->addAttributeToSort('name', 'asc')
+						->addAttributeToFilter('base_associated_sku', array('neq' => ''))
+						->addAttributeToFilter('complete_dish', 1)
+						->addAttributeToFilter('status', '1')
+                        ->load();
+			//echo "--------------dish  Item Collection=".sizeof($dishItemCollection); echo "<br>";	
+
+	
+	  ?>
+	  <table border=0 >
+	  <tr><th>S.No</th><th>Name</th><th>Weight(Gm/Ml)</th><th>Price</th></tr>
+	  <?php 
+	  $count=0;
+	  
+       foreach($dishItemCollection as $tmpProduct)
+        { 
+		    $product= Mage::getModel("catalog/product")->load($tmpProduct->getEntityId());
+			
+			
+			
+			
+			$itemType='';
+			if(is_object($product)  )
+			{   ++$count;
+		        $bgcolor='';
+		        if($count%2==0){ $bgcolor="style='background-color:#eeefff'";}
+		        $weight=0;
+		        $name       = $product->getName()."&nbsp;&nbsp;(".$product->getSku().")";
+				
+				$baseAssociatedSkus='';
+			    $totalWeight=0;
+			    $totalPrice=0;
+			    $defaultUOM = 'gm';
+			
+			   $baseAssociatedSkus =  $product->getBaseAssociatedSku(); 
+			   $hundredGmPrice=0;
+			   
+			 if($baseAssociatedSkus!='')
+	         {
+		        $baseAssociatedSkuWeightArray = explode(",",$baseAssociatedSkus);
+				if(sizeof($baseAssociatedSkuWeightArray)>0)
+				{
+					///////////////////////Start Calculate Total Weight And Price //////////////////
+					  
+					   foreach($baseAssociatedSkuWeightArray as $key =>$value)
+						{
+											$baseSku ='';
+											$baseItemQty='';
+											$basePriceBeforeWastage=0;
+											$baseWastage=0;
+											$baseWastagePrice=0;
+											$basePriceAfterWastage=0;
+											
+											$skuWeightArray = explode("_",$value);
+											
+											$countRow++;
+											
+											if(sizeof($skuWeightArray)==3)
+											{
+											  $baseSku        =  $skuWeightArray[0];
+											}
+											else
+											{
+												$baseSku = $value;
+											}
+											
+											$baseProduct        = Mage::getModel('catalog/product')->loadByAttribute("sku",$baseSku);
+											
+											if(is_object($baseProduct))
+											{
+											
+											$defaultBaseItemQty    = $baseProduct->getBaseQty()*1000;
+											$baseItemUOM  = $baseProduct->getBaseUom();
+											
+											if($baseItemUOM=='Kgs')
+											{$defaultUOM = 'gm';}
+											else if($baseItemUOM=='Lt')
+											{$defaultUOM = 'ml';}
+										
+															
+											
+											$defaultBasePriceBeforeWastage = $baseProduct->getBasePrice1kg();
+											$defaultBaseWastagePercent = $baseProduct->getBaseWastagePercent();
+											$defaultBaseWastePrice = ($baseProduct->getBasePrice1kg() * $defaultBaseWastagePercent ) /100;
+											$defaultBasePriceAfterWastage = $baseProduct->getBasePriceAfterWastage();
+											
+																
+											$tmpWastagePercent = $baseProduct->getBaseWastagePercent();
+											$baseWastagePercent = (isset($tmpWastagePercent) && ($tmpWastagePercent>0)) ?$tmpWastagePercent:'N/a';
+											
+											
+										
+											
+											//echo "Size =".sizeof($skuWeightArray);
+											if(sizeof($skuWeightArray)==3)
+											{
+												$customQtyValue           = $skuWeightArray[1];
+												$unitOfMeasure            = $skuWeightArray[2];
+																   
+										
+											  if(strtolower($unitOfMeasure) == 'gm' || strtolower($unitOfMeasure) == 'ml' )
+											  { $baseItemQty    =   $customQtyValue  ;  }
+																   
+											   if(isset($defaultBasePriceBeforeWastage) && $defaultBasePriceBeforeWastage>0)
+											   {
+																			   
+												 $basePriceBeforeWastage =   ($defaultBasePriceBeforeWastage/1000) * $baseItemQty;
+												
+											   }
+											   
+																   
+											   
+											   $basePriceAfterWastage =  ( $defaultBasePriceAfterWastage/1000) * $baseItemQty;
+											  
+											   
+											}
+											else
+											{
+												
+												$baseItemQty           = $baseProduct->getBaseQty()*1000;
+												$basePriceAfterWastage = $baseProduct->getBasePriceAfterWastage();
+												
+											}
+											
+											
+											//echo $baseItemQty; echo "<br>";
+											$totalWeight+=  $baseItemQty;
+											$totalPrice+=   $basePriceAfterWastage;
+											
+											$baseItemName  = $baseProduct->getName();
+												
+											
+									   
+										  
+									}
+								}
+					
+					///////////////////////End Calculate Total Weight And Price //////////////////
+				}
+			 }	
+
+              if($totalPrice>0)
+			  {
+				  $hundredGmPrice= round(($totalPrice/$totalWeight)*100,2);
+				  $totalWeight = 100;
+			  }
+ 			 
+				?>
+		        <tr <?php echo $bgcolor;?>>
+				    <td><?php echo $count;?></td>
+					<td><?php echo $name;?></td>
+					<td><?php echo round($totalWeight,1)." (".$defaultUOM.")";?></td>
+					<td><?php echo round($hundredGmPrice,1);?></td>
+				</tr>
+				
+			<?php
+			}
+		}
+		?>
+		</table>
+	<?php }
+	?>
+	</div>
+</div>
+<!--End  Dish Items Collection -->
+
+

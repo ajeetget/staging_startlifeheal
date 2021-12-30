@@ -1,0 +1,299 @@
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+ 
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+	   $("#tooltip-1").tooltip();
+  } );
+  </script>
+	<style>
+		@media print
+{
+	.header-wrapper, .footer-container, .breadcrumbs, .bck-btn{display:none;}
+	header, footer{display:none;}
+	
+.noprint {display:none;}
+}
+
+@media print {
+	.header-wrapper, .footer-container, .breadcrumbs{display:none;}
+	header, footer, .bck-btn{display:none;}
+	 div.print-content article.node .node-blog .clearfix div.item-body p a {
+    display: none;}
+    @page {
+      size: A4; /* DIN A4 standard, Europe */
+      margin:0;
+		font-size:10pt;
+    }
+    html, body {
+       /* width: 210mm;
+         height: 297mm;
+        height: 282mm; */
+        
+        background: #FFF;
+        overflow:visible;
+    }
+    
+		}
+	.main{  
+	width: 100%;   
+    margin-top:8rem;
+    height:100%;
+    margin-bottom: 2rem;
+	}
+	.col1-layout .col-main {
+    float: left;
+    width: 100%;
+    padding: 0;
+}
+		table{  
+					margin-top: 30px;
+		}	
+		
+		#resultTable table tbody{float:left; width:100%;}
+	table td {
+    border-top: thin solid; 
+    border-bottom: thin solid;
+	padding-left: 10px;
+	padding-right: 10px;
+	width:80%;
+	text-align:left;
+}
+.ui-datepicker td {
+    border: 0;
+    padding: 1px;
+    width: 10%;
+}
+table td:first-child {
+     border-left: thin solid;
+	padding-left: 10px;
+	padding-right: 10px;
+	width: 10%;
+}
+		#resultTable table tr{width: 100%;
+float: left;
+border: 1px solid beige;
+padding: 10px;}
+		 #resultTable table tr th{width:33%; float:left;}
+		#resultTable table tr td{width:33% !important; float:left;padding:0px; border:0px;}
+table td:last-child {
+     border-right: thin solid;
+	padding-left: 10px;
+	padding-right: 10px;
+	    padding: 10px;
+		width: 10%;
+}
+.hasDatepicker{
+
+max-width: 100%;
+
+background: #f6fcfc;
+
+height: 35px;
+
+box-shadow: 0px 0px 2px rgba(0,0,0,0.3);
+
+border: 0px;
+width: 70% !important;
+float: left;
+margin:10px;
+margin-right: 15px;}
+
+
+@media print 
+{
+    
+    body {
+        padding-top:15mm;
+    }
+}
+@media screen and (min-width:260px) and (max-width:760px){
+.hasDatepicker{
+
+
+
+background: #f6fcfc;
+
+height: 35px;
+
+box-shadow: 0px 0px 2px rgba(0,0,0,0.3);
+
+border: 0px;
+
+float: left;
+margin:10px auto;}	
+}
+		
+	</style>
+<?php 
+	  $countCustomer=0;
+	  $cuisineResult='';
+	  if(isset($_POST['datesubmit']))
+	  {
+	
+		$params      = $this->getRequest()->getParams(); 
+		$orderdate   = $params['orderDate'];
+		$dateInfo = explode("/",$orderdate);
+		
+		$tmpOrderdateToShow = $dateInfo[2]."-".$dateInfo[0]."-".$dateInfo[1];	
+		 $month = date("M",strtotime($tmpOrderdateToShow));
+		 $orderdateToShow = $dateInfo[1]."-".$month."-".$dateInfo[2];
+		
+		
+		$dbRead      = Mage::getSingleton('core/resource')->getConnection('core_read');
+		$selectDatewiseOrders= "select * from healorder where orderdate='$orderdate'"; 
+		$cuisineResult = $dbRead->fetchAll($selectDatewiseOrders);
+		
+	  }
+			
+?>
+<div class="container">
+<form action="<?php echo Mage::getBaseUrl();?>customer-allergy" method="POST">
+<table border="1" align="center" style="padding-left: 20px;padding-top:10px;" width="100%"><!--margin: 25px;margin-right: 50px -->
+  <tbody>
+    <tr class="noprint">
+     
+      <td style="margin:3px"> <p style="margin-bottom: 0px;float: left;width: 100%;">
+      <span style="width:auto;float: left;height: 35px;line-height: 35px;margin:10px auto;">Order Date:</span>
+      <input type="text" id="datepicker" name="orderDate">
+      <input name="datesubmit" type="submit" value="Get Customer Allergy & Dislike"  style="margin: 10px auto;padding: 0px 10px;background: #0EB58F;border: 1px solid #0EB58F;color: #fff;font-size: 14px;height: 35px;width:auto;line-height: 35px;float: left;"> </button>
+	  <?php if($cuisineResult!='' && count($cuisineResult)>0) {?>
+	 &nbsp;&nbsp; <input type="button" name="print" value="Print" onclick="window.print();" class="printbtnid" style="margin: 10px 4px;padding: 0px 10px;background: #0EB58F;border: 1px solid #0EB58F;color: #fff;font-size: 14px;height: 35px;width:auto;line-height: 35px;float: left;" />
+	  <?php }?>
+	  
+	  </p></td>
+	  
+    </tr>
+    <tr class="print">
+		
+      <td  id="resultTable" style="text-align:center;margin-left:0px;padding-left:10px;padding-bottom: 34px;">
+	  
+	  <?php
+
+      if(isset($_POST['datesubmit']))
+	  {
+	
+		/*$params      = $this->getRequest()->getParams(); 
+		$orderdate   = $params['orderDate'];
+		$dateInfo = explode("/",$orderdate);
+		
+		$tmpOrderdateToShow = $dateInfo[2]."-".$dateInfo[0]."-".$dateInfo[1];	
+		 $month = date("M",strtotime($tmpOrderdateToShow));
+		 $orderdateToShow = $dateInfo[1]."-".$month."-".$dateInfo[2];
+		
+		
+		$dbRead      = Mage::getSingleton('core/resource')->getConnection('core_read');
+		$selectDatewiseOrders= "select * from healorder where orderdate='$orderdate'"; 
+		$cuisineResult = $dbRead->fetchAll($selectDatewiseOrders);*/
+		$orderResult = '';
+		$result = '';
+		$orderItemsArray = array();
+		
+		
+		$customerListArray = array();
+		$tmpCustomerListArray = array();
+		if(count($cuisineResult)>0)
+		{
+			$cuisineItemsDesc = array();
+			
+			foreach($cuisineResult as $row)
+			{
+			  $orderId               =  $row['id'];	
+			  $customerEmail = $row['email']; 
+      
+	          $customer='';
+			  $customer = Mage::getModel("customer/customer"); 
+			  $customer->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
+			  $customer->loadByEmail($customerEmail);
+			  $customerName = 	str_replace("Dear "," ",$customer->getFirstname()." ".$customer->getLastname());
+			  $customerId = $customer->getEntityId();
+			  $mobileNo = $customer->getPrimarymobileno();
+			  
+			  if(!in_array($customerId,$tmpCustomerListArray))
+			  {
+				  $customerListArray[$customerName] = array($customerId,$customerName,$mobileNo);
+			  }
+
+			
+			}
+			$countCustomer = count($customerListArray);
+			ksort($customerListArray);
+		
+			echo '<div><strong>Order Date: '.$orderdateToShow.'</strong></div>';
+			
+			
+			
+				
+			
+			if($countCustomer>0)
+			{
+			   	 
+			?>	
+			<table cellpadding="2" cellspacing="2" width="100%"  >
+			 <tr><th>Customer Name</th><th>Allergy</th><th>Dislike</th></tr>
+			 <?php foreach($customerListArray as $key=>$value)
+			 {
+				$customerId   = $value[0];  
+				$customerName = $value[1];
+				$allergyStr ='';
+				$dislikeStr ='';
+				$mobileNo     = $value[2];
+				$allergyArray = array();
+				$dislikeArray = array();
+				 $query = "SELECT * FROM `heal_order_review` WHERE `customerid` = '".$customerId."'";
+		        $customerResult = $dbRead->fetchAll($query);
+				if(count($customerResult)>0)
+				{ 
+				  foreach($customerResult as $customerRow)
+				  {
+					 $allergy = $customerRow['allergies'];
+					 $dislikename = $customerRow['dislikename'];
+					if(isset($allergy) && $allergy!='')
+					{
+                      $allergyArray[]	= strtolower(trim($allergy));	
+					}	
+                    if(isset($dislikename) && $dislikename!='')
+					{
+                      $dislikeArray[]	= strtolower(trim($dislikename));	
+					}						
+				  }
+				  
+				  if(count($allergyArray)>0){ $allergyStr = implode(",",$allergyArray);    }
+				  if(count($dislikeArray)>0){ $dislikeStr = implode(",",$dislikeArray);    }
+				}
+				?>
+				<tr><td><?php echo $customerName;?></td><td><?php echo $allergyStr;?></td><td><?php echo $dislikeStr;?></td></tr>
+				<?php
+				
+			 }	
+              ?>			 
+			</table>
+			
+			  
+		   <?php  }
+			
+		}
+		else
+		{
+		   $result='There is no customer data of '.$orderdate;
+		   echo $result;
+		}	 
+			
+			
+		
+	
+}	
+	  ?>
+	  
+	  </td>
+			
+    </tr>
+   
+   
+  </tbody>
+</table>
+</form>
+</div>

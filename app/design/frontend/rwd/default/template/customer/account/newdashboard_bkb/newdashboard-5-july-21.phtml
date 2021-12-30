@@ -1,0 +1,1755 @@
+<?php 
+function getPreviousData($customerIdForRetrieval,$mobileNo,$testName,$currentDate,$con) {	
+	   $sql = "SELECT * FROM patientintakeform where custid='".$customerIdForRetrieval."' and mobileNo='".$mobileNo."'  and  ".$testName." !='' and DATEDIFF(date,'".$currentDate."') < 120 ORDER BY date DESC limit 1";
+       /*echo "testName = ". $testName;
+       if($testName=="sgot"){
+        echo $sql; 
+       }*/	  
+	  $result = mysqli_query($con, $sql);
+	  $num_rows = mysqli_num_rows($result);
+	  $testValue ='';
+	  if($num_rows==1) {
+			while($row = mysqli_fetch_array($result)){   
+				$testValue = $row[$testName];
+			} 
+	  }	  
+	  return  $testValue; 
+}
+
+$heart_db_tests =['hscrp','triglycerides','hdl','ldl','homocysteine'];
+$heart_unit =['mg/L','mg/dL','mg/dL','mg/dL','mcmol/L'];
+
+$Pancreas_db_tests =['hba1c','homa','waist','fasting_glucose'];
+$Pancreas_unit =['%','unit','W/H','mg/dL'];
+
+$liver_db_tests =['sgot','sgpt','bilirubin','fattyliverultrasound','fattyliverfirbscan','fattyliverescore'];
+$liver_unit =['U/l','U/l','mg/dL','unit','dB/m','kPa'];
+
+$kidney_db_tests =['creatinine','urea','sodium','potassium','uricacid'];
+$kidney_unit =['mg/dL','mg/dL','mEq/L','mmol/L','mg/dL'];
+
+$eye_db_tests =['hba1c','bp_systolic','waist','hscrp'];
+$eye_unit =['%','mmHg','W/H','mg/L'];
+
+$longevity_db_tests =['hba1c','hscrp','homa'];
+$longevity_unit =['%','mg/L','mg/L'];
+
+$thyroid_db_tests =[];
+$thyroid_unit =[];
+
+$pcod_db_tests =[];
+$pcod_unit =[];
+
+$bp_systolicdata =[];
+$alldates = [];
+$hba1cdata = [];    
+$homadata= [];
+$waistdata = [];
+$fasting_glucosedata = [];
+$ppsugardata = [];
+$allliverid= [];
+$allliverdata=[]; 
+$allliverdate=[]; 
+
+$heart =[];
+$Pancreas =[];
+$liver =[];
+$kidney =[];
+$eye =[];
+$longevity =[];
+$thyroid =[];
+$pcod =[];
+$datearr =[];
+
+$weightdata =[];
+$weightdate =[];
+$waistdata =[];
+$waistdate =[];
+
+$LoggedIncustomer = Mage::helper('customer')->getCustomer();
+$custId = $LoggedIncustomer->getId();
+$customerName = $LoggedIncustomer->getFirstname();
+$mobileNo = $LoggedIncustomer->getPrimarymobileno();
+$config  = Mage::getConfig()->getResourceConnectionConfig("default_setup");
+$dbinfo = array("host" => $config->host,"user" => $config->username,"pass" => $config->password,"dbname" => $config->dbname);
+$groupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
+    
+$host      = $dbinfo["host"];
+$username  = $dbinfo["user"];
+$password  = $dbinfo["pass"];
+$dbname    = $dbinfo["dbname"]; 
+  
+$con = mysqli_connect($host  , $username,  $password ,$dbname);
+  if ($mysqli -> connect_errno) {
+  	echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
+  	exit();
+	}
+if($groupId == 4 || $groupId == 5){    
+    $sql_str = "SELECT DISTINCT custid, name, mobileno FROM patientintakeform  WHERE custid !='' and name !='' and mobileno !='' ORDER BY name ASC";
+    $customerCollection = mysqli_query($con, $sql_str);
+    $customerLi='';
+    foreach($customerCollection as $custinfo) {
+        $customerId = $custinfo['custid'];
+		$customer = Mage::getModel('customer/customer')->load($customerId);
+		$customerMealstatus = $customer->getMealstatus();
+        $customerName =  $custinfo['name'];
+        $mobileNo = $custinfo['mobileno']; 
+        $customerName = str_replace("Dear ","",$customerName); 
+        $customerName = str_replace("Dr.","",$customerName);      
+		 if($customerMealstatus==1){      
+        $customerLi.='<li id="'.$customerId.'" value="'.$customerId.'" onclick="showReportbtn('.$customerId.','.$mobileNo.')">'.$customerName.'<span class="csmall">'.$customerId.'</span></li>';
+		 }
+    } 
+
+    if(isset($_GET["custid"])) {
+        $gcustid = $_GET["custid"];		
+        $gmno = $_GET["mno"];
+        $customerIdForRetrieval = $gcustid;
+        $customerMobileForRetrieval = $gmno;
+        $today = date("Y-m-d"); 
+        $sql = "SELECT * FROM patientintakeform where  (hscrp!='' or triglycerides!='' or hdl!='' or ldl!='' or homocysteine!='' or sgot!='' or sgpt!='' or bilirubin!='' or creatinine!='' or urea!='' or sodium!='' or potassium!='' or uricacid!='' or homa!='' or hba1c!='' or fasting_glucose!='')  and custid='".$gcustid."' and mobileno='".$gmno."' ORDER BY date DESC LIMIT 20"; 
+
+        $weightsql = "SELECT * FROM patientintakeform where custid='".$gcustid."' and mobileno='".$gmno."' and weight!='' ORDER BY date DESC LIMIT 40";
+
+        $sql2 = "SELECT * FROM patientintakeform where custid = '".$gcustid."' and mobileno='".$gmno."' ORDER BY date DESC LIMIT 1";        
+    }
+}else{
+        $today = date("Y-m-d");
+        $customerIdForRetrieval = $custId;
+        $customerMobileForRetrieval = $mobileNo;
+        $sql = "SELECT * FROM patientintakeform where  (hscrp!='' or triglycerides!='' or hdl!='' or ldl!='' or homocysteine!='' or sgot!='' or sgpt!='' or bilirubin!='' or creatinine!='' or urea!='' or sodium!='' or potassium!='' or uricacid!='' or homa!='' or hba1c!='' or fasting_glucose!='')  and custid='".$custId."' and mobileno='".$mobileNo."' ORDER BY date DESC LIMIT 20";
+
+        $weightsql = "SELECT * FROM patientintakeform where custid='".$gcustid."' and mobileno='".$gmno."' and weight!='' ORDER BY date DESC LIMIT 40";
+
+        $sql2 = "SELECT * FROM patientintakeform where custid = '".$custId."' and mobileno='".$mobileNo."' ORDER BY date DESC LIMIT 1";                 
+    } 
+$result = mysqli_query($con, $sql);
+$result2 = mysqli_query($con, $sql2);
+$weight_result = mysqli_query($con, $weightsql);
+
+while($rows = mysqli_fetch_assoc($result)){
+     $items[] = $rows;
+}
+
+while($weight_rows = mysqli_fetch_assoc($weight_result)){
+     $weight_items[] = $weight_rows;
+}
+
+
+$items = array_reverse($items,true);
+$weight_items = array_reverse($weight_items,true);
+
+foreach($weight_items as $weight_row){   
+        $weightdata[] = $weight_row['weight'];
+        $weightdate[] = $weight_row['date'];     
+}
+
+foreach($items as $row){
+    $datearr[] = $row["date"];
+    $alldates[] = $row['date'];
+
+    if($row['name']!=''){
+        $cname = $row['name'];
+    }
+    if($row['gender']!=''){
+        $cgender = $row['gender'];
+    }
+    if($row['age']!=''){
+        $cage = $row['age'];
+    }
+    if($row['height']!=''){
+        $cheight = $row['height'];
+    }
+
+    if($row['waist']!=''){
+        $waistdata[] = $row['waist'];
+        $waistdate[] = $row['date']; 
+    }   
+
+    if($row['sgot']!=''){  
+        $sgotdata[] = (float)$row['sgot'];
+        $sgotdate[] = $row['date']; 
+
+        $temp['life_heal_id'] = 'sgot';
+        $temp['value'] = (float)$row['sgot']; 
+        $temp['uom'] = 'U/l';
+        $temp['date'] = $row['date']; 
+        $liveroverAllData['organ'] = "Liver";      
+        $liveroverAllData["tests"][] = $temp; 
+    }	
+	
+    if($row['sgpt']!=''){       
+        $sgptdata[] = (float)$row['sgpt'];
+        $sgptdate[] = $row['date']; 
+
+        $temp['life_heal_id'] = 'sgpt';
+        $temp['value'] = (float)$row['sgpt'];
+        $temp['uom'] = 'U/l';
+        $temp['date'] = $row['date'];
+        $liveroverAllData['organ'] = "Liver"; 
+        $liveroverAllData["tests"][] = $temp; 
+    }	
+	
+    if($row['bilirubin']!=''){      
+        $bilirubindata[] = (float)$row['bilirubin'];
+        $bilirubindate[] = $row['date'];
+
+        $temp['life_heal_id'] = 'bilirubin';
+        $temp['value'] = (float)$row['bilirubin'];
+        $temp['uom'] = 'mg/dL';
+        $temp['date'] = $row['date'];
+        $liveroverAllData['organ'] = "Liver"; 
+        $liveroverAllData["tests"][] = $temp;           
+    }
+	
+    if($row['fattyliverultrasound']!=''){       
+        $fattyliverultrasounddata[] = (float)$row['fattyliverultrasound'];
+        $fattyliverultrasounddate[] = $row['date'];
+
+        $temp['life_heal_id'] = 'fattyliverultrasound';
+        $temp['value'] = (float)$row['fattyliverultrasound'];
+        $temp['uom'] = 'unit';
+        $temp['date'] = $row['date'];
+        $liveroverAllData['organ'] = "Liver"; 
+        $liveroverAllData["tests"][] = $temp;  
+    }
+	
+    if($row['fattyliverfirbscan']!=''){     
+        $fattyliverfirbscandata[] = (float)$row['fattyliverfirbscan'];
+        $fattyliverfirbscandate[] = $row['date'];
+
+        $temp['life_heal_id'] = 'fattyliverfirbscan';
+        $temp['value'] = (float)$row['fattyliverfirbscan'];
+        $temp['uom'] = 'dB/m';
+        $temp['date'] = $row['date'];
+        $liveroverAllData['organ'] = "Liver"; 
+        $liveroverAllData["tests"][] = $temp;  
+
+    }
+	
+    if($row['fattyliverescore']!=''){       
+        $fattyliverescoredata[] = (float)$row['fattyliverescore'];
+        $fattyliverescoredate[] = $row['date'];
+
+        $temp['life_heal_id'] = 'fattyliverescore';
+        $temp['value'] = (float)$row['fattyliverescore'];
+        $temp['uom'] = 'kPa';
+        $temp['date'] = $row['date'];
+        $liveroverAllData['organ'] = "Liver"; 
+        $liveroverAllData["tests"][] = $temp;  
+    } 
+	
+    if($row['hscrp']!=''){       
+        $hscrpdata[] = (float)$row['hscrp'];
+        $hscrpdate[] = $row['date'];
+
+        $temp['life_heal_id'] = 'hscrp';
+        $temp['value'] = (float)$row['hscrp'];
+        $temp['uom'] = 'mg/L';
+        $temp['date'] = $row['date'];
+
+        $heartoverAllData["organ"] = "Heart";
+        $heartoverAllData["tests"][] = $temp;
+
+        $eyeoverAllData["organ"] = "Eye";
+        $eyeoverAllData["tests"][] = $temp;
+
+        $longevityoverAllData["organ"] = "Longevity";
+        $longevityoverAllData["tests"][] = $temp;
+    } 
+    if($row['triglycerides']!=''){       
+        $triglyceridesdata[] = (float)$row['triglycerides'];
+        $triglyceridesdate[] = $row['date'];
+
+        $temp['life_heal_id'] = 'triglycerides';
+        $temp['value'] = (float)$row['triglycerides'];
+        $temp['uom'] = 'mg/dL';
+        $temp['date'] = $row['date'];
+        $heartoverAllData["organ"] = "Heart";
+        $heartoverAllData["tests"][] = $temp;
+    } 
+    if($row['hdl']!=''){       
+        $hdldata[] = (float)$row['hdl'];
+        $hdldate[] = $row['date'];
+
+        $temp['life_heal_id'] = 'hdl';
+        $temp['value'] = (float)$row['hdl'];
+        $temp['uom'] = 'mg/dL';
+        $temp['date'] = $row['date'];
+        $heartoverAllData["organ"] = "Heart";
+        $heartoverAllData["tests"][] = $temp;
+    } 
+    if($row['ldl']!=''){       
+        $ldldata[] = (float)$row['ldl'];
+        $ldldate[] = $row['date'];
+
+        $temp['life_heal_id'] = 'ldl';
+        $temp['value'] = (float)$row['ldl'];
+        $temp['uom'] = 'mg/dL';
+        $temp['date'] = $row['date'];
+        $heartoverAllData["organ"] = "Heart";
+        $heartoverAllData["tests"][] = $temp;
+    } 
+    if($row['homocysteine']!=''){       
+        $homocysteinedata[] = (float)$row['homocysteine'];
+        $homocysteinedate[] = $row['date'];
+
+        $temp['life_heal_id'] = 'homocysteine';
+        $temp['value'] = (float)$row['homocysteine'];
+        $temp['uom'] = 'mcmol/L';
+        $temp['date'] = $row['date'];
+        $heartoverAllData["organ"] = "Heart";
+        $heartoverAllData["tests"][] = $temp;
+    } 
+
+
+    if($row['creatinine']!=''){       
+        $creatininedata[] = (float)$row['creatinine'];
+        $creatininedate[] = $row['date'];
+
+        $temp['life_heal_id'] = 'creatinine';
+        $temp['value'] = (float)$row['creatinine'];
+        $temp['uom'] = 'mg/dL';
+        $temp['date'] = $row['date'];
+        $kidneyoverAllData["organ"] = "Kidney";
+        $kidneyoverAllData["tests"][] = $temp;
+    } 
+    if($row['urea']!=''){       
+        $ureadata[] = (float)$row['urea'];
+        $ureadate[] = $row['date'];
+
+        $temp['life_heal_id'] = 'urea';
+        $temp['value'] = (float)$row['urea'];
+        $temp['uom'] = 'mg/dL';
+        $temp['date'] = $row['date'];
+        $kidneyoverAllData["organ"] = "Kidney";
+        $kidneyoverAllData["tests"][] = $temp;
+    } 
+    if($row['sodium']!=''){       
+        $sodiumdata[] = (float)$row['sodium'];
+        $sodiumdate[] = $row['date'];
+
+        $temp['life_heal_id'] = 'sodium';
+        $temp['value'] = (float)$row['sodium'];
+        $temp['uom'] = 'mEq/L';
+        $temp['date'] = $row['date'];
+        $kidneyoverAllData["organ"] = "Kidney";
+        $kidneyoverAllData["tests"][] = $temp;
+    } 
+    if($row['potassium']!=''){       
+        $potassiumdata[] = (float)$row['potassium'];
+        $potassiumdate[] = $row['date'];
+
+        $temp['life_heal_id'] = 'potassium';
+        $temp['value'] = (float)$row['potassium'];
+        $temp['uom'] = 'mmol/L';
+        $temp['date'] = $row['date'];
+        $kidneyoverAllData["organ"] = "Kidney";
+        $kidneyoverAllData["tests"][] = $temp;
+    } 
+    if($row['uricacid']!=''){       
+        $uricaciddata[] = (float)$row['uricacid'];
+        $uricaciddate[] = $row['date'];
+
+        $temp['life_heal_id'] = 'uricacid';
+        $temp['value'] = (float)$row['uricacid'];
+        $temp['uom'] = 'mg/dL';
+        $temp['date'] = $row['date'];
+        $kidneyoverAllData["organ"] = "Kidney";
+        $kidneyoverAllData["tests"][] = $temp;
+    } 
+    
+
+    if($row['hba1c']!=''){       
+        $hba1cdata[] = (float)$row['hba1c'];
+        $hba1cdate[] = $row['date'];
+
+        $temp['life_heal_id'] = 'hba1c';
+        $temp['value'] = (float)$row['hba1c'];
+        $temp['uom'] = '%';
+        $temp['date'] = $row['date'];
+
+        $pancreasoverAllData["organ"] = "Pancreas";
+        $pancreasoverAllData["tests"][] = $temp;
+
+        $eyeoverAllData["organ"] = "Eye";
+        $eyeoverAllData["tests"][] = $temp;
+
+        $longevityoverAllData["organ"] = "Longevity";
+        $longevityoverAllData["tests"][] = $temp;
+    } 
+    if($row['homa']!=''){       
+        $homadata[] = (float)$row['homa'];
+        $homadate[] = $row['date'];
+
+        $temp['life_heal_id'] = 'homa';
+        $temp['value'] = (float)$row['homa'];
+        $temp['uom'] = 'unit';
+        $temp['date'] = $row['date'];
+
+        $pancreasoverAllData["organ"] = "Pancreas";
+        $pancreasoverAllData["tests"][] = $temp;
+
+        $longevityoverAllData["organ"] = "Longevity";
+        $longevityoverAllData["tests"][] = $temp;
+    } 
+    if($row['waist']!=''){       
+        $waistdata[] = (float)$row['waist'];
+        $waistdate[] = $row['date'];
+
+        $temp['life_heal_id'] = 'waist';
+        $temp['value'] = (float)$row['waist'];
+        $temp['uom'] = 'W/H';
+        $temp['date'] = $row['date'];
+
+        $pancreasoverAllData["organ"] = "Pancreas";
+        $pancreasoverAllData["tests"][] = $temp;
+
+        $eyeoverAllData["organ"] = "Eye";
+        $eyeoverAllData["tests"][] = $temp;
+    } 
+    if($row['fasting_glucose']!=''){       
+        $fasting_glucosedata[] = (float)$row['fasting_glucose'];
+        $fasting_glucosedate[] = $row['date'];
+
+        $temp['life_heal_id'] = 'fasting_glucose';
+        $temp['value'] = (float)$row['fasting_glucose'];
+        $temp['uom'] = 'mg/dL';
+        $temp['date'] = $row['date'];
+        $pancreasoverAllData["organ"] = "Pancreas";
+        $pancreasoverAllData["tests"][] = $temp;
+    } 
+    if($row['ppsugar']!=''){       
+        $ppsugardata[] = (float)$row['ppsugar'];
+        $ppsugardate[] = $row['date'];
+
+        $temp['life_heal_id'] = 'ppsugar';
+        $temp['value'] = (float)$row['ppsugar'];
+        $temp['uom'] = 'mg/dL';
+        $temp['date'] = $row['date'];
+        $pancreasoverAllData["organ"] = "Pancreas";
+        $pancreasoverAllData["tests"][] = $temp;
+    } 
+        
+    if($row['bp_systolic']!=''){       
+        $bp_systolicdata[] = (float)$row['bp_systolic'];
+        $bp_systolicdate[] = $row['date'];
+
+        $temp['life_heal_id'] = 'bp_systolic';
+        $temp['value'] = (float)$row['bp_systolic'];
+        $temp['uom'] = 'mmHg';
+        $temp['date'] = $row['date'];
+        $eyeoverAllData["organ"] = "Eye";
+        $eyeoverAllData["tests"][] = $temp;
+    }
+
+    if(!empty($heartoverAllData)) {        
+        $testallheart[]=  $heartoverAllData;        
+    }
+    if(!empty($pancreasoverAllData)) {     
+        $testallpancreas[]=  $pancreasoverAllData;          
+    }
+    if(!empty($liveroverAllData)) {       
+        $testallLiver[]=  $liveroverAllData;         
+    }
+     
+    if(!empty($kidneyoverAllData)) {       
+        $testallkidney[]=  $kidneyoverAllData;         
+    }      
+    if(!empty($eyeoverAllData)) {        
+        $testalleye[]=  $eyeoverAllData;         
+    } 
+
+    if(!empty($longevityoverAllData)) {        
+        $testalllongevity[]=  $longevityoverAllData;         
+    }    
+    
+    $heartoverAllData =''; 
+    $pancreasoverAllData =''; 
+    $liveroverAllData ='';    
+    $kidneyoverAllData ='';   
+    $eyeoverAllData ='';  
+    $longevityoverAllData ='';        
+}
+
+$allOrganTests[] = $testallheart;
+$allOrganTests[] = $testallpancreas;
+$allOrganTests[] = $testallLiver;
+$allOrganTests[] = $testallkidney;
+$allOrganTests[] = $testalleye; 
+$allOrganTests[] = $testalllongevity; 
+
+/*echo "<pre>";
+//print_r($allOrganTests[3]);
+echo "<br>";
+print_r($allOrganTests);
+echo "</pre>";*/
+
+for($i=0; $i<=count($allOrganTests)-1; $i++){
+    for($j=0; $j<=count($allOrganTests[$i])-1; $j++){ 
+        $jsonallOrganTests = json_encode($allOrganTests[$i][$j]);
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'http://15.207.163.47/calculator',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS =>$jsonallOrganTests,
+            CURLOPT_HTTPHEADER => array( 'Content-Type: application/json' ),
+        ));   
+        $response = curl_exec($curl);       
+        $tempdecodeval[] = json_decode($response);   
+        curl_close($curl);  
+    }
+    $decodeorganval[] =$tempdecodeval;
+    $tempdecodeval ="";
+}
+
+/*echo "<br>";
+echo "<pre>";
+print_r($decodeorganval[3]);
+echo "<br>";
+echo "</pre>";*/
+
+for($i = 0; $i < count($decodeorganval[0]); $i++ ){
+    if($decodeorganval[0][$i]!=null){
+       $heart_table_data[] = $decodeorganval[0][$i]->matches;
+    }
+}
+
+for($i = 0; $i < count($decodeorganval[1]); $i++ ){
+    if($decodeorganval[1][$i]!=null){
+       $pancreas_table_data[] = $decodeorganval[1][$i]->matches;
+    }
+}
+
+for($i = 0; $i < count($decodeorganval[2]); $i++ ){
+    if($decodeorganval[2][$i]!=null){
+        $liver_table_data[] = $decodeorganval[2][$i]->matches;
+    }
+}
+
+for($i = 0; $i < count($decodeorganval[3]); $i++ ){    
+    if($decodeorganval[3][$i]!=null){
+        $kidney_table_data[] = $decodeorganval[3][$i]->matches;
+    }
+}
+
+for($i = 0; $i < count($decodeorganval[4]); $i++ ){
+    if($decodeorganval[4][$i]!=null){
+        $eye_table_data[] = $decodeorganval[4][$i]->matches;
+    }
+}
+
+for($i = 0; $i < count($decodeorganval[5]); $i++ ){
+    if($decodeorganval[5][$i]!=null){
+        $longevity_table_data[] = $decodeorganval[5][$i]->matches;
+    }
+}
+
+/*echo "<br/>";
+echo "<pre>";
+print_r($heart_table_data);
+echo "</pre>";
+echo "<br/>";*/
+
+/*echo count($decodeorganval[0]);
+echo "<br>";
+echo count($decodeorganval[0][0]->matches);
+echo "<br>";
+echo "<pre>";
+print_r($decodeorganval[0][0]->matches);
+print_r($decodeorganval[0][0]->matches[0]);
+print_r($liver_table_data);
+echo "</pre>";*/
+
+for($i = 0; $i < count($decodeorganval); $i++ ){
+    for($j = 0; $j < count($decodeorganval[$i]); $j++ ){
+        if($i == 0){
+            $heartoveralldata[] = round((float)$decodeorganval[$i][$j]->data->value);
+            $heartoveralldate[] = $testallheart[$j]['tests'][0]['date'];
+        }
+
+        if($i == 1){
+            $pancreasoveralldata[] = round((float)$decodeorganval[$i][$j]->data->value);
+            $pancreasoveralldate[] = $testallpancreas[$j]['tests'][0]['date']; 
+        }
+
+        if($i == 2){
+            $liveroveralldata[] = round((float)$decodeorganval[$i][$j]->data->value);
+            $liveroveralldate[] = $testallLiver[$j]['tests'][0]['date'];
+        }
+
+        if($i == 3){
+            $kidneyoveralldata[] = round((float)$decodeorganval[$i][$j]->data->value);
+            $kidneyoveralldate[] = $testallkidney[$j]['tests'][0]['date'];        
+        }
+
+        if($i == 4){
+            $eyeoveralldata[] = round((float)$decodeorganval[$i][$j]->data->value);
+            $eyeoveralldate[] = $testalleye[$j]['tests'][0]['date']; 
+        } 
+
+        if($i == 5){
+            $longevityoverAllData[] = round((float)$decodeorganval[$i][$j]->data->value);
+            $longevityoverAllDate[] = $testalllongevity[$j]['tests'][0]['date']; 
+        }       
+    }   
+}
+/*echo "<br>";
+echo "<pre>";
+print_r($pancreasoveralldata);
+echo "</pre>";*/
+
+if(!empty($liveroveralldata)) {
+    $liver_tests_name[]= 'Health Score';
+    $liver_units_name[]= '%';
+    $liver['graphdata'][] = $liveroveralldata;
+    $liver['graphdate'][] = $liveroveralldate;  
+}
+
+if(!empty($sgotdata)) {
+    $liver_tests_name[]= 'SGOT';
+    $liver_units_name[]= 'U/l';
+    $liver['graphdata'][] = $sgotdata;
+    $liver['graphdate'][] = $sgotdate; 
+    $table_liver_date[]= $sgotdate;   
+}
+if(!empty($sgptdata)) {
+    $liver_tests_name[]= 'SGPT';
+    $liver_units_name[]= 'U/l';
+    $liver['graphdata'][] = $sgptdata;
+    $liver['graphdate'][] = $sgptdate;  
+    $table_liver_date[] = $sgptdate;   
+}
+if(!empty($bilirubindata)) {
+    $liver_tests_name[]= 'Bilirubin';
+    $liver_units_name[]= 'mg/dL';
+    $liver['graphdata'][] = $bilirubindata;
+    $liver['graphdate'][] = $bilirubindate;  
+    $table_liver_date[] = $bilirubindate;  
+}
+if(!empty($fattyliverultrasounddata)) {
+    $liver_tests_name[]= 'Fatty Liver Ultra Sound Stage';
+    $liver_units_name[]= 'unit';
+    $liver['graphdata'][] = $fattyliverultrasounddata;
+    $liver['graphdate'][] = $fattyliverultrasounddate;  
+    $table_liver_date[] = $fattyliverultrasounddate;   
+}
+if(!empty($fattyliverfirbscandata)) {
+    $liver_tests_name[]= 'Fatty Liver Fibroscan CAP score';
+    $liver_units_name[]= 'dB/m';
+    $liver['graphdata'][] = $fattyliverfirbscandata;
+    $liver['graphdate'][] = $fattyliverfirbscandate;  
+    $table_liver_date[] = $fattyliverfirbscandate;
+}
+if(!empty($fattyliverescoredata)) {
+    $liver_tests_name[]= 'Fatty Liver Fibroscan E score';
+    $liver_units_name[]= 'kPa';
+    $liver['graphdata'][] = $fattyliverescoredata;
+    $liver['graphdate'][] = $fattyliverescoredate; 
+    $table_liver_date[]= $fattyliverescoredate;      
+}
+
+if(!empty($kidneyoveralldata)) {
+    $kidney_tests_name[]= 'Health Score';
+    $kidney_units_name[]= '%';
+    $kidney['graphdata'][] = $kidneyoveralldata;
+    $kidney['graphdate'][] = $kidneyoveralldate;  
+}
+
+if(!empty($creatininedata)) {
+    $kidney_tests_name[]= 'Creatinine';
+    $kidney_units_name[]= 'mg/dL';
+    $kidney['graphdata'][] = $creatininedata;
+    $kidney['graphdate'][] = $creatininedate;
+    $table_kidney_date[]= $creatininedate;    
+}
+if(!empty($ureadata)) {
+    $kidney_tests_name[]= 'Urea';
+    $kidney_units_name[]= 'mg/dL';
+    $kidney['graphdata'][] = $ureadata;
+    $kidney['graphdate'][] = $ureadate;
+    $table_kidney_date[]= $ureadate;     
+}
+if(!empty($sodiumdata)) {
+    $kidney_tests_name[]= 'Sodium';
+    $kidney_units_name[]= 'mEq/L';
+    $kidney['graphdata'][] = $sodiumdata;
+    $kidney['graphdate'][] = $sodiumdate;
+    $table_kidney_date[]= $sodiumdate;    
+}
+if(!empty($potassiumdata)) {
+    $kidney_tests_name[]= 'Potassium';
+    $kidney_units_name[]= 'mmol/L';
+    $kidney['graphdata'][] = $potassiumdata;
+    $kidney['graphdate'][] = $potassiumdate;
+    $table_kidney_date[]= $potassiumdate;     
+}
+if(!empty($uricaciddata)) {
+    $kidney_tests_name[]= 'Uric acid';
+    $kidney_units_name[]= 'mg/dL';
+    $kidney['graphdata'][] = $uricaciddata;
+    $kidney['graphdate'][] = $uricaciddate; 
+    $table_kidney_date[]= $uricaciddate;   
+}
+
+
+if(!empty($heartoveralldata)) {
+    $heart_tests_name[]= 'Health Score';
+    $heart_units_name[]= '%';
+    $heart['graphdata'][] = $heartoveralldata;
+    $heart['graphdate'][] = $heartoveralldate;      
+}
+if(!empty($hscrpdata)) {
+    //echo "hscrpdate=== <br/>".print_r($hscrpdate);
+    $heart_tests_name[]= 'HSCRP';
+    $heart_units_name[]= 'mg/L';
+    $heart['graphdata'][] = $hscrpdata;
+    $heart['graphdate'][] = $hscrpdate; 
+    $table_heart_date[]= $hscrpdate;
+}
+if(!empty($triglyceridesdata)) {
+    $heart_tests_name[]= 'TriGlycerides';
+    $heart_units_name[]= 'mg/dL';
+    $heart['graphdata'][] = $triglyceridesdata;
+    $heart['graphdate'][] = $triglyceridesdate; 
+    $table_heart_date[]= $triglyceridesdate;   
+}
+if(!empty($hdldata)) {
+    $heart_tests_name[]= 'HDL';
+    $heart_units_name[]= 'mg/dL';
+    $heart['graphdata'][] = $hdldata;
+    $heart['graphdate'][] = $hdldate;
+    $table_heart_date[]= $hdldate;     
+}
+if(!empty($ldldata)) {
+    $heart_tests_name[]= 'LDL';
+    $heart_units_name[]= 'mg/dL';
+    $heart['graphdata'][] = $ldldata;
+    $heart['graphdate'][] = $ldldate; 
+    $table_heart_date[]= $ldldate;    
+}
+if(!empty($homocysteinedata)) {
+    $heart_tests_name[]= 'Homocysteine';
+    $heart_units_name[]= 'mcmol/L';
+    $heart['graphdata'][] = $homocysteinedata;
+    $heart['graphdate'][] = $homocysteinedate;
+    $table_heart_date[]= $homocysteinedate;    
+}
+
+if(!empty($pancreasoveralldata)) {
+    $pancreas_tests_name[]= 'Health Score';
+    $pancreas_units_name[]= '%';
+    $pancreas['graphdata'][] = $pancreasoveralldata;
+    $pancreas['graphdate'][] = $pancreasoveralldate;  
+}
+
+if(!empty($hba1cdata)) {
+    $pancreas_tests_name[]= 'HbA1c';
+    $pancreas_units_name[]= '%';
+    $pancreas['graphdata'][] = $hba1cdata;
+    $pancreas['graphdate'][] = $hba1cdate;
+    $table_pancreas_date[]= $hba1cdate;
+}
+
+if(!empty($homadata)) {
+    $pancreas_tests_name[]= 'HOMA IR';
+    $pancreas_units_name[]= 'unit';
+    $pancreas['graphdata'][] = $homadata;
+    $pancreas['graphdate'][] = $homadate;
+    $table_pancreas_date[]= $homadate;
+}
+if(!empty($waistdata)) {
+    $pancreas_tests_name[]= 'Waist To Height';
+    $pancreas_units_name[]= 'W/H';
+    $pancreas['graphdata'][] = $waistdata;
+    $pancreas['graphdate'][] = $waistdate;
+    $table_pancreas_date[]= $waistdate;
+}
+if(!empty($fasting_glucosedata)) {
+    $pancreas_tests_name[]= 'Fasting Glucose';
+    $pancreas_units_name[]= 'mg/dL';
+    $pancreas['graphdata'][] = $fasting_glucosedata;
+    $pancreas['graphdate'][] = $fasting_glucosedate; 
+    $table_pancreas_date[]= $fasting_glucosedate;   
+}
+if(!empty($ppsugardata)) {
+    $pancreas_tests_name[]= 'P P Sugar';
+    $pancreas_units_name[]= 'mg/dL';
+    $pancreas['graphdata'][] = $ppsugardata;
+    $pancreas['graphdate'][] = $ppsugardate; 
+    $table_pancreas_date[]= $ppsugardate;   
+}
+
+if(!empty($eyeoveralldata)) {
+    $eye_tests_name[]= 'Health Score';
+    $eye_units_name[]= '%';
+    $eye['graphdata'][] = $eyeoveralldata;
+    $eye['graphdate'][] = $eyeoveralldate;     
+}
+
+if(!empty($hscrpdata)) {    
+    $eye_tests_name[]= 'HSCRP';
+    $eye_units_name[]= 'mg/L';
+    $eye['graphdata'][] = $hscrpdata;
+    $eye['graphdate'][] = $hscrpdate; 
+    $table_eye_date[]= $hscrpdate;   
+}
+if(!empty($hba1cdata)) {    
+    $eye_tests_name[]= 'HbA1c';
+    $eye_units_name[]= '%';
+    $eye['graphdata'][] = $hba1cdata;
+    $eye['graphdate'][] = $hba1cdate;
+    $table_eye_date[]= $hba1cdate;     
+}
+if(!empty($waistdata)) {    
+    $eye_tests_name[]= 'Waist To Height';
+    $eye_units_name[]= 'W/H';
+    $eye['graphdata'][] = $waistdata;
+    $eye['graphdate'][] = $waistdate;
+    $table_eye_date[]= $waistdate;     
+}
+if(!empty($bp_systolic)) {   
+    $eye_tests_name[]= 'Blood Pressure';
+    $eye_units_name[]= 'mmHg';
+    $eye['graphdata'][] = $bp_systolicdata;
+    $eye['graphdate'][] = $bp_systolicdate;
+    $table_eye_date[]= $bp_systolicdate;     
+}
+
+if(!empty($longevityoveralldata)) {
+    $longevity_tests_name[]= 'Health Score';
+    $longevity_units_name[]= '%';
+    $longevity['graphdata'][] = $longevityoveralldata;
+    $longevity['graphdate'][] = $longevityoveralldate;     
+}
+if(!empty($hba1cdata)) {
+    $longevity_tests_name[]= 'HbA1c';
+    $longevity_units_name[]= '%';
+    $longevity['graphdata'][] = $hba1cdata;
+    $longevity['graphdate'][] = $hba1cdate;
+    $table_longevity_date[]= $hba1cdate;
+}
+if(!empty($hscrpdata)) {    
+    $longevity_tests_name[]= 'HSCRP';
+    $longevity_units_name[]= 'mg/L';
+    $longevity['graphdata'][] = $hscrpdata;
+    $longevity['graphdate'][] = $hscrpdate; 
+    $table_longevity_date[]= $hscrpdate;   
+}
+
+if(!empty($homadata)) {
+    $longevity_tests_name[]= 'HOMA IR';
+    $longevity_units_name[]= 'unit';
+    $longevity['graphdata'][] = $homadata;
+    $longevity['graphdate'][] = $homadate;
+    $table_longevity_date[]= $homadate;
+}
+
+function uniqueDate($myarr){
+    $result = array();  
+    foreach ($myarr as $array) {
+        $result = array_merge($result, $array);
+        $result= array_unique($result);   
+    }
+    $result = array_values($result);
+    return $result;
+}
+
+/*=========SORTING DATES IN ASCENDING ORDER=============*/
+$table_heart_date = uniqueDate($table_heart_date);
+sort($table_heart_date);
+
+$table_pancreas_date = uniqueDate($table_pancreas_date);
+sort($table_pancreas_date);
+
+$table_liver_date = uniqueDate($table_liver_date);
+sort($table_liver_date);
+
+$table_kidney_date = uniqueDate($table_kidney_date);
+sort($table_kidney_date);
+
+$table_eye_date = uniqueDate($table_eye_date);
+sort($table_eye_date);
+
+$table_longevity_date = uniqueDate($table_longevity_date);
+sort($table_longevity_date);
+
+/*=========SORTING DATES IN ASCENDING ORDER=============*/
+
+$heart['id'] =1;
+$heart['title'] ='Heart Graph';
+$heart['sname'] = $heart_tests_name;
+$heart['units'] = $heart_units_name;
+$heart['table_date'] = $table_heart_date;
+$heart['table_data'] = $heart_table_data;
+
+$pancreas['id'] =2;
+$pancreas['title'] ='Pancreas Graph';
+$pancreas['sname'] = $pancreas_tests_name;
+$pancreas['units'] = $pancreas_units_name;
+$pancreas['table_date'] = $table_pancreas_date;
+$pancreas['table_data'] = $pancreas_table_data;
+
+$liver['id'] =3;
+$liver['title'] ='Liver Graph';
+$liver['sname'] = $liver_tests_name;
+$liver['units'] = $liver_units_name;
+$liver['table_date'] = $table_liver_date;
+$liver['table_data'] = $liver_table_data;
+
+$kidney['id'] =4;
+$kidney['title'] ='Kidney Graph';
+$kidney['sname'] = $kidney_tests_name;
+$kidney['units'] = $kidney_units_name;
+$kidney['table_date'] = $table_kidney_date;
+$kidney['table_data'] = $kidney_table_data;
+
+$eye['id'] =5;
+$eye['title'] ='Eye Graph';
+$eye['sname'] = $eye_tests_name;
+$eye['units'] = $eye_units_name;
+$eye['table_date'] = $table_eye_date;
+$eye['table_data'] = $eye_table_data;
+
+
+$longevity['id'] =6;
+$longevity['title'] ='Longevity Graph';
+$longevity['sname'] = $longevity_tests_name;
+$longevity['units'] = $longevity_units_name;
+$longevity['table_date'] = $table_longevity_date;
+$longevity['table_data'] = $longevity_table_data;
+
+/*echo "heart['table_date']";
+echo "</br>";
+echo "<pre>";
+print_r($heart['table_date']);
+echo "</br>";
+//print_r($heart['table_data']);
+echo "</pre>";*/
+
+$newgraphdata[1] =  $heart; 
+$newgraphdata[2] =  $pancreas; 
+$newgraphdata[3] =  $liver;
+$newgraphdata[4] =  $kidney;
+$newgraphdata[5] =  $eye;
+$newgraphdata[6] =  $longevity;
+
+/*echo "<br/>";
+echo '<pre>';
+print_r($newgraphdata[3]);
+echo '</pre>';
+echo "<br/>";*/
+
+while($row2 = mysqli_fetch_array($result2)) {   
+    $heartdatastr2 ='';
+    $Pancreasdatastr2 ='';
+    $liverdatastr2 ='';
+    $kidneydatastr2 ='';    
+    $eyedatastr2 ='';
+    $longevitydatastr2 ='';
+    $jsondate = $row2["date"];
+
+    if($row2['report_file']!=''){
+        $pdf = $row2['report_file'];
+    }
+
+    for($i=0; $i < count($heart_db_tests); $i++){
+        $j = $heart_db_tests[$i];
+        $row2[$j]=='' ? $heartdatastr2 = $heartdatastr2.''.' ' : $heartdatastr2 = $heartdatastr2.$row2[$j].' ';
+        if( $row2[$j] != ''){
+             $heartdatastr2 = $heartdatastr2.$row2[$j].' ';
+        }else{
+            $previousTestValue = getPreviousData($customerIdForRetrieval,$customerMobileForRetrieval,$j,$row2['date'],$con);
+            if($previousTestValue!='') {
+                $heartdatastr2 = $heartdatastr2.$previousTestValue.' ';           
+            }
+        }
+    }
+
+    for($i=0; $i < count($Pancreas_db_tests); $i++){
+        $j = $Pancreas_db_tests[$i];
+        if($row2[$j]!=''){
+            $Pancreasdatastr2 = $Pancreasdatastr2.$row2[$j].' ';
+        }else{
+            $previousTestValue = getPreviousData($customerIdForRetrieval,$customerMobileForRetrieval,$j,$row2['date'],$con);
+            if($previousTestValue!='') {
+               $Pancreasdatastr2 = $Pancreasdatastr2.$previousTestValue.' ';        
+            }
+        }       
+    }  
+
+    for($i=0; $i < count($liver_db_tests); $i++){
+        $j = $liver_db_tests[$i];
+        if($row2[$j]!=''){
+            $liverdatastr2 = $liverdatastr2.$row2[$j].' ';
+        }else{
+            $previousTestValue = getPreviousData($customerIdForRetrieval,$customerMobileForRetrieval,$j,$row2['date'],$con);           
+
+            if($previousTestValue!='') {
+                $liverdatastr2 = $liverdatastr2.$previousTestValue.' ';           
+            }
+        }       
+    }
+
+    for($i=0; $i < count($kidney_db_tests); $i++){
+        $j = $kidney_db_tests[$i];        
+        if($row2[$j]!=''){
+            $kidneydatastr2 = $kidneydatastr2.$row2[$j].' ';
+        }else{
+             $previousTestValue = getPreviousData($customerIdForRetrieval,$customerMobileForRetrieval,$j,$row2['date'],$con);
+            if($previousTestValue!='') {
+                $kidneydatastr2 = $kidneydatastr2.$previousTestValue.' ';          
+            }
+        }       
+    }   
+
+    for($i=0; $i < count($eye_db_tests); $i++){
+        $j = $eye_db_tests[$i];
+        if($row2[$j]!=''){
+            $eyedatastr2 = $eyedatastr2.$row2[$j].' ';
+        }else{
+            $previousTestValue = getPreviousData($customerIdForRetrieval,$customerMobileForRetrieval,$j,$row2['date'],$con);
+            if($previousTestValue!='') {
+               $eyedatastr2 = $eyedatastr2.$previousTestValue.' ';        
+            }
+        }        
+    } 
+
+    for($i=0; $i < count($longevity_db_tests); $i++){
+        $j = $longevity_db_tests[$i];
+        if($row2[$j]!=''){
+            $longevitydatastr2 = $longevitydatastr2.$row2[$j].' ';
+        }else{
+            $previousTestValue = getPreviousData($customerIdForRetrieval,$customerMobileForRetrieval,$j,$row2['date'],$con);
+            if($previousTestValue!='') {
+               $longevitydatastr2 = $longevitydatastr2.$previousTestValue.' ';        
+            }
+        }        
+    }   
+}
+
+$latestheartval = explode(" ",substr_replace($heartdatastr2 ,"",-1));
+$latestPancreasval = explode(" ",substr_replace($Pancreasdatastr2 ,"",-1));
+$latestliverval = explode(" ",substr_replace($liverdatastr2 ,"",-1));
+$latestkidneyval = explode(" ",substr_replace($kidneydatastr2 ,"",-1));
+$latesteyeval = explode(" ",substr_replace($eyedatastr2 ,"",-1));
+$latestlongevityval = explode(" ",substr_replace($longevitydatastr2 ,"",-1));
+
+//print_r($latestheartval);
+
+$mainjsondata =[];
+$heartjsondata['organ'] =   "Heart";
+$Pancreasjsondata['organ'] = "Pancreas"; 
+$liverjsondata['organ'] =   "Liver";
+$kidneyjsondata['organ'] = "Kidney";
+$eyejsondata['organ'] =     "Eye";
+$longevityjsondata['organ'] = "Longevity";
+
+
+for($i=0; $i<count($heart_db_tests); $i++){
+    if($latestheartval[$i]!=""){
+        $hearttest["life_heal_id"] = $heart_db_tests[$i];
+        $hearttest["value"] = floatval($latestheartval[$i]);
+        $hearttest["uom"] = $heart_unit[$i];
+        $hearttest["date"]=$jsondate;
+        $heartjsondata['tests'][]=$hearttest;
+    }
+}
+
+for($i=0; $i<count($Pancreas_db_tests); $i++){
+    if($latestPancreasval[$i]!=""){
+        $Pancreastest["life_heal_id"] = $Pancreas_db_tests[$i];
+        $Pancreastest["value"] = floatval($latestPancreasval[$i]);
+        $Pancreastest["uom"] = $Pancreas_unit[$i];
+        $Pancreastest["date"]=$jsondate;
+        $Pancreasjsondata['tests'][]=$Pancreastest;
+    }
+}
+
+for($i=0; $i<count($liver_db_tests); $i++){
+    if($latestliverval[$i]!=''){
+        $livertest["life_heal_id"] =$liver_db_tests[$i];
+        $livertest["value"] = floatval($latestliverval[$i]);
+        $livertest["uom"] = $liver_unit[$i];;
+        $livertest["date"]=$jsondate;
+        $liverjsondata['tests'][]=$livertest;
+    }
+}
+
+
+for($i=0; $i<count($kidney_db_tests); $i++){
+    if($latestkidneyval[$i]!=""){
+        $kidneytest["life_heal_id"] = $kidney_db_tests[$i];
+        $kidneytest["value"] = floatval($latestkidneyval[$i]);
+        $kidneytest["uom"] = $kidney_unit[$i];
+        $kidneytest["date"]=$jsondate;
+        $kidneyjsondata['tests'][]=$kidneytest;
+    }
+}
+
+for($i=0; $i<count($eye_db_tests); $i++){
+    if($latesteyeval[$i]!=""){
+        $eyetest["life_heal_id"] = $eye_db_tests[$i];
+        $eyetest["value"] = floatval($latesteyeval[$i]);
+        $eyetest["uom"] = $eye_unit[$i];
+        $eyetest["date"]=$jsondate;
+        $eyejsondata['tests'][]=$eyetest;
+    }
+}
+
+for($i=0; $i<count($longevity_db_tests); $i++){
+    if($latesteyeval[$i]!=""){
+        $longevitytest["life_heal_id"] = $longevity_db_tests[$i];
+        $longevitytest["value"] = floatval($latestlongevityval[$i]);
+        $longevitytest["uom"] = $longevity_unit[$i];
+        $longevitytest["date"]=$jsondate;
+        $longevityjsondata['tests'][]=$longevitytest;
+    }
+}
+
+$mainjsondata[] = $heartjsondata;
+$mainjsondata[] = $Pancreasjsondata;
+$mainjsondata[] = $liverjsondata;
+$mainjsondata[] = $kidneyjsondata;
+$mainjsondata[] = $eyejsondata;
+$mainjsondata[] = $longevityjsondata;
+
+/*echo "============ mainjsondata ============";
+echo "<br/>";
+echo '<pre>';
+print_r($mainjsondata);
+echo '</pre>';
+echo "<br/>";*/
+
+for($i=0; $i<count($mainjsondata); $i++){
+     $jsonDataEncoded = json_encode($mainjsondata[$i]);
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => 'http://15.207.163.47/calculator',
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'POST',
+      CURLOPT_POSTFIELDS =>$jsonDataEncoded,
+      CURLOPT_HTTPHEADER => array(
+        'Content-Type: application/json'
+      ),
+    ));
+
+    $response = curl_exec($curl);
+   // print_r($response);
+    curl_close($curl);  
+    $decodeval[] = json_decode($response);
+}
+
+/*echo "============ DECODE VAL ============";
+echo "<br/>";
+echo '<pre>';
+print_r($decodeval);
+echo '</pre>';
+echo "<br/>";*/
+
+$mydata =[
+    ["id"=>1,"organ"=>"Cardiac Health","qty"=>intval($decodeval[0]->data->value),"pic"=>"heart-highlighted.png","desc"=>$decodeval[0]->data->possibility],
+    ["id"=>2,"organ"=>"Diabetic Health","qty"=>intval($decodeval[1]->data->value),"pic"=>"pancrease-highlighted.png","desc"=>$decodeval[1]->data->possibility],
+    ["id"=>3,"organ"=>"Liver Health","qty"=>intval($decodeval[2]->data->value),"pic"=>"liver-highlighted.png","desc"=>$decodeval[2]->data->possibility],
+    ["id"=>4,"organ"=>"Kidney Health","qty"=>intval($decodeval[3]->data->value),"pic"=>"kidney-highlighted.png","desc"=>$decodeval[3]->data->possibility],    
+     ["id"=>5,"organ"=>"Vision Health","qty"=>intval($decodeval[4]->data->value),"pic"=>"eye-highlighted.png","desc"=>$decodeval[4]->data->possibility], 
+     ["id"=>6,"organ"=>"Longevity","qty"=>intval($decodeval[5]->data->value),"pic"=>"pancrease-highlighted.png","desc"=>$decodeval[5]->data->possibility]              
+];
+/*echo "============ MYDATA============";
+echo "<br/>";
+echo '<pre>';
+print_r($mydata);
+echo '</pre>';
+echo "<br/>";*/
+
+$totalTab = count($newgraphdata);
+$cnt = 1; 
+$gcnt = 1;
+$xaxisnumber = count($datearr);
+
+echo  "<script type=\"text/javascript\">";
+    echo "var dict ={};";   
+    echo "var graphcontent = {};";
+    echo "var currentindex = 1;\n";
+    echo "var totalTab = ".$totalTab.";\n";
+    echo "var xaxisnumber = ".$xaxisnumber.";\n";
+    echo "dict.ids = new Array();\n";  
+echo  "</script>"; 
+
+for($i=0; $i < count($mydata); $i++ ) {
+    echo  "<script type=\"text/javascript\">";
+        echo "var tempObj = [];"; 
+        echo "var key = '';";   
+        echo "key='".$mydata[$i]['id']."';";
+        if($cnt < 2)
+
+        echo "initialkey = '".$mydata[$i]['id']."';";   
+
+        echo "var tempid = '".$mydata[$i]['id']."';";  
+        echo "dict.ids.push(tempid);\n"; 
+        echo "tempObj[\"hiddenid\"] = '".$mydata[$i]['id']."';"; 
+        echo "tempObj[\"questionnum\"] = '".$cnt."';";  
+        echo "tempObj[\"organ\"] = '".$mydata[$i]['organ']."';"; 
+        echo "tempObj[\"qty\"] = '".$mydata[$i]['qty']."';"; 
+        echo "tempObj[\"pic\"] = '".$mydata[$i]['pic']."';";        
+        echo "tempObj[\"desc\"] = '".$mydata[$i]['desc']."';";
+        echo "dict[key] = tempObj;";   
+        //echo "alert(tempObj);";
+        // echo "alert(tempObj['desc']);";
+        //echo "alert('dict== '+dict[key]);";            
+    echo  "</script>"; 
+    $cnt++;
+}
+
+?>
+
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/slick.css') ?>">
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/slick-theme.css') ?>">
+ <link rel="stylesheet"  href="<?php echo $this->getSkinUrl('css/circle.css') ?>">
+<script src="<?php echo $this->getSkinUrl('js/highcharts.js') ?>"></script>
+<script src="https://cdn.jsdelivr.net/npm/animejs@3.0.1/lib/anime.min.js"></script>
+
+<section class="main-newdashboard">    
+    <?php       
+    if($groupId == 4 || $groupId == 5){?> 
+        <div class="select-patient"> 
+            <label>Select Patient:</label>              
+            <ul id="my-list"> <?php echo $customerLi;?> </ul>
+            <ul class="report_btn_list" id="report_btn_list">  </ul>            
+        </div>
+    <?php }
+    ?>
+     
+	<section class="main-newdashboard-top">
+        <div class="personal-information">
+            <li>Name: <?php if(isset($cname)){ echo ucfirst($cname); } ?></li>
+            <li>Age: <?php if(isset($cage)){ echo $cage; } ?></li>
+            <li>Height: <?php if(isset($cheight)){ echo $cheight; } ?> inch</li>
+            <li>Sex: <?php if(isset($cgender)){ echo ucfirst($cgender); } ?></li>
+        </div>
+		<div class="main-newdashboard-top-left">			
+            <div class="organ-pic">
+                <div class="mycheck" id="mycheck"></div>
+                <img src="<?php echo Mage::getDesign()->getSkinUrl();?>images/human_body.png" usemap="#humanbody"/>
+            </div>            
+		</div>
+
+		<div class="main-newdashboard-top-right">
+			<div class="newdashboard-top-head" id="give_shadow">
+				<div class="arrow-box">
+					<div class="arrow-box-inner" id="arrow_box_inner">
+						
+					</div>
+				</div>
+				<div class="newdashboard-top-head-content">
+					<div class="top-head-content-left">
+						<div id="graph_id">
+                            <span id="circle_qty"></span>
+                            <div class="slice">
+                                <div class="bar"></div>
+                                <div class="fill"></div>
+                            </div>
+                        </div>
+					</div>
+					<div class="top-head-content-right">
+						<h2 id="organ_name"></h2>                        
+					</div>
+				</div>
+			</div>			
+		</div>
+	</section>
+<style>
+    .myallDates{
+        box-sizing: border-box;
+        width:100%;
+    }
+</style>
+    <div class="demotable" id="demotable">
+        
+        <table>
+            <thead> 
+                <tr class="demotable-row-1">
+                    <td colspan="6">
+                        <div class="myallDates" id="myallDates">
+                            <!--<ul id="alldates" class="regular organslider">                                    
+                            </ul>-->
+                            <ul id="alldates" class="regular organslider">                                    
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="demotable-row-2">
+                    <td>Test Name</td>
+                    <td>Test Value</td>
+                    <td>Score</td>
+                    <td> Weightage </td>
+                    <td> Range </td>
+                    <td> Interpretation </td>
+                </tr>
+            </thead>
+            <tbody id="tablebody">   </tbody>
+        </table>
+    </div>
+
+    <section class="main-newdashboard-bottom">
+        <div class="newdashboard-bottom-top">
+            <div id="waist_btn" class="waist_btn"></div>
+            <div class="weight-waist">
+                <div class="weight_graphcnt" id="weight_graphcnt"></div>
+                <div class="waist_graphcnt" id="waist_graphcnt"></div>           
+            </div>
+            <div class="graphtestbtn">
+                <ul id="graphtestbtn">  </ul>
+            </div>
+            <div id="graph_container">  </div>
+            
+        </div>
+    </section>
+	
+</section>
+
+<script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+<script src="<?php echo $this->getSkinUrl('js');?>/slick.js"></script>
+<script src="<?php echo $this->getSkinUrl('js');?>/jquery.alphaindex.js"></script>
+
+
+<style type="text/css">
+li{	list-style: none;	margin:0;	padding: 0;}
+.main-container.col2-left-layout.newdashboard { background: #faf8f9;
+    width: 100%;    max-width: 100%;}
+ .main-container{
+    background: #fff;
+ }   
+.main-newdashboard{	width:96%;	margin-left:4%;}
+.main-newdashboard-top{	margin-bottom: 1px;	display: flex;
+	flex-wrap: wrap;	justify-content: space-between;}
+.main-newdashboard-top-left{	width:350px;	box-sizing: border-box;
+	padding:20px 30px 0 30px;	border-radius: 25px;	background: #fff;}
+.main-newdashboard-top-right{	width: calc(100% - 390px);}
+.newdashboard-top-head{	width:100%;	box-sizing: border-box;
+	margin-top: 35px;	border-radius: 20px;	background: #fff;
+	padding: 30px;	position: relative;}
+.top-head-content-left {  margin: 0 auto;    width: 75%;}
+.arrow-box{	position: absolute;	width: 100%;
+	height: 100%;	left:0;	bottom: 0;}
+.arrow-box-inner { display: flex; flex-wrap: wrap; 
+    justify-content: space-between;  align-items: center; height: 100%;}
+.arrow-box-inner li{display: inline-block; font-size: 3.5rem;
+	padding: 0 15px; cursor: pointer; position: relative; top:-50px;}
+.arrow-box-inner li:nth-child(2){	color:#269a9b;}
+.top-head-content-right{text-align: center;}
+.top-head-content-right h2{	font-size: 2.5rem;	color:#269a9b;	}
+.top-head-content-right span{display: inline-block;	color: #269a9b;
+	font-size: 1.2rem;	cursor: pointer;}
+.newdashboard-top-bottom p{font-size: 1.2rem;}
+.demotable table{box-sizing: border-box;  width:100%; background: #fff;  margin-bottom: 25px;box-shadow: 0 0 9px 2px rgba(0,0,0,0.1);  border: 5px solid #269a9b; }
+.demotable table tr td{padding:8px 20px; border-bottom:1px solid rgba(0,0,0,0.2);}
+.demotable table thead tr:first-child td{padding:5px 20px 8px 20px; border-bottom:1px solid rgba(255,255,255,0.2);}
+.demotable thead{background:#269a9b;  color: #fff;}
+.highlight { color:#fff;  background:#269a9b !important;}
+ul.alpha-index-list li{background:rgba(255,255,255,0.4);}
+.csmall{font-size: 10px; display: inline-block; padding: 0 6px;}
+ul#alldates li{ display: inline-block;  width:auto; margin:0 12px 0 0;
+    font-size: 1.1em;    padding: 3px 9px; cursor:pointer;
+    border: 1px solid silver;  background:rgba(255,255,255,0.4);}
+.na{ color: darkgray;  font-size: 13px;}
+.demotable a { display: inline-block;  padding: 8px 10px; background: #23b3b4;
+    color: #fff; font-size: 16px;}
+.organ-pic{  position: relative;}
+.mycheck{position: absolute; left:0; top:0; width:100%; height: 100%;} 
+.weight-waist{ display: flex;   flex-wrap: wrap;  justify-content: space-between;
+        margin-bottom: 20px; } 
+.waist_graphcnt, .weight_graphcnt{ width:100%; } 
+
+.graphtestbtn ul, .graphtestbtn ul li{  list-style: none;}
+.graphtestbtn ul li{ display: inline-block; padding: 8px;  border:1px solid #ccc;
+    cursor: pointer;   font-size: 13px;}
+.graphtestbtn{background: #fff; display: flex; justify-content: center;
+    box-sizing: border-box; padding: 14px;}
+.toggle_na{cursor: pointer; font-weight: 800; } 
+.showna{display: none;} 
+.personal-information{width:100%; display: flex; justify-content: space-between; padding: 10px 0;} 
+.highlight2 { color:#fff; background:#30e3e5 !important;}
+.waist_btn {display: flex;  flex-wrap: wrap; justify-content: center; margin: 10px 0 25px 0;} 
+.waist_btn li { display: inline-block;  padding: 6px 18px;  border: 1px solid rgba(0,0,0,0.2);  background: linear-gradient(45deg, #f8f8f8, #fff); margin-right: 15px; box-shadow: 0 0px 1px 0px rgba(0, 0, 0, 0.2); cursor: pointer;} 
+
+
+.organslider {width: 100%;  margin: 0 auto;}
+.slick-slide {  margin: 0px 20px;   }    
+.slick-prev:before, .slick-next:before {  color: black;}
+.slick-slide {transition: all ease-in-out .3s;  opacity: 1; }    
+.organslider li {  text-align: center;}
+
+
+@media only screen and (min-width: 300px) and (max-width: 640px)  {
+    .main-newdashboard{ width:100%;  margin:0;}
+    .main-newdashboard-top-left {
+        width: 320px;
+        box-sizing: border-box;
+        padding: 20px 15px 0 15px;
+        border-radius: 0px;        
+    }
+    .main-newdashboard-top-right {   
+        width: 100%;
+    }
+    .newdashboard-top-head {
+        width: 90%;          
+        padding: 20px 10px 20px 5px;  
+        margin: 5px auto 0 auto;           
+    }
+    .top-head-content-right h2 {
+        font-size: 1.7rem;    
+    }
+    .arrow-box-inner li {
+       font-size: 3rem; 
+       padding: 0;
+    }
+    .demotable table tr td {
+        padding: 8px; 
+        font-size: 0.85rem;   
+    }
+    #my-list li {    
+        padding: 4px;
+        margin: 0 6px 6px 0;
+        text-decoration: none;
+        font-size: 13px;
+    }
+    .demotable table thead tr:first-child td {
+        padding: 5px 0;    
+    }
+    ul#alldates li {    
+        margin: 0 4px 2px 0;
+        font-size: 0.9em;
+        padding: 2px 4px;    
+    }
+    .personal-information li:nth-child(3), .personal-information li:nth-child(4), .demotable-row-2 td:nth-child(3),
+    .demotable-row-2 td:nth-child(4), .demotable-row-2 td:nth-child(5),
+    .demotable tr td:nth-child(3), .demotable tr td:nth-child(4), .demotable tr td:nth-child(5), g.highcharts-legend {
+        display: none;
+    }
+    .arrow-box-inner li{ 
+        top:-35px;
+    }
+    rect.highcharts-plot-background {
+        width: 100% !important;        
+    } 
+}
+
+</style>
+
+<script type="text/javascript">
+jQuery(document).ready(function() {   
+    jQuery('#my-list').makeAlphaIndex({
+
+        activateFirstIndex: false,
+        showItemsCount: false
+    });
+}); 
+
+
+function showReportbtn(custId,mobileNo) { 
+    jQuery('#my-list li').hide();  
+    jQuery('#'+custId).show();    
+    jQuery('li').removeClass("highlight");
+    jQuery('#'+custId).addClass("highlight");  
+    var redirect = "<?php echo Mage::getBaseUrl().'customer/account/organhealth?custid=' ?>"+custId+"&mno="+mobileNo; 
+            window.location.href = redirect;
+}  
+</script>
+
+<script type="text/javascript"> 
+
+<?php
+$maingraphdata = json_encode($newgraphdata);
+echo "var js_maingraphdata = ". $maingraphdata . ";\n";
+?>
+console.log(js_maingraphdata);
+
+function nextclicked(currentindex, initialgkey){
+    //alert('clicked== '+currentindex);
+    if(currentindex < totalTab){       
+        currentindex++; 
+        //var mykey = dict['ids'][(currentindex-1)];       
+        changescreen(currentindex,0); 
+        }
+    }
+
+ //////////////PREVIOUS CLICKED//////////////////////////////////
+
+function prevclicked(currentindex, initialgkey){
+    if(currentindex > 1){       
+        currentindex--;
+        //var mykey = dict['ids'][(currentindex - 1)]; 
+        changescreen(currentindex,0);
+        }
+    } 
+
+function editScreen(currindex,x) {   
+    jQuery("[btn-target]").removeClass("highlight2"); 
+    jQuery(`[btn-target='${currindex}${x}']`).addClass("highlight2"); 
+    var trow2='';   
+    var allTdata = js_maingraphdata[currindex]['table_data'][x];     
+        for(var k=0; k < allTdata.length; k++){             
+            trow2 += `<tr><td>${allTdata[k].name}</td><td>${allTdata[k].value}</td><td>${allTdata[k].scoring}</td><td>${allTdata[k].test_weitage}</td><td>${allTdata[k].range}</td><td>${allTdata[k].behavior}</td></tr>`;
+        } 
+
+        document.getElementById('tablebody').innerHTML = trow2;     
+}      
+
+ function  gaphCnt(currindex,graphkey){     
+ //alert( js_maingraphdata[currindex]['sname']);  
+ if(js_maingraphdata[currindex]['sname']!=null){
+    jQuery("[data-target]").removeClass("highlight"); 
+    jQuery(`[data-target='${currindex}${graphkey}']`).addClass("highlight");     
+    const arrStr = js_maingraphdata[currindex]['graphdata'][graphkey];
+    const gdata = arrStr.map((i) => Number(i)); 
+    Highcharts.chart('graph_container', {
+        chart:{
+            type:'line',
+            zoomType:'x'            
+        },
+        credits:{
+            enabled:false
+        },
+        title:{
+            text: js_maingraphdata[currindex]['title']
+        },
+        background: {
+    		color: 'red'   
+		},
+        colors:['#79b4e5'],
+        xAxis: {
+            categories: js_maingraphdata[currindex]['graphdate'][graphkey]
+        },
+        yAxis: {
+            title: {
+                text:'Date Value'
+            }
+        },
+        tooltip: {
+            valueSuffix: ' '+js_maingraphdata[currindex]['units'][graphkey]
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{
+            name: js_maingraphdata[currindex]['sname'][graphkey],
+            data: gdata
+        }]
+    });
+    }
+ } 
+
+
+<?php
+echo "var js_waistdata = ".json_encode($waistdata). ";\n";
+echo "var js_waistdate = ".json_encode($waistdate). ";\n";
+echo "var js_weightdata = ".json_encode($weightdata). ";\n";
+echo "var js_weightdate = ".json_encode($weightdate). ";\n";
+?> 
+js_weightdata = js_weightdata.map(Number);
+
+ function  weightgaph(){    
+    Highcharts.chart('weight_graphcnt', {
+            title: {
+            text: 'Weight Chart',
+            x: -20 //center
+        },
+        credits:{
+            enabled:false
+        },
+        xAxis: {
+            categories: js_weightdate
+        },
+        yAxis: {
+            title: {
+                text: 'Weight in (Kg)'
+            }
+        },
+        tooltip: {
+            valueSuffix: ' kg'
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{
+            name: 'Weight',
+            data: js_weightdata
+        }]
+    
+        });
+ }       
+</script>
+
+
+<script type="text/javascript">
+	 function emptyClass(){   
+        document.getElementById('graph_id').className ='';
+    }
+
+    function whiteall(){
+    	for(x in dict){
+    	//alert(x+" jjjjjj  "+dict[x]['name']);
+    	document.getElementById(x).style.background="#ccc";
+    	}
+	}
+
+    function downloadPdf(pdf){
+        var baseUrl = window.location.origin;
+        var pdfPath = baseUrl+'/media/upload/'+pdf;
+        //alert(pdfPath);
+
+        var req = new XMLHttpRequest();
+        req.open("GET", pdfPath, true);
+        req.responseType = "blob";
+
+        req.onload = function (event) {
+        var blob = req.response;
+        //console.log(blob.size);
+        var link=document.createElement('a');
+        link.href=window.URL.createObjectURL(blob);
+        link.download=pdf;
+        link.click();
+        };
+
+        req.send();
+    }
+
+    function showweight(){   
+        weightgaph();
+        jQuery("#waistBtn").removeClass("highlight");
+        jQuery("#weightBtn").addClass("highlight");
+        jQuery('#waist_graphcnt').hide();  
+        jQuery("#weight_graphcnt").show(); 
+    }
+
+    function showwaist(){
+        waistgaph();   
+        jQuery("#weightBtn").removeClass("highlight");       
+        jQuery("#waistBtn").addClass("highlight");
+        jQuery('#waist_graphcnt').show();  
+        jQuery("#weight_graphcnt").hide(); 
+    }  
+
+	function changescreen(currentindex,graphkey){
+       //console.log(js_maingraphdata[4]['table_data'][0]);
+       weightgaph();              
+		gaphCnt(currentindex,graphkey);       		
+		emptyClass();
+		document.getElementById('graph_id').classList.add("c100", "big", "p"+dict[currentindex]['qty']);
+		document.getElementById('organ_name').innerHTML = dict[currentindex]['organ'];	
+	document.getElementById('circle_qty').innerHTML= dict[currentindex]['qty']+"%";
+    document.getElementById('mycheck').innerHTML = "<img src=\"<?php echo Mage::getDesign()->getSkinUrl();?>images/"+dict[currentindex]['pic']+"\"/>"; 
+
+	if(currentindex==1){
+        document.getElementById('arrow_box_inner').innerHTML = "<li></li>"+
+            "<li onClick=\"nextclicked('"+currentindex+"','"+graphkey+"');\">&gt;</li>";
+
+    }else if(currentindex==totalTab){
+        document.getElementById('arrow_box_inner').innerHTML = "<li onClick=\"prevclicked('"+currentindex+"','"+graphkey+"');\">&lt;</li>"+
+            "<li></li>";
+
+    }else if(currentindex>1 && currentindex<totalTab){
+        document.getElementById('arrow_box_inner').innerHTML = "<li onClick=\"prevclicked('"+currentindex+"','"+graphkey+"');\">&lt;</li>"+
+            "<li onClick=\"nextclicked('"+currentindex+"','"+graphkey+"');\">&gt;</li>";
+    }
+
+    var testbtnrow='';
+    var alltr ='';
+    for(var k=0; k < js_maingraphdata[currentindex]['sname'].length; k++){
+        testbtnrow += `<li data-target="${currentindex}${k}" onClick="gaphCnt(${currentindex},${k});">${js_maingraphdata[currentindex]['sname'][k]}</li>`;
+    }
+    document.getElementById('graphtestbtn').innerHTML = testbtnrow;   
+    var tempdatearr = [];
+    for(var k=0; k < js_maingraphdata[currentindex]['table_data'].length; k++){
+        if(js_maingraphdata[currentindex]['table_data'][k]!=null){
+            tempdatearr.push(k);
+            //console.log(tempdatearr);
+            alltr += `<li btn-target="${currentindex}${k}" onClick="editScreen(${currentindex},${k});">${js_maingraphdata[currentindex]['table_date'][k]}</li>`;
+        }            
+    }
+    document.getElementById('alldates').innerHTML = alltr;
+
+
+    var trow2='';          
+    var allTdata = js_maingraphdata[currentindex]['table_data'][0];     
+    for(var k=0; k < allTdata.length; k++){             
+        trow2 += `<tr><td>${allTdata[k].name}</td><td>${allTdata[k].value}</td><td>${allTdata[k].scoring}</td><td>${allTdata[k].test_weitage}</td><td>${allTdata[k].range}</td><td>${allTdata[k].behavior}</td></tr>`;
+        }   
+
+    document.getElementById('tablebody').innerHTML = trow2; 
+        
+    <?php 
+    if(isset($pdf)){
+        $pdftag =  '<a href="javascript:void(0)" onclick="downloadPdf(""'.$pdf.'"")" title="'.$pdf.'">Download Report</a>';
+    }else{
+        $pdftag ='';
+    }
+    ?> 
+    var weistbtn ='';
+    weistbtn += `<li id="weightBtn" onClick="showweight();">Weight Graph</li>`;   
+    document.getElementById('waist_btn').innerHTML = weistbtn; 
+    jQuery("#weightBtn").addClass("highlight");
+    
+    
+    jQuery(`[data-target='${currentindex}${graphkey}']`).addClass("highlight");
+    jQuery(`[btn-target='${currentindex}0']`).addClass("highlight2");
+    shownaData();
+	}
+
+	changescreen(currentindex,0);
+    
+   function shownaData(){
+        jQuery(".toggle_na").click(function(){       
+            jQuery(".showna").toggle(function(){           
+                if(jQuery(".showna").is(":visible")){
+                   jQuery('.toggle_na_2').text('-');
+                } else{
+                    jQuery('.toggle_na_2').text('+');
+                }
+            });
+        });
+    }
+</script>
+
+<script type="text/javascript">
+/*$(document).on('ready', function() { 
+        if (screen.width>=641) { 
+        //alert("long screen");   
+      $(".regular").slick({
+        dots: false,
+        infinite: true,
+        slidesToShow: 3,
+        slidesToScroll: 2
+      });
+    }
+
+      if (screen.width<=640) {
+        //alert("small screen");
+        $(".regular").slick({
+        dots: false,
+        infinite: true,
+        slidesToShow: 2,
+        slidesToScroll: 1
+      });  
+    }       
+      
+    });*/
+</script>

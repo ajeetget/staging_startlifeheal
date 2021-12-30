@@ -1,0 +1,100 @@
+<style>
+
+
+.containerpdf{
+display: inline-block;
+width: 100%;
+text-align: center;
+vertical-align: middle;
+line-height: 100px;
+} 
+	.containerpdf h1{margin-bottom: 40px;}
+	.containerpdf h3{font-weight: bold;margin: 20px auto;}
+	.boxback{width: 265px;
+height: 265px;
+margin: auto;
+background:#eee;}
+	.closepdf{float: right;width: 30px;background: #4c4c4c;position: relative;right: 23%;height: 33px;border: 0px;color: #e7e7e7;font-weight: bold;}
+#pdfarea{position: fixed;
+width: 100%;
+margin: auto;
+float: none;
+background:rgba(0,0,0,0.2);
+height: 100%;
+z-index: 4;
+top: 0;}
+ .column-left{ float: left; width: 50%; }
+.column-right{ float: right; width: 50%;}
+.column-center{ display: inline-block; width: 33%;}
+	#myFrame{width: 800px;margin: auto;top:10%;height:700px;}
+	@media screen and (min-width:260px) and (max-width:767px)
+	{
+		.closepdf {
+    float: right;
+    width: 30px;
+    background:#4c4c4c;
+position: relative;
+right: 5%;
+height: 33px;
+border: 0px;
+color:
+    #e7e7e7;
+    font-weight: bold;
+}
+		 .column-left{ float: left; width: 100%; }
+.column-right{ float: right; width: 100%;}
+.column-center{ display: inline-block; width: 100%;}
+	#myFrame{width: 100%;margin: auto;top:10%;height:400px;}
+	}
+</style>
+
+<section>
+<div class="container-fluid imgfood">
+  <img src="<?php echo Mage::getBaseUrl('skin').'frontend/rwd/default/images/foodmenu.jpg' ?>" alt="food menu" class="desktopbanner"/>
+   <img src="<?php echo Mage::getBaseUrl('skin').'frontend/rwd/default/images/CMD-Menu-Mobile-Banner.jpg' ?>" alt="food menu" class="mobbanner"/>
+	</div>
+</section>
+
+<div id="pdfarea" style="display:none">
+	<input type="button"  value="X" class="closepdf" document.getElementById("pdfarea").style.display = "none"; //hides the frame/>
+	<iframe id="myFrame"></iframe>
+	</div>
+ <div class="container">
+<div class="containerpdf">
+	<h1>MENU</h1>
+	
+   <div class="column-left"><div class="boxback">
+	   <img src="<?php echo Mage::getBaseUrl('skin').'frontend/rwd/default/images/Mughlai-Thumbnail-1.jpg' ?>" alt="food menu" onclick = "openPdf()"/>
+	  </div><h3>Mughlai</h3></div>
+   <div class="column-center"><div class="boxback">
+	   <img src="<?php echo Mage::getBaseUrl('skin').'frontend/rwd/default/images/Mughlai-Thumbnail-1.jpg' ?>" alt="food menu" onclick = "openPdf1()"/></div><h3>Indian</h3></div>
+   
+ 
+</div> 
+	 </div>
+
+
+<script type="text/javascript">
+function openPdf()
+{
+var omyFrame = document.getElementById("myFrame");
+omyFrame.style.display="block";
+omyFrame.src = "Mughlai shared.pdf";
+pdfarea.style.display="block";
+
+}
+function closePdf()
+{
+	
+	pdfarea.style.display="none";
+}
+function openPdf1()
+{
+var omyFrame = document.getElementById("myFrame");
+omyFrame.style.display="block";
+omyFrame.src = "dummy_pdf.pdf";
+pdfarea.style.display="block";
+
+}
+
+</script>

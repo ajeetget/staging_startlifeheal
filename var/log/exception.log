@@ -1,0 +1,320 @@
+2021-12-27T14:46:44+00:00 ERR (3): 
+Mage_Core_Exception: Invalid block type: Mage_Gene_Braintree_Block_Assets in C:\xampp\htdocs\startlifeheal\app\Mage.php:598
+Stack trace:
+#0 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(495): Mage::throwException('Invalid block t...')
+#1 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(437): Mage_Core_Model_Layout->_getBlockInstance('Mage_Gene_Brain...', Array)
+#2 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(472): Mage_Core_Model_Layout->createBlock('gene_braintree/...', 'gene.braintree....')
+#3 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(239): Mage_Core_Model_Layout->addBlock('gene_braintree/...', 'gene.braintree....')
+#4 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(205): Mage_Core_Model_Layout->_generateBlock(Object(Mage_Core_Model_Layout_Element), Object(Mage_Core_Model_Layout_Element))
+#5 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(210): Mage_Core_Model_Layout->generateBlocks(Object(Mage_Core_Model_Layout_Element))
+#6 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(344): Mage_Core_Model_Layout->generateBlocks()
+#7 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(113): Mage_Core_Controller_Varien_Action->generateLayoutBlocks()
+#8 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(52): Mage_Cms_Helper_Page->_renderPage(Object(Mage_Cms_IndexController), 'home')
+#9 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\controllers\IndexController.php(45): Mage_Cms_Helper_Page->renderPage(Object(Mage_Cms_IndexController), 'home')
+#10 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(418): Mage_Cms_IndexController->indexAction()
+#11 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Router\Standard.php(254): Mage_Core_Controller_Varien_Action->dispatch('index')
+#12 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Front.php(172): Mage_Core_Controller_Varien_Router_Standard->match(Object(Mage_Core_Controller_Request_Http))
+#13 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\App.php(365): Mage_Core_Controller_Varien_Front->dispatch()
+#14 C:\xampp\htdocs\startlifeheal\app\Mage.php(686): Mage_Core_Model_App->run(Array)
+#15 C:\xampp\htdocs\startlifeheal\index.php(82): Mage::run('', 'store')
+#16 {main}
+2021-12-27T14:47:05+00:00 ERR (3): 
+Mage_Core_Exception: Invalid block type: Mage_Gene_Braintree_Block_Assets in C:\xampp\htdocs\startlifeheal\app\Mage.php:598
+Stack trace:
+#0 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(495): Mage::throwException('Invalid block t...')
+#1 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(437): Mage_Core_Model_Layout->_getBlockInstance('Mage_Gene_Brain...', Array)
+#2 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(472): Mage_Core_Model_Layout->createBlock('gene_braintree/...', 'gene.braintree....')
+#3 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(239): Mage_Core_Model_Layout->addBlock('gene_braintree/...', 'gene.braintree....')
+#4 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(205): Mage_Core_Model_Layout->_generateBlock(Object(Mage_Core_Model_Layout_Element), Object(Mage_Core_Model_Layout_Element))
+#5 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(210): Mage_Core_Model_Layout->generateBlocks(Object(Mage_Core_Model_Layout_Element))
+#6 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(344): Mage_Core_Model_Layout->generateBlocks()
+#7 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(113): Mage_Core_Controller_Varien_Action->generateLayoutBlocks()
+#8 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(52): Mage_Cms_Helper_Page->_renderPage(Object(Mage_Cms_IndexController), 'home')
+#9 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\controllers\IndexController.php(45): Mage_Cms_Helper_Page->renderPage(Object(Mage_Cms_IndexController), 'home')
+#10 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(418): Mage_Cms_IndexController->indexAction()
+#11 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Router\Standard.php(254): Mage_Core_Controller_Varien_Action->dispatch('index')
+#12 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Front.php(172): Mage_Core_Controller_Varien_Router_Standard->match(Object(Mage_Core_Controller_Request_Http))
+#13 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\App.php(365): Mage_Core_Controller_Varien_Front->dispatch()
+#14 C:\xampp\htdocs\startlifeheal\app\Mage.php(686): Mage_Core_Model_App->run(Array)
+#15 C:\xampp\htdocs\startlifeheal\index.php(82): Mage::run('', 'store')
+#16 {main}
+2021-12-27T14:47:58+00:00 ERR (3): 
+Mage_Core_Exception: Invalid block type: Mage_Gene_Braintree_Block_Assets in C:\xampp\htdocs\startlifeheal\app\Mage.php:598
+Stack trace:
+#0 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(495): Mage::throwException('Invalid block t...')
+#1 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(437): Mage_Core_Model_Layout->_getBlockInstance('Mage_Gene_Brain...', Array)
+#2 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(472): Mage_Core_Model_Layout->createBlock('gene_braintree/...', 'gene.braintree....')
+#3 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(239): Mage_Core_Model_Layout->addBlock('gene_braintree/...', 'gene.braintree....')
+#4 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(205): Mage_Core_Model_Layout->_generateBlock(Object(Mage_Core_Model_Layout_Element), Object(Mage_Core_Model_Layout_Element))
+#5 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(210): Mage_Core_Model_Layout->generateBlocks(Object(Mage_Core_Model_Layout_Element))
+#6 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(344): Mage_Core_Model_Layout->generateBlocks()
+#7 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(113): Mage_Core_Controller_Varien_Action->generateLayoutBlocks()
+#8 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(52): Mage_Cms_Helper_Page->_renderPage(Object(Mage_Cms_IndexController), 'home')
+#9 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\controllers\IndexController.php(45): Mage_Cms_Helper_Page->renderPage(Object(Mage_Cms_IndexController), 'home')
+#10 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(418): Mage_Cms_IndexController->indexAction()
+#11 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Router\Standard.php(254): Mage_Core_Controller_Varien_Action->dispatch('index')
+#12 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Front.php(172): Mage_Core_Controller_Varien_Router_Standard->match(Object(Mage_Core_Controller_Request_Http))
+#13 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\App.php(365): Mage_Core_Controller_Varien_Front->dispatch()
+#14 C:\xampp\htdocs\startlifeheal\app\Mage.php(686): Mage_Core_Model_App->run(Array)
+#15 C:\xampp\htdocs\startlifeheal\index.php(82): Mage::run('', 'store')
+#16 {main}
+2021-12-27T14:48:12+00:00 ERR (3): 
+Mage_Core_Exception: Invalid block type: Mage_Gene_Braintree_Block_Assets in C:\xampp\htdocs\startlifeheal\app\Mage.php:598
+Stack trace:
+#0 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(495): Mage::throwException('Invalid block t...')
+#1 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(437): Mage_Core_Model_Layout->_getBlockInstance('Mage_Gene_Brain...', Array)
+#2 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(472): Mage_Core_Model_Layout->createBlock('gene_braintree/...', 'gene.braintree....')
+#3 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(239): Mage_Core_Model_Layout->addBlock('gene_braintree/...', 'gene.braintree....')
+#4 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(205): Mage_Core_Model_Layout->_generateBlock(Object(Mage_Core_Model_Layout_Element), Object(Mage_Core_Model_Layout_Element))
+#5 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(210): Mage_Core_Model_Layout->generateBlocks(Object(Mage_Core_Model_Layout_Element))
+#6 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(344): Mage_Core_Model_Layout->generateBlocks()
+#7 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(113): Mage_Core_Controller_Varien_Action->generateLayoutBlocks()
+#8 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(52): Mage_Cms_Helper_Page->_renderPage(Object(Mage_Cms_IndexController), 'home')
+#9 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\controllers\IndexController.php(45): Mage_Cms_Helper_Page->renderPage(Object(Mage_Cms_IndexController), 'home')
+#10 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(418): Mage_Cms_IndexController->indexAction()
+#11 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Router\Standard.php(254): Mage_Core_Controller_Varien_Action->dispatch('index')
+#12 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Front.php(172): Mage_Core_Controller_Varien_Router_Standard->match(Object(Mage_Core_Controller_Request_Http))
+#13 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\App.php(365): Mage_Core_Controller_Varien_Front->dispatch()
+#14 C:\xampp\htdocs\startlifeheal\app\Mage.php(686): Mage_Core_Model_App->run(Array)
+#15 C:\xampp\htdocs\startlifeheal\index.php(82): Mage::run('', 'store')
+#16 {main}
+2021-12-27T14:54:20+00:00 ERR (3): 
+Mage_Core_Exception: Invalid block type: Mage_Gene_Braintree_Block_Assets in C:\xampp\htdocs\startlifeheal\app\Mage.php:598
+Stack trace:
+#0 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(495): Mage::throwException('Invalid block t...')
+#1 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(437): Mage_Core_Model_Layout->_getBlockInstance('Mage_Gene_Brain...', Array)
+#2 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(472): Mage_Core_Model_Layout->createBlock('gene_braintree/...', 'gene.braintree....')
+#3 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(239): Mage_Core_Model_Layout->addBlock('gene_braintree/...', 'gene.braintree....')
+#4 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(205): Mage_Core_Model_Layout->_generateBlock(Object(Mage_Core_Model_Layout_Element), Object(Mage_Core_Model_Layout_Element))
+#5 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(210): Mage_Core_Model_Layout->generateBlocks(Object(Mage_Core_Model_Layout_Element))
+#6 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(344): Mage_Core_Model_Layout->generateBlocks()
+#7 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(113): Mage_Core_Controller_Varien_Action->generateLayoutBlocks()
+#8 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(52): Mage_Cms_Helper_Page->_renderPage(Object(Mage_Cms_IndexController), 'home')
+#9 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\controllers\IndexController.php(45): Mage_Cms_Helper_Page->renderPage(Object(Mage_Cms_IndexController), 'home')
+#10 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(418): Mage_Cms_IndexController->indexAction()
+#11 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Router\Standard.php(254): Mage_Core_Controller_Varien_Action->dispatch('index')
+#12 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Front.php(172): Mage_Core_Controller_Varien_Router_Standard->match(Object(Mage_Core_Controller_Request_Http))
+#13 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\App.php(365): Mage_Core_Controller_Varien_Front->dispatch()
+#14 C:\xampp\htdocs\startlifeheal\app\Mage.php(686): Mage_Core_Model_App->run(Array)
+#15 C:\xampp\htdocs\startlifeheal\index.php(82): Mage::run('', 'store')
+#16 {main}
+2021-12-27T14:54:23+00:00 ERR (3): 
+Mage_Core_Exception: Invalid block type: Mage_Gene_Braintree_Block_Assets in C:\xampp\htdocs\startlifeheal\app\Mage.php:598
+Stack trace:
+#0 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(495): Mage::throwException('Invalid block t...')
+#1 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(437): Mage_Core_Model_Layout->_getBlockInstance('Mage_Gene_Brain...', Array)
+#2 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(472): Mage_Core_Model_Layout->createBlock('gene_braintree/...', 'gene.braintree....')
+#3 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(239): Mage_Core_Model_Layout->addBlock('gene_braintree/...', 'gene.braintree....')
+#4 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(205): Mage_Core_Model_Layout->_generateBlock(Object(Mage_Core_Model_Layout_Element), Object(Mage_Core_Model_Layout_Element))
+#5 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(210): Mage_Core_Model_Layout->generateBlocks(Object(Mage_Core_Model_Layout_Element))
+#6 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(344): Mage_Core_Model_Layout->generateBlocks()
+#7 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(113): Mage_Core_Controller_Varien_Action->generateLayoutBlocks()
+#8 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(52): Mage_Cms_Helper_Page->_renderPage(Object(Mage_Cms_IndexController), 'home')
+#9 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\controllers\IndexController.php(45): Mage_Cms_Helper_Page->renderPage(Object(Mage_Cms_IndexController), 'home')
+#10 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(418): Mage_Cms_IndexController->indexAction()
+#11 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Router\Standard.php(254): Mage_Core_Controller_Varien_Action->dispatch('index')
+#12 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Front.php(172): Mage_Core_Controller_Varien_Router_Standard->match(Object(Mage_Core_Controller_Request_Http))
+#13 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\App.php(365): Mage_Core_Controller_Varien_Front->dispatch()
+#14 C:\xampp\htdocs\startlifeheal\app\Mage.php(686): Mage_Core_Model_App->run(Array)
+#15 C:\xampp\htdocs\startlifeheal\index.php(82): Mage::run('', 'store')
+#16 {main}
+2021-12-27T14:54:28+00:00 ERR (3): 
+Mage_Core_Exception: Invalid block type: Mage_Gene_Braintree_Block_Assets in C:\xampp\htdocs\startlifeheal\app\Mage.php:598
+Stack trace:
+#0 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(495): Mage::throwException('Invalid block t...')
+#1 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(437): Mage_Core_Model_Layout->_getBlockInstance('Mage_Gene_Brain...', Array)
+#2 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(472): Mage_Core_Model_Layout->createBlock('gene_braintree/...', 'gene.braintree....')
+#3 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(239): Mage_Core_Model_Layout->addBlock('gene_braintree/...', 'gene.braintree....')
+#4 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(205): Mage_Core_Model_Layout->_generateBlock(Object(Mage_Core_Model_Layout_Element), Object(Mage_Core_Model_Layout_Element))
+#5 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(210): Mage_Core_Model_Layout->generateBlocks(Object(Mage_Core_Model_Layout_Element))
+#6 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(344): Mage_Core_Model_Layout->generateBlocks()
+#7 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(113): Mage_Core_Controller_Varien_Action->generateLayoutBlocks()
+#8 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(52): Mage_Cms_Helper_Page->_renderPage(Object(Mage_Cms_PageController), '127')
+#9 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\controllers\PageController.php(45): Mage_Cms_Helper_Page->renderPage(Object(Mage_Cms_PageController), '127')
+#10 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(418): Mage_Cms_PageController->viewAction()
+#11 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Router\Standard.php(254): Mage_Core_Controller_Varien_Action->dispatch('view')
+#12 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Front.php(172): Mage_Core_Controller_Varien_Router_Standard->match(Object(Mage_Core_Controller_Request_Http))
+#13 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\App.php(365): Mage_Core_Controller_Varien_Front->dispatch()
+#14 C:\xampp\htdocs\startlifeheal\app\Mage.php(686): Mage_Core_Model_App->run(Array)
+#15 C:\xampp\htdocs\startlifeheal\index.php(82): Mage::run('', 'store')
+#16 {main}
+2021-12-27T14:54:43+00:00 ERR (3): 
+Mage_Core_Exception: Invalid block type: Mage_Gene_Braintree_Block_Assets in C:\xampp\htdocs\startlifeheal\app\Mage.php:598
+Stack trace:
+#0 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(495): Mage::throwException('Invalid block t...')
+#1 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(437): Mage_Core_Model_Layout->_getBlockInstance('Mage_Gene_Brain...', Array)
+#2 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(472): Mage_Core_Model_Layout->createBlock('gene_braintree/...', 'gene.braintree....')
+#3 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(239): Mage_Core_Model_Layout->addBlock('gene_braintree/...', 'gene.braintree....')
+#4 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(205): Mage_Core_Model_Layout->_generateBlock(Object(Mage_Core_Model_Layout_Element), Object(Mage_Core_Model_Layout_Element))
+#5 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(210): Mage_Core_Model_Layout->generateBlocks(Object(Mage_Core_Model_Layout_Element))
+#6 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(344): Mage_Core_Model_Layout->generateBlocks()
+#7 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(113): Mage_Core_Controller_Varien_Action->generateLayoutBlocks()
+#8 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(52): Mage_Cms_Helper_Page->_renderPage(Object(Mage_Cms_PageController), '192')
+#9 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\controllers\PageController.php(45): Mage_Cms_Helper_Page->renderPage(Object(Mage_Cms_PageController), '192')
+#10 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(418): Mage_Cms_PageController->viewAction()
+#11 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Router\Standard.php(254): Mage_Core_Controller_Varien_Action->dispatch('view')
+#12 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Front.php(172): Mage_Core_Controller_Varien_Router_Standard->match(Object(Mage_Core_Controller_Request_Http))
+#13 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\App.php(365): Mage_Core_Controller_Varien_Front->dispatch()
+#14 C:\xampp\htdocs\startlifeheal\app\Mage.php(686): Mage_Core_Model_App->run(Array)
+#15 C:\xampp\htdocs\startlifeheal\index.php(82): Mage::run('', 'store')
+#16 {main}
+2021-12-27T14:54:50+00:00 ERR (3): 
+Mage_Core_Exception: Invalid block type: Mage_Gene_Braintree_Block_Assets in C:\xampp\htdocs\startlifeheal\app\Mage.php:598
+Stack trace:
+#0 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(495): Mage::throwException('Invalid block t...')
+#1 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(437): Mage_Core_Model_Layout->_getBlockInstance('Mage_Gene_Brain...', Array)
+#2 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(472): Mage_Core_Model_Layout->createBlock('gene_braintree/...', 'gene.braintree....')
+#3 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(239): Mage_Core_Model_Layout->addBlock('gene_braintree/...', 'gene.braintree....')
+#4 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(205): Mage_Core_Model_Layout->_generateBlock(Object(Mage_Core_Model_Layout_Element), Object(Mage_Core_Model_Layout_Element))
+#5 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(210): Mage_Core_Model_Layout->generateBlocks(Object(Mage_Core_Model_Layout_Element))
+#6 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(344): Mage_Core_Model_Layout->generateBlocks()
+#7 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(113): Mage_Core_Controller_Varien_Action->generateLayoutBlocks()
+#8 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(52): Mage_Cms_Helper_Page->_renderPage(Object(Mage_Cms_PageController), '135')
+#9 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\controllers\PageController.php(45): Mage_Cms_Helper_Page->renderPage(Object(Mage_Cms_PageController), '135')
+#10 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(418): Mage_Cms_PageController->viewAction()
+#11 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Router\Standard.php(254): Mage_Core_Controller_Varien_Action->dispatch('view')
+#12 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Front.php(172): Mage_Core_Controller_Varien_Router_Standard->match(Object(Mage_Core_Controller_Request_Http))
+#13 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\App.php(365): Mage_Core_Controller_Varien_Front->dispatch()
+#14 C:\xampp\htdocs\startlifeheal\app\Mage.php(686): Mage_Core_Model_App->run(Array)
+#15 C:\xampp\htdocs\startlifeheal\index.php(82): Mage::run('', 'store')
+#16 {main}
+2021-12-27T15:03:09+00:00 ERR (3): 
+Mage_Core_Exception: Invalid block type: Mage_Gene_Braintree_Block_Assets in C:\xampp\htdocs\startlifeheal\app\Mage.php:598
+Stack trace:
+#0 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(495): Mage::throwException('Invalid block t...')
+#1 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(437): Mage_Core_Model_Layout->_getBlockInstance('Mage_Gene_Brain...', Array)
+#2 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(472): Mage_Core_Model_Layout->createBlock('gene_braintree/...', 'gene.braintree....')
+#3 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(239): Mage_Core_Model_Layout->addBlock('gene_braintree/...', 'gene.braintree....')
+#4 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(205): Mage_Core_Model_Layout->_generateBlock(Object(Mage_Core_Model_Layout_Element), Object(Mage_Core_Model_Layout_Element))
+#5 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(210): Mage_Core_Model_Layout->generateBlocks(Object(Mage_Core_Model_Layout_Element))
+#6 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(344): Mage_Core_Model_Layout->generateBlocks()
+#7 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(113): Mage_Core_Controller_Varien_Action->generateLayoutBlocks()
+#8 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(52): Mage_Cms_Helper_Page->_renderPage(Object(Mage_Cms_IndexController), 'home')
+#9 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\controllers\IndexController.php(45): Mage_Cms_Helper_Page->renderPage(Object(Mage_Cms_IndexController), 'home')
+#10 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(418): Mage_Cms_IndexController->indexAction()
+#11 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Router\Standard.php(254): Mage_Core_Controller_Varien_Action->dispatch('index')
+#12 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Front.php(172): Mage_Core_Controller_Varien_Router_Standard->match(Object(Mage_Core_Controller_Request_Http))
+#13 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\App.php(365): Mage_Core_Controller_Varien_Front->dispatch()
+#14 C:\xampp\htdocs\startlifeheal\app\Mage.php(686): Mage_Core_Model_App->run(Array)
+#15 C:\xampp\htdocs\startlifeheal\index.php(82): Mage::run('', 'store')
+#16 {main}
+2021-12-27T15:03:16+00:00 ERR (3): 
+Mage_Core_Exception: Invalid block type: Mage_Gene_Braintree_Block_Assets in C:\xampp\htdocs\startlifeheal\app\Mage.php:598
+Stack trace:
+#0 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(495): Mage::throwException('Invalid block t...')
+#1 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(437): Mage_Core_Model_Layout->_getBlockInstance('Mage_Gene_Brain...', Array)
+#2 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(472): Mage_Core_Model_Layout->createBlock('gene_braintree/...', 'gene.braintree....')
+#3 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(239): Mage_Core_Model_Layout->addBlock('gene_braintree/...', 'gene.braintree....')
+#4 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(205): Mage_Core_Model_Layout->_generateBlock(Object(Mage_Core_Model_Layout_Element), Object(Mage_Core_Model_Layout_Element))
+#5 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(210): Mage_Core_Model_Layout->generateBlocks(Object(Mage_Core_Model_Layout_Element))
+#6 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(344): Mage_Core_Model_Layout->generateBlocks()
+#7 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(113): Mage_Core_Controller_Varien_Action->generateLayoutBlocks()
+#8 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(52): Mage_Cms_Helper_Page->_renderPage(Object(Mage_Cms_PageController), '135')
+#9 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\controllers\PageController.php(45): Mage_Cms_Helper_Page->renderPage(Object(Mage_Cms_PageController), '135')
+#10 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(418): Mage_Cms_PageController->viewAction()
+#11 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Router\Standard.php(254): Mage_Core_Controller_Varien_Action->dispatch('view')
+#12 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Front.php(172): Mage_Core_Controller_Varien_Router_Standard->match(Object(Mage_Core_Controller_Request_Http))
+#13 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\App.php(365): Mage_Core_Controller_Varien_Front->dispatch()
+#14 C:\xampp\htdocs\startlifeheal\app\Mage.php(686): Mage_Core_Model_App->run(Array)
+#15 C:\xampp\htdocs\startlifeheal\index.php(82): Mage::run('', 'store')
+#16 {main}
+2021-12-27T15:03:18+00:00 ERR (3): 
+Mage_Core_Exception: Invalid block type: Mage_Gene_Braintree_Block_Assets in C:\xampp\htdocs\startlifeheal\app\Mage.php:598
+Stack trace:
+#0 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(495): Mage::throwException('Invalid block t...')
+#1 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(437): Mage_Core_Model_Layout->_getBlockInstance('Mage_Gene_Brain...', Array)
+#2 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(472): Mage_Core_Model_Layout->createBlock('gene_braintree/...', 'gene.braintree....')
+#3 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(239): Mage_Core_Model_Layout->addBlock('gene_braintree/...', 'gene.braintree....')
+#4 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(205): Mage_Core_Model_Layout->_generateBlock(Object(Mage_Core_Model_Layout_Element), Object(Mage_Core_Model_Layout_Element))
+#5 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(210): Mage_Core_Model_Layout->generateBlocks(Object(Mage_Core_Model_Layout_Element))
+#6 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(344): Mage_Core_Model_Layout->generateBlocks()
+#7 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(113): Mage_Core_Controller_Varien_Action->generateLayoutBlocks()
+#8 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(52): Mage_Cms_Helper_Page->_renderPage(Object(Mage_Cms_PageController), '127')
+#9 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\controllers\PageController.php(45): Mage_Cms_Helper_Page->renderPage(Object(Mage_Cms_PageController), '127')
+#10 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(418): Mage_Cms_PageController->viewAction()
+#11 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Router\Standard.php(254): Mage_Core_Controller_Varien_Action->dispatch('view')
+#12 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Front.php(172): Mage_Core_Controller_Varien_Router_Standard->match(Object(Mage_Core_Controller_Request_Http))
+#13 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\App.php(365): Mage_Core_Controller_Varien_Front->dispatch()
+#14 C:\xampp\htdocs\startlifeheal\app\Mage.php(686): Mage_Core_Model_App->run(Array)
+#15 C:\xampp\htdocs\startlifeheal\index.php(82): Mage::run('', 'store')
+#16 {main}
+2021-12-27T15:03:24+00:00 ERR (3): 
+Mage_Core_Exception: Invalid block type: Mage_Gene_Braintree_Block_Assets in C:\xampp\htdocs\startlifeheal\app\Mage.php:598
+Stack trace:
+#0 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(495): Mage::throwException('Invalid block t...')
+#1 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(437): Mage_Core_Model_Layout->_getBlockInstance('Mage_Gene_Brain...', Array)
+#2 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(472): Mage_Core_Model_Layout->createBlock('gene_braintree/...', 'gene.braintree....')
+#3 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(239): Mage_Core_Model_Layout->addBlock('gene_braintree/...', 'gene.braintree....')
+#4 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(205): Mage_Core_Model_Layout->_generateBlock(Object(Mage_Core_Model_Layout_Element), Object(Mage_Core_Model_Layout_Element))
+#5 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(210): Mage_Core_Model_Layout->generateBlocks(Object(Mage_Core_Model_Layout_Element))
+#6 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(344): Mage_Core_Model_Layout->generateBlocks()
+#7 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(113): Mage_Core_Controller_Varien_Action->generateLayoutBlocks()
+#8 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(52): Mage_Cms_Helper_Page->_renderPage(Object(Mage_Cms_IndexController), 'home')
+#9 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\controllers\IndexController.php(45): Mage_Cms_Helper_Page->renderPage(Object(Mage_Cms_IndexController), 'home')
+#10 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(418): Mage_Cms_IndexController->indexAction()
+#11 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Router\Standard.php(254): Mage_Core_Controller_Varien_Action->dispatch('index')
+#12 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Front.php(172): Mage_Core_Controller_Varien_Router_Standard->match(Object(Mage_Core_Controller_Request_Http))
+#13 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\App.php(365): Mage_Core_Controller_Varien_Front->dispatch()
+#14 C:\xampp\htdocs\startlifeheal\app\Mage.php(686): Mage_Core_Model_App->run(Array)
+#15 C:\xampp\htdocs\startlifeheal\index.php(82): Mage::run('', 'store')
+#16 {main}
+2021-12-27T15:12:03+00:00 ERR (3): 
+Mage_Core_Exception: Invalid block type: Mage_Gene_Braintree_Block_Assets in C:\xampp\htdocs\startlifeheal\app\Mage.php:598
+Stack trace:
+#0 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(495): Mage::throwException('Invalid block t...')
+#1 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(437): Mage_Core_Model_Layout->_getBlockInstance('Mage_Gene_Brain...', Array)
+#2 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(472): Mage_Core_Model_Layout->createBlock('gene_braintree/...', 'gene.braintree....')
+#3 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(239): Mage_Core_Model_Layout->addBlock('gene_braintree/...', 'gene.braintree....')
+#4 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(205): Mage_Core_Model_Layout->_generateBlock(Object(Mage_Core_Model_Layout_Element), Object(Mage_Core_Model_Layout_Element))
+#5 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(210): Mage_Core_Model_Layout->generateBlocks(Object(Mage_Core_Model_Layout_Element))
+#6 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(344): Mage_Core_Model_Layout->generateBlocks()
+#7 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(113): Mage_Core_Controller_Varien_Action->generateLayoutBlocks()
+#8 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(52): Mage_Cms_Helper_Page->_renderPage(Object(Mage_Cms_IndexController), 'home')
+#9 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\controllers\IndexController.php(45): Mage_Cms_Helper_Page->renderPage(Object(Mage_Cms_IndexController), 'home')
+#10 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(418): Mage_Cms_IndexController->indexAction()
+#11 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Router\Standard.php(254): Mage_Core_Controller_Varien_Action->dispatch('index')
+#12 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Front.php(172): Mage_Core_Controller_Varien_Router_Standard->match(Object(Mage_Core_Controller_Request_Http))
+#13 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\App.php(365): Mage_Core_Controller_Varien_Front->dispatch()
+#14 C:\xampp\htdocs\startlifeheal\app\Mage.php(686): Mage_Core_Model_App->run(Array)
+#15 C:\xampp\htdocs\startlifeheal\index.php(82): Mage::run('', 'store')
+#16 {main}
+2021-12-27T15:32:50+00:00 ERR (3): 
+Mage_Core_Exception: Invalid block type: Mage_Gene_Braintree_Block_Assets in C:\xampp\htdocs\startlifeheal\app\Mage.php:598
+Stack trace:
+#0 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(495): Mage::throwException('Invalid block t...')
+#1 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(437): Mage_Core_Model_Layout->_getBlockInstance('Mage_Gene_Brain...', Array)
+#2 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(472): Mage_Core_Model_Layout->createBlock('gene_braintree/...', 'gene.braintree....')
+#3 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(239): Mage_Core_Model_Layout->addBlock('gene_braintree/...', 'gene.braintree....')
+#4 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(205): Mage_Core_Model_Layout->_generateBlock(Object(Mage_Core_Model_Layout_Element), Object(Mage_Core_Model_Layout_Element))
+#5 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(210): Mage_Core_Model_Layout->generateBlocks(Object(Mage_Core_Model_Layout_Element))
+#6 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(344): Mage_Core_Model_Layout->generateBlocks()
+#7 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(113): Mage_Core_Controller_Varien_Action->generateLayoutBlocks()
+#8 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(52): Mage_Cms_Helper_Page->_renderPage(Object(Mage_Cms_IndexController), 'home')
+#9 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\controllers\IndexController.php(45): Mage_Cms_Helper_Page->renderPage(Object(Mage_Cms_IndexController), 'home')
+#10 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(418): Mage_Cms_IndexController->indexAction()
+#11 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Router\Standard.php(254): Mage_Core_Controller_Varien_Action->dispatch('index')
+#12 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Front.php(172): Mage_Core_Controller_Varien_Router_Standard->match(Object(Mage_Core_Controller_Request_Http))
+#13 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\App.php(365): Mage_Core_Controller_Varien_Front->dispatch()
+#14 C:\xampp\htdocs\startlifeheal\app\Mage.php(686): Mage_Core_Model_App->run(Array)
+#15 C:\xampp\htdocs\startlifeheal\index.php(82): Mage::run('', 'store')
+#16 {main}
+2021-12-27T17:10:03+00:00 ERR (3): 
+Mage_Core_Exception: Invalid block type: Mage_Gene_Braintree_Block_Assets in C:\xampp\htdocs\startlifeheal\app\Mage.php:598
+Stack trace:
+#0 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(495): Mage::throwException('Invalid block t...')
+#1 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(437): Mage_Core_Model_Layout->_getBlockInstance('Mage_Gene_Brain...', Array)
+#2 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(472): Mage_Core_Model_Layout->createBlock('gene_braintree/...', 'gene.braintree....')
+#3 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(239): Mage_Core_Model_Layout->addBlock('gene_braintree/...', 'gene.braintree....')
+#4 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(205): Mage_Core_Model_Layout->_generateBlock(Object(Mage_Core_Model_Layout_Element), Object(Mage_Core_Model_Layout_Element))
+#5 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\Layout.php(210): Mage_Core_Model_Layout->generateBlocks(Object(Mage_Core_Model_Layout_Element))
+#6 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(344): Mage_Core_Model_Layout->generateBlocks()
+#7 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(113): Mage_Core_Controller_Varien_Action->generateLayoutBlocks()
+#8 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\Helper\Page.php(52): Mage_Cms_Helper_Page->_renderPage(Object(Mage_Cms_IndexController), 'home')
+#9 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Cms\controllers\IndexController.php(45): Mage_Cms_Helper_Page->renderPage(Object(Mage_Cms_IndexController), 'home')
+#10 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Action.php(418): Mage_Cms_IndexController->indexAction()
+#11 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Router\Standard.php(254): Mage_Core_Controller_Varien_Action->dispatch('index')
+#12 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Controller\Varien\Front.php(172): Mage_Core_Controller_Varien_Router_Standard->match(Object(Mage_Core_Controller_Request_Http))
+#13 C:\xampp\htdocs\startlifeheal\app\code\core\Mage\Core\Model\App.php(365): Mage_Core_Controller_Varien_Front->dispatch()
+#14 C:\xampp\htdocs\startlifeheal\app\Mage.php(686): Mage_Core_Model_App->run(Array)
+#15 C:\xampp\htdocs\startlifeheal\index.php(82): Mage::run('', 'store')
+#16 {main}

@@ -1,0 +1,384 @@
+<style type="text/css">
+.loader {
+  position: fixed;
+  left: 40%;
+  top: 50%;
+  z-index: 9999;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #a61d3f;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+</style>
+
+<?php
+ 
+ $baseItemCollection = Mage::getModel('catalog/product')
+                        ->getCollection()
+						 ->addAttributeToSelect(array('entity_id','name','sku','is_base_item'))
+                        ->addAttributeToSort('name', 'asc')
+                        ->addAttributeToFilter('status', '1')
+                        ->load();
+$baseItemDropdown.='<div style="padding:100px">Select Base Items Or Dish Items<br>
+<div class="selectmybase"><select id="allbaselist"  onchange="getBaseItems(this.value,this.id)"></div>';
+$baseItemDropdown.='<option value="">Select Base Item</option>';
+foreach($baseItemCollection as $item)
+        { 
+		    $product= Mage::getModel("catalog/product")->load($item->getEntityId());
+			$itemType='';
+			if(is_object($product)  )
+			{
+			  $isBaseItem = $product->getIsBaseItem();
+			  if(isset($isBaseItem) && $isBaseItem==1){ $itemType='base'; }
+			  
+			   if($itemType!='')
+			   {
+			     $baseItemDropdown.='<option  value="'.$item->getEntityId().'"  type="'.$itemType.'">'.$item->getName().'</option>';
+			   }
+			  
+			} 
+		}
+        $baseItemDropdown.='</select></div>';	
+
+        echo $baseItemDropdown; 								
+						
+ $dishItemCollection = 	Mage::getModel('catalog/product')
+                        ->getCollection()
+						 ->addAttributeToSelect(array('entity_id','name','sku','base_associated_sku'))
+                        ->addAttributeToSort('name', 'asc')
+						->addAttributeToFilter('base_associated_sku', array('neq' => ''))
+						->addAttributeToFilter('complete_dish', 1)
+						->addAttributeToFilter('status', '1')
+                        ->load();						
+						
+  $dishItemDropdown.='<div class="selectmybase"><select id="alldishlist"  onchange="getBaseItems(this.value,this.id)"></div>';
+$dishItemDropdown.='<option value="">Select Dish Item</option>';
+foreach($dishItemCollection as $item)
+        { 
+		    $product= Mage::getModel("catalog/product")->load($item->getEntityId());
+			$itemType='';
+			if(is_object($product)  )
+			{
+			  $isDishItem = $product->getCompleteDish();
+			  if(isset($isDishItem) && $isDishItem==1){ $itemType='dish'; }
+			  
+			   if($itemType!='')
+			   {
+			     $dishItemDropdown.='<option  value="'.$item->getEntityId().'"  type="'.$itemType.'">'.$item->getName().'</option>';
+			   }
+			  
+			} 
+		}
+        $dishItemDropdown.='</select></div>';	
+
+        echo "&nbsp;&nbsp;&nbsp;".$dishItemDropdown; 		
+?>
+<div id="pageloader" class="loader" style="display: none;"></div>
+<div id="baseItemsInfo"> </div>		   
+          
+
+ <script type="text/javascript">
+		   
+		     function getBaseItems(productid,selectId)
+			 {
+				 jQuery( "#baseItemsInfo" ).html('');
+				 var baseUrl = window.location.origin;
+				 var product_type = jQuery("#"+selectId).find('option:selected').attr('type');
+				 if(selectId=='allbaselist')
+				 { 
+					jQuery("#alldishlist option[value='']").attr("selected", true);
+				 }
+				 else
+				 {
+					jQuery("#allbaselist option[value='']").attr("selected", true);
+				 }
+				jQuery(".loader").css("display", "block"); 
+				 jQuery.ajax({
+								url: baseUrl+'/heal/index/getbaseitemsinfo',
+								type: "POST",
+								data: {
+										   productid: productid,
+                                           baseordish:product_type										   
+									  },
+								beforeSend: function()
+								{
+                                         jQuery(".loader").css("display", "block"); 
+								},
+								success: function(response)
+							   {  
+									 
+									  jQuery( "#baseItemsInfo" ).html(response);
+								   
+							   },
+							   complete:function(data){
+								   //tr.removeClass("loader");
+								   jQuery(".loader").css("display", "none"); 
+							   }
+							 });
+			 }
+			 
+			 function SaveWeight(productid,newAddedBaseItemId) {
+			 		jQuery(".loader").css("display", "block"); 	
+				      var output='';
+					  var TotalElements = jQuery(".baseQty").length;
+					 // alert(jQuery(".baseQty").length);
+					  var count=0;
+				      jQuery(".baseQty").each(function(index,el)
+					  {
+						     count = parseInt(count) +1 ;
+						     val=0;
+							 var baseSku= jQuery(el).attr("sku");
+							 var unitofmeasure = jQuery(el).attr("unitofmeasure");
+							 
+							 if(jQuery(el).val()!='' && !isNaN(jQuery(el).val()))
+							 {
+						  	   val = jQuery(el).val();
+							 }
+							 
+							tmpOutput = baseSku+"_"+val+"_"+unitofmeasure;
+							 if(count< TotalElements)
+							 {
+								 tmpOutput = tmpOutput+",";
+							 }
+							 
+							// alert(tmpOutput);
+							 output = output+tmpOutput;
+							 
+					   });
+					  // alert(output);
+					   var baseUrl = window.location.origin;
+					   
+					   jQuery.ajax({
+										url: baseUrl+'/heal/index/savebaseitems',
+										type: "POST",
+										data: {
+												 productid: productid, 
+												 baseskuweightstring: output,
+												 newbaseitemid: newAddedBaseItemId												 
+											  },
+										success: function(response)
+										{  
+										   	  if(response=='saved')
+											   {
+											   	jQuery(".loader").css("display", "none"); 
+												// alert("base information saved.");
+											   }
+										   
+										}
+								 });
+			 }
+ 
+		   function removeBaseItem(productid,basesku)  {
+		   	jQuery(".loader").css("display", "block");
+			   
+			   if(confirm("Do you want to remove the base item from the main item?"))
+			   {
+			     var baseUrl = window.location.origin;
+				 jQuery.ajax({
+								url: baseUrl+'/heal/index/removebaseitem',
+								type: "POST",
+								data: {
+										   productid: productid,
+                                           baseskutounset:	basesku									   
+									  },
+								success: function(response) {  
+									  
+									 jQuery.ajax({
+													url: baseUrl+'/heal/index/getbaseitemsinfo',
+													type: "POST",
+													data: {
+															   productid: productid, 
+														  },
+													success: function(response)
+												   {  
+												   	jQuery(".loader").css("display", "none");
+														 
+														  jQuery( "#baseItemsInfo" ).html(response);
+													   
+													}
+												 });
+									  
+								   
+								}
+							 });
+			   }
+			   else
+			   {
+				   return false;
+			   }
+		   }
+		   function changePriceAfterWastage(baseQty,basePriceAfterWastage,qtyTextId,qtyTextVal,productId,baseProductId,newPriceLabelId)
+		   {
+			   if(isNaN(qtyTextVal))
+			   {
+				   alert("Please enter the correct weight");
+				   return false;
+			   }
+			   if(isNaN(basePriceAfterWastage))
+			   {
+				   alert("Price for the item is not defined. ");
+				   return false;
+			   }
+			   else
+			   {
+				  
+				   var customWeightPrice = (basePriceAfterWastage/baseQty)*qtyTextVal;
+				   
+				   if(!isNaN(customWeightPrice))
+					{
+						document.getElementById(newPriceLabelId).innerHTML  = customWeightPrice;
+                       updateQtyandPrice(productId);          
+					}
+					else
+					{
+						alert("Price is not defined");		
+ 						jQuery("#qty_"+baseProductId).val(0);
+					}
+				   
+				 	   
+					   
+					  
+				   
+			   }
+		   }
+		   
+		   
+		   function updateQtyandPrice(productId)
+		   {
+			           var Totalweight=0;
+				       jQuery(".baseQty").each(function(index,el){
+						     if(jQuery(el).val()!='' && !isNaN(jQuery(el).val()))
+							 {
+						  	   var tmpWeight = parseFloat(jQuery(el).val());
+						       Totalweight= tmpWeight + parseFloat(Totalweight);
+							 }
+					   });
+					   jQuery("#totalWeight_"+productId).text(Totalweight.toFixed(2));
+					   
+					   
+					   var TotalPrice=0;
+				       jQuery(".basePrice").each(function(index,el){
+						   
+						//  alert(jQuery(el).text());
+						  if(jQuery(el).text()!='' && !isNaN(jQuery(el).text()))
+						  {
+						      var tmpPrice = parseFloat(jQuery(el).text());
+							  if(!isNaN(tmpPrice))
+							  {
+						        TotalPrice = parseFloat(TotalPrice) + tmpPrice;
+						         //alert("Total Price="+TotalPrice);
+							  }
+						  }
+					   });
+					 //  alert(TotalPrice);
+					  jQuery("#totalPrice_"+productId).text(TotalPrice.toFixed(2)); 
+		   }
+		   
+		   
+	
+	</script>
+
+	<style type="text/css">
+		.selectmybase, .addbtnselect{
+			display: inline-block;
+			position: relative;
+			height:40px;
+			border:1px solid #dadada;
+			background: #fff;
+			border-right: 0;
+			margin-bottom: 15px;
+		}
+		.addbtnselect{
+			margin: 0 25px;
+		}
+		.selectmybase select, .addbtnselect select{
+			position: relative;
+			appearance:none;
+			-webkit-appearance:none;
+			-moz-appearance:none;
+			background: transparent;
+			cursor: pointer;
+			height:40px;
+			border:0;
+			outline: none;
+			z-index: 10;
+			padding: 0 15px;
+		}
+		.addbtnselect, .addbtnselect select{
+			height:35px;
+		}
+		.selectmybase:before, .addbtnselect:before{
+			position: absolute;
+			content: '';
+			right:0;
+			width:40px;
+			height: 40px;
+			background: #c21c45;
+			border:1px solid #c21c45;
+			z-index: 5;			
+		} 
+		.addbtnselect:before{
+			width:35px;
+			height: 35px;
+		}
+		.selectmybase:after, .addbtnselect:after{
+			content: '';
+			position: absolute;	
+			top:20px;
+			right: 12px;
+			z-index: 5;
+			width: 0; 
+  			height: 0; 
+			border-left: 8px solid transparent;
+  			border-right: 8px solid transparent;  
+  			border-top: 8px solid #fff
+		}
+		.addbtnselect:after{
+			top:17px;
+			right: 9px;
+		}
+		.myaddbtn, #selectResult input[type="button"], #baseItemsInfo table input[type="button"]{
+			background: #0166ff;
+			border: 0;
+			outline: none;
+			border:1px solid #5194fb;
+			height: 35px;
+			line-height: 35px;
+			text-align: center;
+			padding: 0 10px;
+			color:#fff;
+		}
+		#selectResult input[type="button"], #baseItemsInfo table input[type="button"]{
+			background: #d31f02;
+			border:1px solid #fe5a52;
+			color:#fff;
+			font-weight: 600;
+			padding: 0 20px;
+		}
+		#selectResult input[type="button"]:nth-child(2),
+		#baseItemsInfo table input[type="button"]:nth-child(1){		
+			background: #007f00;
+			border:1px solid #66d50d;
+		}
+		#baseItemsInfo table{
+			width: 100%;
+    		box-sizing: border-box;
+    		padding: 25px;
+    		box-shadow: 0 0 2px 1px rgba(0,0,0,0.2);
+		}
+		#baseItemsInfo table th{ 
+    		padding: 10px 15px;
+		}
+		#baseItemsInfo table td { 
+    		padding: 2px 15px;
+		}
+		#baseItemsInfo table td input[type="text"]{
+			background: transparent;
+		}
+	</style>
+
+ 
+ 

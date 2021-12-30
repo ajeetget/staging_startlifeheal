@@ -1,0 +1,443 @@
+  <?php ob_start();
+  $groupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
+  if(!in_array($groupId,array(4,5)))
+  { $this->_redirect('customer/account/login'); }	
+  ?>
+  
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+ 
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+	   $("#tooltip-1").tooltip();
+  } );
+  </script>
+	<style>
+		.col1-layout .col-main {
+    float: left;
+    width: 100%;
+    padding: 0;
+}
+		table{  
+					margin-top: 30px;
+		}	
+		.footer-container {
+    padding: 0px !important;
+    width: 100%;
+    float: left!important;
+}
+	table td {
+    border-top: thin solid; 
+    border-bottom: thin solid;
+	padding-left: 10px;
+	padding-right: 10px;
+	/*width:80%;*/
+	text-align:left;
+}
+.ui-datepicker td {
+    border: 0;
+    padding: 1px;
+    width: 10%;
+}
+table td:first-child {
+     border-left: thin solid;
+	padding-left: 10px;
+	padding-right: 10px;
+	width: 10%;
+}
+
+table td:last-child {
+     border-right: thin solid;
+	padding-left: 10px;
+	padding-right: 10px;
+	    padding: 10px;
+		width: 10%;
+}
+.hasDatepicker{width: 78% !important;
+
+max-width: 100%;
+
+background: #f6fcfc;
+
+height: 35px;
+
+box-shadow: 0px 0px 2px rgba(0,0,0,0.3);
+
+border: 0px;
+
+float: left;
+margin:10px;
+margin-right: 15px;}
+
+@media print
+{
+.noprint {display:none;}
+}
+
+@media print 
+{
+    @page {
+      size: A4; /* DIN A4 standard, Europe */
+      margin:0;
+    }
+    html, body {
+        width: 210mm;
+        /* height: 297mm; */
+        height: 282mm;
+        font-size: 11px;
+        background: #FFF;
+        overflow:visible;
+    }
+    body {
+        padding-top:15mm;
+    }
+}
+@media screen and (min-width:260px) and (max-width:760px){
+.hasDatepicker{width: 100% !important;
+
+max-width: 100%;
+
+background: #f6fcfc;
+
+height: 35px;
+
+box-shadow: 0px 0px 2px rgba(0,0,0,0.3);
+
+border: 0px;
+
+float: left;
+margin:10px auto;}	
+}
+		
+	</style>
+
+<div class="container">
+<table border="1" align="center" style="padding-left: 20px;padding-top:10px;"><!--margin: 25px;margin-right: 50px -->
+  <tbody>
+    <tr class="noprint">
+     
+      <td style="margin:3px"> 
+	  <form action="<?php echo Mage::getBaseUrl();?>dish-qty-details" method="POST">
+	  <p style="margin-bottom: 0px;float: left;width: 100%;">
+      <span style="width:auto;float: left;height: 35px;line-height: 35px;margin:10px auto;">Order Date:</span>
+      <input type="text" id="datepicker" name="orderDate">
+      <input name="datesubmit" type="submit" value="Request Report"  style="margin: 10px auto;padding: 0px 10px;background: #c31f41;border: 1px solid #a61d3f;color: #fff;font-size: 14px;height: 35px;width:auto;line-height: 35px;float: left;"></p>
+	  
+	  </td>
+	  
+	  
+    </tr>
+	
+	
+    <tr class="print">
+		
+      <td  id="resultTable" style="text-align:center;margin-left:0px;padding-left:10px;padding-bottom: 34px;">
+	  
+	  <?php
+
+            if(isset($_POST['datesubmit']))
+			{
+				$params      = $this->getRequest()->getParams(); 
+				
+				
+		$orderdate   = $params['orderDate'];
+		$dateInfo = explode("/",$orderdate);
+		
+		$tmpOrderdateToShow = $dateInfo[2]."-".$dateInfo[0]."-".$dateInfo[1];	
+		 $month = date("M",strtotime($tmpOrderdateToShow));
+		 $orderdateToShow = $dateInfo[1]."-".$month."-".$dateInfo[2];
+		
+		
+		$dbRead      = Mage::getSingleton('core/resource')->getConnection('core_read');
+		$selectDatewiseOrders= "select * from healorder where orderdate='$orderdate'"; 
+		$cuisineResult = $dbRead->fetchAll($selectDatewiseOrders);
+		$orderResult = '';
+		$result = '';
+		$orderItemsArray = array();
+		$dinnerItemsArray = array();
+		$breakfastItemsArray = array();
+		$linchItemsArray = array();
+		$highteaItemsArray = array();
+		
+		$orderedByArray = array();
+		if(count($cuisineResult)>0)
+		{
+			$cuisineItemsDesc = array();
+			
+			foreach($cuisineResult as $row)
+			{
+			  $orderId               =  $row['id'];	
+			  $dinner_items_desc     = 	$row['dinner_items_desc'];    $cuisineItemsDesc['dinner'] = $dinner_items_desc;
+			  $breakfast_items_desc  = 	$row['breakfast_items_desc']; $cuisineItemsDesc['breakfast'] = $breakfast_items_desc;
+			  $lunch_items_desc      = 	$row['lunch_items_desc'];     $cuisineItemsDesc['lunch'] = $lunch_items_desc;
+			  $hightea_items_desc    = 	$row['hightea_items_desc'];	  $cuisineItemsDesc['hightea'] = $hightea_items_desc;
+
+			   $customerEmail = $row['email']; 
+      
+	          $customer='';
+			  $customer = Mage::getModel("customer/customer"); 
+			  $customer->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
+			  $customer->loadByEmail($customerEmail);
+			  $customerName = 	$customer->getFirstname();
+				
+			  foreach($cuisineItemsDesc as $cuisine=>$itemDesc)
+			  {
+				 
+				 $cuisineDescItems = explode(",",$itemDesc);
+				  
+				 if(count($cuisineDescItems)>0)
+				 {	 
+				   foreach($cuisineDescItems as $singleItem)
+					{
+					  $singleItemInfo = explode("_",$singleItem);
+					  
+					  $productid = $singleItemInfo[1]; 
+
+					  $QgetOrderItemsDetails = "select * from  healitemdetails where orderid='$orderId' and cuisine='$cuisine' and productid='$productid'" ; 
+					  
+					 $orderItems='';
+					 $orderItems = $dbRead->fetchAll($QgetOrderItemsDetails) ;
+					  if(count($orderItems) >0)
+					 {
+                         
+						  foreach($orderItems as $orderdetailitem)
+						  {
+							  $healitemProductid =  trim($orderdetailitem['productid']);
+							  $qty               =  trim($orderdetailitem['qty']);
+							  
+							  if($cuisine=='dinner')
+							  {
+								   if(!array_key_exists($healitemProductid,$dinnerItemsArray) )
+									{
+									   $dinnerItemsArray[$healitemProductid] = $qty;
+									}
+									else 
+									{    $itemAlreadyInArrayQty=0;
+										 $itemAlreadyInArrayQty = $dinnerItemsArray[$healitemProductid];
+										 $newQty = $itemAlreadyInArrayQty + $orderdetailitem['qty'];
+										 $dinnerItemsArray[$healitemProductid] = $newQty;
+
+									}
+							  }
+							  if($cuisine=='breakfast')
+							  {
+								   if(!array_key_exists($healitemProductid,$breakfastItemsArray) )
+									{
+									   $breakfastItemsArray[$healitemProductid] = $qty;
+									}
+									else 
+									{    $itemAlreadyInArrayQty=0;
+										 $itemAlreadyInArrayQty = $breakfastItemsArray[$healitemProductid];
+										 $newQty = $itemAlreadyInArrayQty + $orderdetailitem['qty'];
+										 $breakfastItemsArray[$healitemProductid] = $newQty;
+
+									}
+							  }
+							  
+							  if($cuisine=='lunch')
+							  {
+								   if(!array_key_exists($healitemProductid,$lunchItemsArray) )
+									{
+									   $lunchItemsArray[$healitemProductid] = $qty;
+									}
+									else 
+									{    $itemAlreadyInArrayQty=0;
+										 $itemAlreadyInArrayQty = $lunchItemsArray[$healitemProductid];
+										 $newQty = $itemAlreadyInArrayQty + $orderdetailitem['qty'];
+										 $lunchItemsArray[$healitemProductid] = $newQty;
+
+									}
+							  }
+							  
+							  if($cuisine=='hightea')
+							  {
+								   if(!array_key_exists($healitemProductid,$highteaItemsArray) )
+									{
+									   $highteaItemsArray[$healitemProductid] = $qty;
+									}
+									else 
+									{    $itemAlreadyInArrayQty=0;
+										 $itemAlreadyInArrayQty = $highteaItemsArray[$healitemProductid];
+										 $newQty = $itemAlreadyInArrayQty + $orderdetailitem['qty'];
+										 $highteaItemsArray[$healitemProductid] = $newQty;
+
+									}
+							  }
+
+						  }
+
+					 }
+					 
+				  }
+			    }
+			  }
+			
+			}
+			
+			$countOrderItems=0; 
+			$result.='<div><strong>Order Date: '.$orderdateToShow.'</strong></div>';
+			
+			
+			if(count($breakfastItemsArray)>0)
+			{
+			  $result.='<table cellpadding="2" cellspacing="2" width="100%" >';
+			  $result.='<td style="width:10%"><strong>No</strong></td><td style="width:40%"><strong>Breakfast ';
+              $result.='Items</strong></td><td style="width:40%"><strong>Ingredient</strong></td><td style="width:10%"><strong>Qty(gm)</strong></td></tr>';	
+			 $count=0;
+				
+			  foreach($breakfastItemsArray as $productid =>$qty)
+			  {
+				$count++;  
+				$customerInfo='';  
+				
+				$countOrderItems++;  
+				$cuisineCount ="breakfast_".$count  ;
+				$product = Mage::getModel('catalog/product')->load($productid);
+				$result.='<tr><td  valign="top"><a href="javascript:void(0)" onClick="javascript:showdiv(\''.$orderdate.'\',\''.$productid.'\',\'breakfast\',\''.$cuisineCount.'\')" ><strong>'.$count.'</strong></a>';
+				$result.='<div style="display:none" class="'.$cuisineCount.'">'.$customerInfo.'</div></td>';
+				$result.='<td  valign="top">'.$product->getName().'<br><b>Sku</b>: '.$product->getSku().'</td>';
+				if($product->getCompleteDish()==1)
+				{
+					$baseItemTable = Mage::helper("heal")->getDishItemsWeight($product,$qty);
+			        $result.='<td colspan="2">'.$baseItemTable.'</td>';
+				}
+				else{
+				$result.='<td  valign="top" >&nbsp;</td>';
+				$result.='<td  valign="top">'.$qty.$detailLink.'</td>';
+				}
+				$result.='</tr>'; 
+				
+			  }
+			  $result.='</table>';		
+			}
+			
+			if(count($lunchItemsArray)>0)
+			{
+			  $result.='<table cellpadding="2" cellspacing="2" width="100%" >';
+			  $result.='<td style="width:10%"><strong>No</strong></td><td style="width:40%"><strong>Lunch ';
+              $result.='Items</strong></td><td style="width:40%"><strong>Ingredient</strong></td><td style="width:10%"><strong>Qty(gm)</strong></td></tr>';	
+			 $count=0;
+			  foreach($lunchItemsArray as $productid =>$qty)
+			  {
+				$count++;  
+				$customerInfo='';  
+				
+				$countOrderItems++;  
+				$cuisineCount ="lunch_".$count  ;
+				$product = Mage::getModel('catalog/product')->load($productid);
+				$result.='<tr><td  valign="top"><a href="javascript:void(0)" onClick="javascript:showdiv(\''.$orderdate.'\',\''.$productid.'\',\'lunch\',\''.$cuisineCount.'\')" ><strong>'.$count.'</strong></a>';
+				$result.='<div style="display:none" class="'.$cuisineCount.'">'.$customerInfo.'</div></td>';
+				$result.='<td  valign="top">'.$product->getName().'<br><b>Sku</b>: '.$product->getSku().'</td>';
+				if($product->getCompleteDish()==1)
+				{
+					$baseItemTable = Mage::helper("heal")->getDishItemsWeight($product,$qty);
+			        $result.='<td colspan="2">'.$baseItemTable.'</td>';
+				}
+				else{
+				$result.='<td  valign="top" >&nbsp;</td>';
+				$result.='<td  valign="top">'.$qty.$detailLink.'</td>';
+				}
+				$result.='</tr>';  
+			  }
+			  $result.='</table>';
+			}
+			
+			if(count($highteaItemsArray)>0)
+			{
+			  $result.='<table cellpadding="2" cellspacing="2" width="100%" >';
+			  $result.='<td style="width:10%"><strong>No</strong></td><td style="width:40%"><strong>Hightea ';
+              $result.='Items</strong></td><td style="width:40%"><strong>Ingredient</strong></td><td style="width:10%"><strong>Qty(gm)</strong></td></tr>';	
+			  $count=0;
+			  	
+			  foreach($highteaItemsArray as $productid =>$qty)
+			  {
+				$count++;  
+				$customerInfo='';  
+				
+				$countOrderItems++;  
+				$cuisineCount ="hightea_".$count  ;
+				$product = Mage::getModel('catalog/product')->load($productid);
+                $result.='<tr><td  valign="top"><a href="javascript:void(0)" onClick="javascript:showdiv(\''.$orderdate.'\',\''.$productid.'\',\'hightea\',\''.$cuisineCount.'\')" ><strong>'.$count.'</strong></a>';
+				$result.='<div style="display:none" class="'.$cuisineCount.'">'.$customerInfo.'</div></td>';
+				$result.='<td  valign="top">'.$product->getName().'<br><b>Sku</b>: '.$product->getSku().'</td>';
+				if($product->getCompleteDish()==1)
+				{
+					$baseItemTable = Mage::helper("heal")->getDishItemsWeight($product,$qty);
+			        $result.='<td colspan="2">'.$baseItemTable.'</td>';
+				}
+				else{
+				$result.='<td  valign="top" >&nbsp;</td>';
+				$result.='<td  valign="top">'.$qty.$detailLink.'</td>';
+				}
+				$result.='</tr>'; 
+			  }	
+			  $result.='</table>';	
+			}
+			
+			if(count($dinnerItemsArray)>0)
+			{
+			  $result.='<table cellpadding="2" cellspacing="2" width="100%" >';
+			  $result.='<td style="width:10%"><strong>No</strong></td><td style="width:40%"><strong>Dinner ';
+              $result.='Items</strong></td><td style="width:40%"><strong>Ingredient</strong></td><td style="width:10%"><strong>Qty(gm)</strong></td></tr>';	
+			  $count=0;
+			  foreach($dinnerItemsArray as $productid =>$qty)
+			  {
+				$count++;  
+				$customerInfo='';  
+				
+				$countOrderItems++;  
+				$cuisineCount ="dinner_".$count  ;
+				$product = Mage::getModel('catalog/product')->load($productid);
+				$result.='<tr><td  valign="top"><a href="javascript:void(0)" onClick="javascript:showdiv(\''.$orderdate.'\',\''.$productid.'\',\'dinner\',\''.$cuisineCount.'\')" ><strong>'.$count.'</strong></a>';
+				$result.='<div style="display:none" class="'.$cuisineCount.'">'.$customerInfo.'</div></td>';
+				$result.='<td  valign="top">'.$product->getName().'<br><b>Sku</b>: '.$product->getSku().'</td>';
+				if($product->getCompleteDish()==1)
+				{
+					$baseItemTable = Mage::helper("heal")->getDishItemsWeight($product,$qty);
+			        $result.='<td colspan="2">'.$baseItemTable.'</td>';
+				}
+				else{
+				$result.='<td  valign="top" >&nbsp;</td>';
+				$result.='<td  valign="top">'.$qty.$detailLink.'</td>';
+				}
+				$result.='</tr>'; 
+				  
+			  }
+			  $result.='</table>';	
+			}
+				
+			
+			if($countOrderItems>0)
+			{	
+			$result.='<table cellpadding="2" cellspacing="2" ><tr class="noprint"><td style="margin: auto;float: none;width: 100%;"><input type="button" name="print" value="print" onclick="window.print();" class="printbtnid" /></td></tr></table>';
+		    }
+			else
+			{
+			$result.='<table cellpadding="2" cellspacing="2" ><tr class="noprint"><td >There is no order data</td></tr></table>';
+			}
+				
+			echo $result;	
+			 
+			
+			
+		}
+		else
+		{
+		   $result='There is no order on'.$orderdate;
+		   echo $result;
+		}
+			}				
+	  
+	  ?>
+	  
+	  </td>
+			
+    </tr>
+   
+   
+  </tbody>
+</table>
+</div>

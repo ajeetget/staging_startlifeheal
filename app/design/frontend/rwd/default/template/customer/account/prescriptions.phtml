@@ -1,0 +1,855 @@
+<style type="text/css">
+    .clearfix{clear:both;}
+    .loader {
+      position: fixed; left: 40%; top: 50%;  z-index: 9999;
+      border: 16px solid #f3f3f3;  border-radius: 50%;
+      border-top: 16px solid #a61d3f;  width: 120px; height: 120px;
+      -webkit-animation: spin 2s linear infinite; /* Safari */
+      animation: spin 2s linear infinite;
+    }
+    .testreport-wrapper{
+    	margin: 10px 0 30px 0; 	background: #269a9b;
+    	box-sizing: border-box;	padding: 20px;
+    }
+    .testreport-inner{
+    	background: #fff;  	box-sizing: border-box;	padding: 20px;
+    }
+    .breadcrumbs {
+    	position: absolute;	top:30px;
+    }
+
+    .base-select{
+    	width: 60%;   margin: 0 auto 35px auto;
+    }
+
+    label{
+        display: block;     font-size: 11px;
+     }
+    .testreport-inner ul,.disto-sisto{
+        display: flex;   flex-wrap: wrap;
+        justify-content: space-between;  width: 100%;
+    } 
+    .testreport-inner ul li{
+        width: 31%;    margin-bottom: 15px;
+    }
+    .testreport-inner ul.alpha-index-bar, .testreport-inner ul.alpha-index-list,
+    .testreport-inner ul.report_btn_list{
+        display: block;
+    }
+    .testreport-inner ul.report_btn_list{
+        margin-bottom: 30px;
+    }
+    .testreport-inner ul.alpha-index-bar li{
+        display: inline-block;  width:auto;
+        font-size: 0.9em;  cursor:pointer;
+    }
+    .testreport-inner ul.alpha-index-list li{
+        display: inline-block;  width:auto; margin:0 25px 20px 0;
+        font-size: 1.1em;   padding: 4px 15px;    
+        cursor:pointer;   border: 1px solid silver;
+    }
+    .testreport-inner ul.report_btn_list li{
+        display:inline-block;  width:240px;  margin:0 auto;
+        border: 0;   outline:none;  background: #269a9b;
+        height: 50px;  line-height: 50px; text-align: center;
+        cursor: pointer;  font-size: 1.3rem;
+        box-shadow: 0 6px 3px 0px rgba(0,0,0,0.05);
+        color: #fff;
+    }
+    .testreport-inner ul.cust_alphabet li:hover,
+    .testreport-inner ul.customer-index-list li:hover{
+        background: #d2d2d2;
+    }
+
+    .testreport-inner input[type="text"]{
+        display: inline-block;   width:100%;
+        box-sizing: border-box; padding: 10px 15px;
+        margin:0;  border: 0;   outline: 0;
+        border:1px solid rgba(0,0,0,0.2); background: #fff;
+    }
+    .testreport-inner .bptext{
+    	width:47% !important;
+    }
+    .testreport-inner .date_field input[type="date"]{
+        display: block;  width:23%;
+        box-sizing: border-box;   padding: 6px 15px;
+        margin:0;  border: 0;  outline: 0;
+        border:1px solid rgba(0,0,0,0.2); background: #f6fcfc;
+    }
+    .testreport-inner input[type="submit"]{
+        display: block; width:240px;  margin:0 auto;
+        border: 0;  outline:none;   background: #c21f42;
+        height: 50px;  line-height: 50px;  text-align: center;
+        cursor: pointer;  font-size: 1.3rem;
+        box-shadow: 0 6px 3px 0px rgba(0,0,0,0.05); color: #fff;
+    }
+    .testreport-inner input[type="submit"]:hover{
+        box-shadow: 0 3px 2px 0px rgba(0,0,0,0.05);
+    }
+    .testreport-inner input[type="submit"].submit_1{
+        height: 40px;  line-height: 40px;
+    }
+
+    .testreport-inner li span{
+        display: inline-block;  width:80px;
+    }
+    .testreport-inner input[type="radio"]{
+        display: inline-block;   width: 40px;
+        position: relative;   top:5px;
+    }
+    h2{
+    	text-align: center;   font-size: 1.5rem;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        padding-bottom: 10px;
+    }
+   
+    .edit_table{    width:100%;  }
+    .edit_table table{     width:100%;     border:1px solid silver;  }
+    .edit_table table tr td, .edit_table table tr th{
+        padding: 10px;
+        border:1px solid silver;
+    }
+    .edit_table table tr{   border:1px solid silver;  }
+    #myedit1, #myedit2{     cursor: pointer;date_field   }
+    .highlight {
+        color: #fff;
+        background: #269a9b;
+    }
+    #previous_report_body span{
+        display: inline-block;
+        padding: 5px 15px;
+        margin:10px 15px 10px 0;
+        border:1px solid rgba(0,0,0,0.12);
+    }
+    .edit_table table tr td:first-child{
+        width:110px;
+    }
+    .csmall{font-size: 10px;}
+    .date_field{position: relative;}
+    .date_loader{position:absolute; right:30px; top:-30px;}
+    .date_msg{position:absolute; right:30px; top: 0px; color: #269a9b;}
+    .submit_msg{text-align: center; color: #269a9b; margin-top: 20px;}
+    .date_msg h2, .submit_msg h2{ font-size: 1.2rem; color: green;}
+    .date_loader, .date_msg, .submit_msg, .form-loader {display: none;}
+
+    .edit-table-head{
+        float: right;
+        padding-right: 15px;
+        display: none;
+    }
+    .edit-logo{margin-bottom: 15px; width: 130px;}
+    .edit-email, .edit-mob{font-size: 14px;}
+    .edit-email{margin-bottom: 7px;}
+    .edit-mob{margin-bottom: 20px;}
+    .edit-email span, .edit-mob span{display: inline-block; padding-right: 15px;}
+    .button{margin:1rem auto 0 auto;}
+
+    .testreport-inner .testreport_form ul li {
+        display: inline-block;
+        width: 30%;
+        margin-bottom: 7px;
+        margin-right: 3%;
+    }
+    .testreport-inner .testreport_form ul li:nth-child(3n+3) {       
+        margin-right: 0%;
+    }
+    .testreport_form select{
+        width: 100%;
+        height: 36px;
+        border: 1px solid rgba(0,0,0,0.2);
+        box-shadow: 0px 0px 3px rgb(0 0 0 / 10%);
+        outline: none;
+    }
+    .testreport_form input[type="date"] {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 6px 15px;
+        margin: 0;
+        border: 0;
+        outline: 0;
+        border: 1px solid rgba(0,0,0,0.2);
+        background: #f6fcfc;
+    }
+    .p_height, .height_1, .height_1_bottom{
+        display: flex;   flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .height_1{  width:100%;   }
+    .height_1_bottom{ width:60%; }
+    .height_2{  width:35%; }
+    .testreport_form .height_1 select,
+    .testreport_form .height_1_bottom select {
+        display: inline-block;  width: 46%; box-sizing: border-box;
+        padding: 10px width: 46%;   margin: 0;    border: 0;
+        outline: 0;  border: 1px solid rgba(0,0,0,0.2);
+        background: #fff;
+    }
+    .testreport_form .height_1_bottom select {  width: 50%;  }
+</style>						
+<?php  
+$LoggedIncustomer = Mage::helper('customer')->getCustomer();
+$custId = $LoggedIncustomer->getId();
+$customerName = $LoggedIncustomer->getFirstname();
+$mobileNo = $LoggedIncustomer->getPrimarymobileno();
+$groupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
+
+$config  = Mage::getConfig()->getResourceConnectionConfig("default_setup");
+$dbinfo = array("host" => $config->host,"user" => $config->username,"pass" => $config->password,"dbname" => $config->dbname);
+  
+$host      = $dbinfo["host"];
+$username  = $dbinfo["user"];
+$password  = $dbinfo["pass"];
+$dbname    = $dbinfo["dbname"];
+//echo "database=== ".$config->dbname;
+$con = mysqli_connect($host  , $username,  $password ,$dbname);
+  if ($mysqli -> connect_errno) {
+    echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
+    exit();
+    }
+///echo "DATABASE NAME ==".$config->dbname;
+//$sql = "SELECT * FROM patientintakeform ORDER BY name ASC";
+$sql = "SELECT DISTINCT custid, name, mobileno FROM patientintakeform  WHERE custid !='' and name !='' and mobileno !='' ORDER BY name ASC";
+    $customerCollection = mysqli_query($con, $sql);
+        $customerLi='';        
+        foreach($customerCollection as $custinfo) {
+        $customerId = $custinfo['custid'];
+		$customer = Mage::getModel('customer/customer')->load($customerId);
+		$customerMealstatus = $customer->getMealstatus();
+        $customerName =  $custinfo['name'];
+        $mobileNo = $custinfo['mobileno']; 
+        $customerName = str_replace("Dear ","",$customerName); 
+        $customerName = str_replace("Dr.","",$customerName); 
+        $customerName = str_replace("Mr.","",$customerName);
+        $customerName = str_replace("Mrs.","",$customerName);
+        $customerName = str_replace("Mrs","",$customerName);     
+		 if($customerMealstatus==1){      
+        	 $customerLi.='<li id="'.$customerId.'" value="'.$customerId.'" onclick="showReportbtn(\''.$customerId.'\',\''.$mobileNo.'\',\''.$customerName.'\')">'.$customerName.'<span class="csmall">'.$customerId.'</span></li>';
+		 }
+    }
+       
+?>
+<div class="container">	
+	<div class="testreport-wrapper">
+		<div class="testreport-inner">
+			<h2>Prescription Submit Form</h2>
+            <?php 
+            if($groupId == 4 || $groupId == 5){?>  
+                 <label>Select Customer:</label>              
+                <ul id="my-list">                   
+                    <?php echo $customerLi;?>
+                    <div class="clearfix"></div>
+                </ul>
+                 <div class="clearfix"></div>
+
+                <ul class="report_btn_list" id="report_btn_list">
+                   
+                </ul>
+           <?php }
+             ?>
+             <form id="testreport_form" class="testreport_form" action="liver.php" method="post">
+                <ul>
+                    <div class="home-test">
+                        <div class="home-test-inner">
+                            <li>
+                                <label>Patient Name</label>
+                                <input  type="text" name="name" id="name" placeholder="Name" />
+                            </li> 
+                            <li>
+                                <label>Date In MM-DD-YYYY Format</label>
+                                <input type="date" name="date" id="date" placeholder="dd-mm-yyyy" required="required" />
+                            </li>
+                            <li>
+                                <label>Age in years</label>                                
+                                <select name="age" id="age">
+                                    <option>** </option>
+                                        <?php 
+                                           
+                                            for($i = 14; $i < 102; $i++){
+                                                echo '<option value="'.$i.'">'.$i.' Years </option>';
+                                            }
+                                        ?>    
+                                </select>
+                            </li>
+
+                            <li>
+                                <label>Gender</label> 
+                                <select name="gender" id="gender">
+                                    <option>** </option>
+                                    <option value="male"> Male </option>
+                                    <option value="female"> Female </option>
+                                </select>                               
+                            </li>
+
+                            <li>
+                                <label>Height in Feet and Inch or Cm</label>
+                                <div class="p_height">
+                                    <div class="height_1_bottom">    
+                                        <select name="height_ft" id="height_ft">
+                                            <option>** </option>
+                                            <?php                                                
+                                                for($i = 4; $i < 8; $i++){
+                                            echo '<option value="'.$i.'">'.$i.' Feet </option>';
+                                                }
+                                            ?>    
+                                        </select>                                       
+                                        <select name="height_inch" id="height_inch">
+                                            <option>** </option>
+                                                <?php  
+                                                for($i = 1; $i < 12; $i++){
+                                            echo '<option value="'.$i.'">'.$i.' Inch </option>';
+                                                }
+                                            ?>    
+                                        </select>
+                                    </div>
+                                    <div class="height_2">
+                                        <select name="height_cm" id="height_cm">
+                                            <option>** </option>
+                                            <?php 
+                                                for($i = 120; $i < 220; $i++){
+                                                echo '<option value="'.$i.'">'.$i.' cm </option>';
+                                                }
+                                            ?>    
+                                        </select>
+                                    </div>
+                                </div> 
+                            </li>
+
+                            <li>
+                                <label>Waist At Navel - in Inch or Cm</label>
+                                <div class="p_height">
+                                    <div class="height_1">                                       
+                                        <select name="waist" id="waist">
+                                            <option>** </option>
+                                            <?php 
+                                                for($i = 24; $i < 75; $i++){
+                                            echo '<option value="'.$i.'">'.$i.' Inch </option>';
+                                                }
+                                            ?>    
+                                        </select>                                       
+                                        <select name="waist_cm" id="waist_cm">
+                                            <option>** </option>
+                                            <?php 
+                                                for($i = 1; $i < 12; $i++){
+                                            echo '<option value="'.$i.'">'.$i.' cm </option>';
+                                                }
+                                            ?>    
+                                        </select>
+                                    </div>
+                                </div>
+                            </li> 
+
+                            <li>
+                                <label>Initial Weight in Kg</label>
+                                
+                                <select name="weight" id="weight">
+                                    <option>** </option>
+                                        <?php 
+                                           
+                                            for($i = 38; $i < 126; $i++){
+                                                echo '<option value="'.$i.'">'.$i.' kg </option>';
+                                            }
+                                        ?>    
+                                </select>
+                            </li> 
+                            
+
+                            <li>
+                                <label>Current Weight</label>
+                                <select name="current_weight" id="current_weight">
+                                    <option>** </option>
+                                        <?php 
+                                           
+                                            for($i = 38; $i < 126; $i++){
+                                                echo '<option value="'.$i.'">'.$i.' kg </option>';
+                                            }
+                                        ?>    
+                                </select>
+                            </li>
+
+                            <li>
+                                <label>Clinical Diagnosist</label>
+                                <textarea name="" placeholder="Clinical Diagnosis"></textarea>
+                            </li>
+
+                            <li>
+                                <label>Current Medication</label>
+                                <textarea name="" placeholder="Current Medication"></textarea>
+                            </li>
+
+                            <li>
+                                <label>Current Symptoms</label>
+                                <textarea name="" placeholder="Current Symptoms"></textarea>
+                            </li>
+
+                            <li>
+                                <label>Recent Success</label>
+                                <textarea name="" placeholder="Recent Success"></textarea>
+                            </li>
+
+                            <li>
+                                <label>Sleep In Hour</label>
+                                <select>
+                                    <option>**</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </li>
+
+                            <li>
+                                <label>Sleep Quality</label>
+                                <select>
+                                    <option>**</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </li>
+                            <li>
+                                <label>Exercise Minutes A Day </label>
+                                <select>
+                                     <option>** </option>
+                                    <?php 
+                                        $k = 10;
+                                        for($i = 1; $i < 16; $i++){
+                                            echo '<option value="'.$k*$i.'">'.$k*$i.'</option>';
+                                        }
+                                    ?>    
+                                </select>
+                            </li>
+                            <li>
+                                <label>Exercise Days A Week </label>
+                                <select>
+                                     <option>** </option>
+                                    <?php 
+                                       
+                                        for($i = 1; $i < 8; $i++){
+                                            echo '<option value="'.$i.'">'.$i.'</option>';
+                                        }
+                                    ?>    
+                                </select>
+                            </li>
+
+                             <li>
+                                <label>Mood</label>
+                                <select>
+                                    <option>**</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </li>
+
+                             <li>
+                                <label>Energy</label>
+                                <select>
+                                   <option>**</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </li>
+
+                             <li>
+                                <label>Stress</label>
+                                <select>
+                                    <option>**</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </li>
+
+                             <li>
+                                <label>Consultant Name</label>
+                                <input  type="text" name="homa" id="homa" placeholder="Consultant Name" />
+                            </li>
+
+                            <li>
+                                <label>Other Discussion Notes</label>
+                                <textarea name="" placeholder="Other Discussion Notes"></textarea>
+                            </li>
+
+                            <li>
+                                <label>Next Steps</label>
+                                <textarea name="" placeholder="Next Steps"></textarea>
+                            </li>
+
+                            <li>
+                                <label>Follow Up:</label>
+                                <textarea name="" placeholder="Follow Up"></textarea>
+                            </li>
+                           
+                        </div>
+                    </div>                           
+
+                    <li id="hidden_input">                              
+                        <input  type="hidden" name="custid" id="custid" value="<?php echo $custId; ?>" />
+                        <input  type="hidden" name="name" id="name" value="<?php echo $customerName; ?>" />
+                        <input  type="hidden" name="mobileno" id="mobileno" value="<?php echo $mobileNo; ?>" />
+                    </li>                    
+                </ul>                   
+                <input  type="submit" name="" value="Submit Report" />
+                <div class="form-loader" style="text-align: center;">
+                    <img style="width:100px; display: inline-block; margin-top: 15px;" src="<?php echo Mage::getBaseUrl() ?>skin/frontend/rwd/default/images/testform-loading.gif">
+                </div>
+                <div class="submit_msg">
+                    <h2>Form has been submitted successfully</h2>
+                </div>
+            </form>
+            
+			<!--<form id="testreport_form" action="liver.php" method="post" enctype="multipart/form-data">
+                
+                <ul>
+                    <li>
+                       <label>Date In MM-DD-YYYY Format</label>                    
+                    	<input type="date" name="date" id="date" placeholder="dd-mm-yyyy" required="required" />  
+                    </li> 
+
+                    <li>
+                        <label>Upload Test Repot</label>                      
+                        <input type="file" name="prescription" id="prescription">
+                    </li> 
+
+                    <li id="hidden_input">                                   
+                        <input  type="hidden" name="custid" id="custid" value="<?php echo $custId; ?>" />
+                         <input  type="hidden" name="name" id="name" value="<?php echo $customerName; ?>" />
+                          <input  type="hidden" name="mobileno" id="mobileno" value="<?php echo $mobileNo; ?>" />
+                    </li>
+                </ul>                   
+                <input  type="submit" name="" value="Submit Report" />
+                <div class="form-loader" style="text-align: center;">
+                    <img style="width:100px; display: inline-block; margin-top: 15px;" src="<?php echo Mage::getBaseUrl() ?>skin/frontend/rwd/default/images/testform-loading.gif">
+                </div>
+                <div class="submit_msg"><h2>Form has been submitted successfully</h2></div>
+            </form>-->
+
+
+            <div class="edit_table" id="edit_table">
+                <h2>Existing Prescriptions</h2>
+                <table>
+                    <thead>
+                        <div class="edit-table-head">
+                            <div class="edit-logo">
+                                <img src="https://startlifeheal.com/skin/frontend/rwd/default/images/logo.png" />
+                            </div>
+                            <div class="edit-email">
+                                <span><i class="fa fa-envelope"></i></span> team@lifeheal.com
+                            </div>
+                            <div class="edit-mob">
+                                <span><i class="fa fa-phone"></i></span> +91 99998 46622
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </thead>
+                    <tbody id="previous_report_body">
+                        <tr>
+                           <th>Patient Name:</th>
+                           <td colspan="3">Dummy Name</td>
+                           <th>Date:</th>                            
+                           <td>05/10/2021</td> 
+                        </tr>
+                        <tr>
+                           <th>Age</th>    
+                           <td>26 Years</td> 
+                           <th>Gender:</th>
+                           <td>Male</td>
+                           <th>Height:</th>
+                           <td>52 Inch</td>
+                        </tr>
+                        <tr>
+                           <th>Waist</th>    
+                           <td>32 inch</td> 
+                           <th>Initial Weight:</th>
+                           <td>60 Kgs</td>
+                           <th>Current Weight:</th>
+                           <td>52 Kgs</td>
+                        </tr>
+                        <tr>
+                           <th colspan="6">Clinical Diagnosis:</th> 
+                        </tr>
+                        <tr>
+                            <td colspan="6">
+                                Arthritis, pre-diabetic, high CRP, obese, hernia
+                            </td>
+                        </tr>
+                        <tr>
+                            <th colspan="6">Current Medication:</th>
+                        </tr>
+                        <tr>
+                            <td colspan="6">Vitamin D supplements, B12 supplements, iodine supplements </td>
+                        </tr>
+
+                        <tr>
+                            <th colspan="6">Current Symptoms:</th>
+                        </tr>
+
+                        <tr>
+                            <td colspan="6">Pain in joints, constipation</td>
+                        </tr>
+
+                        <tr>
+                            <th colspan="6">Recent Success:</th>
+                        </tr>
+
+                        <tr>
+                            <td colspan="6">Lost 5kgs in 5 weeks, improvement in HOMAir</td>
+                        </tr>
+
+                        <tr>
+                           <th>Sleep:</th>    
+                           <td>4 Hours</td> 
+                           <th>Sleep Quality: </th>
+                           <td>2</td>
+                           <th>Exercise:</th>
+                           <td>30 minutes a day, <br/>4 days a week </td>
+                        </tr>
+
+                        <tr>
+                           <th>Mood:</th>    
+                           <td>2</td> 
+                           <th>Energy:</th>
+                           <td>4</td>
+                           <th>Stress:</th>
+                           <td>2</td>
+                        </tr>
+
+                        <tr>
+                            <th colspan="6">Other Discussion Notes:</th>
+                        </tr>
+
+                        <tr>
+                            <td colspan="6">Lost 5kgs in 5 weeks, improvement in HOMAir</td>
+                        </tr>
+
+                        <tr>
+                            <th colspan="6">Next Steps:</th>
+                        </tr>
+
+                        <tr>
+                            <td colspan="6">Take celery juice,  Meditate 10 minutes a day </td>
+                        </tr>
+                        <tr>
+                            <th colspan="6">Follow Up:</th>
+                        </tr>
+
+                        <tr>
+                            <td colspan="6"> Check your weight on 3rd October, Next appointment: 28th Sept, 2021, 5.45pm </td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Consultant Name:</th>
+                            <td colspan="4">Dummy Consultant Name </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="button" onclick="window.print();">Print</button>
+            </div>
+		</div>
+	</div>
+</div>
+<script src="<?php echo $this->getSkinUrl('js');?>/jquery.alphaindex.js"></script>
+<script>
+jQuery(document).ready(function() {
+    var loginhandler = "<?php echo $groupId ?>";  
+    jQuery('#my-list').makeAlphaIndex({
+        activateFirstIndex: false,
+        showItemsCount: false
+    }); 
+
+    if(loginhandler==4 || loginhandler==5){
+         jQuery("#testreport_form").css("display", "none");
+          jQuery("#edit_table").css("display", "none");          
+     }else{
+        jQuery("#edit_table").css("display", "none");
+     }
+});
+
+function hideForm(){
+        jQuery("#testreport_form").css("display", "none");
+        jQuery("#edit_table").css("display", "none");
+    } 
+
+function showReportbtn(custId,mobileNo,custName) {
+    //alert(`id = ${custId} Mobile= ${mobileNo} Name = ${custName}`);
+    hideForm();
+    jQuery('li').removeClass("highlight");
+    jQuery('#'+custId).addClass("highlight");
+    jQuery('#report_btn_list').html(` <li class="reportnew_btn" id="reportnew_btn" onclick="showTestform(${custId},${mobileNo},'${custName}')">Submit Prescription </li> <li class="reportexisting_btn" id="reportexisting_btn" onclick="showEdittable(${custId},${mobileNo},'${custName}')">Existing Prescription </li>`); 
+    }
+       
+   
+    function showTestform(custId,mobileNo,custName){
+        //alert(`${custId} ${mobileNo} ${custName}`);
+        hideForm();
+        jQuery('#hidden_input').html(`<input  type="hidden" name="custid" id="custid" value="${custId}" /><input  type="hidden" name="name" id="name" value="${custName}" /><input  type="hidden" name="mobileno" id="mobileno" value="${mobileNo}" />`);        
+        jQuery("#testreport_form").css("display", "block");   
+    }
+
+    function showEdittable(custId,mobileNo,custName){                
+        var custid = custId;   
+        var mobileno = mobileNo;
+        var custName = custName;
+        var FormData = {
+            'mobileno':mobileno, 
+            'custName':custName,           
+            'custid':custid  
+        };
+
+        jQuery.ajax({
+            url: "<?php echo Mage::getBaseUrl().'override/index/getexistingprescription' ?>",
+            type:'POST',
+            data: FormData  
+            })
+            .done(function(data){
+                hideForm();       
+                //alert(data);
+                //jQuery('#previous_report_body').html(data);
+                jQuery("#edit_table").css("display", "block");             
+                //console.log(data);                                          
+            })                  
+            .fail(function(textStatus){
+                alert(textStatus)
+            }); 
+    }
+
+    function editForm(cId,mNo,cdate,custName) {
+        var custid = cId;   
+        var mobileno = mNo;
+        var cdate = cdate;
+        var FormData = {
+            'mobileno':mobileno,            
+            'custid':custid,
+            'cdate':cdate  
+        };
+        
+        jQuery('#testreport_form').find(':input').val('');
+        jQuery(":submit").val('Submit Report');
+        jQuery('#hidden_input').html(`<input  type="hidden" name="custid" id="custid" value="${cId}" /><input  type="hidden" name="name" id="name" value="${custName}" /><input  type="hidden" name="mobileno" id="mobileno" value="${mNo}" />`); 
+        jQuery.ajax({
+            url: "<?php echo Mage::getBaseUrl().'override/index/editpreviousreport' ?>",
+            type:'POST',
+            data: FormData  
+            })
+            .done(function(data){
+                hideForm(); 
+                var x = Object.keys(JSON.parse(data));               
+                var d = JSON.parse(data);
+                
+                jQuery("#testreport_form").css("display", "block"); 
+                document.getElementById("date").value = cdate;
+                for(var y=0; y < x.length; y++){                     
+                    var myid = String(x[y]);                
+                    document.getElementById(myid).value = d[x[y]];
+                }  
+            })                  
+            .fail(function(textStatus){
+                alert(textStatus)
+            }); 
+    } 
+    
+    jQuery("#myedit1").click(function() {
+        hideForm();
+        jQuery("#testreport_form").css("display", "block");   
+        });
+
+
+
+    jQuery("#testreport_form").submit(function(event){   
+        event.preventDefault(); 
+        jQuery('.date_loader').css('display','block');
+        jQuery('.form-loader').css('display','block');
+        var custid = jQuery("#custid").val();
+        jQuery.ajax({
+    	url: "<?php echo Mage::getBaseUrl().'override/index/getprescription' ?>",
+            type: "POST",
+            data:  new FormData(this),
+            contentType: false,
+            cache: false,
+            processData:false,
+            success: function(data){ 
+            	//alert(data);
+                jQuery('.form-loader').css('display','none');                
+                jQuery('.submit_msg').css('display','block');               
+                jQuery("#testreport_form").trigger("reset"); 
+                jQuery(".submit_msg").delay(8000).fadeOut(500);
+            },
+            error: function(){}             
+        }); 
+    });
+
+
+
+    function downloadPdf(pdf){
+        //alert("hiii");
+        var baseUrl = window.location.origin;
+        var pdfPath = baseUrl+'/media/upload/'+pdf;
+        //alert(pdfPath);
+
+        var req = new XMLHttpRequest();
+        req.open("GET", pdfPath, true);
+        req.responseType = "blob";
+
+        req.onload = function (event) {
+        var blob = req.response;
+        //console.log(blob.size);
+        var link=document.createElement('a');
+        link.href=window.URL.createObjectURL(blob);
+        link.download=pdf;
+        link.click();
+        };
+
+        req.send();
+    }
+</script>
+
+<style type="text/css">
+@media print {
+  @page {
+      size: A4;    margin:0;
+    }
+    html, body {
+        width: 210mm;   height: 282mm;   font-size: 18px;
+        background: #FFF;     overflow:visible;
+    }
+    body {
+        padding-top:15mm;
+    }
+  .header-wrapper, .footer-container, 
+  footer, header, form{
+    display:none;
+  }
+  
+  .main{  
+    width: 100%;    margin-top:auto;
+    height:100%;   margin-bottom:auto;
+  }  
+.noprint{
+    display:none; font-family: 'Montserrat', sans-serif;
+    border-collapse: collapse;
+    width: 100%;  max-width: 560px; margin: 20px auto;
+  }
+.col-left, h2, label, .button,    
+.testreport-inner ul.alpha-index-bar, 
+.testreport-inner ul.alpha-index-list, 
+.testreport-inner ul.report_btn_list {
+    display: none;
+}
+.col-main{ width:100%; margin:0; float: none; padding:0;}     
+.main-container {
+    width: 100%;  margin-top: 0rem; margin-bottom: 0rem;
+} 
+.testreport-wrapper {
+    margin: 0;   background: #fff;
+    box-sizing: border-box;    padding: 15px;
+} 
+.edit-table-head{display: block;} 
+
+}
+
+</style>

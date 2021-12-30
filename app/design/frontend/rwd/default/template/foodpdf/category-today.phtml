@@ -1,0 +1,222 @@
+
+<div class="container">
+	<div class="inner-container">
+		<div id="pageloader" class="loader" style="display: none;"></div>
+		<input type="button" value="Add Category" class="category_btn" onclick="showTextBox()" />
+		<div id="divCat" style="display:none" >
+			<div>
+		      	<input id="catName" type="text" value="" placeholder="Category" onblur="CheckExistOrNot(this.value)" />
+			  	<span id="catMsg"></span>
+			</div>
+			<div>
+		    	<input type="button" value="Save" onclick="saveCategory()" />
+		    	<input type="button" value="Cancel" onclick="doNotSaveCategory()" />
+			</div>
+
+		<div id="allCategory"> </div>
+	</div>
+</div>
+
+<style type="text/css">
+.breadcrumbs{
+	position: relative;
+	padding: 15px 0 25px 0;
+}
+
+.loader {
+  position: fixed;
+  left: 40%;
+  top: 50%;
+  z-index: 9999;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #a61d3f;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+.inner-container{
+	min-height: 400px;
+}
+input[type="button"]{	
+	border:0;
+	outline: none;
+	cursor: pointer;	
+    color: #fff;   
+    font-weight: 600;
+    padding: 0 25px;
+    font-size: 1.2rem;
+    height: 45px;
+	line-height: 45px;
+	text-align: center;	
+    background: #0eb58f;
+    border: 1px solid #0eb58f;
+    margin:0 25px 25px 0;
+}
+input[type="text"] {
+	border:0;
+	border:1px solid #dadada;
+	width:45%;
+	height: 40px;
+	box-sizing: border-box;
+	outline: none;
+	padding: 0 15px;
+	background:#fff;
+	margin-bottom: 25px;
+}
+#allCategory{
+	box-sizing: border-box;    
+    box-shadow: 0 0 1px 1px rgba(0,0,0,0.2);
+    margin-bottom: 30px;
+}
+#allCategory > div{
+	   display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    justify-content: space-between;
+    padding: 10px 30px;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    margin-bottom: 10px;
+}
+.msgdiv, .msgdiv{
+	text-align: left;
+	font-size: 1.2rem;
+	margin: 20px 0;
+	font-weight: 600;
+	color: red;
+}
+</style>
+
+
+<script type="text/javascript">
+jQuery( document ).ready(function() {
+    showcategory();
+});
+
+function showTextBox()
+{
+	
+	jQuery("#divCat").show();
+}
+
+function doNotSaveCategory()
+{
+	jQuery("#divCat").hide();
+}
+
+function showcategory()
+{
+	var baseUrl = window.location.origin;
+		   jQuery.ajax({
+							url: baseUrl+'/foodpdf/index/showcategory',
+							type: "POST",
+							beforeSend: function()
+								 {
+									jQuery(".loader").css("display", "block"); 
+								 },
+						    success: function(response)
+								 {  
+									jQuery("#allCategory").html(response);  
+								 },
+						  complete:function(data)
+						           {
+								     jQuery(".loader").css("display", "none"); 
+								   }
+					});
+}
+
+function saveCategory()
+{
+	var catName = jQuery("#catName").val();
+	if(catName!='')
+	{
+		   var baseUrl = window.location.origin;
+		   jQuery.ajax({
+							url: baseUrl+'/foodpdf/index/savecategory',
+							type: "POST",
+							data: {
+									   catname: catName, 
+								  },
+							beforeSend: function()
+								 {
+											 jQuery(".loader").css("display", "block"); 
+								 },
+						    success: function(response)
+								 {  
+									 if(response=='saved')
+									 {
+										    jQuery("#catMsg").html('<div class="msgdiv">Category <b>'+catName+ '</b> hase been saved saved.</div>'); 
+											setTimeout(function() 
+														 { jQuery("#catMsg").fadeOut('fast');
+														 }, 1000);
+											jQuery("#catName").val('');	
+										return false;	
+									 }
+									 else if(response=='exist')
+									 {
+										    jQuery("#catMsg").html('<div class="msgdiv">This category already exist.</div>'); 
+											setTimeout(function() 
+														 { jQuery("#catMsg").fadeOut('fast');
+														 }, 1000);
+											jQuery("#catName").val('');	
+											return false;	
+									 }
+									   
+								 },
+						  complete:function(data)
+						           {
+									   showcategory();
+									   jQuery(".loader").css("display", "none"); 
+								   }
+					});
+	}
+	else
+	{
+		jQuery("#catMsg").html('<div class="msgdiv">Please enter the category Name.</div>'); 
+											setTimeout(function() 
+														 { jQuery("#catMsg").fadeOut('fast');
+														 }, 1000);
+			return false;											 
+	}
+}
+
+function CheckExistOrNot(catName)
+	{
+			 if(catName!='')
+			 {				 
+					var baseUrl = window.location.origin;
+					
+					 jQuery.ajax({
+									url: baseUrl+'/foodpdf/index/checkcategory',
+									type: "POST",
+									data: {
+											   catname: catName, 
+										  },
+									beforeSend: function()
+									{
+											 jQuery(".loader").css("display", "block"); 
+									},
+									success: function(response)
+								    {  
+										 if(response=='exist')
+										 {
+										    jQuery("#catMsg").html('<div class="msgdiv">This category already exist.</div>'); 
+											setTimeout(function() 
+														 { jQuery("#catMsg").fadeOut('fast');
+														 }, 1000);
+											jQuery("#catName").val('');	
+											return false;	
+										 }
+									   
+								    },
+								    complete:function(data){
+									   
+									   jQuery(".loader").css("display", "none"); 
+								    }
+								 });
+			 }
+	 }
+
+</script>
+

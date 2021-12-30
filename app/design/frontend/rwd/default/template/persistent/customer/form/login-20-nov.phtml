@@ -1,0 +1,246 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Customer login form template
+ *
+ * @see app/design/frontend/base/default/template/customer/form/login.phtml
+ */
+/** @var $this Mage_Customer_Block_Form_Login */
+?>
+<div class="container account-login<?php if (!$this->helper('customer')->isRegistrationAllowed()) echo ' login-only' ?>">
+    <div class="page-title">
+        <h1><?php if ($this->helper('customer')->isRegistrationAllowed()): ?>
+                <?php echo $this->__('Login or 
+				') ?>
+            <?php else: ?>
+                <?php echo $this->__('Login'); ?>
+            <?php endif; ?></h1>
+    </div>
+    <?php echo $this->getMessagesBlock()->toHtml() ?>
+    
+        <div class="col2-set">
+            <?php if ($this->helper('customer')->isRegistrationAllowed()): ?>
+            <div class="col-1 new-users">
+                <div class="content">
+                    <h2><?php echo $this->__('New Here?') ?></h2>
+                    <p class="form-instructions"><?php echo $this->__('Registration is free and easy!') ?></p>
+                    <ul class="benefits">
+                        <li><?php echo $this->__('Faster checkout') ?></li>
+                        <li><?php echo $this->__('Save multiple shipping addresses') ?></li>
+                        <li><?php echo $this->__('View and track orders and more') ?></li>
+                    </ul>
+                </div>
+                <div class="buttons-set">
+                   <!--<a  class="button" href="<?php //echo Mage::helper('persistent')->getCreateAccountUrl($this->getCreateAccountUrl()) ?>">-->
+                     <a  class="button" href="https://lifeheal.in/register">
+						 <span><span><?php echo $this->__('Create an Account') ?>
+                    </span></span></a>
+                </div>
+            </div>
+            <?php endif; ?>
+            <!-- <form action="<?php //echo $this->getPostActionUrl() ?>" method="post" id="login-form" class="scaffold-form"> -->
+        <?php echo $this->getBlockHtml('formkey'); ?>
+            <?php // This column should be col-1 if the registration column is not displayed ?>
+            <div class="<?php if ($this->helper('customer')->isRegistrationAllowed()): ?>col-2<?php else: ?>col-1<?php endif; ?> registered-users">
+                <div class="content fieldset">
+                    <h2><?php echo $this->__('Already registered?') ?></h2>
+                    <p class="form-instructions"><?php echo $this->__('If you have an account with us, please log in.') ?></p>
+                    <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+                    <ul class="form-list">
+                        <li>
+                            <label for="email" class="required"><em>*</em>Mobile No</label>
+                            <div class="input-box">
+                                <input type="text" autocapitalize="off" autocorrect="off" spellcheck="false" name="login[username]" value="<?php echo $this->escapeHtml($this->getUsername()) ?>" id="email" class="input-text required-entry getmobilenumber" title="Mobile No / Email Address " />
+                                <div class="mobile_error" style="color: red;"></div>
+                            </div>
+                        </li>
+                        <li class="otp_verification" style="display: none">
+                            <label for="email" class="required"><em>*</em>OTP</label>
+                            <div class="input-box">
+                                <input type="text" autocapitalize="off" autocorrect="off" spellcheck="false" name="otp" value="" id="onetimepass" class="input-text required-entry" title="Please Enter OTP" />
+                            </div>
+                        </li>
+                        <div class="otp_msg" style="color:black;"></div>
+                        <li style="display: none;">
+                         <?php $vales = mt_rand(1000, 9999);
+                            // $ciphertext = base64_encode($vales);
+                            // $plaintext = base64_decode($ciphertext);
+                        ?>
+                        <input type="hidden" id="verification" value="<?php echo $vales; ?>" />
+                         <input type="hidden" id="otpurl" value="<?php echo Mage::getBaseUrl().'override/index/accountmobile' ?>">
+                         <input type="hidden" id="verifyotpurl" value="<?php echo Mage::getBaseUrl().'override/index/loginmobile' ?>">
+                        </li>
+                        <li style="display: none;">
+                            <label for="pass" class="required"><em>*</em><?php echo $this->__('Password') ?></label>
+                            <div class="input-box">
+                                <input type="password" name="login[password]" class="input-text required-entry validate-password" id="pass" title="<?php echo $this->quoteEscape($this->__('Password')) ?>" />
+                            </div>
+                        </li>
+                        <?php echo $this->getChildHtml('form.additional.info'); ?>
+                        <li style="display: none;">
+                            <a href="<?php echo $this->getForgotPasswordUrl() ?>" class="f-left" ><?php echo $this->__('Forgot Your Password?') ?></a>
+                        </li>
+                        <?php echo $this->getChildHtml('persistent.remember.me'); ?>
+                    </ul>
+                    <?php echo $this->getChildHtml('persistent.remember.me.tooltip'); ?>
+                </div>
+                <div class="buttons-set getotpstep">
+                    <button onclick="checkdata()" type="submit" class="button" title="<?php echo $this->quoteEscape($this->__('Get OTP')) ?>" name="send" id="send2"><span><span><?php echo $this->__('Login') ?></span></span></button>
+                </div>
+                <div class="buttons-set verifyotpstep" style="display: none">
+                    <button onclick="verify()" type="submit" class="button" title="<?php echo $this->quoteEscape($this->__('Verify OTP')) ?>" name="send" id="send2"><span><span><?php echo $this->__('Verify') ?></span></span></button>
+                </div>
+                <div class="buttons-set resend_button" style="display: none">
+                <button type="button" onclick="resend()" class="button "><span><span><?php echo $this->__('Resend') ?></span></span></button>
+                </div>
+                <div class="buttons-set" style="display: none">
+                    <button type="submit" class="button" title="<?php echo $this->quoteEscape($this->__('Login')) ?>" name="send" id="send2"><span><span><?php echo $this->__('Login') ?></span></span></button>
+                </div>
+            </div>
+        </div>
+        <?php if (Mage::helper('checkout')->isContextCheckout()): ?>
+            <input name="context" type="hidden" value="checkout" />
+        <?php endif; ?>
+    <!-- </form> -->
+    <script type="text/javascript">
+        function resend(){
+        jQuery('.otp_msg').text();
+        checkdata();
+        jQuery('.otp_msg').text('A New OTP has been send to your number');
+    }
+    function verify(){
+        jQuery('.otp_msg').text('');
+        jQuery('.mobile_error').text('');
+        var newmobile       = jQuery('.getmobilenumber').val();
+        var otp_code = jQuery('#onetimepass').val();
+        var decodedString      = jQuery('#verification').val();
+        var urls            = jQuery('#verifyotpurl').val();
+        var reditts = "dashboard";
+        if(otp_code == decodedString){
+            if(newmobile){
+                new Ajax.Request(urls, {
+                       method: 'Post',
+                       dataType: 'json', 
+                       parameters: {phone:newmobile,reditts:reditts},
+                       onComplete: function(response) {
+                           window.location.href="/customer/account/index";
+							
+                    
+                    }
+                });
+            }
+        } else{ 
+            jQuery('.otp_msg').text('Invalid OTP code'); 
+        }
+    }
+    function finalloginverify(){
+        jQuery('.otp_msg').text('');
+        jQuery('.mobile_error').text('');
+        var newmobile       = jQuery('.getmobilenumber').val();
+        var otp_code = jQuery('#onetimepass').val();
+        var decodedString      = jQuery('#verification').val();
+        var urls            = jQuery('#verifyotpurl').val();
+        var reditts = "dashboard";
+        //if(otp_code == decodedString){
+            if(newmobile){
+                new Ajax.Request(urls, {
+                       method: 'Post',
+                       dataType: 'json', 
+                       parameters: {phone:newmobile,reditts:reditts},
+                       onComplete: function(response) {
+                      // location.reload();
+					  window.location.href="/customer/account/index";
+                    
+                    }
+                });
+            }else{
+                jQuery('.otp_msg').text('Please enter mobile number');
+            }
+        /*} else{ 
+            jQuery('.otp_msg').text('Invalid OTP code'); 
+        }*/
+    }
+    function checkdata(){
+        newmobile       = jQuery('.getmobilenumber').val();
+        urls            = jQuery('#otpurl').val();
+        decodedString      = jQuery('#verification').val();
+        
+        // return false;
+        // var decodedString = atob(ciphertext);
+        
+
+        if(newmobile.length != 10){
+            jQuery('.mobile_error').text('Please enter 10 digit number');
+            return false;
+        }
+        if(isNaN(newmobile)){
+            jQuery('.mobile_error').text('Please enter 10 digit number');
+            return false;
+        }
+      
+	 //  var mobilearray = ["9760834516","9650817851",,"9999956766","9999922102","9540275225","9999563395","7956814214"];
+	    var mobilearray = ["9999114772","9560093978"]; //jasmine, geetangali
+		// var mobilearray = [];
+        console.log(mobilearray);
+        if (jQuery.inArray(newmobile, mobilearray) != -1) {
+          finalloginverify();
+          return false;
+        }
+        console.log(decodedString);
+        
+        if(newmobile){
+            jQuery('.otp_msg').text('');
+            jQuery('.mobile_error').text('');
+            new Ajax.Request(urls, {
+                       method: 'Post',
+                       dataType: 'json', 
+                       parameters: {phone:newmobile,otp:decodedString},
+                       onComplete: function(response) {
+                        var data = JSON.parse(response.responseText);
+                        if( data['status'] == 'error'){
+                            jQuery('.otp_msg').text('To login please register with us.');
+                        }else{
+                        jQuery('.otp_verification').show();
+                        jQuery('.getotpstep').hide();
+                        // jQuery('.control').hide();
+                        jQuery('.verifyotpstep').show();
+                        jQuery('.resend_button').show();
+                        jQuery('.mobile_error').text();
+                        jQuery('.otp_msg').text('Please enter the One-Time Password (OTP) that has been sent to your registered mobile number.');
+                        }  
+                    }
+            }); 
+        }
+     }
+    </script>
+    <script type="text/javascript">
+    //<![CDATA[
+        var dataForm = new VarienForm('login-form', true);
+    //]]>
+    </script>
+</div>

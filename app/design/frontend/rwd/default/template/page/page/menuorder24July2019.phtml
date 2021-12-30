@@ -1,0 +1,1715 @@
+<?php ini_set('display_startup_errors',1);
+ini_set('display_errors',1);
+error_reporting(-1);
+$config  = Mage::getConfig()->getResourceConnectionConfig("default_setup");
+$dbinfo = array("host" => $config->host,"user" => $config->username,"pass" => $config->password,"dbname" => $config->dbname);
+  
+  $host      = $dbinfo["host"];
+  $username  = $dbinfo["user"];
+  $password  = $dbinfo["pass"];
+  $dbname    = $dbinfo["dbname"];
+  
+  $con=mysql_connect($host,$username,$password);
+  
+  mysql_select_db($dbname,$con);
+    $falseresult = '';
+    if(Mage::getSingleton('customer/session')->isLoggedIn()) {
+      $customer = Mage::getSingleton('customer/session')->getCustomer();
+      $mobileNo = $customer->getPrimarymobileno();
+    }
+    if($_GET['id']){
+      $mobileNo = $_GET['id'];
+    }
+    if(empty($mobileNo)){ $falseresult = " Please log in to place order"; }
+    $customers  = Mage::getResourceModel('customer/customer_collection')
+             ->addAttributeToSelect('*')
+             ->addAttributeToFilter('primarymobileno', $mobileNo);
+             
+$email='';
+if(count($customers)==1){
+    foreach($customers as $tmpCustomer) {
+        $email= $tmpCustomer->getEmail();
+    }
+}
+if($email!=''){
+$customer = Mage::getModel('customer/customer')
+    ->setWebsiteId(Mage::app()->getStore()->getWebsiteId())
+    ->loadByEmail($email);
+$name =$customer->getName();
+$email =$customer->getEmail(); 
+$Mobile =$customer->getPrimarymobileno();
+$altermobile =$customer->getSecondarymobileno();
+$customerAddress = array();
+foreach ($customer->getAddresses() as $address1){
+   $customerAddress[] = $address1->toArray(); break;
+} 
+$address =''; 
+if(count($customerAddress[0]) > 1){
+  $tempstreet = preg_replace('/[^A-Za-z0-9\-]/', ' ', $customerAddress[0]['street']);
+  $street = $tempstreet;
+  $city  = trim($customerAddress[0]['city']);
+  $state  = trim($customerAddress[0]['region']);
+  $country  = trim($customerAddress[0]['countryId']);
+  $zipcode  = trim($customerAddress[0]['postcode']);
+  $address = $name.' '. $Mobile.' '.$street.' '.$city.' '.$state.' ' .$zipcode;  
+}
+//Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer)->renewSession();
+}else{ $falseresult = " Please log in to place order";  } ?>
+   <!-- other head stuff... -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flickity/2.2.0/flickity.css" /> 
+   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" />
+  <!-- all your great html... -->
+  <script src="<?php echo $this->getSkinUrl('js/flickity.pkgd.js');  ?>"></script>
+
+<style>
+.loader {
+  position: fixed;
+  left: 40%;
+  top: 50%;
+  z-index: 9999;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #a61d3f;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.skipmenu{float:right; display:block !important;}
+.skipmenu h4{float: right;font-weight: normal;line-height: 25px;color: #636363;}
+.footer-container{display:none !important;}
+/* The Modal (background) */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background: none;
+}
+.hrline{
+  padding-top:0px;
+}
+/* Modal Content */
+.modal-content {
+  margin: auto;
+margin-top: 30%;
+  width:50%;
+}
+
+/* The Close Button */
+.close {
+color: #aaaaaa;
+float: right;
+text-align: right;
+font-size: 28px;
+padding: 10px 20px 10px 20px;
+font-weight: bold;
+position: relative;
+z-index: 2;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+.flickity-slider {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+	transform: translateX(0%);
+   left: 0px !important;
+}
+.flickity-page-dots {
+    position: absolute;
+    width: 100%;
+    bottom: -25px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-align: center;
+    line-height: 1;
+    display: none;
+}
+
+.flickity-prev-next-button {
+ top:5%;
+width: 24px;
+height: 34px;
+border-radius: 50%;
+transform: translateY(-50%);
+background: none;
+}
+.flickity-button {
+    position: absolute;
+  background:none !important;
+/*    background: hsla(0, 12.9%, 87.8%, 0.75);
+*/    border: none;
+    color: #333;
+}
+.gallery {
+  background: #EEE;
+}
+
+
+
+#myScrollspy button span:hover, #myScrollspy button span:focus, #myScrollspy button span:active{color: #fff !important;}
+
+.btn-info:hover {
+    color: #fff;
+    background-color: #c31f41;
+    border-color: #c31f41;
+  height:45px;
+}
+.btn-info.focus, .btn-info:focus {
+  color: #fff;
+background-color: #c31f41;
+float: left;
+box-shadow: 0px 0px 4px rgba(0,0,0,0.4);
+border-color: #c31f41;
+z-index: 1;
+height: 45px;
+font-weight: bold;
+position: relative;
+}
+.demo1,.demo2, .demo3,.chinesedemo, .salad, .indi,.chinesedemolunch,.mughlaidemolunch{width: 100%;border-top: 2px solid #c31f41;
+padding-top: 10px;
+float: left;}
+/*.is-active{background-color: rgb(195, 31, 65);border-color: rgb(195, 31, 65); color: rgb(255, 255, 255); }*/
+.content {
+  padding:0px;
+}
+
+.sticky {
+  position: absolute;
+  top: 0;
+  z-index:2;
+  width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 102px;
+}
+@media screen and (min-width:260px) and (max-width:760px){
+.flickity-slider {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+	transform: translateY(-50%);
+   left: 0px !important;
+}	
+}
+</style>
+<?php date_default_timezone_set('UTC');
+  $tempdates = date('d-m-Y');
+  $dates = date('Y-m-d', strtotime($tempdates. ' + 2 days'));
+  $enddates = date('Y-m-d', strtotime($tempdates. ' + 4 days'));  
+  $date = $dates;   // Start date
+  $end_date = $enddates; // End date
+  ?>
+<!-- Top Navbar -->
+
+<div class="container-fluid imgfood">
+  <img src="<?php echo Mage::getBaseUrl('skin').'frontend/rwd/default/images/foodmenu.jpg' ?>" alt="food menu" class="desktopbanner"/>
+   <img src="<?php echo Mage::getBaseUrl('skin').'frontend/rwd/default/images/CMD-Menu-Mobile-Banner.jpg' ?>" alt="food menu" class="mobbanner"/>
+  <div class="calenderarea">
+  <div class="calenderbox">Date: <label id="currentMenuDate" style="margin-bottom:0px;" value="<?php echo date("D d F",strtotime($date));?>">&nbsp; <?php echo date("D d F",strtotime($date));?> Delivery</label></div>
+  <div class="pureveg">Order minimum 48 Hours</div>
+  <div class="result">100% Results</div>
+  </div>
+  </div>
+<div class="loader" style="display: none;"></div>   
+<section class="container mobmenu" style="padding: 0;float: left;">
+  <section class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+        
+        <div class="panel-body">
+<div role="tabpanel" id="myScrollspy">
+<ul class="tabs"  data-spy="affix" data-offset-top="205" >
+ <h4 style="font-size: 16px;text-transform: uppercase;color: #000; margin:0px;"><u>Weekly Food Menu</u></h4>
+<?php $counter=1;
+  $activeTabClass='';
+  while (strtotime($date) <= strtotime($end_date)) {
+               // echo "$date\n"; echo "<br>";
+         if($counter==1 ){$activeTabClass='active'; }else { $activeTabClass=''; }
+        ?>  
+     <li class="nav-item <?php echo $activeTabClass;?>" rel="tab<?php echo $counter;?>" onclick="setCurrentDate('<?php echo date("D d F", strtotime($date));?>');">
+    <a class="nav-link" aria-controls="<?php echo 'item'.$counter.'()';?>" role="tab"  data-toggle="tab" href="#<?php echo 'item'.$counter.'()';?>" onclick="<?php echo 'div'.$counter.'()';?>" >
+  <?php echo date("D d F", strtotime($date));?> Delivery</a>
+  </li>           
+  <?php
+  $date = date ("d-m-Y", strtotime("+1 day", strtotime($date)));
+  $counter++;}
+?>
+     <button type="button" style="margin-top:50px; position: static; display:none;" class="button submit" onClick="callControllerleft()"><span>Submit Order</span></button>                      
+   </ul>
+  
+  <!-- Nav tabs -->
+<div style="text-align: center;"> <?php if($name){ echo $name; }  ?></div>  
+<ul class="carousel"  data-flickity='{ "draggable": false }'>
+
+
+<?php
+    $date = $dates;  // Start date
+  $end_date = $enddates;; // End date
+  $counter=1;
+while (strtotime($date) <= strtotime($end_date)) {
+   $tabNumber= "tab".$counter; 
+  // echo $tabNumber; echo "<br>";
+liContents($tabNumber,date("D d, F", strtotime($date)), date("m/d/Y", strtotime($date)), ucfirst(date("l", strtotime($date))),  date("l jS F Y", strtotime($date)) );
+   // die;
+   
+    $date = date ("d-m-Y", strtotime("+1 day", strtotime($date)));
+  $counter++;
+  
+  }
+?>
+  
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<script>
+ // tabbed content
+    // http://www.entheosweb.com/tutorials/css/tabs.asp
+    jQuery(".tab_content").hide();
+    jQuery(".tab_content:first").show();
+  /* if in tab mode */
+    jQuery("ul.tabs li").click(function() {
+      jQuery(".tab_content").hide();
+      var activeTab = jQuery(this).attr("rel"); 
+      jQuery("#"+activeTab).fadeIn();   
+      jQuery("ul.tabs li").removeClass("active");
+      jQuery(this).addClass("active");
+      jQuery(".tab_drawer_heading").removeClass("d_active");
+      jQuery(".tab_drawer_heading[rel^='"+activeTab+"']").addClass("d_active");
+    });
+  /* if in drawer mode */
+  jQuery(".tab_drawer_heading").click(function() {
+      jQuery(".tab_content").hide();
+      var d_activeTab = jQuery(this).attr("rel"); 
+      jQuery("#"+d_activeTab).fadeIn();
+    
+    jQuery(".tab_drawer_heading").removeClass("d_active");
+      jQuery(this).addClass("d_active");
+    
+    jQuery("ul.tabs li").removeClass("active");
+    jQuery("ul.tabs li[rel^='"+d_activeTab+"']").addClass("active");
+    });
+jQuery('ul.tabs li').last().addClass("tab_last");
+</script>
+<script type="text/javascript">
+function setCurrentDate(value){
+  jQuery('#currentMenuDate').val(value);
+  jQuery('#currentMenuDate').text(value);
+}
+window.onscroll = function() {myFunction()};
+
+var header = document.getElementById("form-<?php echo $tabNumber;?>");
+var sticky = header.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset > sticky) {
+    header.classList.add("sticky");
+  } else {
+    header.classList.remove("sticky");
+  }
+}
+
+</script>
+
+
+<?php $i=0; function liContents($tabNumber,$customDate,$oredersDate,$menuday,$showdate){  
+ $ddTmp= date("d", strtotime($oredersDate)); 
+ $dd = abs($ddTmp);
+$mainMenuCategory = Mage::getModel('catalog/category')->load(46);
+ ?>
+
+<li class="carousel-cell tab_content <?php if($tabNumber == 'tab1') echo 'is-selected' ?>" data-date="<?php echo $oredersDate; ?>" data-dates="<?php echo $showdate; ?>" id="<?php echo $tabNumber;?>">
+<form name="form-<?php echo $tabNumber;?>" id="form-<?php echo $tabNumber;?>" class="sticky">
+  <h3 class="d_active tab_drawer_heading" rel="tab1" id="myHeader"><?php echo $customDate;?> Delivery</h3>
+  <div class="scrollspy-example content" 
+  style="overflow-y: scroll;-webkit-overflow-scrolling:touch!important;" data-spy="scroll"  
+  data-target="#navbar-example" data-offset="0">
+       <!---newtabversion-->          
+  <div class="container-fluid dynamic-tab">
+
+  <ul class="nav nav-pills">
+    <li class="active dinnerhorizontal"><a data-toggle="pill" href="#Dinnertab">Dinner <br/>
+    <span class="dinner-item-counter" style="font-size: 12px;font-weight: normal;"></span>
+    </a></li>
+    <li class="breakfasthorizontal"><a data-toggle="pill" href="#Breakfasttab">Brkfst <br/>
+    <span class="breakfast-item-counter" style="font-size: 12px;font-weight: normal;margin-left:0px;"></span>
+    </a></li>
+    <li class="lunchhorizontal"><a data-toggle="pill" href="#lunchtab">Lunch<br/>
+    <span class="lunch-item-counter" style="font-size: 12px;font-weight: normal;margin-left:0px;"></span></a></li>
+    <li class="highteahorizontal"><a data-toggle="pill" href="#highteatab">HiTea <br/>
+    <span class="high-tea-counter" style="font-size: 12px;font-weight: normal;margin-left:0px;"></span></a></li>
+  </ul>
+  
+
+  <div class="tab-content" style="float: left;width:100%;">
+    <div id="Dinnertab" class="tab-pane fade active in">
+    <!-- dinner code start -->
+    <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding:0px;float: left;width: 98%;">
+                <h4 style="font-size: 16px;color: #000;border-top: 2px solid #c31f41;margin-top:0px;padding: 10px 0px;margin-bottom: 0px;"> Cuisine
+                <!--<span class="dinner-item-counter" style="font-size: 14px;color: #666;font-weight: normal;margin-left: 10px;"></span>--></h4>
+               
+
+          
+<?php  
+
+$dinner_indian_date_OptionId= getDropdownOptionId($attribute_id=158,$dd); 
+$dinnerIndianCollection =   $mainMenuCategory->getProductCollection()
+              ->addAttributeToSelect('*')
+                        ->addAttributeToFilter('status', 1)
+                           ->addAttributeToFilter('dinner_indian_date',array('finset'=>$dinner_indian_date_OptionId)) ;
+              
+        
+$dinner_mughlai_date_OptionId= getDropdownOptionId($attribute_id=160,$dd);   
+$dinnerMughlaiCollection =   $mainMenuCategory->getProductCollection()
+              ->addAttributeToSelect('*')
+                         ->addAttributeToFilter('status', 1)
+                      ->addAttributeToFilter('dinner_mughlai_date',array('finset'=>$dinner_mughlai_date_OptionId)) ;  
+ 
+  
+$dinner_italian_date_OptionId= getDropdownOptionId($attribute_id=159,$dd);     
+$dinnerItalianCollection = $mainMenuCategory->getProductCollection()
+              ->addAttributeToSelect('*')
+                         ->addAttributeToFilter('status', 1)
+                       ->addAttributeToFilter('dinner_italian_date',array('finset'=>$dinner_italian_date_OptionId)) ;
+
+
+$dinner_chinese_date_OptionId= getDropdownOptionId($attribute_id=157,$dd);   
+$dinnerChineseCollection =  $mainMenuCategory->getProductCollection()
+              ->addAttributeToSelect('*')
+                         ->addAttributeToFilter('status', 1)
+                      ->addAttributeToFilter('dinner_chinese_date',array('finset'=>$dinner_chinese_date_OptionId)) ;
+              
+              
+?>   
+
+ <?php  if(count($dinnerIndianCollection) > 0){ ?>            
+  <button type="button" class="btn btn-info indian " data-target=".demo2" style="background-color: rgb(195, 31, 65); border-color: rgb(195, 31, 65); color: rgb(255, 255, 255);">Indian 
+</button> <?php } ?>
+<?php if(count($dinnerMughlaiCollection) > 0){  ?>        
+<button type="button" class="btn btn-info muglai" data-target=".demo1">Mughlai
+       <span style="position: absolute;width: 100%; color:#a18d45;float: left;left: 0;font-weight:bold;font-size: 10px;bottom:-3%;">PREMIUM</span>
+</button> <?php } ?>
+ <?php  if(count($dinnerItalianCollection) > 0){ ?>
+  <button type="button" class="btn btn-info italian" data-target=".demo3">Italian
+         <span style="position: absolute;width: 100%; color:#a18d45;float: left;left: 0;font-weight:bold;font-size: 10px;bottom:-3%;">PREMIUM</span>
+</button> <?php }?>
+  
+ <?php   if(count($dinnerChineseCollection) > 0){ ?>
+  <button type="button" class="btn btn-info chinesedemo4" data-target=".chinesedemo">Chinese</button><?php } ?>  
+   <div class="radio radiobtn skipmenu" >
+      <label style="border: 1px solid #c31f41;"><input type="checkbox" name="dinnerskip" value="dinnerskip">Skip Dinner</label>
+    </div>
+<div class="radio radiobtn">
+  <label><input type="checkbox" name="dinnersetmenu" checked>Choose set menu</label>
+</div>
+
+<div class="option-heading">Customize</div>
+<div class="option-content"> <!--is-hidden-->   
+   <?php if(count($dinnerMughlaiCollection) > 0){  ?> 
+    <div class="demo1" style="display:none;"> 
+        <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12"><h4 style="font-size: 16px;color: #000;">Mughlai</h4></div>
+        <?php menusubtypContents($mainMenuCategory,'dinner','mughlai','dinner_mughlai_date',160,'dinner_mughlai_menuset_date',178,$dd); 
+        ?>
+    </div>   
+  <?php } ?>    
+  <?php  if(count($dinnerIndianCollection) > 0){ ?>    
+    <div class="demo2 activecuisine" >
+       <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12"><h4 style="font-size: 16px;color: #000;">Indian</h4> </div>
+        <?php menusubtypContents($mainMenuCategory,'dinner','indian','dinner_indian_date',158,'dinner_indian_menuset_date',177,$dd); ?>
+    </div>
+  <?php } ?>     
+  <?php  if(count($dinnerItalianCollection) > 0){ ?>
+     <div class="demo3" style="display:none;">
+          <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12"><h4 style="font-size: 16px;color: #000;">Italian</h4></div>
+            <?php  menusubtypContents($mainMenuCategory,'dinner','italian','dinner_italian_date',159,'dinner_italian_menuset_date',180,$dd); ?> 
+      </div>
+   <?php } ?>
+    <?php   if(count($dinnerChineseCollection) > 0){ ?>
+      <!--chinese-->
+      <div class="chinesedemo"  style="display:none;">
+       <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12"><h4 style="font-size: 16px;color: #000;">Chinese</h4>
+                </div>
+          <?php menusubtypContents($mainMenuCategory,'dinner','chinese','dinner_chinese_date',157,'dinner_chinese_menuset_date',179,$dd); ?>   
+      </div>
+     <!--chinese-->
+  <?php } ?>
+ </div>
+ <!--customend-->
+ 
+
+    
+  </div>
+  
+   
+  
+    
+    <!-- dinner End --> 
+    </div>
+    <div id="Breakfasttab" class="tab-pane fade">
+      <!-- breakfast code start -->
+        <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding:0px;float: left;width: 98%;">
+                <h4 style="font-size: 16px;color: #000;border-top: 2px solid #c31f41;margin-top:0px;padding: 10px 0px;margin-bottom: 0px;">Cuisine
+                <!-- <span class="breakfast-item-counter" style="font-size: 14px;color: #666;font-weight: normal;margin-left: 10px;"></span>--></h4> 
+                  <div class="radio radiobtn skipmenu" >
+      <label style="border: 1px solid #c31f41;"><input type="checkbox" name="breakfastskip" value="breakfastskip">Skip Brkfst</label>
+    </div>  
+     <div class="radio radiobtn">
+  <label><input type="checkbox" name="breakfastsetmenudata" checked>Choose set menu</label>
+</div>
+ <!--               <div class="skipmenu">
+                <h4>Skip Brkfst  <label class="switch">
+  <input type="checkbox" name="breakfastskip" value="breakfastskip">
+  <span class="slider round"></span>
+</label></h4>
+</div>-->
+             
+      <div class="option-heading">Customize</div>
+<div class="option-content"> <!--is-hidden-->   
+         
+       <?php $i++;
+        $breakfast_date_OptionId = getDropdownOptionId($attribute_id=156,$dd);  
+    $breakfastCollection    = $mainMenuCategory->getProductCollection()
+                  ->addAttributeToSelect('*')
+                            ->addAttributeToFilter('status', 1)
+                   ->addAttributeToFilter('breakfast_date',array('finset'=>$breakfast_date_OptionId)) ; 
+      
+     if(count($breakfastCollection) > 0){ 
+     menusubtypContents($mainMenuCategory,'breakfast','breakfast','breakfast_date',156,'breakfast_menuset_date',181,$dd);  } ?> 
+   </div>      
+           
+ </div>
+      <!-- breakfast code end -->
+    </div>
+    <div id="lunchtab" class="tab-pane fade">
+      <!-- lunch code start here -->
+        <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding:0px;float: left;width:98%;">
+      <h4 style="font-size: 16px;color: #000;border-top: 2px solid #c31f41;margin-top:0px;padding: 10px 0px;margin-bottom: 0px;">Cuisine</h4>
+      
+  <?php   
+    $lunch_indian_date_OptionId = getDropdownOptionId($attribute_id=164,$dd); 
+    $lunchIndianCollection =  $mainMenuCategory->getProductCollection()
+              ->addAttributeToSelect('*')
+                         ->addAttributeToFilter('status', 1)
+                    ->addAttributeToFilter('lunch_indian_date',array('finset'=>$lunch_indian_date_OptionId)) ;
+            
+            
+    $lunch_bbs_date_OptionId = getDropdownOptionId($attribute_id=162,$dd);     
+    $lunchSaladCollection =  $mainMenuCategory->getProductCollection()
+              ->addAttributeToSelect('*')
+                         ->addAttributeToFilter('status', 1)
+                     ->addAttributeToFilter('lunch_bbs_date',array('finset'=>$lunch_bbs_date_OptionId)); 
+                     
+  
+    $lunch_chinese_date_OptionId = getDropdownOptionId($attribute_id=163,$dd);      
+    $lunchChineseCollection =  $mainMenuCategory->getProductCollection()
+              ->addAttributeToSelect('*')
+                       ->addAttributeToFilter('status', 1)
+                       ->addAttributeToFilter('lunch_chinese_date',array('finset'=>$lunch_chinese_date_OptionId)); 
+
+    $lunch_mughlai_date_OptionId = getDropdownOptionId($attribute_id=166,$dd);      
+    $lunchMughlaiCollection =  $mainMenuCategory->getProductCollection()
+              ->addAttributeToSelect('*')
+                       ->addAttributeToFilter('status', 1)
+                       ->addAttributeToFilter('lunch_mughlai_date',array('finset'=>$lunch_mughlai_date_OptionId));                    
+             
+  ?>   
+
+             
+  <?php if(count($lunchIndianCollection) > 0){ ?>
+  <button type="button" class="btn btn-info inditopic" data-target=".indi" style="background-color: rgb(195, 31, 65); border-color: rgb(195, 31, 65); color: rgb(255, 255, 255);">Indian
+
+  </button> <?php }
+  if(count($lunchMughlaiCollection) > 0){ ?>
+   <button type="button" class="btn btn-info mughlaitopic" data-target=".mughlaidemolunch">Mughlai
+        <span style="position: absolute;bottom:-3%;width: 100%; color:#a18d45;float: left;left: 0;font-weight:bold;font-size: 10px;">PREMIUM</span>
+
+   </button> <?php }
+   if(count($lunchSaladCollection) > 0){ ?>
+   <button type="button" class="btn btn-info saladtopic" data-target=".salad">BSB
+        <span style="position: absolute;bottom:-3%;width: 100%; color:#a18d45;float: left;left: 0;font-weight:bold;font-size: 10px;">PREMIUM</span>
+
+   </button> <?php }
+   if(count($lunchChineseCollection) > 0){ ?>
+   <button type="button" class="btn btn-info chinesedemotopic" data-target=".chinesedemolunch">Chinese</button> 
+   <?php } ?>
+    <div class="radio radiobtn skipmenu" >
+  <label style="border: 1px solid #c31f41;"><input type="checkbox" name="lunchskip" value="lunchskip">Skip Lunch</label>
+</div>
+
+ <div class="radio radiobtn">
+  <label><input type="checkbox" name="lunchsetmenu" checked>Choose set menu</label>
+</div>
+
+<div class="option-heading">Customize</div>    
+<div class="option-content">
+     <?php if(count($lunchIndianCollection) > 0){ ?>
+     <div class="indi lunchactivecuisine">
+      <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12"> <h4 style="font-size: 16px;color: #000;">Indian  </h4> </div>
+     <?php menusubtypContents($mainMenuCategory,'lunch','indian','lunch_indian_date',164,'lunch_indian_menuset_date',184,$dd);
+         ?>  
+    </div>   <?php }  ?>  
+    
+   <?php 
+     if(count($lunchSaladCollection) > 0){ ?>
+     <div class="salad"  style="display:none;">
+       <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12"><h4 style="font-size: 16px;color: #000;">Big Salad Bowl</h4>
+     </div>
+    <?php
+      menusubtypContents($mainMenuCategory,'lunch','bsb','lunch_bbs_date',162,'lunch_bbs_menuset_date',182,$dd);
+     ?> </div>   <?php }  ?> 
+  <!--chinese-->
+  <?php if(count($lunchChineseCollection) > 0){ ?>
+                  <div class="chinesedemolunch"  style="display:none;">
+       <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12"><h4 style="font-size: 16px;color: #000;">Chinese</h4>
+                </div>
+    <?php
+         
+        menusubtypContents($mainMenuCategory,'lunch','chinese','lunch_chinese_date',163,'lunch_chinese_menuset_date',183,$dd);?>  </div>   <?php }  ?> 
+   <!--chinese-->
+   <!--chinese-->
+  <?php if(count($lunchMughlaiCollection) > 0){ ?>
+                  <div class="mughlaidemolunch"  style="display:none;">
+       <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12"><h4 style="font-size: 16px;color: #000;">Mughlai</h4>
+                </div>
+    <?php
+         
+        menusubtypContents($mainMenuCategory,'lunch','mughlai','lunch_mughlai_date',166,'lunch_mughlai_menuset_date',186,$dd);?>  </div>   <?php }  ?> 
+</div>   
+  <!-- lunch Finish -->
+ </div>
+       
+      <!-- lunch code end here -->
+</div>
+
+<div id="highteatab" class="tab-pane fade">
+<!-- breakfast code start -->
+<div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding:0px;float: left;width: 98%;">
+  <h4 style="font-size: 16px;color: #000;border-top: 2px solid #c31f41;margin-top:0px;padding: 10px 0px;margin-bottom: 0px;">Cuisine</h4> 
+  <div class="radio radiobtn skipmenu" >
+  <label style="border: 1px solid #c31f41;"><input type="checkbox" name="highteaskip" value="highteaskip">Skip HiTea</label>
+</div>
+<div class="radio radiobtn">
+    <label><input type="checkbox" name="highteasetmenudata" checked>Choose set menu</label>
+  </div>       
+<div class="option-heading">Customize</div>
+<div class="option-content"> <!--is-hidden-->    
+  <?php 
+    $hightea_date_OptionId = getDropdownOptionId($attribute_id=161,$dd);
+    $highTeaCollection =  $mainMenuCategory->getProductCollection()
+              ->addAttributeToSelect('*')
+             ->addAttributeToFilter('status', 1)
+             ->addAttributeToFilter('hightea_date',array('finset'=>$hightea_date_OptionId)); 
+             ?>
+                <?php if(count($highTeaCollection) > 0){
+     menusubtypContents($mainMenuCategory,'hightea','hightea','hightea_date',161,'hightea_menuset_date',187,$dd);?> <?php } ?>
+</div>      
+       
+</div>
+      <!-- hitea code end -->
+</div>
+
+
+</div>
+</div>
+<div class="preference">
+ <h4 style="font-size: 16px;color: #000;background: #efebeb;padding:  10px;">Special Instructions</h4>
+ <p class="col-xs-12 col-sm-12"><small>List any special requests</small></p>
+  <textarea rows="4" cols="50" class="input-text customer-note"></textarea><br/>
+</div>
+<!---newtabversion-->         
+
+<!--end-->
+
+
+   <!---working code-->   
+              
+  </div>
+  </form>
+
+  </li>
+
+<?php } ?>
+       <button type="button" id="cickbtnform" style='margin-left: 10px;' class="button submit" onClick="callController()"><span>Submit Order</span></button>
+
+<?php  
+function menusubtypContents($mainMenuCategory,$menutype,$menusubtype,$menusubtypedateAttributeName,$menusubtypedateAttribute_id,
+                  $menusetAttributeName,$menusetAttribute_id,$menudate){  
+       
+       $menusubtypedateOptionId= getDropdownOptionId($menusubtypedateAttribute_id,$menudate);
+       $menusetOptionId = getDropdownOptionId($menusetAttribute_id,$menudate);
+       $positionArray = array("salad"=>"11","Soup"=>"22","Snack"=>"38","SSV"=>"33","DPP"=>"44","RRC"=>"55","Dessert"=>"66","Shot"=>"88","km"=>"77","Misc"=>"99");
+           
+       foreach($positionArray as $menucode=>$position) {
+        $collection =   $mainMenuCategory->getProductCollection()
+                     ->addAttributeToSelect('*')
+                     ->addAttributeToFilter('status', 1)
+                    ->addAttributeToFilter($menusubtypedateAttributeName,array('finset'=>$menusubtypedateOptionId))
+          ->addAttributeToFilter('menuposition', $position);
+         
+      $collection2 =   $mainMenuCategory->getProductCollection()
+                     ->addAttributeToSelect('*')
+                     ->addAttributeToFilter('status', 1)
+                    ->addAttributeToFilter($menusetAttributeName,array('finset'=>$menusetOptionId))
+                    ->addAttributeToFilter('menuposition', $position);   
+      $menusetItems = array();
+       foreach($collection2 as  $tmpProduct) {
+        $menusetItems[] =  $tmpProduct->getName();
+       }
+         
+      if(strtolower($menucode) == 'bsb' && count($collection) > 0){ ?>
+          <div class="hrline" style="background: #fefbfb;margin-top:20px;padding: 10px 10px;"><strong style="color: #c31f41;">BSB :     </strong> <span> Choose Any 1  </span></div>  
+        <?php } else if(strtolower($menucode) == 'salad' && count($collection) > 0){ ?>
+          <div class="hrline" style="background: #fefbfb;margin-top: 20px;padding: 10px 10px;"><strong style="color: #c31f41;">Salad :     </strong> <span> Choose Any 1  </span></div>
+        <?php } else if(strtolower($menucode) == 'soup' && count($collection) > 0){ ?>
+           <div class="hrline" style="background: #fefbfb;margin-top:20px;padding: 10px 10px;"><strong style="color: #c31f41;">Soup :     </strong> <span> Choose Any 1 </span></div>
+        <?php } else if(strtolower($menucode) == 'ssv' && count($collection) > 0){ ?>
+          <div class="hrline" style="background: #fefbfb;margin-top: 20px;padding: 10px 10px;"><strong style="color: #c31f41;">Subji, Vegetables :     </strong> <span> Choose<br/>2 Subji or 1 Subji + 1 Daal  </span></div>
+        <?php } else if(strtolower($menucode) == 'dpp' && count($collection) > 0){ ?>
+          <div class="hrline" style="background: #fefbfb;margin-top: 20px;padding: 10px 10px;"><strong style="color: #c31f41;">Daal, Proteins :     </strong> <span> Choose<br/>2 Subji or 1 Subji + 1 Daal  </span></div>
+        <?php } else if(strtolower($menucode) == 'rrc' && count($collection) > 0){ ?>
+          <div class="hrline" style="background: #fefbfb;margin-top: 20px;padding: 10px 10px;"><strong style="color: #c31f41;">Roti, Rice, Grains :     </strong> <span> Choose Any 1  </span></div>
+        <?php } else if(strtolower($menucode) == 'dessert' && count($collection) > 0){ ?>
+          <div class="hrline" style="background: #fefbfb;margin-top: 20px;padding: 10px 10px;"><strong style="color: #c31f41;">Dessert :     </strong> <span> Choose Any 1  </span></div>
+        <?php } else if( strtolower($menucode) == 'shot' && count($collection) > 0){ 
+          ?>
+          <div class="hrline" style="background: #fefbfb;margin-top:20px;padding: 10px 10px;"><strong style="color: #c31f41;">Shot:     </strong> <span> <span style="color:#a18d45;font-weight: bold;">Premium Only</span> <br/> Choose 1 Shot  </span></div>        
+        <?php } else if( strtolower($menucode) == 'misc' && count($collection) > 0){ ?>
+          <div class="hrline" style="background: #fefbfb;margin-top: 20px;padding: 10px 10px;"><strong style="color: #c31f41;">Misc :     </strong> <span> Choose Upto 3 Misc  </span></div>  
+        <?php } else if( strtolower($menucode) == 'km' && count($collection) > 0){ ?>
+          <div class="hrline" style="background: #fefbfb;margin-top: 20px;padding: 10px 10px;"><strong style="color: #c31f41;">Kefir and Milks :     </strong> <span> Choose any 1   </span></div> 
+        <?php } else if( strtolower($menucode) == 'snack' && count($collection) > 0){ ?>
+          <div class="hrline" style="background: #fefbfb;margin-top:20px;padding: 10px 10px;"><strong style="color: #c31f41;">Snacks :     </strong> <span> Choose any 1  </span></div>  
+      <?php } foreach($collection as  $tmpProduct){ $checked ='';
+       if(in_array($tmpProduct->getName(),$menusetItems)) { $checked="checked"; }     
+       //foreach($collection as  $tmpProduct){ 
+       ?>         
+                  <div class="col-xs-12 col-sm-6 itemmenubox <?php echo $menutype;?>"><div class="itemone" itemscope="">
+                <span class="icon-foodSymbol food-red food-adjust food-green"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/rwd/default/';?>images/vegicon.jpg" alt=""></span>
+                <div class="GaqmA"><div>
+                
+                <div class="btnright">
+                         <input type="checkbox" id="<?php echo $menusubtype;?>_<?php echo $tmpProduct->getEntityId();?>" menucode="<?php echo $tmpProduct->getMenucode();?>" productcode="<?php echo $tmpProduct->getEntityId();?>" name="<?php echo $menutype;?>" value="<?php echo $tmpProduct->getName();?>" <?php  echo $checked;?> />
+                </div>                
+                        <div class="itembox">
+                          <div class="itemname"> <?php //echo $tmpProduct->getLabel(); ?>
+                           <div class="itemproperty" itemprop="name"><?php echo $tmpProduct->getName();?><br/>
+                             <small><?php //echo $tmpProduct->getMenucode();?></small>
+                           </div>
+                         </div>
+                        </div>
+                     </div>
+                     </div>
+                    </div>
+                   </div>
+               
+              <?php } 
+      }
+    }
+          ?>
+
+         <!-- The Modal -->
+<div id="myModalform" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div class="boxerror">
+      <div class="accountbox"><div class="account-h">Account</div></div>
+      <div class="vt2tt">
+        <div class="_2axtv">To place your order now, log in to your existing account or sign up.</div>
+        <div class="_1HQdx">
+        <div class="C6mS- y9pNN">
+        <div class="_2eTQn">Have an account?</div>
+        <div class="POo4b"><a href="<?php echo Mage::getBaseUrl().'customer/account/login/' ?>" style="color: #8a8687;">LOG IN</a></div>
+        </div>
+        <div class="OsNTr y9pNN">
+        <div class="_2eTQn">New to CMD?</div>
+        <div class="POo4b"><a href="<?php echo Mage::getBaseUrl().'customer/account/create/' ?>" style="color:#fff;">SIGN UP</a></div>
+        </div>
+        </div>
+      </div>
+    </div>
+    <div class="ordererrordata" style="display: none;clear: both;text-align: center;color:#a21e3b;font-size:16px;font-weight: 600;"></div>
+    <div class="_250uQ _26MRf"></div>
+      <div class="_2b4pY">
+      <span class="_1q8J4 icon-user-checkout"></span>
+      </div>
+  </div>
+  <?php
+  
+  
+  function getDropdownOptionId($attribute_id,$value)
+{   
+   if(!empty($value))
+   {
+       
+        $query="select count(*) as countrecord from eav_attribute_option eao inner join eav_attribute_option_value eaov on eao.option_id=eaov.option_id and eao.attribute_id=$attribute_id  and eaov.value='".$value."' and store_id=0"  ;      
+      
+        
+      $query_count_option="select count(*) as count_option from eav_attribute_option where attribute_id=$attribute_id";
+      
+      $result_option=mysql_query($query_count_option);
+      $row=mysql_fetch_array($result_option);
+      $count_attribute_option=$row['count_option'];
+       
+       
+      $result=mysql_query($query);
+      $row=mysql_fetch_array($result);
+    
+      $count=$row['countrecord']; 
+      $option_id='';
+      $sort_order= $count_attribute_option;
+      
+      if($count==1)       
+      {
+      $query1="select eaov.option_id,eaov.value from eav_attribute_option eao inner join eav_attribute_option_value eaov on eao.option_id=eaov.option_id and eao.attribute_id=$attribute_id  and eaov.value='".$value."'" ; 
+      
+      $result1=mysql_query($query1);
+      $row1=mysql_fetch_array($result1);
+      $option_id=$row1['option_id'];
+      
+      }
+     // echo $option_id; die; 
+       return $option_id;  
+   }       
+} ?>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+  jQuery(".dinnerhorizontal").click(function(){
+    jQuery(this).toggleClass('active');
+    jQuery(".is-selected .dinnerhorizontal").removeClass('active');
+    jQuery(".is-selected .tab-content #Dinnertab").addClass('active in');
+    jQuery(".is-selected .tab-content #lunchtab").removeClass('active in');
+    jQuery(".is-selected .tab-content #Breakfasttab").removeClass('active in');
+    jQuery(".is-selected .tab-content #highteatab").removeClass('active in');
+  });  
+  jQuery(".lunchhorizontal").click(function(){
+    jQuery(this).toggleClass('active');
+    jQuery(".is-selected .lunchhorizontal").removeClass('active');
+    jQuery(".is-selected .tab-content #lunchtab").addClass('active in');
+    jQuery(".is-selected .tab-content #Dinnertab").removeClass('active in');
+    jQuery(".is-selected .tab-content #Breakfasttab").removeClass('active in');
+    jQuery(".is-selected .tab-content #highteatab").removeClass('active in');
+  }); 
+  jQuery(".breakfasthorizontal").click(function(){
+    jQuery(this).toggleClass('active');
+    jQuery(".is-selected .breakfasthorizontal").removeClass('active');
+    jQuery(".is-selected .tab-content #Breakfasttab").addClass('active in');
+    jQuery(".is-selected .tab-content #Dinnertab").removeClass('active in');
+    jQuery(".is-selected .tab-content #lunchtab").removeClass('active in');
+    jQuery(".is-selected .tab-content #highteatab").removeClass('active in');
+  }); 
+  jQuery(".highteahorizontal").click(function(){
+    jQuery(this).toggleClass('active');
+    jQuery(".is-selected .highteahorizontal").removeClass('active');
+    jQuery(".is-selected .tab-content #highteatab").addClass('active in');
+    jQuery(".is-selected .tab-content #Dinnertab").removeClass('active in');
+    jQuery(".is-selected .tab-content #lunchtab").removeClass('active in');
+    jQuery(".is-selected .tab-content #Breakfasttab").removeClass('active in');
+  }); 
+
+  jQuery(".Dinnerbtn").click(function(){
+   jQuery(".dinnertab").show();
+   jQuery(".breakfasttab").hide();
+   jQuery(".lunchtab").hide();
+   jQuery(".highteatab").hide();
+   jQuery(".Dinnerbtn").css({"background-color": "#c31f41", "border-color": "#c31f41","color": "#fff"});
+   jQuery(".breakfasttab").css({"background-color": "", "border-color": "","color": ""});
+   jQuery(".lunchtab").css({"background-color": "", "border-color": "","color": ""});
+   jQuery(".highteatab").css({"background-color": "", "border-color": "","color": ""});
+     });
+   
+   
+   jQuery(".breakfastbtn").click(function(){
+   jQuery(".dinnertab").hide();
+   jQuery(".breakfasttab").show();
+   jQuery(".lunchtab").hide();
+   jQuery(".highteatab").hide();
+   jQuery(".breakfastbtn").css({"background-color": "#c31f41", "border-color": "#c31f41","color": "#fff"});
+   jQuery(".Dinnerbtn").css({"background-color": "", "border-color": "","color": ""});
+   jQuery(".lunchtab").css({"background-color": "", "border-color": "","color": ""});
+   jQuery(".highteatab").css({"background-color": "", "border-color": "","color": ""});
+     });
+   
+   
+   });
+   
+jQuery(document).ready(function(){
+   jQuery(".muglai").click(function(){
+   jQuery('.is-selected .tab-content #Dinnertab .option-content .chinesedemo, .demo2, .demo3').removeClass("activecuisine");
+   jQuery('.is-selected .tab-content #Dinnertab .option-content .demo1').addClass("activecuisine");
+   var countdinnermuglaiCheckedCheckboxes = jQuery(".is-selected .activecuisine input[name='dinner']:checked").filter(':checked').length;
+        jQuery(".is-selected .active .dinner-item-counter").text(countdinnermuglaiCheckedCheckboxes+' items');
+   jQuery(".demo1").show();
+   jQuery('.is-selected .tab-content #Dinnertab .option-content .demo1').addClass("is-active");
+   jQuery(this).toggleClass('is-active').next(".option-content").stop().slideToggle(500);
+   jQuery(".demo2").hide();
+   jQuery(".demo3").hide();
+   jQuery(".muglai").css({"background-color": "#c31f41", "border-color": "#c31f41","color": "#fff"});
+   jQuery(".indian").css({"background-color": "", "border-color": "","color": ""});
+   jQuery(".italian").css({"background-color": "", "border-color": "","color": ""});
+   jQuery(".chinesedemo4").css({"background-color": "", "border-color": "","color": ""});
+   jQuery(".chinesedemo").hide();
+      jQuery(".indian span").css({"color": "#a18d45"});
+   jQuery(".italian span").css({"color": "#a18d45"});
+   jQuery(".chinesedemo4 span").css({"color": "#a18d45"});
+   jQuery(".muglai span").css({"color": "#fff"});
+  });
+
+jQuery(".indian").click(function(){
+   jQuery('.is-selected .tab-content #Dinnertab .option-content .chinesedemo, .demo1, .demo3').removeClass("activecuisine");
+   jQuery('.is-selected .tab-content #Dinnertab .option-content .demo2').addClass("activecuisine");
+   var countdinnerindianCheckedCheckboxes = jQuery(".is-selected .activecuisine input[name='dinner']:checked").filter(':checked').length;
+        jQuery(".is-selected .active .dinner-item-counter").text(countdinnerindianCheckedCheckboxes+' items');
+   jQuery(".demo2").show();
+   jQuery(".option-content").show();
+   jQuery(this).toggleClass('is-active').next(".option-content").stop().slideToggle(500);
+    jQuery(".indian").css({"background-color": "#c31f41", "border-color": "#c31f41","color": "#fff"});
+   jQuery(".muglai").css({"background-color": "", "border-color": "","color": ""});
+   jQuery(".italian").css({"background-color": "", "border-color": "","color": ""});
+   jQuery(".demo1").hide();
+   jQuery(".demo3").hide();
+   jQuery(".chinesedemo4").css({"background-color": "", "border-color": "","color": ""});
+   jQuery(".chinesedemo").hide();
+   jQuery(".indian span").css({"color": "#fff"});
+   jQuery(".italian span").css({"color": "#a18d45"});
+   jQuery(".chinesedemo4 span").css({"color": "#a18d45"});
+   jQuery(".muglai span").css({"color": "#a18d45"});
+  });
+
+  jQuery(".italian").click(function(){
+   jQuery('.is-selected .tab-content #Dinnertab .option-content .chinesedemo, .demo1, .demo2').removeClass("activecuisine");
+   jQuery('.is-selected .tab-content #Dinnertab .option-content .demo3').addClass("activecuisine"); 
+   var countdinneritalianCheckedCheckboxes = jQuery(".is-selected .activecuisine input[name='dinner']:checked").filter(':checked').length;
+        jQuery(".is-selected .active .dinner-item-counter").text(countdinneritalianCheckedCheckboxes+' items');
+   jQuery(".demo3").show();
+   jQuery(".option-content").show();
+   jQuery(this).toggleClass('is-active').next(".option-content").stop().slideToggle(500);
+     jQuery(".italian").css({"background-color": "#c31f41", "border-color": "#c31f41","color": "#fff"});
+   jQuery(".muglai").css({"background-color": "", "border-color": "","color": ""});
+   jQuery(".indian").css({"background-color": "", "border-color": "","color": ""});
+   jQuery(".demo1").hide();
+   jQuery(".demo2").hide();
+   jQuery(".chinesedemo4").css({"background-color": "", "border-color": "","color": ""});
+   jQuery(".chinesedemo").hide();
+   jQuery(".indian span").css({"color": "#a18d45"});
+   jQuery(".italian span").css({"color": "#fff"});
+   jQuery(".chinesedemo4 span").css({"color": "#a18d45"});
+   jQuery(".muglai span").css({"color": "#a18d45"});
+  });
+  
+  
+  jQuery(".chinesedemo4").click(function(){
+   jQuery('.is-selected .tab-content #Dinnertab .option-content .demo2, .demo1, .demo3').removeClass("activecuisine");
+   jQuery('.is-selected .tab-content #Dinnertab .option-content .chinesedemo').addClass("activecuisine");
+   var countdinnerchinenseCheckedCheckboxes = jQuery(".is-selected .activecuisine input[name='dinner']:checked").filter(':checked').length;
+        jQuery(".is-selected .active .dinner-item-counter").text(countdinnerchinenseCheckedCheckboxes+' items');
+   jQuery(".chinesedemo").show();
+   jQuery(this).toggleClass('is-active').next(".option-content").stop().slideToggle(500);
+   jQuery(".chinesedemo4").css({"background-color": "#c31f41", "border-color": "#c31f41","color": "#fff"});
+   jQuery(".muglai").css({"background-color": "", "border-color": "","color": ""});
+   jQuery(".indian").css({"background-color": "", "border-color": "","color": ""});
+   jQuery(".italian").css({"background-color": "", "border-color": "","color": ""});
+   jQuery(".demo3").hide();
+   jQuery(".demo1").hide();
+   jQuery(".demo2").hide();
+   jQuery(".indian span").css({"color": "#a18d45"});
+   jQuery(".italian span").css({"color": "#a18d45"});
+   jQuery(".chinesedemo4 span").css({"color": "#fff"});
+   jQuery(".muglai span").css({"color": "#a18d45"});
+  });
+  
+  // Below code for lunch selection
+  jQuery(".inditopic").click(function(){ 
+   jQuery('.is-selected .tab-content #lunchtab .option-content .salad, .chinesedemolunch, .mughlaidemolunch, .indi').removeClass("lunchactivecuisine");
+   jQuery('.is-selected .tab-content #lunchtab .option-content .indi').addClass("lunchactivecuisine");
+   var countlunchinditopicCheckedCheckboxes = jQuery(".is-selected .lunchactivecuisine input[name='lunch']:checked").filter(':checked').length;
+        jQuery(".is-selected .active .lunch-item-counter").text(countlunchinditopicCheckedCheckboxes+' items');
+   jQuery(".indi").show();
+   jQuery(".chinesedemolunch").hide();
+   jQuery(".salad").hide();
+   jQuery(".mughlaidemolunch").hide();
+   jQuery(".inditopic").css({"background-color": "#c31f41", "border-color": "#c31f41","color": "#fff"});
+   jQuery(".saladtopic").css({"background-color": "", "border-color": "","color": ""});
+   jQuery(".mughlaitopic").css({"background-color": "", "border-color": "","color": ""});
+   jQuery(".mughlaitopic span").css({"color": "#a18d45"});
+   jQuery(".chinesedemotopic").css({"background-color": "", "border-color": "","color": ""});
+   jQuery(".saladtopic span").css({"color": "#a18d45"});
+   jQuery(".chinesedemotopic span").css({"color": "#a18d45"});
+   jQuery(".inditopic span").css({"color": "#fff"});
+  });
+
+  jQuery(".saladtopic").click(function(){
+   jQuery('.is-selected .tab-content #lunchtab .option-content .salad, .chinesedemolunch, .mughlaidemolunch, .indi').removeClass("lunchactivecuisine");
+   jQuery('.is-selected .tab-content #lunchtab .option-content .salad').addClass("lunchactivecuisine"); 
+   var countlunchsaladCheckedCheckboxes = jQuery(".is-selected .lunchactivecuisine input[name='lunch']:checked").filter(':checked').length;
+        jQuery(".is-selected .active .lunch-item-counter").text(countlunchsaladCheckedCheckboxes+' items');
+   jQuery(".salad").show();
+   jQuery(".indi").hide();
+   jQuery(".mughlaidemolunch").hide();
+   jQuery(".chinesedemolunch").hide();
+   jQuery(".saladtopic").css({"background-color": "#c31f41", "border-color": "#c31f41","color": "#fff"});
+   jQuery(".mughlaitopic").css({"background-color": "", "border-color": "","color": ""});
+   jQuery(".mughlaitopic span").css({"color": "#a18d45"});
+   jQuery(".inditopic").css({"background-color": "", "border-color": "","color": ""});
+   jQuery(".chinesedemotopic").css({"background-color": "", "border-color": "","color": ""});
+   jQuery(".saladtopic span").css({"color": "#fff"});
+   jQuery(".chinesedemotopic span").css({"color": "#a18d45"});
+   jQuery(".inditopic span").css({"color": "#a18d45"});
+  });
+ 
+ jQuery(".mughlaitopic").click(function(){
+   jQuery('.is-selected .tab-content #lunchtab .option-content .salad, .chinesedemolunch, .mughlaidemolunch, .indi').removeClass("lunchactivecuisine");
+   jQuery('.is-selected .tab-content #lunchtab .option-content .mughlaidemolunch').addClass("lunchactivecuisine");
+   var countlunchmughlaitopicCheckedCheckboxes = jQuery(".is-selected .lunchactivecuisine input[name='lunch']:checked").filter(':checked').length;
+        jQuery(".is-selected .active .lunch-item-counter").text(countlunchmughlaitopicCheckedCheckboxes+' items');
+   jQuery(".salad").hide();
+   jQuery(".indi").hide();
+   jQuery(".mughlaidemolunch").show();
+   jQuery(".chinesedemolunch").hide();
+   jQuery(".mughlaitopic").css({"background-color": "#c31f41", "border-color": "#c31f41","color": "#fff"});
+   jQuery(".inditopic").css({"background-color": "", "border-color": "","color": ""});
+   jQuery(".saladtopic").css({"background-color": "", "border-color": "","color": ""});
+   jQuery(".chinesedemotopic").css({"background-color": "", "border-color": "","color": ""});
+   jQuery(".mughlaitopic span").css({"color": "#fff"});
+   jQuery(".chinesedemotopic span").css({"color": "#a18d45"});
+   jQuery(".saladtopic span").css({"color": "#a18d45"});
+   jQuery(".inditopic span").css({"color": "#a18d45"});
+  });
+ 
+ 
+  jQuery(".chinesedemotopic").click(function(){
+   jQuery('.is-selected .tab-content #lunchtab .option-content .salad, .chinesedemolunch, .mughlaidemolunch, .indi').removeClass("lunchactivecuisine");
+   jQuery('.is-selected .tab-content #lunchtab .option-content .chinesedemolunch').addClass("lunchactivecuisine");
+   var countlunchchinesedemotopicCheckedCheckboxes = jQuery(".is-selected .lunchactivecuisine input[name='lunch']:checked").filter(':checked').length;
+        jQuery(".is-selected .active .lunch-item-counter").text(countlunchchinesedemotopicCheckedCheckboxes+' items');
+   jQuery(".chinesedemolunch").show();
+   jQuery(".indi").hide();
+   jQuery(".mughlaidemolunch").hide();
+   jQuery(".salad").hide();
+   jQuery(".chinesedemotopic").css({"background-color": "#c31f41", "border-color": "#c31f41","color": "#fff"});
+   jQuery(".inditopic").css({"background-color": "", "border-color": "","color": ""});
+   jQuery(".saladtopic").css({"background-color": "", "border-color": "","color": ""});
+   jQuery(".saladtopic span").css({"color": "#a18d45"});
+   jQuery(".mughlaitopic span").css({"color": "#a18d45"});
+   jQuery(".mughlaitopic").css({"background-color": "", "border-color": "","color": ""});
+   jQuery(".chinesedemotopic span").css({"color": "#fff"});
+   jQuery(".inditopic span").css({"color": "#a18d45"});
+  });
+});
+
+ function div1(){
+jQuery('.carousel-cell').css('left', '0');
+jQuery('#tab1').css('display', 'block !important');
+ jQuery('#tab2').css('left', '0');
+
+ jQuery('#div1').css('display', 'block');
+ jQuery(".carousel-cell").removeClass("is-selected");
+ jQuery('#tab1').addClass("is-selected");
+ jQuery(".ordererrordata").hide();  
+ jQuery('#tab2').hide();
+ jQuery('#tab3').hide();
+ jQuery('#tab4').hide();
+ jQuery('#tab5').hide();
+ var countlunchCheckedCheckboxes = jQuery(".is-selected .lunchactivecuisine input[name='lunch']:checked").filter(':checked').length;
+ jQuery(".is-selected .lunch-item-counter").text(countlunchCheckedCheckboxes+' items');
+ var countdinersCheckedCheckboxes = jQuery(".is-selected .activecuisine input[name='dinner']:checked").filter(':checked').length;
+ jQuery(".is-selected .dinner-item-counter").text(countdinersCheckedCheckboxes+' items');
+ var countbrekfstCheckedCheckboxes = jQuery(".is-selected input[name='breakfast']:checked").filter(':checked').length;
+ jQuery(".is-selected .breakfast-item-counter").text(countbrekfstCheckedCheckboxes+' items');
+ var counthiteaCheckedCheckboxes = jQuery(".is-selected input[name='hightea']:checked").filter(':checked').length;
+ jQuery(".is-selected .high-tea-counter").text(counthiteaCheckedCheckboxes+' items');
+}
+
+function div2(){
+jQuery('.carousel-cell').css('left', '0');
+ jQuery('#tab2').css('display', 'block !important');
+ jQuery('#tab2').css('left', '0');
+ jQuery('#div2').css('display', 'block');
+ jQuery(".carousel-cell").removeClass("is-selected");
+ jQuery('#tab2').addClass("is-selected");
+ jQuery(".ordererrordata").hide();
+ jQuery('#tab1').hide();
+ jQuery('#tab3').hide();
+ jQuery('#tab4').hide();
+ jQuery('#tab5').hide();
+ var countlunchCheckedCheckboxes = jQuery(".is-selected .lunchactivecuisine input[name='lunch']:checked").filter(':checked').length;
+ jQuery(".is-selected .lunch-item-counter").text(countlunchCheckedCheckboxes+' items');
+ var countdinersCheckedCheckboxes = jQuery(".is-selected .activecuisine input[name='dinner']:checked").filter(':checked').length;
+ jQuery(".is-selected .dinner-item-counter").text(countdinersCheckedCheckboxes+' items');
+ var countbrekfstCheckedCheckboxes = jQuery(".is-selected input[name='breakfast']:checked").filter(':checked').length;
+ jQuery(".is-selected .breakfast-item-counter").text(countbrekfstCheckedCheckboxes+' items');
+ var counthiteaCheckedCheckboxes = jQuery(".is-selected input[name='hightea']:checked").filter(':checked').length;
+ jQuery(".is-selected .high-tea-counter").text(counthiteaCheckedCheckboxes+' items');
+}
+
+function div3(){
+jQuery('.carousel-cell').css('left', '0'); 
+     jQuery('#tab3').css('left', '0');
+      jQuery('#tab3').css('display', 'block !important');
+
+ jQuery('#div3').css('display', 'block');
+ jQuery(".carousel-cell").removeClass("is-selected");
+ jQuery('#tab3').addClass("is-selected");
+ jQuery(".ordererrordata").hide();
+ jQuery('#tab1').hide();
+ jQuery('#tab2').hide();
+ jQuery('#tab4').hide();
+ jQuery('#tab5').hide();
+ var countlunchCheckedCheckboxes = jQuery(".is-selected .lunchactivecuisine input[name='lunch']:checked").filter(':checked').length;
+ jQuery(".is-selected .lunch-item-counter").text(countlunchCheckedCheckboxes+' items');
+ var countdinersCheckedCheckboxes = jQuery(".is-selected .activecuisine input[name='dinner']:checked").filter(':checked').length;
+ jQuery(".is-selected .dinner-item-counter").text(countdinersCheckedCheckboxes+' items');
+ var countbrekfstCheckedCheckboxes = jQuery(".is-selected input[name='breakfast']:checked").filter(':checked').length;
+ jQuery(".is-selected .breakfast-item-counter").text(countbrekfstCheckedCheckboxes+' items');
+ var counthiteaCheckedCheckboxes = jQuery(".is-selected input[name='hightea']:checked").filter(':checked').length;
+ jQuery(".is-selected .high-tea-counter").text(counthiteaCheckedCheckboxes+' items');
+}
+
+function div4(){
+ jQuery('.carousel-cell').css('left', '0');
+ jQuery('#tab4').css('left', '0');
+ jQuery('#tab4').css('display', 'block !important');
+
+ jQuery('#div4').css('display', 'block');
+ jQuery(".carousel-cell").removeClass("is-selected");
+ jQuery('#tab4').addClass("is-selected");
+ jQuery(".ordererrordata").hide();
+ jQuery('#tab1').hide();
+ jQuery('#tab3').hide();
+ jQuery('#tab2').hide();
+ jQuery('#tab5').hide();
+ var countlunchCheckedCheckboxes = jQuery(".is-selected .lunchactivecuisine input[name='lunch']:checked").filter(':checked').length;
+ jQuery(".is-selected .lunch-item-counter").text(countlunchCheckedCheckboxes+' items');  
+ var countdinersCheckedCheckboxes = jQuery(".is-selected .activecuisine input[name='dinner']:checked").filter(':checked').length;
+ jQuery(".is-selected .dinner-item-counter").text(countdinersCheckedCheckboxes+' items');
+ var countbrekfstCheckedCheckboxes = jQuery(".is-selected input[name='breakfast']:checked").filter(':checked').length;
+ jQuery(".is-selected .breakfast-item-counter").text(countbrekfstCheckedCheckboxes+' items');
+ var counthiteaCheckedCheckboxes = jQuery(".is-selected input[name='hightea']:checked").filter(':checked').length;
+ jQuery(".is-selected .high-tea-counter").text(counthiteaCheckedCheckboxes+' items');
+}
+function div5(){
+  jQuery('.carousel-cell').css('left', '0');
+  jQuery('#tab5').css('left', '0');
+  jQuery('#tab5').css('display', 'block !important');
+  jQuery('#div5').css('display', 'block');
+  jQuery(".carousel-cell").removeClass("is-selected");
+  jQuery('#tab5').addClass("is-selected");
+  jQuery(".ordererrordata").hide();
+  jQuery('#tab1').hide();
+  jQuery('#tab3').hide();
+  jQuery('#tab4').hide();
+  jQuery('#tab2').hide();
+  var countlunchCheckedCheckboxes = jQuery(".is-selected .lunchactivecuisine input[name='lunch']:checked").filter(':checked').length;
+  jQuery(".is-selected .lunch-item-counter").text(countlunchCheckedCheckboxes+' items'); 
+  var countdinersCheckedCheckboxes = jQuery(".is-selected .activecuisine input[name='dinner']:checked").filter(':checked').length;
+  jQuery(".is-selected .dinner-item-counter").text(countdinersCheckedCheckboxes+' items');
+  var countbrekfstCheckedCheckboxes = jQuery(".is-selected input[name='breakfast']:checked").filter(':checked').length;
+  jQuery(".is-selected .breakfast-item-counter").text(countbrekfstCheckedCheckboxes+' items');
+  var counthiteaCheckedCheckboxes = jQuery(".is-selected input[name='hightea']:checked").filter(':checked').length;
+  jQuery(".is-selected .high-tea-counter").text(counthiteaCheckedCheckboxes+' items');
+}
+
+function div6(){
+ jQuery('.carousel-cell').css('left', '0');
+ jQuery('#tab6').css('left', '0');
+ jQuery('#tab6').css('display', 'block !important');
+ jQuery('#div6').css('display', 'block');
+ jQuery(".carousel-cell").removeClass("is-selected");
+ jQuery('#tab6').addClass("is-selected");
+ jQuery(".ordererrordata").hide();
+ jQuery('#tab1').hide();
+ jQuery('#tab2').hide();
+ jQuery('#tab3').hide();
+ jQuery('#tab4').hide();
+ jQuery('#tab5').hide();
+ var countlunchCheckedCheckboxes = jQuery(".is-selected .lunchactivecuisine input[name='lunch']:checked").filter(':checked').length;
+ jQuery(".is-selected .lunch-item-counter").text(countlunchCheckedCheckboxes+' items'); 
+ var countdinersCheckedCheckboxes = jQuery(".is-selected .activecuisine input[name='dinner']:checked").filter(':checked').length;
+ jQuery(".is-selected .dinner-item-counter").text(countdinersCheckedCheckboxes+' items');
+ var countbrekfstCheckedCheckboxes = jQuery(".is-selected input[name='breakfast']:checked").filter(':checked').length;
+ jQuery(".is-selected .breakfast-item-counter").text(countbrekfstCheckedCheckboxes+' items');
+ var counthiteaCheckedCheckboxes = jQuery(".is-selected input[name='hightea']:checked").filter(':checked').length;
+ jQuery(".is-selected .high-tea-counter").text(counthiteaCheckedCheckboxes+' items');
+}
+
+jQuery(document).ready(function(){
+  //dinner variable defined
+  var maxdinnershot=0;
+  var maxdinnerdpp=0;
+  var maxdinnerrrc=0;
+  var maxdinnermisc=0;
+  var maxdinnerssv=0;        
+  var maxdinnerdessert=0;
+  var maxdinnersnack=0;
+  var maxdinnersoup=0;
+  var maxdinnerbsb=0;
+  //lunch variable defined
+  var maxlunchshot=0;
+  var maxlunchdpp=0;
+  var maxlunchrrc=0;
+  var maxlunchmisc=0;
+  var maxlunchssv=0;        
+  var maxlunchdessert=0;
+  var maxlunchsnack=0;
+  var maxlunchsoup=0;
+  var maxlunchbsb=0;
+  var maxlunchsalad=0;
+  
+
+  //dinnersetmenu reload ;
+  jQuery(" input[name='dinnersetmenu']").change(function(){
+    if(jQuery(this).is(":checked")){
+      location.reload();
+    }else{ 
+       jQuery(".is-selected .tab-content #Dinnertab .option-content .activecuisine input[name='dinner']").removeAttr('checked');
+       jQuery(".is-selected .dinner-item-counter").text('0' +' items');
+    } 
+  });  
+  //lunchsetmenu reload ;
+  jQuery(" input[name='lunchsetmenu']").change(function(){
+    if(jQuery(this).is(":checked")){
+      location.reload();
+    }else{ 
+       jQuery(".is-selected .tab-content #lunchtab .option-content .lunchactivecuisine input[name='lunch']").removeAttr('checked');
+       jQuery(".is-selected .lunch-item-counter").text('0' +' items');
+    } 
+  });
+  //highteasetmenu reload ;
+  jQuery(" input[name='highteasetmenudata']").change(function(){
+    if(jQuery(this).is(":checked")){ 
+      location.reload();
+    }else{
+       jQuery(".is-selected .tab-content #highteatab .option-content input[name='hightea']").removeAttr('checked');
+       jQuery(".is-selected .high-tea-counter").text('0' +' items');
+    } 
+  });
+  //breakfastsetmenu reload ;
+  jQuery(" input[name='breakfastsetmenudata']").change(function(){
+    if(jQuery(this).is(":checked")){ 
+      location.reload();
+    }else{
+       jQuery(".is-selected .tab-content #Breakfasttab .option-content input[name='breakfast']").removeAttr('checked');
+       jQuery(".is-selected .breakfast-item-counter").text('0' +' items');
+    } 
+  });
+
+    // Breakfast Code start 
+    var $Breakcheckboxes = jQuery(".is-selected .breakfast input[name='breakfast']:checked").length;
+    jQuery(".is-selected .breakfast-item-counter").text($Breakcheckboxes+' items');
+    jQuery(".breakfast input[name='breakfast']").change(function(){ 
+        var countCheckedCheckboxes = jQuery(".is-selected .breakfast input[name='breakfast']:checked").filter(':checked').length;
+        jQuery(".is-selected .breakfast-item-counter").text(countCheckedCheckboxes+' items');
+    });
+    // Lunch Code start 
+    var $lunchcheckboxes = jQuery(".is-selected .lunchactivecuisine input[name='lunch']:checked").length;
+    jQuery(".is-selected .lunch-item-counter").text($lunchcheckboxes+' items');
+    jQuery(" input[name='lunch']").change(function(){ 
+        jQuery('.clickerrormessage').remove();
+        if(jQuery(this).is(":checked")){
+            var lunchcodeplus = jQuery(this).attr("menucode").trim().toLowerCase();
+            console.log(lunchcodeplus);
+            if(lunchcodeplus == 'rrc'){
+                maxlunchrrc++;console.log(maxlunchrrc);
+            } else if(lunchcodeplus == 'dpp'){ 
+                maxlunchdpp++;console.log(maxlunchdpp);
+            } else if(lunchcodeplus == 'ssv'){ 
+                maxlunchssv++;console.log(maxlunchssv);
+            } else if(lunchcodeplus == 'misc'){ 
+                maxlunchmisc++;console.log(maxlunchmisc);
+            } else if(lunchcodeplus == 'dessert'){
+                maxlunchdessert++;console.log(maxlunchdessert);
+            } else if(lunchcodeplus == 'shot'){
+                maxlunchshot++;console.log(maxlunchshot);
+            } else if(lunchcodeplus == 'snack'){
+                maxlunchsnack++;console.log(maxlunchsnack);
+            } else if(lunchcodeplus == 'soup'){
+                maxlunchsoup++;console.log(maxlunchsoup);
+            } else if(lunchcodeplus == 'bsb'){
+                maxlunchbsb++;console.log(maxlunchbsb);
+            } else if(lunchcodeplus == 'salad'){
+                maxlunchsalad++;console.log(maxlunchsalad);
+            }
+
+           }else if(jQuery(this).is(":not(:checked)")){
+            var lunchcodeminus = jQuery(this).attr("menucode").trim().toLowerCase();
+            console.log(lunchcodeminus);
+            if(lunchcodeminus == 'rrc'){
+              if (maxlunchrrc > 0) { maxlunchrrc--;console.log(maxlunchrrc); }
+            } else if(lunchcodeminus == 'dpp'){ 
+              if (maxlunchdpp > 0) { maxlunchdpp--;console.log(maxlunchdpp); }
+            } else if(lunchcodeminus == 'ssv'){ 
+              if (maxlunchssv > 0) { maxlunchssv--;console.log(maxlunchssv); }
+            } else if(lunchcodeminus == 'misc'){ 
+              if (maxlunchmisc > 0) { maxlunchmisc--;console.log(maxlunchmisc); }
+            } else if(lunchcodeminus == 'dessert'){
+              if (maxlunchdessert > 0) { maxlunchdessert--;console.log(maxlunchdessert); }
+            } else if(lunchcodeminus == 'shot'){
+              if (maxlunchshot > 0) { maxlunchshot--;console.log(maxlunchshot); }
+            } else if(lunchcodeminus == 'snack'){
+              if (maxlunchsnack > 0) { maxlunchsnack--;console.log(maxlunchsnack); }
+            } else if(lunchcodeminus == 'soup'){
+              if (maxlunchsoup > 0) { maxlunchsoup--;console.log(maxlunchsoup); }
+            } else if(lunchcodeminus == 'bsb'){
+              if (maxlunchbsb > 0) { maxlunchbsb--;console.log(maxlunchbsb); }
+            }else if(lunchcodeminus == 'salad'){
+              if (maxlunchsalad > 0) { maxlunchsalad--;console.log(maxlunchsalad); }
+            }
+        }
+        // Lunch prevent login code
+        var lunchmenucodedata = jQuery(this).attr("menucode").trim().toLowerCase();
+        if(maxlunchbsb > 1){
+            jQuery(this).prop('checked', false); 
+            maxlunchbsb--;
+            jQuery(this).parent('.btnright').before("<span class='clickerrormessage' style='color: red;font-weight:bold;'>"+'max 1 BSB allowed'+'</span>');
+            return false;
+        }
+        if(maxlunchrrc > 1 ){
+            jQuery(this).prop('checked', false); 
+            maxlunchrrc--;
+            jQuery(this).parent('.btnright').before("<span class='clickerrormessage' style='color: red;font-weight:bold;'>"+' max 1 RRC allowed'+'</span>');
+            return false;
+        }
+        if(maxlunchbsb == 1 && (maxlunchsoup + maxlunchsnack) > 1){
+                if(lunchmenucodedata == 'snack'){
+                 maxlunchsnack--; 
+                }else if( lunchmenucodedata == 'bsb'){ maxlunchbsb--;
+                }else { maxlunchsoup--; }
+            jQuery(this).prop('checked', false); 
+            jQuery(this).parent('.btnright').before("<span class='clickerrormessage' style='color: red;font-weight:bold;'>"+'either 1 soup or 1 snack allowed'+'</span>');
+            return false;
+        }
+        if(maxlunchbsb == 1 && maxlunchssv > 0){
+                if( lunchmenucodedata == 'bsb'){ maxlunchbsb--;
+                }else { maxlunchssv--; }
+            jQuery(this).prop('checked', false); 
+            jQuery(this).parent('.btnright').before("<span class='clickerrormessage' style='color: red;font-weight:bold;'>"+'with BSB, SSV not allowed'+'</span>');
+            return false;
+        }
+        if(maxlunchrrc == 1 && maxlunchsoup == 1 && maxlunchdpp == 1){
+                if( lunchmenucodedata == 'soup'){ maxlunchsoup--;
+                }else if( lunchmenucodedata == 'rrc'){ maxlunchrrc--;
+                } else { maxlunchdpp--; }
+            jQuery(this).prop('checked', false); 
+            jQuery(this).parent('.btnright').before("<span class='clickerrormessage' style='color: red;font-weight:bold;'>"+'Either SOUP or DPP allowed'+'</span>');
+            return false;
+        }
+        if(maxlunchbsb + maxlunchdpp > 1){
+                if( lunchmenucodedata == 'bsb'){ maxlunchbsb--;
+                }else { maxlunchdpp--; }
+            jQuery(this).prop('checked', false); 
+            jQuery(this).parent('.btnright').before("<span class='clickerrormessage' style='color: red;font-weight:bold;'>"+'with BSB, DPP not allowed'+'</span>');
+            return false;
+        }
+        if(maxlunchbsb ==1 && maxlunchsoup ==1 && maxlunchsnack ==1){
+                if( lunchmenucodedata == 'bsb'){ maxlunchbsb--;
+                } else if( lunchmenucodedata == 'snack'){ maxlunchsnack--;
+                } else { maxlunchsoup--; }
+            jQuery(this).prop('checked', false); 
+            jQuery(this).parent('.btnright').before("<span class='clickerrormessage' style='color: red;font-weight:bold;'>"+'with BSB, either Soup or snack allowed'+'</span>');
+            return false;
+        }
+        if(maxlunchbsb + maxlunchrrc > 1){
+                if( lunchmenucodedata == 'bsb'){ maxlunchbsb--;
+                }else { maxlunchrrc--; }
+            jQuery(this).prop('checked', false); 
+            jQuery(this).parent('.btnright').before("<span class='clickerrormessage' style='color: red;font-weight:bold;'>"+'either 1 RRC or 1 BSB allowed'+'</span>');
+            return false;
+        }
+        if(maxlunchssv > 2){
+            jQuery(this).prop('checked', false); 
+            maxlunchssv--;
+            jQuery(this).parent('.btnright').before("<span class='clickerrormessage' style='color: red;font-weight:bold;'>"+'max 2 SSV allowed'+'</span>');
+            return false;
+        }
+        if( (maxlunchssv + maxlunchsnack) > 2){
+                if( lunchmenucodedata == 'snack'){
+                 maxlunchsnack--; 
+                }else { maxlunchssv--; }
+            jQuery(this).prop('checked', false); 
+            jQuery(this).parent('.btnright').before("<span class='clickerrormessage' style='color: red;font-weight:bold;'>"+'either two ssv or one ssv & one snack'+'</span>');
+            return false;
+        }
+        if(maxlunchrrc == 1 && (maxlunchdpp + maxlunchsnack) > 1){
+                if( lunchmenucodedata == 'snack'){ maxlunchsnack--; 
+                }else if( lunchmenucodedata == 'dpp'){ maxlunchdpp--;
+                } else { maxlunchrrc--; }
+            jQuery(this).prop('checked', false); 
+            jQuery(this).parent('.btnright').before("<span class='clickerrormessage' style='color: red;font-weight:bold;'>"+' select either DPP or snack'+'</span>');
+            return false;
+        }        
+        if(maxlunchmisc > 3 ){
+            jQuery(this).prop('checked', false); 
+            maxlunchmisc--;
+            jQuery(this).parent('.btnright').before("<span class='clickerrormessage' style='color: red;font-weight:bold;'>"+' Max 3 MISC allowed'+'</span>');
+            return false;
+        }
+        if(maxlunchdessert > 3 ){
+            jQuery(this).prop('checked', false); 
+            maxlunchdessert--;
+            jQuery(this).parent('.btnright').before("<span class='clickerrormessage' style='color: red;font-weight:bold;'>"+' Max 1 dessert allowed'+'</span>');
+            return false;
+        }
+        if(maxlunchshot > 3 ){
+            jQuery(this).prop('checked', false); 
+            maxlunchshot--;
+            jQuery(this).parent('.btnright').before("<span class='clickerrormessage' style='color: red;font-weight:bold;'>"+' Max 1 shot allowed'+'</span>');
+            return false;
+        }
+
+        var countlunchCheckedCheckboxes = jQuery(".is-selected .lunchactivecuisine input[name='lunch']:checked").filter(':checked').length;
+        jQuery(".is-selected .lunch-item-counter").text(countlunchCheckedCheckboxes+' items');
+    });
+
+    var $highteacheckboxes = jQuery(".is-selected .hightea input[name='hightea']:checked").length;
+    jQuery(".is-selected .high-tea-counter").text($highteacheckboxes+' items');
+    jQuery(".hightea input[name='hightea']").change(function(){ 
+        var counthighteaCheckedCheckboxes = jQuery(".is-selected .hightea input[name='hightea']:checked").filter(':checked').length;
+        jQuery(".is-selected .high-tea-counter").text(counthighteaCheckedCheckboxes+' items');
+    });
+
+    var $dinnercheckboxes = jQuery(".is-selected .activecuisine input[name='dinner']:checked").length;
+    jQuery(".is-selected .dinner-item-counter").text($dinnercheckboxes+' items');
+    jQuery(" input[name='dinner']").change(function(){
+        jQuery('.clickerrormessage').remove();
+        if(jQuery(this).is(":checked")){
+            var dinnercodeplus = jQuery(this).attr("menucode").trim().toLowerCase();
+            console.log(dinnercodeplus);
+            if(dinnercodeplus == 'rrc'){
+                maxdinnerrrc++;console.log(maxdinnerrrc);
+            } else if(dinnercodeplus == 'dpp'){ 
+                maxdinnerdpp++;console.log(maxdinnerdpp);
+            } else if(dinnercodeplus == 'ssv'){ 
+                maxdinnerssv++;console.log(maxdinnerssv);
+            } else if(dinnercodeplus == 'misc'){ 
+                maxdinnermisc++;console.log(maxdinnermisc);
+            } else if(dinnercodeplus == 'dessert'){
+                maxdinnerdessert++;console.log(maxdinnerdessert);
+            } else if(dinnercodeplus == 'shot'){
+                maxdinnershot++;console.log(maxdinnershot);
+            } else if(dinnercodeplus == 'snack'){
+                maxdinnersnack++;console.log(maxdinnersnack);
+            } else if(dinnercodeplus == 'soup'){
+                maxdinnersoup++;console.log(maxdinnersoup);
+            } else if(dinnercodeplus == 'bsb'){
+                maxdinnerbsb++;console.log(maxdinnerbsb);
+            }
+
+
+           }else if(jQuery(this).is(":not(:checked)")){
+            var dinnercodeminus = jQuery(this).attr("menucode").trim().toLowerCase();
+            console.log(dinnercodeminus);
+            if(dinnercodeminus == 'rrc'){
+                if (maxdinnerrrc > 0) { maxdinnerrrc--;console.log(maxdinnerrrc); }
+            } else if(dinnercodeminus == 'dpp'){ 
+                if (maxdinnerdpp > 0) { maxdinnerdpp--;console.log(maxdinnerdpp); }
+            } else if(dinnercodeminus == 'ssv'){ 
+                if (maxdinnerssv > 0) { maxdinnerssv--;console.log(maxdinnerssv); }
+            } else if(dinnercodeminus == 'misc'){ 
+                if (maxdinnermisc > 0) { maxdinnermisc--;console.log(maxdinnermisc); }
+            } else if(dinnercodeminus == 'dessert'){
+                if (maxdinnerdessert > 0) { maxdinnerdessert--;console.log(maxdinnerdessert); }
+            } else if(dinnercodeminus == 'shot'){
+                if (maxdinnershot > 0) { maxdinnershot--;console.log(maxdinnershot); }
+            } else if(dinnercodeminus == 'snack'){
+                if (maxdinnersnack > 0) { maxdinnersnack--;console.log(maxdinnersnack); }
+            } else if(dinnercodeminus == 'soup'){
+                if (maxdinnersoup > 0) { maxdinnersoup--;console.log(maxdinnersoup); }
+            } else if(dinnercodeminus == 'bsb'){
+                if (maxdinnerbsb > 0) { maxdinnerbsb--;console.log(maxdinnerbsb); }
+            }
+        }
+
+        // Below code to Prevent adding items
+        var dinnermenucodedata = jQuery(this).attr("menucode").trim().toLowerCase();
+        if(maxdinnerbsb > 1){
+            jQuery(this).prop('checked', false); 
+            maxdinnerbsb--;
+            jQuery(this).parent('.btnright').before("<span class='clickerrormessage' style='color: red;font-weight:bold;'>"+'max 1 BSB allowed'+'</span>');
+            return false;
+        }
+        if(maxdinnerrrc > 1 ){
+            jQuery(this).prop('checked', false); 
+            maxdinnerrrc--;
+            jQuery(this).parent('.btnright').before("<span class='clickerrormessage' style='color: red;font-weight:bold;'>"+' max 1 RRC allowed'+'</span>');
+            return false;
+        }
+        if(maxdinnerbsb == 1 && (maxdinnersoup + maxdinnersnack) > 1){
+                if(dinnermenucodedata == 'snack'){
+                 maxdinnersnack--; 
+                }else if( dinnermenucodedata == 'bsb'){ maxdinnerbsb--;
+                }else { maxdinnersoup--; }
+            jQuery(this).prop('checked', false); 
+            jQuery(this).parent('.btnright').before("<span class='clickerrormessage' style='color: red;font-weight:bold;'>"+'either 1 soup or 1 snack allowed'+'</span>');
+            return false;
+        }
+        if(maxdinnerbsb == 1 && maxdinnerssv > 0){
+                if( dinnermenucodedata == 'bsb'){ maxdinnerbsb--;
+                }else { maxdinnerssv--; }
+            jQuery(this).prop('checked', false); 
+            jQuery(this).parent('.btnright').before("<span class='clickerrormessage' style='color: red;font-weight:bold;'>"+'with BSB, SSV not allowed'+'</span>');
+            return false;
+        }
+        if(maxdinnerrrc == 1 && maxdinnersoup == 1 && maxdinnerdpp == 1){
+                if( dinnermenucodedata == 'soup'){ maxdinnersoup--;
+                }else if( dinnermenucodedata == 'rrc'){ maxdinnerrrc--;
+                } else { maxdinnerdpp--; }
+            jQuery(this).prop('checked', false); 
+            jQuery(this).parent('.btnright').before("<span class='clickerrormessage' style='color: red;font-weight:bold;'>"+'Either SOUP or DPP allowed'+'</span>');
+            return false;
+        }
+        if(maxdinnerbsb + maxdinnerdpp > 1){
+                if( dinnermenucodedata == 'bsb'){ maxdinnerbsb--;
+                }else { maxdinnerdpp--; }
+            jQuery(this).prop('checked', false); 
+            jQuery(this).parent('.btnright').before("<span class='clickerrormessage' style='color: red;font-weight:bold;'>"+'with BSB, DPP not allowed'+'</span>');
+            return false;
+        }
+        /*if(maxdinnerbsb ==1 && maxdinnersoup == 1 && maxdinnersnack ==1 ){
+                if( dinnermenucodedata == 'bsb'){ maxdinnerbsb--;
+                } else if( dinnermenucodedata == 'snack'){ maxdinnersnack--;
+                } else { maxdinnersoup--; }
+            jQuery(this).prop('checked', false); 
+            jQuery(this).parent('.btnright').before("<span class='clickerrormessage' style='color: red;font-weight:bold;'>"+'with BSB, either Soup or snack allowed'+'</span>');
+            return false;
+        }*/
+        if(maxdinnerbsb + maxdinnerrrc > 1){
+                if( dinnermenucodedata == 'bsb'){ maxdinnerbsb--;
+                }else { maxdinnerrrc--; }
+            jQuery(this).prop('checked', false); 
+            jQuery(this).parent('.btnright').before("<span class='clickerrormessage' style='color: red;font-weight:bold;'>"+'either 1 RRC or 1 BSB allowed'+'</span>');
+            return false;
+        }
+        if(maxdinnerssv > 2){
+            jQuery(this).prop('checked', false); 
+            maxdinnerssv--;
+            jQuery(this).parent('.btnright').before("<span class='clickerrormessage' style='color: red;font-weight:bold;'>"+'max 2 SSV allowed'+'</span>');
+            return false;
+        }
+        if( (maxdinnerssv + maxdinnersnack) > 2){
+                if( dinnermenucodedata == 'snack'){
+                 maxdinnersnack--; 
+                }else { maxdinnerssv--; }
+            jQuery(this).prop('checked', false); 
+            jQuery(this).parent('.btnright').before("<span class='clickerrormessage' style='color: red;font-weight:bold;'>"+'either two ssv or one ssv & one snack'+'</span>');
+            return false;
+        }
+        if(maxdinnerrrc == 1 && (maxdinnerdpp + maxdinnersnack) > 1){
+                if( dinnermenucodedata == 'snack'){ maxdinnersnack--; 
+                }else if( dinnermenucodedata == 'dpp'){ maxdinnerdpp--;
+                } else { maxdinnerrrc--; }
+            jQuery(this).prop('checked', false); 
+            jQuery(this).parent('.btnright').before("<span class='clickerrormessage' style='color: red;font-weight:bold;'>"+' select either DPP or snack'+'</span>');
+            return false;
+        }        
+        if(maxdinnermisc > 3 ){
+            jQuery(this).prop('checked', false); 
+            maxdinnermisc--;
+            jQuery(this).parent('.btnright').before("<span class='clickerrormessage' style='color: red;font-weight:bold;'>"+' Max 3 MISC allowed'+'</span>');
+            return false;
+        }
+        if(maxdinnerdessert > 3 ){
+            jQuery(this).prop('checked', false); 
+            maxdinnerdessert--;
+            jQuery(this).parent('.btnright').before("<span class='clickerrormessage' style='color: red;font-weight:bold;'>"+' Max 1 dessert allowed'+'</span>');
+            return false;
+        }
+        if(maxdinnershot > 3 ){
+            jQuery(this).prop('checked', false); 
+            maxdinnershot--;
+            jQuery(this).parent('.btnright').before("<span class='clickerrormessage' style='color: red;font-weight:bold;'>"+' Max 1 shot allowed'+'</span>');
+            return false;
+        }        
+        var countdinnerCheckedCheckboxes = jQuery(".is-selected .activecuisine input[name='dinner']:checked").filter(':checked').length;
+        jQuery(".is-selected .active .dinner-item-counter").text(countdinnerCheckedCheckboxes+' items');
+    });
+
+});
+
+function opennewpopupFunction() {
+jQuery(".loader").css("display", "none");
+// Get the modal
+var modal = document.getElementById('myModalform');
+modal.style.display = "block";
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+}
+
+function callController(){ 
+    jQuery(".ordererrordata").hide();
+    var falseresult = "<?php echo $falseresult ?>";
+    if(falseresult){
+      opennewpopupFunction();
+      //jQuery(".ordererrordata").text("<?php //echo $falseresult; ?> ");
+      //jQuery(".ordererrordata").show();
+      return false;
+    }
+    jQuery(".loader").css("display", "block");
+    var orderdate = jQuery('.is-selected ').attr("data-date");
+    var customershowdate = jQuery('.is-selected ').attr("data-dates");
+
+    console.log(customershowdate);
+    if(jQuery('.is-selected .breakfast')){
+      var breakfastskip = jQuery(".is-selected input[name='breakfastskip']").is(":checked"); 
+      var breakfastmenuitems = '';
+      var breakfastitemsdesc = '';
+      if(breakfastskip == false){
+        jQuery.each(jQuery(".is-selected input[name='breakfast']:checked"), function(){ 
+            brekfastproductcode = jQuery(this).attr("productcode");
+            breakfastmenuitems = breakfastmenuitems + ' ' + jQuery(this).val()+',';
+            breakfastitemsdesc = breakfastitemsdesc + ' ' + jQuery(this).val() + '_' + brekfastproductcode+ '_' +'1' +',';
+        });
+      }
+      /*if(breakfastmenuitems.length === 0 && breakfastskip == false){ 
+        jQuery(".ordererrordata").text(" Please choose your breakfast ");
+        jQuery(".ordererrordata").show();
+        return false;
+      }*/
+    } 
+    if(jQuery('.is-selected .lunch')){
+      var lunchskip = jQuery(".is-selected .tab-content #lunchtab input[name='lunchskip']").is(":checked");  
+      var lunchmenuitems = '';
+      var lunchitemsdesc = ''; 
+      if(lunchskip == false){ 
+        jQuery.each(jQuery(".is-selected .tab-content #lunchtab .option-content .lunchactivecuisine input[name='lunch']:checked"), function(){
+            lunchproductcode = jQuery(this).attr("productcode");
+            lunchmenuitems = lunchmenuitems + ' ' + jQuery(this).val()+',';
+            lunchitemsdesc = lunchitemsdesc + ' ' + jQuery(this).val() + '_' + lunchproductcode+ '_' +'1' +',';
+        });
+      }
+      /*if(lunchmenuitems.length === 0 && lunchskip == false){ 
+        jQuery(".ordererrordata").text(" Please choose your lunch");
+        jQuery(".ordererrordata").show();
+        return false;
+      }*/
+    }
+    if(jQuery('.is-selected .hightea')){
+      var highteaskip = jQuery(".is-selected input[name='highteaskip']").is(":checked");  
+      var highteamenuitems = '';
+      var highteaitemsdesc = '';
+      if(highteaskip == false) { 
+        jQuery.each(jQuery(".is-selected input[name='hightea']:checked"), function(){
+            highteaproductcode = jQuery(this).attr("productcode"); 
+            highteamenuitems = highteamenuitems + ' ' + jQuery(this).val()+',';
+            highteaitemsdesc = highteaitemsdesc + ' ' + jQuery(this).val() + '_' + highteaproductcode+ '_' +'1' +',';
+        });
+      }
+      /*if(highteamenuitems.length === 0 && highteaskip == false) { 
+        jQuery(".ordererrordata").text(" Please choose your high tea");
+        jQuery(".ordererrordata").show();
+        return false;
+      }*/
+    }
+    if(jQuery('.is-selected .dinner')){
+      var dinnerskip = jQuery(".is-selected .tab-content #Dinnertab input[name='dinnerskip']").is(":checked");
+      var dinnermenuitems = ''; 
+      var dinneritemsdesc = '';
+      if(dinnerskip == false){ 
+        jQuery.each(jQuery(".is-selected .tab-content #Dinnertab .option-content .activecuisine input[name='dinner']:checked"), function(){
+            dinnerproductcode = jQuery(this).attr("productcode");  
+            dinnermenuitems = dinnermenuitems + ' ' + jQuery(this).val()+',';
+            dinneritemsdesc = dinneritemsdesc + ' ' + jQuery(this).val() + '_' + dinnerproductcode+ '_' +'1' +',';
+        });
+      }
+      /*if(dinnermenuitems.length === 0 && dinnerskip == false){ 
+        jQuery(".ordererrordata").text(" Please choose your dinner");
+        jQuery(".ordererrordata").show();
+        return false;
+      }*/
+    }
+
+    if (dinnerskip  == true && highteaskip  == true && lunchskip == true && breakfastskip == true) {
+      jQuery(".ordererrordata").text(" Please select atleast one meal");
+      jQuery(".ordererrordata").show();
+      jQuery(".boxerror").hide();
+      opennewpopupFunction();
+      return false;
+    }
+    if (breakfastmenuitems.length === 0 && lunchmenuitems.length === 0 && highteamenuitems.length === 0 && dinnermenuitems.length === 0) {
+      jQuery(".ordererrordata").text(" Please select atleast one meal");
+      jQuery(".ordererrordata").show();
+      jQuery(".boxerror").hide();
+      opennewpopupFunction();
+      return false;
+    }
+    var customerNote = jQuery('.is-selected .customer-note').val();
+    console.log(customerNote);
+        jQuery.ajax({
+        url: "<?php echo Mage::getBaseUrl().'heal/index/menuorder' ?>",
+        type: "POST",
+        data: {
+          name: "<?php echo $name ?>", 
+          email: "<?php echo $email ?>",
+          orderdate: orderdate,
+          mobile: "<?php echo $Mobile ?>",
+          alernatemobile: "<?php echo $altermobile ?>",
+          foodtype: "",
+          fooditems: "",
+          breakfast: breakfastmenuitems,
+          breakfastitemsdesc: breakfastitemsdesc,
+          lunch: lunchmenuitems,
+          lunchitemsdesc: lunchitemsdesc,
+          hightea: highteamenuitems,
+          highteaitemsdesc: highteaitemsdesc,
+          dinner: dinnermenuitems,
+          dinneritemsdesc: dinneritemsdesc,
+          note: customerNote,
+          address: "<?php echo $address ?>"
+        },
+        success: function(response){
+              jQuery(".ordererrordata").text("Your Order has been placed for date " +customershowdate + " Thank You.");
+              jQuery(".ordererrordata").show();
+              jQuery(".boxerror").hide();
+              jQuery(".loader").css("display", "none");
+              opennewpopupFunction();
+          }
+        });      
+  }
+
+  function callControllerleft(){
+    callController();
+  } 
+jQuery(".option-heading").on('click', function() {
+jQuery('.option-content').slideToggle(1100);
+
+});
+</script>
+

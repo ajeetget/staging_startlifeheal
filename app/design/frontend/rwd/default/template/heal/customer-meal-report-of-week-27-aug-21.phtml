@@ -1,0 +1,961 @@
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+ <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js"></script>
+
+
+<script> 
+  $( function() {
+      $( "#datepicker" ).datepicker();
+      $("#tooltip-1").tooltip();
+    } );
+
+  $( function() {
+      $( "#datepicker2" ).datepicker();
+      $("#tooltip-1").tooltip();
+    } );
+</script>               
+
+
+               
+<?php $uniqueCustomersJson = Mage::helper('heal')->getUniqueCustomersJson();  ?>
+
+  <script>
+  var customers = <?php echo $uniqueCustomersJson;?>;
+  
+  $( function() {
+    $( "#datepicker-from" ).datepicker();
+	$( "#datepicker-to" ).datepicker();
+	   $("#tooltip-1").tooltip();
+	  
+	   $("#customers").select2({    
+				  data: customers
+				});
+				
+	 
+	    <?php if(isset($_POST['customers'])) { ?>
+		
+		$("#customers").val("<?php echo  $_POST['customers'];?>");
+	        $('#customers').trigger('change');
+	 
+			<?php } ?>
+	   
+	    
+  } );
+  </script>
+  
+<style>	
+.main{  
+    width: 100%;   
+    margin-top:8rem;
+    height:100%;
+    margin-bottom: 2rem;
+  }  
+.table-top-row{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+.table-logo{
+    width:33%;
+  }
+.table-logo img{
+    display: block;
+    width:65%;
+    margin:20px 0 0 0;
+  }
+.name-content{
+    width:33%;
+    background:#5599b0;
+    box-sizing: border-box;
+    padding: 15px 20px;
+    color:#fff;
+    text-align: center;
+  }
+.weekly-table{
+    width:100%;
+  }
+.weekly-table thead tr td{
+    background:#5599b0;
+    text-align: center;
+    color:#fff;
+    width:16.66%;
+    box-sizing: border-box;
+  }
+.weekly-table tbody tr td{   
+    text-align: center;
+    border: 5px solid #fff;
+    width:16.66%;
+    box-sizing: border-box;
+  }   
+.weekly-table tbody tr:nth-child(even) td{background: #ededed;}
+.weekly-table tbody tr:nth-child(odd) td{background: #f4f4f4;} 
+.weekly-table tbody tr.collapsiblereport td{font-weight: bold;} 
+
+.print_btn{
+  padding: 0px 25px;
+  background: #0EB58F;
+  border: 1px solid #0eb58f;
+  color: #fff;
+  font-size: 14px;
+  height: 35px;
+  line-height: 35px;
+  text-align:center;    
+  margin:10px;
+}
+.sticky {
+  position: sticky;
+  top: 0;
+  width: 100%;
+}
+.sticky + .table-scroll {
+  padding-top:0px;
+}
+.table-scroll{
+  float: left;
+  width: 100%;
+  padding: 0px;
+  margin-bottom: 20px;
+}
+
+#datewise{
+  width: 100%;
+  padding: 50px 0;
+  text-align: center;
+  background-color: lightblue;
+  margin-top: 20px;
+}
+		
+.select2-container {
+  box-sizing: border-box;
+  display: inline-block;
+  margin: 0;
+  position: relative;
+  vertical-align: middle;
+  width: 100% !important;
+  height: 35px;
+  line-height: 35px;
+  padding: 0;
+}
+.select2-container .select2-selection--single {
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    height: 35px;
+	}
+	.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 26px;
+    position: absolute;
+    top:5px;
+    right: 10px;
+    width: 20px;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #444;
+    line-height: 35px;
+}
+	.btn-danger {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    margin: 4px;
+}
+	.breadcrumbs{display:none;}	
+	#myHeaderhead, #oldfooter, .navbar{
+        font-family: 'Montserrat', sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100% !important;
+    margin: 0 !important;
+	}
+	#printdate input[type="text"] {
+  max-width: 100%;
+  background: #f6fcfc;
+  height: 35px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+  border: 0;
+  margin: 0;
+  width: 100%;
+  text-align: left;
+}	
+#printdate select {
+    font-size: 14px;
+    margin:0px;
+    width: 100%;
+    max-width: 100%;
+    background: #f6fcfc;
+    height: 35px;text-align: center;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+    border: 0;
+}
+.ui-datepicker td {
+    border: 0;
+    padding: 1px;
+    width: 10%;
+}
+.print{width:80%; margin:0 auto;}
+ .print2{width:100%; float:left;}
+#customerMealResport{
+  font-size: 20px;	
+  text-transform: 
+  capitalize;width: 100%;
+  display: block;
+}
+* {box-sizing: border-box}
+.loader {
+  position: fixed;
+  left: 40%;
+  top: 50%;
+  z-index: 9999;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #0eb58f;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+h2{font-weight: normal;margin: auto; width: 560px;font-size:17px;
+height:60px;color: #000; line-height:60px;}
+.tabledata td, .tabledata th{padding:10px;font-size:18px;width: auto;}
+.dataalign{float: left; text-align: left; margin: auto;}
+.noprint {    font-family: 'Montserrat', sans-serif;border-collapse: collapse;width: 100%;max-width: 560px;margin: 20px auto;}
+.modal-footer{margin: auto;width: 560px;padding: 10px 0px;}
+
+@media print {
+	footer, header, form{display:none;}
+	.main{  
+    width: 100%;   
+    margin-top:auto;
+    height:100%;
+    margin-bottom:auto;
+  }  
+.noprint{display:none;    font-family: 'Montserrat', sans-serif;border-collapse: collapse;width: 100%;max-width: 560px;margin: 20px auto;}
+}
+
+@media print {
+    @page {
+      size: A4; /* DIN A4 standard, Europe */
+      margin:0;
+    }
+    html, body {
+        width: 210mm;
+        /* height: 297mm; */
+        height: 282mm;
+        font-size: 18px;
+        background: #FFF;
+        overflow:visible;
+    }
+    body {
+        padding-top:15mm;
+    }
+    .print{width:92%; margin:0 auto;}
+    .table-logo img{ display: block; width:75%; margin:30px auto 0 auto;}
+
+    .weekly-table thead tr td{
+    background:#5599b0;
+    text-align: center;
+    color:#fff;
+    width:16.66%;
+    box-sizing: border-box;
+  }
+.weekly-table tbody tr td{   
+    text-align: center;
+    border: 5px solid #fff;
+    width:16.66%;
+    box-sizing: border-box;
+  }   
+.weekly-table tbody tr:nth-child(even) td{background: #ededed;}
+.weekly-table tbody tr:nth-child(odd) td{background: #f4f4f4;} 
+
+}
+
+@media all {
+.page-break { display: none; }
+}
+
+@media print {.main{  
+    width: 100%;   
+    margin-top:auto;
+    height:100%;
+    margin-bottom:auto;
+  }  
+	.header-wrapper, .footer-container, .breadcrumbs, form{display:none;}
+	header, footer{display:none;}
+.page-break { display: block; page-break-before: always; }
+}
+@media screen and (min-width:260px) and (max-width:767px){
+	.tabledata{width:100%;overflow:scroll;}
+	#myHeadertop, .table-scroll{width:600px,font-size: 14px;}
+	#printdate input[type="text"] {
+    max-width: 100%;
+    background: #f6fcfc;
+    height: 35px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+    border: 0;
+    margin: 10px;
+    width: 68%;
+}	
+	.dataalign{float: left;
+text-align: center;
+width: 100%;
+margin: 10px;}
+#printdate select {
+    font-size: 17px;
+    margin: 10px;
+    width: 68%;
+    max-width: 100%;
+    background: #f6fcfc;
+    height: 35px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+    border: 0;
+}
+@media screen and (min-width:768px) and (max-width:999px){
+	#printdate input[type="text"] {
+    max-width: 100%;
+    background: #f6fcfc;
+    height: 35px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+    border: 0;
+    margin: 10px;
+    width: 80%;
+}	
+#printdate select {
+    font-size: 14px;
+    margin: 10px;
+    width: 80%;
+    max-width: 100%;
+    background: #f6fcfc;
+    height: 35px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+    border: 0;
+}
+
+}
+
+.hideme{display:none;}
+</style>
+<?php
+$choosenDate='';
+$choosenCity='';
+$msg ="";
+$foundWeeklyReport='no';
+
+$caloryPercent=0; $caloryTotal=0;
+$carbsPercent=0;  $carbsTotal = 0;
+$fatPercent=0;    $fatTotal=0;
+$proteinPercent=0; $proteinTotal=0;
+$total=0;
+$labelText='';
+$countCustomerResult=0;
+
+if (isset($_POST["submit"]) )
+{
+	 
+	  $choosenCustomer    = $_POST['customers'];
+       if($choosenCustomer=='')
+       {
+           $msg.="Please select the customer<br>" ;
+        }
+	   
+}
+	
+
+//echo "Week number--".$weekNumber; echo "<br>";
+?>
+<div class="noprint">
+<form method="POST" action="<?php echo Mage::getBaseUrl().'customer-meal-report-of-week';?>" >
+
+<h1 class="noprint" style="text-align: center;font-size: 24px;text-transform: capitalize;float: left;margin: 20px auto!important;">Customer Meal Report Of A Week</h1>
+<table border="1" align="center" id="printdate" style=" max-width:560px; padding:10px 0 0 20px; margin: 0 auto 40px auto;" rules="none">
+
+  <tbody class="noprint">       
+	  <tr style="padding: 20px;float: left;width: 100%;display: block;">  
+      <td class="dataalign" style="width:30%;">
+				<span style="width:100%;float:left;height: 35px;line-height: 35px;">Select Customer:</span>
+			</td>
+			<td class="dataalign"  style="width:70%;">
+          <select id="customers" name="customers"></select>
+      </td>
+		</tr>
+
+		<tr style="padding: 20px;float: left;width: 100%;display: block;"> 
+      <td class="dataalign"  style="width:30%;">				   
+        <span style="width:100%;float:left;height: 35px;line-height: 35px;">Start Date:</span>
+			</td>
+			<td class="dataalign"  style="width:70%;">
+        <input type="text" id="datepicker" name="startdate">       
+      </td>               
+ 	  </tr>
+
+    <tr style="padding: 20px;float: left;width: 100%;display: block;"> 
+      <td class="dataalign"  style="width:30%;">           
+        <span style="width:100%;float:left;height: 35px;line-height: 35px;">End Date:</span>
+      </td>
+      <td class="dataalign"  style="width:70%;">
+        <input type="text" id="datepicker2" name="enddate">       
+      </td>               
+    </tr>
+
+		<tr>
+		  <td colspan="2" style="margin: 0px auto 20px;text-align: center;width: 150px;display: block;">
+        <input type="submit" name="submit" value="Submit" style="padding: 0px 0px;background: #0EB58F;border: 1px solid #0EB58F;color: #fff;font-size:18px;height:45px;border-radius: 4px;line-height:45px;text-align:center;width:100%;">
+      </td>
+    </tr>
+        <?php if($msg!=''){?>
+    <tr><td colspan="2"  style="float: left;margin: auto;text-align: left;width: 100%;color:red"><?php echo $msg;?></td>
+	  
+	  </tr>
+        <?php } ?>
+     
+  </tbody>
+</table>
+</form>
+</div>
+
+<?php 
+
+if (isset($_POST["submit"]) && $_POST['customers']!=''){ 
+
+    $startdate = $_POST["startdate"];
+    $enddate = $_POST["enddate"];
+
+    if($startdate!='')
+	{
+       $startdate = date_create($startdate);
+       $startdate = date_format($startdate,"Y-m-d");
+	 }
+	 
+	 if($enddate!=''){
+       $enddate = date_create($enddate);
+       $enddate = date_format($enddate,"Y-m-d");
+	 }
+	
+	//echo $startdate."-----".$enddate;
+	
+	 
+    $customerEmail  = strtolower($_POST['customers']);
+	$customer = Mage::getModel("customer/customer"); 
+	$websiteId = Mage::app()->getStore()->getWebsiteId();
+	$customer->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
+	$customer->loadByEmail($customerEmail);
+     $customerName = $customer->getFirstname()." ".$customer->getLastname();
+	//echo "<pre>"; print_r($customer); die; 
+	   $billStreet1='';
+	   $billStreet2='';
+	   $billCity='';
+	   $billCountryid='';
+	   $homeAddress='';
+	   $officeAddress='';
+	   $customerBillingAddressId  = $customer->getDefaultBilling();
+	       
+		   
+            if($customerBillingAddressId){
+			 $billing_address = Mage::getModel('customer/address')->load($customerBillingAddressId); 
+              $billfistname = $billing_address->getFirstname();
+              $billlastname = $billing_address->getLastname();
+              $billStreet1 = $billing_address->getStreet1();
+              $billStreet2 = $billing_address->getStreet2();
+              $billCompany = $billing_address->getCompany();
+              $billCity = $billing_address->getCity();
+              $billTelephone = $billing_address->getTelephone();
+              $billRegion = $billing_address->getRegion();
+              $billCountryid = $billing_address->getCountryId();
+              if(strtolower($billCountryid) == "us"){
+                $billCountryid = 1;
+              }else if(strtolower($billCountryid) == "ca"){
+                $billCountryid = 2;
+              }else { $billCountryid = 3; }
+              $billPostcode = $billing_address->getPostcode();
+			  
+			   
+			   
+            }
+			
+	
+    $msg='';
+	
+    $dbRead = Mage::getSingleton('core/resource')->getConnection('core_read');
+    $selectDatewiseOrders='';
+    $cuccrentDate = date('Y-m-d');
+	$countDays=1;
+    if($customerEmail!='') {
+		
+		if($startdate!='' && $enddate!='')
+		{
+           $selectDatewiseOrders= "SELECT * FROM healorder WHERE email = '".$customerEmail."' and formatted_orderdate >= '".$startdate."' and formatted_orderdate <= '".$enddate."' order by formatted_orderdate asc";
+		   
+		      $QueryCountDays = "SELECT DATEDIFF('".$enddate."', '".$startdate."') as daysDifference" ;
+			  $dayDiffResultArray = $dbRead->fetchRow($QueryCountDays);
+			  $countDays = $dayDiffResultArray['daysDifference'];
+			 // echo "Day difference = ".$countDays;
+		}
+		else if($startdate!='' && $enddate=='')
+		{
+			//$enddate=date("Y-m-d");
+			 $selectDatewiseOrders= "SELECT * FROM healorder WHERE email = '".$customerEmail."' and formatted_orderdate = '".$startdate."' order by formatted_orderdate asc";
+		
+		}
+     // echo $selectDatewiseOrders;
+     $customerResult = $dbRead->fetchAll($selectDatewiseOrders);
+	 $countCustomerResult= count($customerResult);
+		   
+    }
+    else 
+	{
+         $msg="Please select the customer name";
+    }
+
+        if($msg=='' && $countCustomerResult>0) {
+             $customerEmail = $_POST['customers'];
+             $customer = Mage::getModel("customer/customer"); 
+             $customer->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
+             $customer->loadByEmail($customerEmail);
+             $name = ucfirst($customer->getFirstname()). " ".  ucfirst($customer->getLastname());  
+             $labelText = $name." ".$countCustomerResult." Days Information";
+             
+          $allOrdersIds = array();  
+         foreach($customerResult as $row)
+		 { 
+                 $orderId   =  $row['id']; 
+                 $allOrdersIds[]= $orderId;
+          }
+          $finalArray = getWeeklyItemsArray( $allOrdersIds); 
+		  ?>
+
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet"> 
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+ <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+
+
+	<style>
+		
+		html {
+    font-size: inherit !important;
+}
+		body {    
+    color: #4B4B4B;
+    text-align: left;
+    font-weight: 500;
+    font-size:14px;
+}
+		
+	.panel-info {
+    border-color: #bce8f1;
+    width: 100%;
+    float: left;    margin-top: 15px;
+}
+		.panel-info .table>tbody>tr>td, .panel-info .table>tbody>tr>th, .panel-info .table>tfoot>tr>td, .panel-info .table>tfoot>tr>th, .panel-info .table>thead>tr>td, .panel-info .table>thead>tr>th {padding:0px 15px;}
+		
+		.panel-info > .panel-heading{color:#0EB58F;font-weight:bold;font-size:24px;}
+		.panel-footer{background:#fff;text-align:center;}
+		.panel-info h3{text-align:left; color:#0EB58F;font-weight:bold;}
+		.panel-info h4{text-align:left; color:#144F5A;font-weight:bold;} 
+		.table > thead > tr > th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #0EB58F;
+		}
+		 h2 {
+    font-size: 34px;
+    font-weight: bold;
+    color: #144F5A;
+}
+		.panel-footer {
+    background: #fff;
+    text-align: center;
+}
+		.table-responsive{width:100%;}.experiencethediff{color:#bce8f1;font-weight:500; font-size:16px;}
+		.table{border:0px solid #0EB58F;margin-bottom:0px;}th{color:#0EB58F; font-weight:600;}
+
+</style>
+		<div class="container-fluid">
+	<div class="container">
+		<div class="experiencethediff"><div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Experience the difference</div></div>
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+		<h2>Hello, <?php echo $customerName;?><br>Here’s your Nutrition Summary</h2></div>
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6"><p style="margin-top: 12%;font-weight:bold;position: relative;display: block;text-align: right;">Report Generation Date: <?php echo date("d M Y");?></p></div>
+	<div class="panel panel-info">
+  <!-- Default panel contents -->
+ 
+  <div class="panel-body">
+    <p><strong>Mob:</strong> <?php echo $customer->getPrimarymobileno();?></p>
+    <p><strong>Add:</strong> <?php echo $billStreet1;?>, <?php echo $billCity;?></p>
+	 
+  </div>
+</div>
+	
+
+  <!-- Table -->
+	<div class="table-responsive">   
+      <h2 style="color:#144F5A;font-size:24px;font-weight: bold;float: left;margin: 0;height: auto;margin-top: 20px;">Nutrition Intake</h2>
+	    <table class="table" style="margin-bottom:20px;">
+				<thead>
+				  <tr>
+						<th style="font-weight:normal">Date</th>
+				   
+					<th style="font-weight:normal">Calories</th>
+					<th style="font-weight:normal">Carbs(Gm)</th>
+					   <th style="font-weight:normal">Fat(Gm)</th>
+					   <th style="font-weight:normal">Protein(Gm)</th>
+					   <th style="font-weight:normal">Fiber(Gm)</th>
+				  </tr>
+				</thead>
+				<tbody>
+				   
+				  <?php	
+				 
+				  foreach($finalArray['weeklyItems'] as $dayMealInfo){ ?>
+				   <tr>
+					 <td> <?php echo $dayMealInfo['date'];?></td>									 
+						<td> <?php echo (int)$dayMealInfo['calory'];?></td>	
+						<td> <?php echo (int)$dayMealInfo['carbs'];?></td>
+						<td> <?php echo (int)$dayMealInfo['fat'];?></td>
+						<td> <?php echo (int)$dayMealInfo['protein'];?></td>
+						<td><?php echo (int)$dayMealInfo['fiber'];?></td>
+				   </tr>
+				  <?php } ?>
+				
+				</tbody>
+			  </table>
+			
+  </div>
+		<!-- Pie chart panel contents -->
+		<br>
+		<br>
+		<div style="height:100px;width:100%;float:left;"></div>
+		<div class="panel panel-info">
+  <!-- Default panel contents -->
+ 
+  <div class="panel-body" style="position:relative;">
+	  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+	  <h4>Your Macro-nutrients Chart for the period</h4>
+		  <h4 style="color:darkgrey"><?php echo $startdate. " to " .$enddate; ?> </h4>
+		
+	  </div>
+	  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6"> 
+ <?php
+               $total= ((int)$finalArray['totalDesc']['sumCarbs']) + ((int)$finalArray['totalDesc']['sumFat'])+((int)$finalArray['totalDesc']['sumProt']) ;
+				  $proteinTotal = (int)$finalArray['totalDesc']['sumProt'];
+				  $proteinPercent = round(($proteinTotal/$total)*100,2);
+				  
+				  $fatTotal = (int)$finalArray['totalDesc']['sumFat'];
+				  $fatPercent = round(($fatTotal/$total)*100,2);
+				  
+				  $carbsTotal = (int)$finalArray['totalDesc']['sumCarbs'];
+				  $carbsPercent = round(($carbsTotal /$total)*100,2);				  
+              
+
+ if($total>0) {?>
+<div class="print2">
+ <style>
+.highcharts-figure, .highcharts-data-table table {
+  min-width: 320px; 
+  max-width: 660px;
+  margin: 1em auto;
+}
+
+.highcharts-data-table table {
+	font-family: Verdana, sans-serif;
+	border-collapse: collapse;
+	border: 1px solid #EBEBEB;
+	margin: 10px auto;
+	text-align: center;
+	width: 100%;
+	max-width: 500px;
+}
+.highcharts-data-table caption {
+  padding: 1em 0;
+  font-size: 1.2em;
+  color: #555;
+}
+.highcharts-data-table th {
+	font-weight: 600;
+  padding: 0.5em;
+}
+.highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+  padding: 0.5em;
+}
+.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+  background: #f8f8f8;
+}
+.highcharts-data-table tr:hover {
+  background: #f1f7ff;
+}
+</style>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+<figure class="highcharts-figure">
+  <div id="container"></div>
+  <p class="highcharts-description"></p>
+</figure>
+
+
+<script type="text/javascript">
+
+// Radialize the colors
+Highcharts.setOptions({
+  colors: Highcharts.map(Highcharts.getOptions().colors, function (color) {
+    return {
+      radialGradient: {
+        cx: 0.5,
+        cy: 0.3,
+        r: 0.7
+      },
+      stops: [
+        [0, color],
+        [1, Highcharts.color(color).brighten(-0.3).get('rgb')] // darken
+      ]
+    };
+  })
+});
+
+// Build the chart
+Highcharts.chart('container', {
+  chart: {
+    plotBackgroundColor: null,
+    plotBorderWidth: null,
+    plotShadow: false,
+    type: 'pie'
+  },
+  credits:{
+            enabled:false
+        },
+  title: {
+    text: "<?php //echo $labelText;?>"
+  },
+  colors:['#13515b','#00ae8e','#5ac5c7'],  
+  plotOptions: {
+    pie: {
+      allowPointSelect: true,
+      cursor: 'pointer',
+      dataLabels: {
+        enabled: true,
+        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+        connectorColor: 'silver'
+      }
+    }
+  },
+  series: [{
+    name: 'Share',
+    data: [
+    //  { name: 'Calory', y: <?php echo $caloryPercent;?>},
+       { name: 'Protein', y: <?php echo $proteinPercent;?> },
+	   { name: 'Fat', y: <?php echo $fatPercent;?> },
+	   { name: 'Carbs', y: <?php echo $carbsPercent;?>},
+      
+    ]
+  }]
+});
+
+</script>
+</div>
+<?php } ?>
+	  
+	  
+	  </div>
+	     <img src="<?php echo $this->getSkinUrl('images/piechart2.png') ?>" style="width: auto;position: absolute;bottom: 19%;"/>
+			</div>
+			
+		</div>
+		<div class="panel panel-info" style="margin-bottom: 100px;">
+  <div class="panel-body">
+	  <table class="table">
+    <thead>
+      <tr>
+            <th style="font-weight:normal"></th>
+       
+        <th style="font-weight:normal"><h4>CALORIES</h4></th>
+        <th style="font-weight:normal"><h4>CARBS(Gm)</h4></th>
+		   <th style="font-weight:normal"><h4>FAT(Gm)</h4></th>
+		   <th style="font-weight:normal"><h4>PROTIEN(Gm)</h4></th>
+		   <th style="font-weight:normal"><h4>FIBER(Gm)</h4></th>
+      </tr>
+    </thead>
+    <tbody>
+     
+       <tr style="
+    border-top: 1px solid #269a9b;
+">
+        <td><h4>REPORT<br>TOTAL</h4></td>
+        <td><h3><?php echo ((int)$finalArray['totalDesc']['sumCal']);?></h3></td>        
+        <td><h3><?php echo ((int)$finalArray['totalDesc']['sumCarbs']);?></h3></td>
+        <td><h3><?php echo ((int)$finalArray['totalDesc']['sumFat']);?></h3></td>
+	    <td><h3><?php echo ((int)$finalArray['totalDesc']['sumProt']);?></h3></td>
+		<td><h3><?php echo ((int)$finalArray['totalDesc']['sumFiber']);?></h3></td>
+      </tr>
+		 <tr style="
+    border-top: 1px solid #269a9b;
+">
+        <td style="border:0px;"><h4>AVERAGE DAILY<br>INTAKE</h4></td>   
+        <td style="border:0px;"><h3><?php echo (int)($finalArray['totalDesc']['sumCal']/$countDays);?></h3></td>        
+        <td style="border:0px;"><h3><?php echo (int)($finalArray['totalDesc']['sumCarbs']/$countDays);?></h3></td>
+        <td style="border:0px;"><h3><?php echo (int)($finalArray['totalDesc']['sumFat']/$countDays);?></h3></td>
+	    <td style="border:0px;"><h3><?php echo (int)($finalArray['totalDesc']['sumProt']/$countDays);?></h3></td>
+		<td style="border:0px;"><h3><?php echo (int)($finalArray['totalDesc']['sumFiber']/$countDays);?></h3></td>
+      </tr>
+		  </tbody>
+		</table>
+			</div>
+  <div class="panel-footer">
+	  This meal plan helps you control your weight and obesity in managed eating habits, giving you desired calories
+	  </div>
+</div>
+		
+		
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+			
+		<img src="http://lifeheal.americanarearugs.com/skin/frontend/rwd/default/images/logo.png" style="width:auto;"/>
+		</div>
+		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+			<img src="http://lifeheal.americanarearugs.com/skin/frontend/rwd/default/images/healthcraft.png" style="float:right;width:auto;"/>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+		<hr style="width: 100%;float: left;margin: 20px auto;">
+		<p><a href="www.lifeheal.in" style="color: #0EB58F;">www.LifeHeal.in</a></p>
+<p>For queries email us at <a href="mailto:Diet@LifeHeal.in" style="color: #0EB58F;">Diet@LifeHeal.in</a> or call us at <a href="tel:+91 9999 8466 22" style="color: #0EB58F;">+91 9999 8466 22</a>
+</p>
+		<p>For delivery status and tracking please contact HealthCraftPune@gmail.com. Support Helpline <a href="telto:+91 9370707004" style="color: #0EB58F;">+91 9370 7070 04</a></p>
+		</div>
+			</div>
+		</div>
+		<div>
+	  <?php if(isset($_POST["submit"])){
+			   if($countCustomerResult>0){?>
+			     <div colspan="6" style="text-align:center" class="noprint"> 
+			       <input type="button" value="Print" onclick="window.print();" class="print_btn" />
+				 <?php } ?>
+			 </div>
+		 <?php } ?>
+		 </div>
+	</div>	
+	
+<?php
+			
+    }
+	else
+	{
+		echo "<center>There is no meal records.</center>";
+	}
+   
+ }
+  
+
+function getWeeknumber($checkDate)
+{
+    $tmpDate = explode("-", $checkDate);
+    $date  = mktime(0, 0, 0, $tmpDate[1], $tmpDate[2], $tmpDate[0]);
+   return $week  = (int)date('W', $date);
+    
+}
+
+function getMealDate($checkDate)
+{
+    $tmpDate = explode("-", $checkDate);
+    $date  = mktime(0, 0, 0, $tmpDate[1], $tmpDate[2], $tmpDate[0]);
+    $week  = (int)date('W', $date);
+    $dateToShow   = date('d',$date);
+    $day = date('dd',$date);
+    $month = date('m',$date);
+    $year = date('y',$date);
+    
+    return $dateToShow.'/'.$month.'/'.$year; 
+}
+
+
+  
+  
+  function getWeeklyItemsArray($mealsByWeekNumber) {
+	//  echo "11111";
+	 // print_r($mealsByWeekNumber); die;
+      $finalArray = array();
+        
+         $recordCount=0;
+         $weekCount=1;
+         $weekDay=0;  
+         $weekDayCounter=0;
+         $allDinnerCal=0; 
+         $allBreakfastCal=0;         
+         $allLunchCal=0; 
+         $allHighteaCal=0; 
+         $totalCal=0;
+         $totalProteinGm=0;
+         $totalFatGm=0;
+         $totalCarbohydreteGm=0;
+         $totalFiberGm=0;
+         $countWeeklyMeals=0;
+         
+         $weeklyItems = array();
+             foreach($mealsByWeekNumber as $orderId)
+             {
+                
+                $rowTotalCal=0;
+                $rowTotalFiberGm=0;
+                $rowTotalProteinGm=0;
+                $rowTotalFatGm=0;
+                $rowTotalCarbohydreteGm=0;
+                 
+                 $recordCount++;  
+                 $weekNumer = $weekNumber;
+                 $orderInfo =  Mage::getModel("heal/order")->load($orderId);
+                 
+                 $customerEmail = $orderInfo->getEmail();
+                 $orderFormattedDate = date_create($orderInfo->getFormattedOrderdate());
+              
+                 $orderDate = date_format($orderFormattedDate,'d/m/Y');
+
+                 $dinnerTotalCalories = $orderInfo->getDinnerTotalCalories(); $rowTotalCal+=$dinnerTotalCalories;
+                 
+                 $allDinnerCal+= $dinnerTotalCalories; 
+                
+                 $breakfastTotalCalories = $orderInfo->getBreakfastTotalCalories();  $rowTotalCal+=$breakfastTotalCalories;
+                
+                 $allBreakfastCal+=     $breakfastTotalCalories; 
+                
+                 $lunchTotalCalories = $orderInfo->getLunchTotalCalories();    $rowTotalCal+=$lunchTotalCalories;
+                 $allLunchCal+=     $lunchTotalCalories; 
+                 $highteaTotalCalories = $orderInfo->getHighteaTotalCalories();  $rowTotalCal+=$highteaTotalCalories;
+                 $allHighteaCal+=     $highteaTotalCalories; 
+                  $totalCal+=$rowTotalCal;
+                  $rowTotalCarbohydreteGm =  $orderInfo->getTotalCarbohydrates();
+                  $rowTotalProteinGm      =  $orderInfo->getTotalProtein();
+                  $rowTotalFatGm          =  $orderInfo->getTotalFat();
+                  $rowTotalFiberGm        = $orderInfo->getTotalFiber();
+                  
+                  $totalCarbohydreteGm+= $rowTotalCarbohydreteGm;
+                  $totalProteinGm+= $rowTotalProteinGm;
+                   $totalFatGm+= $rowTotalFatGm;
+                  $totalFiberGm+= $rowTotalFiberGm;
+                  
+                  $weeklyItems[] = array('date'=>$orderDate,'calory'=>$rowTotalCal,'carbs'=>$rowTotalCarbohydreteGm,'protein'=>$rowTotalProteinGm,'fat'=>$rowTotalFatGm,'fiber'=>$rowTotalFiberGm);
+				    
+               
+       }  
+	   
+	  // echo "<pre>"; print_r($weeklyItems); die;
+       
+        $finalArray['totalDesc'] = array('sumCal'=>$totalCal,'sumProt'=>$totalProteinGm,'sumFat'=>$totalFatGm,'sumCarbs'=>$totalCarbohydreteGm,'sumFiber'=>$totalFiberGm) ;
+        $finalArray['weeklyItems'] = $weeklyItems;
+    
+  
+      
+      
+       return $finalArray;
+  }
+?>

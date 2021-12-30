@@ -1,0 +1,152 @@
+<link href="<?php echo $this->getSkinUrl();?>css/datatables.min.css" rel="stylesheet" />
+<script src="<?php echo $this->getSkinUrl();?>js/datatables.min.js" type="text/javascript"></script>
+<style>
+.loader {
+  position: fixed;
+  left: 40%;
+  top: 50%;
+  z-index: 9999;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #a61d3f;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+<script type="text/javascript">
+function SaveFunction(number) {
+	jQuery(".loader").css("display", "block");
+	var mildboxes = jQuery('.'+number+" input[name=mild]:checked");
+	if(mildboxes.prop("checked") == true){ var mildbox = 1;}
+    var nonspicyboxes = jQuery('.'+number+" input[name=nonspicy]:checked");
+    if(nonspicyboxes.prop("checked") == true){ var nonspicybox = 1; }
+    var extraspicyboxes = jQuery('.'+number+" input[name=extraspicy]:checked");
+	if(extraspicyboxes.prop("checked") == true){ var extraspicybox = 1; }	
+	var lesschewyboxes = jQuery('.'+number+" input[name=lesschewy]:checked");
+	if(lesschewyboxes.prop("checked") == true){ var lesschewybox = 1; }
+    var morechewyboxes = jQuery('.'+number+" input[name=morechewy]:checked");
+	if(morechewyboxes.prop("checked") == true){ var morechewybox = 1; }
+    var dryboxes = jQuery('.'+number+" input[name=dry]:checked");
+	if(dryboxes.prop("checked") == true){ var drybox = 1; }
+    var lipomaboxes = jQuery('.'+number+" input[name=lipoma]:checked");
+	if(lipomaboxes.prop("checked") == true){ var lipomabox = 1; }
+    var gravyboxes = jQuery('.'+number+" input[name=gravy]:checked");
+	if(gravyboxes.prop("checked") == true){ var gravybox = 1; }
+    var lessmasalaboxes = jQuery('.'+number+" input[name=lessmasala]:checked");
+	if(lessmasalaboxes.prop("checked") == true){ var lessmasalabox = 1; }
+    var moremasalaboxes = jQuery('.'+number+" input[name=moremasala]:checked");
+	if(moremasalaboxes.prop("checked") == true){ var moremasalabox = 1; }
+    var allergiesboxes = jQuery('.'+number+' .'+"allergies").val();
+    if(allergiesboxes){ allergiesboxes = allergiesboxes; }
+    var productname = jQuery('.'+number+" .productdata option:selected").text();
+	var productid = jQuery('.'+number+" .productdata option:selected").val();
+	var customerids = jQuery('.'+number+" .abc").attr('data-id');
+	var customername = jQuery('.'+number+" .abc").text();
+	jQuery.ajax({
+        url: "<?php echo Mage::getBaseUrl().'heal/index/addallergies' ?>",
+        type: "POST",
+        data: {
+          primarymobileno: number,
+          customerids: customerids,
+          customername: customername,
+          productname: productname,
+          productid: productid,
+          mild: mildbox,
+          nonspicy: nonspicybox,
+          extraspicy: extraspicybox,
+          lesschewy: lesschewybox,
+          morechewy: morechewybox,
+          dry: drybox,
+          lipoma: lipomabox,
+          gravy: gravybox,
+          lessmasala: lessmasalabox,
+          moremasala: morechewybox,
+          allergies:moremasalabox,
+          allergiesboxes: allergiesboxes
+        },
+        success: function(response){
+    		jQuery(".loader").css("display", "none");
+        }
+    });
+}
+</script>
+<?php
+$dinnerindiancategoryId = 46; // Dinner Indian Category
+$dinnerindianproducts = Mage::getSingleton('catalog/category')->load($dinnerindiancategoryId)
+    ->getProductCollection()
+    ->addAttributeToSelect('*');
+    $allrawproduct=''; 
+foreach ($dinnerindianproducts as $dinnerindiandata) {
+   $allrawproduct = $allrawproduct.' '.'<option value='. $dinnerindiandata->getId().'>'. $dinnerindiandata->getName(). '</option>';
+} ?>
+<div class="loader" style="display: none;"></div>
+<table id="example" class="display" cellspacing="0" width="100%">
+<thead>
+<tr>
+    <th>Mobile</th>
+    <th>Name</th>
+    <th>Menu</th>
+    <th style="padding: 10px;">mild</th>
+    <th style="padding: 10px;">non spicy</th>
+    <th style="padding: 10px;">extra spicy</th>
+    <th style="padding: 10px;">less chewy</th>
+    <th style="padding: 10px;">more chewy</th>
+    <th style="padding: 10px;">dry</th>
+    <th style="padding: 10px;">lipoma</th>
+    <th style="padding: 10px;">gravy</th>
+    <th style="padding: 10px;">less masala</th>
+    <th style="padding: 10px;">more masala</th>
+    <th>allergies</th>
+    <th></th>
+</tr>
+</thead>  
+<tfoot>
+</tfoot>
+<tbody>  
+<?php
+$customercollection = mage::getModel('customer/customer')->getCollection()
+	->addAttributeToSelect('primarymobileno')
+	->addAttributeToSelect('firstname')
+    ->addAttributeToSelect('lastname');
+foreach ($customercollection as $customers) { ?>  
+    <tr class="<?php echo $customers->getPrimarymobileno(); ?>">
+    <td><a href="dislikedetails?id=<?php echo $customers->getPrimarymobileno();?>" target="_blank" style="color: blue;"><?php echo $customers->getPrimarymobileno(); ?></a></td>
+    <td class="abc" data-id="<?php echo $customers->getId() ?>"><?php echo $customers->getFirstname().' '. $customers->getLastname(); ?></td>
+    <td><select style="width: 80px;" class="productdata">
+	  <option selected> Select </option>
+	   <?php echo $allrawproduct; ?>
+	</select>
+	</td>
+    <td><input type="checkbox" name="mild" value=""></td>
+    <td><input type="checkbox" name="nonspicy" value=""></td>
+    <td><input type="checkbox" name="extraspicy" value=""></td>
+    <td><input type="checkbox" name="lesschewy" value=""></td>
+    <td><input type="checkbox" name="morechewy" value=""></td>
+    <td><input type="checkbox" name="dry" value=""></td>
+    <td><input type="checkbox" name="lipoma" value=""></td>
+    <td><input type="checkbox" name="gravy" value=""></td>
+    <td><input type="checkbox" name="lessmasala" value=""></td>
+    <td><input type="checkbox" name="moremasala" value=""></td>
+    <td><input type="text" name="allergiess" class="allergies" style="width: 150px;"></td>
+    <td><input type="button" value="Save" onclick="SaveFunction(<?php echo $customers->getPrimarymobileno(); ?>)"></td>
+    </tr><?php } ?>
+</tbody>
+</table>
+<script type="text/javascript">
+	jQuery(document).ready(function (){
+    var table = jQuery('#example').DataTable();	
+}); 
+</script>

@@ -1,0 +1,842 @@
+#payPalButton img,
+#payPalCreditButton img {
+ padding:10px 35px;
+ border-radius:5px;
+ background:#eee;
+ text-align:center;
+ height:45px;
+ display:inline-block;
+}
+.price-container col3{width:40%;float:left;display: flex;justify-content: space-between;}
+.price-container col9{width:60%;float:left;display: flex;justify-content: space-between;}
+#payPalCreditButton img {
+ background:#013087
+}
+div#paypal-ratecard {
+ margin-right:-4px;
+ margin-left:-4px
+}
+#paypal-ratecard .col-xs-6 {
+ padding-left:4px;
+ padding-right:4px
+}
+.no-pad-right {
+ padding-right:0
+}
+.no-pad-left {
+ padding-left:0
+}
+.ordering-options .btn-interstitial {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    height: 55px;
+    margin: 0 2px;
+    padding: 0;
+    font-size: 14px;
+    font-weight: bold;
+    vertical-align: middle;
+    display:inline-block;
+    line-height: 55px;
+    white-space: normal;
+}
+.ordering-options #gender-options .btn-interstitial {
+height: 45px;
+line-height: 45px;
+float: left;
+}
+.btn-interstitial.selected {
+ border:2px solid #1acccd;
+ background-color:#f7fffd;
+}
+#testForm legend {
+ font-size:1em;
+ margin-bottom:10px
+}
+#meal-plan-options span.best-first {
+display: block;
+background-color: #1acccd;
+font-weight: 600;
+font-size: 11px;
+line-height: 10px;
+z-index:2;
+position: absolute;
+width: 187px;
+top: 14%;
+}
+#meal-plan-options .btn-interstitial span.best-first {
+ padding:3px 0;
+ margin-bottom:3px;
+ margin-top:-6px;
+ color:#fff
+}
+#meal-plan-options .btn-interstitial.selected span.best-first {
+background-color: #1acccd;
+padding: 3px 0;
+margin-bottom: 3px;
+top: 7%;
+color: #fff;
+line-height: 10px;
+display: block;
+position: absolute;
+z-index: 1;
+width: 99%;
+}
+.product-info {
+ padding:1em 1em 1.5em;
+ display:block;
+ background-color:#fff
+}
+.product-info h3 {
+ font-weight:600;font-size: 1.6em;
+}
+.product-info a {
+ color:#222;
+ font-size:14px;text-decoration:underline;
+}
+.product-info a.text-gray-base {
+ color:#777
+}
+.product-info .show-menu {
+ display:none
+}
+.product-info .menu-choices,
+.product-info .self-picks {
+ display:block
+}
+#custom span.pick-subcopy {
+ font-weight:normal;
+ display:block
+}
+.product-info #delivery-options label,
+.product-info #meal-plan-options label {
+ cursor:pointer
+}
+.product-info #gender-options,
+.product-info #meal-plan-options {
+ margin-bottom:20px
+}
+.product-info .full-price {
+ line-height:18px;
+ margin:10px 0 0
+}
+.product-info .full-retail-value {
+ margin-bottom:10px
+}
+.product-info .weekly-price-container {
+ padding:0;
+ line-height:50px;
+ font-size:39px;
+ position:relative
+}
+.product-info .weekly-price {
+ font-size:56px;
+ line-height:50px;
+ font-weight:200
+}
+.product-info .per-week {
+ border-top:1px solid #ccc;
+ border-bottom:1px solid #ccc;
+ font-size:20px;
+ letter-spacing:2px;
+ padding:5px 0;
+ line-height:30px;
+ margin:0 15px;
+ display:inline-block
+}
+.product-info .four-week-price {
+ font-weight:400;
+ font-size:15px;
+ margin-bottom:2px
+}
+.product-info .ad-text-small {
+ font-size:11px;
+ line-height:13px
+}
+.product-info #other-options-toggle {
+ -webkit-appearance:normal;
+ -moz-appearance:normal;
+ -ms-appearance:normal;
+ -o-appearance:normal;
+ appearance:normal;
+ background:0;
+ border:0;
+ text-decoration:underline
+}
+.product-info .salePrice .wrapper,
+.product-info .totalPrice .wrapper {
+ overflow:hidden;
+ margin:0 auto 1em
+}
+.product-info .prices.snacks {
+ margin-top:.5em
+}
+.product-info .total-price {
+ margin-top:.9em
+}
+.product-info .freeshipping.total-price {
+ width:11em
+}
+.product-info #monthly-price,
+.product-info #total-price {
+ font-size:.938em
+}
+.product-info .pane1fullprice {
+ margin:0 0 .5em;
+ line-height:.5em
+}
+.product-info .pane1weekprice {
+ line-height:1em
+}
+.product-info .autoDelivery-modal .modal-body {
+ padding:0 2em 2em
+}
+.product-info .or {
+ margin:.65em 0 .5em
+}
+.product-info .weekly-price-container sup {
+ top:-.4em
+}
+.product-info .price-wrapper {
+ padding-right:0
+}
+#delivery-options a {
+ display:inline-block
+}
+#delivery-options legend {
+ display:inline-block;
+ width:80%;
+ margin:0 0 10px
+}
+#delivery-options.in legend {
+ width:121px;
+ font-weight:bold
+}
+#delivery-options a#choose-delivery {
+ top:0;width: 20%;
+ position:relative
+}
+#delivery-options-link {
+ display:none
+}
+#delivery-options-legend span {
+ font-size:13px
+}
+.ordering-options .bogo-txt p {
+ display:inline-block;
+ font-size:14px;
+ vertical-align:top;
+ margin:0 0 20px;
+ font-family:'Open Sans',Verdana,sans-serif;
+ width:265px
+}
+#delivery-options img.tag-icon {
+ height:27px;
+ width:31px;
+ vertical-align:top;
+ position:relative;
+ top:5px
+}
+#delivery-options span.bogo-purp {
+ color:#7255b7
+}
+legend#delivery-options-legend {
+ font-family:'Open Sans',Verdana,sans-serif
+}
+.ordering-options hr.price-hr {
+ margin:0 auto
+}
+.ordering-options #delivery-options-collapse .btn-group {
+ margin:0 auto 20px
+}
+.ordering-options #delivery-options .btn-interstitial {
+ width:100%;
+ height:56px;
+ margin:0 0 8px;
+ padding:0 3px 0 3px;
+ text-align:left;
+}
+#delivery-options .ship-btn-txt {
+ font-size:12px;
+ display:inline-block;
+ vertical-align:middle;
+ line-height:1.4;
+ font-weight:normal;
+ margin-top:1px
+}
+
+#delivery-options .del-price {
+    font-family: Raleway,sans-serif;
+    display: inline-block;
+    text-align: center;
+    float: right;
+    vertical-align: middle;
+    line-height: 1;
+    font-size: 13px;
+    position: relative;
+    top: 20px;
+}
+.del-a-day {
+ font-size:12px
+}
+#autodelivery .ship-btn-txt,
+#month2month .ship-btn-txt {
+ font-weight:bold
+}
+.price-container {
+margin: 0px auto 20px 0px;
+float: left;
+width: 100%;
+}
+p.pane1price,
+p#bogo-price-text,
+.pane1weekprice a {
+ font-size:13px;text-align:right;float:right;
+}
+.price {
+ font-size:2em;
+ font-weight:400;
+ line-height:.85em
+}
+.a-day {
+ font-size:16px;
+ line-height:1.2;
+ margin-left:5px;
+ margin-top:5px
+}
+.sr-only {
+ position:absolute;
+ width:1px;
+ height:1px;
+ margin:-1px;
+ padding:0;
+ overflow:hidden;
+ clip:rect(0,0,0,0);
+ border:0
+}
+#autodelivery-price-text {
+ line-height:16px;
+ margin-bottom:0;
+ font-size:14px
+}
+.pane1weekprice a {
+ line-height:16px
+}
+.price-container .free-ship-txt {
+ font-size:.875em;
+ font-weight:600;
+ color:#7255b7
+}
+.product-info hr.shake-top-rule {
+ margin-top:0
+}
+#add-crosssell-item .save-perc {
+ color:#7255b7
+}
+p.exp-del-over {
+ margin:12px auto 0
+}
+@media screen and (min-width:260px) and (max-width:767px){
+.page-homepage .analysis-block img.seconds-img {
+width: 90px !important;
+height: 60px;
+position: relative;
+top: -15px;
+float: right;
+right: 15px !important;
+}
+}
+@media(max-width:767px) {
+
+p.pane1price, p#bogo-price-text, .pane1weekprice a {
+    font-size: 13px;
+    text-align: right;
+    float: right;
+}
+.price {
+  font-size:1.5em;float:left;
+ }
+ .ordering-options .bogo-txt p {
+  width:228px
+ }
+ #delivery-options legend {
+  width:72%;
+ }
+ .a-day {
+  font-size: 13px;
+margin: 0px;
+ }
+ .ordering-options .btn-group {
+  text-align:center;
+  margin:0 auto;
+  width:100%
+ }
+ .product-info .weekly-price-container {
+  line-height:35px;
+  top:-5px
+ }
+ .product-info .price-wrapper {
+  padding-right:15px;
+  padding-left:15px
+ }
+ .product-info .full-price {
+  padding-right:10px;
+  padding-left:15px
+ }
+ .product-info .weekly-price {
+  font-size:45px
+ }
+ .product-info .per-week {
+  margin:-10px 0 0;
+  padding:0;
+  letter-spacing:1px;
+  font-size:18px
+ }
+ .product-info .free-shipping {
+  font-size:.95em
+ }
+ .ordering-options .btn-group {
+  text-align:center;
+  margin:0 auto;
+  width:100%
+ }
+
+}
+@media(max-width:360px) {
+ .ordering-options .btn-interstitial {
+  width:140px
+ }
+#meal-plan-options .btn-interstitial.selected span.best-first {
+background-color: #1acccd;
+    padding: 3px 0;
+    margin-bottom: 3px;
+    top: 14%;
+    color: #fff;
+    line-height: 10px;
+    display: block;
+    position: absolute;
+    z-index: 1;
+    width: 46%;
+}
+ #testForm legend {
+  font-size:.9em
+ }
+ #delivery-options legend {
+  width:270px
+ }
+ .ordering-options .bogo-txt p {
+  width:240px
+ }
+}
+@media(max-width:320px) {
+.product-info a {
+    color: #222;
+    font-size: 12px;
+    text-decoration: underline;
+}
+ .product-info {
+  padding:1em .5em 1.5em
+ }
+ .ordering-options .btn-interstitial {
+  width:128px
+ }
+#meal-plan-options .btn-interstitial.selected span.best-first {
+background-color: #1acccd;
+    padding: 3px 0;
+    margin-bottom: 3px;
+    top: 14%;
+    color: #fff;
+    line-height: 10px;
+    display: block;
+    position: absolute;
+    z-index: 1;
+    width: 46%;
+}
+ .product-info .full-price {
+  padding-left:7px
+ }
+p.pane1price, p#bogo-price-text, .pane1weekprice a {
+    font-size: 11px;
+    text-align: right;
+    float: right;
+}
+ .price {
+  font-size:1.5em;float:left;
+ }
+ .ordering-options .bogo-txt p {
+  width:228px
+ }
+ #delivery-options legend {
+  width:72%;
+ }
+ .a-day {
+  font-size: 13px;
+margin: 0px;
+ }
+ #add-crosssell-item legend {
+  width:200px
+ }
+ .price-container .col-xs-4 {
+  width:40%;padding-right: 0px;
+ }
+ .price-container .col-xs-8 {
+  width:60%
+ }
+}
+
+@media(min-width:414px) {
+.price {
+  font-size:1.5em;float:left;
+ }
+ .ordering-options .bogo-txt p {
+  width:228px
+ }
+ #delivery-options legend {
+  width:72%;
+ }
+ .a-day {
+  font-size: 13px;
+margin: 0px;
+ }
+#meal-plan-options .btn-interstitial.selected span.best-first {
+background-color: #1acccd;
+    padding: 3px 0;
+    margin-bottom: 3px;
+    top: 13%;
+    color: #fff;
+    line-height: 10px;
+    display: block;
+    position: absolute;
+    z-index: 1;
+    width: 47%;
+}
+ .ordering-options .btn-interstitial {
+  width:168px
+ }
+}
+@media(min-width:568px) {
+.price {
+  font-size:1.5em;float:left;
+ }
+ .ordering-options .bogo-txt p {
+  width:228px
+ }
+ #delivery-options legend {
+  width:72%;
+ }
+ .a-day {
+  font-size: 13px;
+margin: 0px;
+ }
+ .ordering-options .btn-interstitial {
+  width:244px
+ }
+}
+@media (min-width:768px){
+#delivery-options .del-price {
+    font-family: Raleway,sans-serif;
+    display: inline-block;
+    text-align: center;
+    float: right;
+    vertical-align: middle;
+    line-height: 1;
+    font-size: 23px;
+    position: relative;
+    top: 16px;
+}
+ .product-info .free-shipping {
+  margin-top:-17px;
+  margin-bottom:28px
+ }
+.product-info {
+    padding: 1em 1em 1.5em;
+    display: block;
+    background-color: #fff;
+}
+
+ .ordering-options .btn-interstitial {
+width: 300px;
+float: left;
+ }
+ .ordering-options #delivery-options-collapse .btn-group {
+  width:100%;
+  margin-bottom:0
+ }
+ #bogo .ship-btn-txt {
+  line-height:2.3
+ }
+ #meal-plan-options .btn-interstitial span.best-first {
+  margin-top:-7px;
+width: 298px;
+ }
+
+}
+
+@media(min-width:992px) {
+#delivery-options .del-price {
+    font-family: Raleway,sans-serif;
+    display: inline-block;
+    text-align: center;
+    float: right;
+    vertical-align: middle;
+    line-height: 1;
+    font-size: 16px;
+    position: relative;
+    top: 20px;
+}
+ .product-info h3 {
+  font-size:2.0
+ }
+.product-info {
+    display: table-cell;
+    min-width: 395px;
+    padding: 2em 1em 1.5em;
+}
+	.ordering-options .btn-interstitial {
+    width: 150px;
+}
+	#meal-plan-options .btn-interstitial.selected span.best-first {
+
+    background-color: #10cfc9;
+    padding: 3px 0;
+    margin-bottom: 3px;
+    margin-top: -5px;
+    color: #fff;
+	width: 148px;
+}
+	#meal-plan-options .btn-interstitial span.best-first {
+    margin-top: -7px;
+    width: 148px;
+}
+ }
+
+
+
+
+
+@media(min-width:1200px) {
+#delivery-options .ship-btn-txt {
+    font-size: 14px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1.4;
+    font-weight: normal;
+    margin-top: 1px;
+}
+#delivery-options .del-price {
+font-family: Raleway,sans-serif;
+display: inline-block;
+text-align: center;
+float: right;
+vertical-align: middle;
+line-height: 1;
+font-size: 23px;
+position: relative;
+top: 16px;
+}
+ .product-info {
+  min-width:488px;
+  padding:2em 2em 1.5em
+ }
+.ordering-options .btn-interstitial {
+    width: 185px;
+}
+ .product-info h3 {
+  font-size:2.25em
+ }
+#meal-plan-options .btn-interstitial.selected span.best-first {
+ background-color: #1acccd;
+padding: 3px 0;
+margin-bottom: 3px;
+top: 12%;
+color: #fff;
+line-height: 10px;
+display: block;
+position: absolute;
+width: 183px;
+z-index:2;
+}
+	#meal-plan-options .btn-interstitial span.best-first {
+    margin-top: -7px;
+    width: 183px;
+}
+}
+
+
+ .product-info .prices {
+  width:170px
+ }
+
+#bogo-price,
+.bogo-txt {
+ display:none
+}
+.page-homepage .diet-analysis {
+ padding: 0;
+ background-color: #fff 
+}
+.page-homepage .diet-analysis #diabetes {
+ margin-left: 15px;
+}
+.page-homepage .diet-analysis .analysis-block {
+ max-width: 33em;
+ padding: 1em;
+ background: transparent;
+ box-shadow: none;
+}
+.page-homepage .diet-analysis .analysis-block .bmi-border {
+ border: none;
+ background-color: #fff;
+}
+.page-homepage .diet-analysis .bmi-calculator-logged-in.analysis-block {
+ border-top: 6px solid #10CFC9;
+ background: #e8f4f6;
+ padding: 15px;
+}
+.bmi-calculator-logged-in {
+ position: relative;
+}
+.bmi-calculator-logged-in .top-rated {
+ background-color: #222;
+ color: #fff;
+ padding: 5px 10px 3px;
+ width: 32%;
+ right: 0;
+ top: 17px;
+ position: absolute;
+ text-align: center;
+}
+.bmi-calculator-logged-in .shell-icon-img {
+ display: inline-block;
+ height: 45px;
+ width: 45px;
+ vertical-align: top;
+}
+.bmi-calculator-logged-in h3 {
+ display: inline-block;
+ vertical-align: top;
+ font-size: 22px;
+ line-height: 1.1;
+ margin-left: 10px;
+}
+.bmi-calculator-logged-in ul {
+ margin-left: 13px;
+}
+.bmi-calculator-logged-in .list-checked>li {
+ padding: 0 0 0 46px;
+ font-size: 18px;
+}
+.bmi-calculator-logged-in .list-checked>li:before {
+ color: #10CFC9;
+ font-size: 26px;
+}
+.bmi-calculator-logged-in p.h6 {
+ font-size: 18px;
+ margin-bottom: 16px 
+}
+.page-homepage .analysis-block .form-horizontal .form-control:not(.email) {
+ display: inline-block;
+width: auto;
+margin-right: 5px;
+float: left;
+}
+.page-homepage label {
+    display: inline-block;
+    max-width: 100%;
+    margin: 0px;
+        margin-top: 0px;
+    font-size: .875em;
+    float: left;
+    margin-top:3%;
+}
+.page-homepage .form-horizontal .form-group {
+    margin-left:auto;
+    margin-right:auto;
+    width: 100%;
+}
+.page-homepage .analysis-block .control-label {
+ text-align: right 
+}
+.page-homepage .analysis-block .height,
+.page-homepage .analysis-block .inches,
+.page-homepage .analysis-block .weight {
+ max-width: 4em 
+}
+.page-homepage .analysis-block .radio label {
+    margin-right: 3%;
+}
+.page-homepage .analysis-block form {
+ max-width:30em;
+ margin: 0 auto;
+ text-align: left;
+ padding: 10px 0px;
+}
+.page-homepage .analysis-block h2 {
+ margin-bottom: .5em;
+ font-size: 1.625em;
+ margin: 0px auto 16px;
+ text-align: center;
+}
+.page-homepage .analysis-block img.seconds-img {
+width: 119px;
+height: 60px;
+position: relative;
+top: -15px;
+float: right;
+right: 35px;
+}
+.page-homepage .analysis-block input[type=submit] {
+ width: 100%;
+ margin: 1em auto 
+}
+.page-homepage .analysis-block .form-group span {
+ font-size: .875em;
+}
+.page-homepage .analysis-block .radio label {
+    width: inherit;
+    text-align: left;
+    font-size: .95em;
+    font-weight: 600;
+    margin-top: 1%;
+}
+
+.page-homepage .analysis-block .form-group:last-child {
+ margin-bottom: 0 
+}
+.page-homepage .analysis-block input[type=submit] {
+ padding: .7em 0em .7em 0em;
+ background-position: 86% 51%;
+ margin-top: .4em;margin-bottom: .4em;
+}
+
+.page-homepage.checkbox input[type="checkbox"], .page-homepage .checkbox-inline input[type="checkbox"], .page-homepage .radio input[type="radio"], .page-homepage .radio-inline input[type="radio"] {
+    position: absolute;
+    margin-left: -24px;
+    line-height: 1;
+    margin-top: 4 px\9;
+float: none;
+right: auto;
+}
+.page-homepage input[type="radio"] {
+    position: relative;
+    margin: 0;
+        margin-left: 0px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+    -webkit-appearance: none;
+    appearance: none;
+    transition: .2s ease;
+}
+.page-homepage input[type="checkbox"], .page-homepage input[type="radio"] {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    border: 1px solid #777;
+    background: #fff;
+    vertical-align: middle;
+    padding: 0;
+left: auto;
+}
+.page-homepage .radio {top: 7px;}

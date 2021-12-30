@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Food_Heal>
+      <version>0.1.0</version>
+    </Food_Heal>
+  </modules>
+  <frontend>
+    <routers>
+      <heal>
+        <use>standard</use>
+          <args>
+            <module>Food_Heal</module>
+            <frontName>heal</frontName>
+          </args>
+      </heal>
+    </routers>
+		<layout>
+		  <updates>
+			<heal>
+			  <file>heal.xml</file>
+			</heal>
+		  </updates>
+		</layout>
+  </frontend>
+  <global>
+    <helpers>
+      <heal>
+        <class>Food_Heal_Helper</class>
+      </heal>
+    </helpers>
+	<blocks>
+	  <heal>
+		<class>Food_Heal_Block</class>
+	  </heal>
+	</blocks>
+	<models>
+	  <heal>
+		<class>Food_Heal_Model</class>
+		<resourceModel>heal_mysql4</resourceModel>
+	  </heal>
+	  <heal_mysql4>
+		<class>Food_Heal_Model_Mysql4</class>
+		<entities>		  
+			  <order>
+				<table>healorder</table>
+			  </order>
+        </entities>
+	  </heal_mysql4>
+	</models>
+	<resources>
+	  <heal_setup>
+		<setup>
+		  <module>Food_Heal</module>
+		</setup>
+		<connection>
+		  <use>core_setup</use>
+		</connection>
+	  </heal_setup>
+	  <heal_write>
+		<connection>
+		  <use>core_write</use>
+		</connection>
+	  </heal_write>
+	  <heal_read>
+		<connection>
+		  <use>core_read</use>
+		</connection>
+	  </heal_read>
+	</resources>
+  </global>
+  <admin>
+	<routers>
+	  <heal>
+	    <use>admin</use>
+		<args>
+		  <module>Food_Heal</module>
+		  <frontName>admin_heal</frontName>
+		</args>
+	  </heal>
+	</routers>
+  </admin>
+  <adminhtml>
+	<menu>
+	  <heal module="heal">
+		<title>CMD Orders</title>
+		<sort_order>100</sort_order>
+		<children>
+		  <order module="heal">
+		    <title>Manage Order</title>
+			<sort_order>0</sort_order>
+			<action>admin_heal/adminhtml_order</action>
+		  </order>
+		</children>
+		<children>
+		  <weeklyclientinfo module="weeklyclientinfo">
+		    <title>Manage Weekly Reports</title>
+			<sort_order>0</sort_order>
+			<action>admin_weeklyclientinfo/adminhtml_weeklyclientinfo</action>
+		  </weeklyclientinfo>
+		</children>
+		 <children>
+		 <monthlyclientinfo module="monthlyclientinfo">
+		    <title>Manage Monthly Reports</title>
+			<sort_order>1</sort_order>
+			<action>admin_monthlyclientinfo/adminhtml_monthlyclientinfo</action>
+		  </monthlyclientinfo>
+		</children>
+	  </heal>
+	</menu>
+	<acl>
+	  <resources>
+		<all>
+		  <title>Allow Everything</title>
+		</all>
+		<admin>
+		  <children>
+			<heal translate="title" module="heal">
+			  <title>Heal</title>
+			  <sort_order>1000</sort_order>
+			  <children>
+		  <order translate="title">
+			<title>Manage Order</title>
+			<sort_order>0</sort_order>
+		  </order>
+			  </children>
+			</heal>
+		  </children>
+		</admin>
+	  </resources>
+	</acl>
+	<layout>
+	  <updates>
+		<heal>
+		  <file>heal.xml</file>
+		</heal>
+	  </updates>
+	</layout>
+  </adminhtml>
+</config> 

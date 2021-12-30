@@ -1,0 +1,603 @@
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+ 
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+	   $("#tooltip-1").tooltip();
+  } );
+  </script>
+	<style>
+.main {
+    width: 100%;
+    margin-top: 7rem;
+    height: 100%;
+    margin-bottom: 1.5rem;
+}
+	.btn-danger {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    margin: 4px;
+}
+	.breadcrumbs{display:none;}	
+	#myHeaderhead, #oldfooter, .navbar{font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100% !important;
+    margin: 0 !important;
+	}
+	#printdate input[type="text"] {
+    max-width: 100%;
+    background: #f6fcfc;
+    height: 35px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+    border: 0;
+    margin: 10px;
+    width: 80%;
+}	
+#printdate select {
+    font-size: 14px;
+    margin: 10px;
+    width: 80%;
+    max-width: 100%;
+    background: #f6fcfc;
+    height: 35px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+    border: 0;
+}
+.ui-datepicker td {
+    border: 0;
+    padding: 1px;
+    width: 10%;
+}
+
+
+* {box-sizing: border-box}
+.loader {
+  position: fixed;
+  left: 40%;
+  top: 50%;
+  z-index: 9999;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #0eb58f;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.outputResult{max-width:660px;width:100%;}
+	
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  max-width:560px;
+  margin:auto;
+  font-size: 12px;
+}
+input[type=text] {
+font-size: 15px;
+color: #0eb58f; 
+}
+textarea{ font-size: 15px; }
+h2{font-weight: normal;margin: auto;
+width: 560px;font-size:17px;margin-top: 10px;
+height:30px;color: #000;
+line-height:30px;}
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 4px;
+}
+
+.noprint {font-family: arial, sans-serif;border-collapse: collapse;width: 100%;max-width: 560px;margin: 20px auto;}
+
+.modal-footer{margin: auto;width: 560px;padding: 10px 0px;}
+@media print {
+.noprint {display:none;font-family: arial, sans-serif;border-collapse: collapse;width: 100%;max-width: 560px;margin: 20px auto;}
+}
+
+@media print {
+  div.print-content article.node .node-blog .clearfix div.item-body p a {
+    display: none;}
+    @page {
+      size: A4; /* DIN A4 standard, Europe */
+      margin:0;
+		margin-top:100px;
+    }
+    html, body {
+        width: 210mm;
+        /* height: 297mm; */
+        height: 282mm;
+        font-size: 11px;
+        background: #FFF;
+        overflow:visible;
+    }
+    body {
+        padding-top:15mm;
+    }
+    .header-logo-top{
+    padding: 4px;
+    width: 100%;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    margin-bottom: 9px;
+  }
+}
+
+@media all {
+.page-break { display: none; }
+}
+
+@media print {
+.page-break { display: block; page-break-before: always; }
+}
+@media screen and (min-width:260px) and (max-width:760px){
+	#printdate input[type="text"] {
+    max-width: 100%;
+    background: #f6fcfc;
+    height: 35px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+    border: 0;
+    margin: 10px;
+    width: 68%;
+}	
+#printdate select {
+    font-size: 14px;
+    margin: 10px;
+    width: 68%;
+    max-width: 100%;
+    background: #f6fcfc;
+    height: 35px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+    border: 0;
+}
+@media screen and (min-width:768px) and (max-width:999px){
+	#printdate input[type="text"] {
+    max-width: 100%;
+    background: #fff;
+    height: 35px;    
+    border: 1px solid rgba(0,0,0,0.2);
+    margin: 10px;
+    width: 80%;
+}	
+#printdate select {
+    font-size: 14px;
+    margin: 10px;
+    width: 80%;
+    max-width: 100%;
+    background: #f6fcfc;
+    height: 35px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+    border: 0;
+}
+
+}
+
+</style>
+<?php
+$choosenDate='';
+$choosenCity='';
+if (isset($_POST["submit"])&& $_POST['datepicker']!='' )
+{
+	  $choosenDate   = $_POST['datepicker'];	 
+	  $choosenCity   = $_POST['city'];
+}
+	   
+?>
+<form method="POST" action="<?php echo Mage::getBaseUrl().'heal/index/printall';?>" >
+<h1 class="noprint" style="text-align: center;font-size: 24px;margin-bottom: 30px;text-transform: capitalize;">Print all meals of selected date</h1>
+<table width="1000" border="1" align="center" id="printdate" style="padding-left: 20px;margin:auto;padding-top:10px;margin-top: 40px;">
+
+  <tbody class="noprint">
+    <tr >
+     
+      <td style="margin:3px"> 
+        <span style="width:auto;float: left;height: 35px;line-height: 35px;margin:10px auto;">Order Date:</span>
+        <input type="text" id="datepicker"  name="datepicker" value="<?php echo $choosenDate;?>">
+ 	  </td></tr>
+	 <tr>   <td style="margin:3px"> <p style="margin-bottom: 0px;float: left;width: 100%;">
+        <span style="width:auto;float: left;height: 35px;line-height: 35px;margin:10px auto;">Select City:</span>
+        <select id="city" name="city">
+		  <option value="Delhi" <?php echo ($choosenCity=='Delhi')?'selected':'';?> >Delhi</option>
+		  <option value="Gurgaon" <?php echo ($choosenCity=='Gurgaon')?'selected':'';?> >Gurgaon</option>
+		  <option value="Pune" <?php echo ($choosenCity=='Pune')?'selected':'';?> >Pune</option>
+		</select>
+ 	  </td>
+    </tr>
+    <tr> <td><input type="submit" name="submit" value="Submit" style="margin: 10px auto;padding: 0px 10px;background: #0EB58F;border: 1px solid #0EB58F;color: #fff;font-size: 14px;height: 35px;width:auto;line-height: 35px;"></td></tr>
+  </tbody>
+</table>
+</form>
+<?php 
+//////////////////////////////////////////
+//print_r($_POST);
+$countResult =0;
+if (isset($_POST["submit"])&& $_POST['datepicker']!='' )
+{
+        
+        // $orderdate   = '06/10/2019';
+         $orderdate   = $_POST['datepicker'];	 
+		 $selectedCity = strtolower($_POST['city']);
+		 $dateInfo = explode("/",$orderdate);
+		
+		 $tmpOrderdateToShow = $dateInfo[2]."-".$dateInfo[0]."-".$dateInfo[1];	
+		 $month = date("M",strtotime($tmpOrderdateToShow));
+		 $orderdateToShow = $dateInfo[1]."-".$month."-".$dateInfo[2];
+		
+		$dbRead      = Mage::getSingleton('core/resource')->getConnection('core_read');
+		$selectDatewiseOrders= "select * from healorder where orderdate='$orderdate'"; 
+		$cuisineResult = $dbRead->fetchAll($selectDatewiseOrders);
+		
+		if(count($cuisineResult)>0)
+		{
+						
+			foreach($cuisineResult as $row)
+			{
+			           	
+
+////////////////////////////////////////
+//$params = $this->getRequest()->getParams(); 
+$orderId =  $row['id']; 
+$orderInfo =  Mage::getModel("heal/order")->load($orderId);
+$specialInstructions ='';
+$customerEmail = $orderInfo->getEmail();
+
+//$customerEmail = 'shailesh33260@gmail.com';
+       
+$customer = Mage::getModel("customer/customer"); 
+$customer->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
+$customer->loadByEmail($customerEmail);
+
+$customerBillingAddressId  = $customer->getDefaultBilling();
+$customerShippingAddressId  = $customer->getDefaultShipping();
+$customerAddressId = $customer->getDefaultBilling(); 
+$customerCity='';
+    if ($customerAddressId) {
+        $address = Mage::getModel('customer/address')->load($customerAddressId);
+       
+      $customerCity=strtolower($address->getCity());
+	}
+
+if(is_object($orderInfo ) && ($customerCity==$selectedCity) ) {
+$totalOrderCalory=0;	
+$countResult++;
+
+ $orderDate = $orderInfo->getOrderdate(); 
+$formattedDate = date("d M Y",strtotime($orderDate)); 
+$breakfastCollection = $orderInfo->getCusineDetails($orderId,$cusine='breakfast');
+$lunchCollection = $orderInfo->getCusineDetails($orderId,$cusine='lunch');
+$dinnerCollection = $orderInfo->getCusineDetails($orderId,$cusine='dinner');
+$highteaCollection = $orderInfo->getCusineDetails($orderId,$cusine='hightea ');
+$AllergiesDislike = Mage::helper("heal")->getAllergiesDislike($customer->getId());
+$specialInstructions = 	$AllergiesDislike['notes']; 
+$customerName = str_replace("Dear ","",$orderInfo->getName());
+
+?> 
+
+<div class="loader" style="display: none;"></div>
+<table class="topspace" style="max-width: 660px;margin-top: 100px;">
+  <tr> 
+	  <td colspan="3">
+		  <div class="header-logo">
+			  <div class="header-logo-top">
+				  <img src="<?php echo $this->getSkinUrl('images/lifeheal-healthcraft-logo.jpg') ?>" alt="cure my diabetes" />
+			  </div>
+        <div class="header-logo-bottom">
+          <div class="header-address1">
+            <span><?php echo $customerName;?></span> 
+            <span> <?php echo "Mob: ".$customer->getPrimarymobileno() ?></span>
+            <span><?php echo $formattedDate;?></span>
+          </div>
+          <div class="header-address2">            
+            <?php 
+              $PlasticBox = 0;
+              $StainlessSteelBox = 0;
+              $GlassBottle = 0;
+
+            if ($customerBillingAddressId){
+              $billing_address = Mage::getModel('customer/address')->load($customerBillingAddressId); 
+              
+            $tmpName = $billing_address->getFirstname()." ". $billing_address->getLastname();
+            $name = str_replace("Dear ","",$tmpName);
+
+            $homeaddress = explode("-", $billing_address->getStreet1());
+              
+            echo $addressTop ="Home: ".$homeaddress[0].", ".$billing_address->getCity();
+             
+            if($billing_address->getStreet2()!='') {
+              $officeaddress = explode("-", $billing_address->getStreet2());
+              echo "<br/>"."Office: ".$officeaddress[0];
+            }  
+             
+            if($customer->getPrimarymobileno() != $billing_address->getTelephone()){
+              echo $billing_address->getTelephone();}
+           }  
+
+          ?>    
+          </div>
+        </div>
+		  </div> 		
+	  </td>
+  </tr>
+
+  
+</table>
+
+<table class="outputResult">
+  <tr>
+    <th class="longcol">
+      <span style="font-size: 16px; font-style: italic; padding-left: 3px;">Allergies &amp; Dislikes:</span>
+      <input type="text" id="allergies" placeholder="Allergies" value="<?php echo $AllergiesDislike['allergies'] ?>" />
+      <input type="text" id="unlikes" placeholder="Dislikes"  value="<?php echo $AllergiesDislike['dislikename'] ?>" /></th>
+    <th style="background-color: #fff;color: #000;text-align: center;border: 1px solid rgba(0,0,0,0.2);">Grams</th>
+    <th style="background-color: #fff;color: #000;text-align: center;border: 1px solid rgba(0,0,0,0.2);">Calories</th>
+   
+  </tr>
+	
+	
+  
+  <?php if(count($breakfastCollection)>0) {  ?>
+  <tr>
+   <th colspan="3" style="font-size:16px; font-weight: bold;text-align: center;"> Breakfast</th>
+   
+  </tr>
+	<?php 
+		   foreach($breakfastCollection as $iteminfo) { /*$isType = '';
+        $product = Mage::getModel('catalog/product')->load($iteminfo['productid']);
+        if(strtolower(trim($product->getPackingtype())) == 'stainless steel box'){
+          $StainlessSteelBox++;$isType = trim($product->getPackingtype());
+        }else if(strtolower(trim($product->getPackingtype())) == 'plastic box'){
+          $PlasticBox++; $isType = trim($product->getPackingtype());
+        }else if(strtolower(trim($product->getPackingtype())) == 'glass bottle'){
+          $GlassBottle++; $isType = trim($product->getPackingtype());
+        }*/
+		
+		if($iteminfo['calories']>0)
+		{
+		    $totalOrderCalory+=$iteminfo['calories'];
+		}
+        ?>
+			  <tr>
+				<td class="longcol"><?php echo $iteminfo['itemname'];?></td>
+				<td style="text-align:center;"><?php echo $iteminfo['qty'];?></td>
+				<td style="text-align:center;"><?php echo (int)$iteminfo['calories'];?></td>
+			  <!-- <td style="color: #777;"> <?php //echo $isType; ?> </td> -->
+        </tr>
+	<?php   } } ?>
+  <?php if(count($lunchCollection)>0) { ?>
+  <tr>
+    <th colspan="3" style="color: #000; font-size:16px; font-weight: bold;text-align: center;">Lunch</th>
+   
+  </tr>
+<?php
+		   foreach($lunchCollection as $iteminfo) { /*$isType = '';
+        $product = Mage::getModel('catalog/product')->load($iteminfo['productid']);
+        if(strtolower(trim($product->getPackingtype())) == 'stainless steel box'){
+          $StainlessSteelBox++;$isType = trim($product->getPackingtype());
+        }else if(strtolower(trim($product->getPackingtype())) == 'plastic box'){
+          $PlasticBox++; $isType = trim($product->getPackingtype());
+        }else if(strtolower(trim($product->getPackingtype())) == 'glass bottle'){
+          $GlassBottle++; $isType = trim($product->getPackingtype());
+        }*/
+		if($iteminfo['calories']>0)
+		{
+		    $totalOrderCalory+=$iteminfo['calories'];
+		}?>
+			  <tr>
+				<td class="longcol"><?php echo $iteminfo['itemname'];?></td>
+				<td style="text-align:center;"><?php echo $iteminfo['qty'];?></td>
+				<td style="text-align:center;"><?php echo (int)$iteminfo['calories'];?></td>
+			  <!-- <td style="color: #777;"> <?php //echo $isType; ?> </td> -->
+        </tr>
+	<?php   }  } ?>
+  <?php if(count($highteaCollection)>0) { ?>
+  <tr>
+    <th colspan="3" style="color: #000; font-size:16px; font-weight: bold;text-align: center;">HiTea</th>
+       
+  </tr>
+  <?php 
+		   foreach($highteaCollection as $iteminfo) { /*$isType = '';
+        $product = Mage::getModel('catalog/product')->load($iteminfo['productid']);
+        if(strtolower(trim($product->getPackingtype())) == 'stainless steel box'){
+          $StainlessSteelBox++;$isType = trim($product->getPackingtype());
+        }else if(strtolower(trim($product->getPackingtype())) == 'plastic box'){
+          $PlasticBox++; $isType = trim($product->getPackingtype());
+        }else if(strtolower(trim($product->getPackingtype())) == 'glass bottle'){
+          $GlassBottle++; $isType = trim($product->getPackingtype());
+        }*/
+        if($iteminfo['calories']>0)
+		{
+		    $totalOrderCalory+=$iteminfo['calories'];
+		}
+		?>
+			  <tr>
+				<td class="longcol"><?php echo $iteminfo['itemname'];?></td>
+				<td style="text-align:center;"><?php echo $iteminfo['qty'];?></td>
+				<td style="text-align:center;"><?php echo (int)$iteminfo['calories'];?></td>			  
+        </tr>
+	<?php   }  }?>
+	
+	<?php if(count($dinnerCollection)>0) { ?>
+  <tr>
+    <th colspan="3" style="color: #000; font-size:16px; font-weight: bold;text-align: center;">Dinner</th>
+            
+  </tr>
+ <?php 
+       foreach($dinnerCollection as $iteminfo) { /*$isType = '';
+        $product = Mage::getModel('catalog/product')->load($iteminfo['productid']);
+        if(strtolower(trim($product->getPackingtype())) == 'stainless steel box'){
+          $StainlessSteelBox++;$isType = trim($product->getPackingtype());
+        }else if(strtolower(trim($product->getPackingtype())) == 'plastic box'){
+          $PlasticBox++; $isType = trim($product->getPackingtype());
+        }else if(strtolower(trim($product->getPackingtype())) == 'glass bottle'){
+          $GlassBottle++; $isType = trim($product->getPackingtype());
+        }*/ 
+		if($iteminfo['calories']>0)
+		{
+		    $totalOrderCalory+=$iteminfo['calories'];
+		}
+		
+		
+		?>
+      <tr>
+        <td class="longcol"><?php echo $iteminfo['itemname'];?></td>
+        <td style="text-align:center;"><?php echo $iteminfo['qty'];?></td>
+        <td style="text-align:center;"><?php echo (int)$iteminfo['calories'];?></td>   
+      </tr>
+  <?php   } } ?>
+  </table>
+
+  <table class="outputResult"> 
+  <tr>
+    <td class="longcol" style="text-align:right; font-weight: bold; border: 1px solid rgba(0,0,0,0.2); border-right:0; font-size: 20px; padding-right: 8px;"> <b>Total Calories</b>:<?php echo (int)$totalOrderCalory;?></td> 
+    <td style="text-align:center;border-bottom: 0px !important; border: 1px solid rgba(0,0,0,0.2);"><?php echo (int)$orderInfo->getTotalFiber();?> gms</td>
+    <td style="text-align:center;border-bottom: 0px !important;border: 1px solid rgba(0,0,0,0.2);"><?php echo (int)$orderInfo->getProteinpercent();?> %</td>
+    <td style="text-align:center;border-bottom: 0px !important;border: 1px solid rgba(0,0,0,0.2);"><?php echo (int)$orderInfo->getCarbohydratespercent();?> %</td>
+    <td style="text-align:center;border-bottom: 0px !important;border: 1px solid rgba(0,0,0,0.2);"> <?php echo (int)$orderInfo->getFatpercent();?>%</td>     
+  </tr>
+  
+<tr>
+<th class="longcol" style="text-align:left; color: #fff; font-weight: bold; border: 1px solid rgba(0,0,0,0.2); border-right: 0;">
+	<div  class="footer-table-logo ">	
+			<img src="<?php echo  Mage::getBaseUrl() ?>skin/frontend/rwd/default/images/lifeheal-healthcraft-logo.jpg"/>
+	</div>	
+</th>
+	  <th style="background-color: #fff;color: #000;text-align: center;border: 1px solid rgba(0,0,0,0.2); border-top: 0px;">Fiber</th>
+    <th style="background-color: #fff;color: #000;text-align: center;border: 1px solid rgba(0,0,0,0.2); border-top: 0px;">Protein</th>
+    <th style="background-color: #fff;color: #000;text-align: center;border: 1px solid rgba(0,0,0,0.2); border-top: 0px;">Carbs</th>
+    <th style="background-color: #fff;color: #000;text-align: center;border: 1px solid rgba(0,0,0,0.2); border-top: 0px;">Fat</th>   
+  </tr>
+</table>
+<?php if($specialInstructions){ ?>
+<table border="0" class="outputResult">
+<tr><td><textarea rows="2" cols="100" id="spi" name="spi" ><?php echo $specialInstructions;?></textarea></td></tr>
+</table><?php } ?>
+<div class="page-break"></div>
+
+<?php }
+		}
+		if($countResult==0)
+		{?>
+			
+			<span style="text-align: center;font-family: arial, sans-serif;border-collapse: collapse;margin: 20px auto;width: 100%;float: left;font-size: 18px;">
+			<?php echo "For city <b>".ucfirst($selectedCity)."</b> no record found on <b>".$orderdateToShow."</b>";?></span>
+		<?php }
+		else {?>
+			<div class="noprint">
+			<button onclick="myfunction()" class="btn btn-danger btn-default pull-left">Print this Page</button>
+			<button onclick="goBack()"  class="btn btn-danger btn-default pull-left" data-dismiss="modal">Close and Cancel Printing</button>
+			</div>
+		<?php
+		}
+	
+	}
+ else {?>
+ <span style="text-align: center;font-family: arial, sans-serif;border-collapse: collapse;margin: 20px auto;width: 100%;float: left;font-size: 18px;">
+			<?php echo "No meal order found";?></span>
+			<?php }
+ 
+ 
+ ?>
+<script type="text/javascript">
+function addAllergiesDislike(){  
+  var Allergies = jQuery("#allergies").val(); 
+  var Dislikes = jQuery("#unlikes").val();
+  if(Allergies || Dislikes){
+  jQuery(".loader").css("display", "block"); 
+  jQuery.ajax({
+    url: "<?php echo Mage::getBaseUrl().'heal/index/addAllergiesDislike' ?>",
+    type: "POST",
+    data: {
+      customerid: "<?php echo $customer->getId() ?>", 
+      customername:"<?php echo $customer->getName() ?>",
+      customermobile:"<?php echo $customer->getPrimarymobileno() ?>",
+      allergies: Allergies, 
+      dislikename:Dislikes
+    }, 
+    success: function(response) {
+      jQuery(".loader").css("display", "none"); 
+    }
+  }); 
+  }
+}
+
+function myfunction() {
+	
+  jQuery.ajax({
+    url: "<?php echo Mage::getBaseUrl().'heal/index/setspecialinstructions' ?>",
+    type: "POST",
+    data: {
+      orderid: "<?php echo $orderId; ?>", 
+      spi:jQuery("#spi").val()
+      
+    }, 
+    success: function(response) {
+     
+    }
+  }); 
+ window.print();  
+  
+}
+
+function goBack() {
+  window.close();
+}
+</script>
+<?php } ?>
+
+<style type="text/css">
+  .header-logo{width:100%;}
+  .header-logo-top{
+    padding: 4px;
+    width: 100%;
+    box-shadow: 0 2px 1px 0 rgba(0,0,0,0.1);
+    margin-bottom: 9px;
+  }
+  .header-logo-bottom{
+    padding: 0 6px;
+  }
+  .header-address1{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  .header-address1 span{
+    font-size: 17px;
+    font-weight: 600;
+
+  }
+  .header-address2 {
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+ 
+input[type="text"] {
+    max-width: 100%;
+    background: #fff;
+    height: 35px;    
+    border: 1px solid rgba(0,0,0,0.2);
+    margin: 10px 0;
+    width: 97%;
+    outline: none;
+  } 
+.longcol{
+  width:55%;
+  box-sizing: border-box;
+  padding-left: 9px;
+}
+</style>

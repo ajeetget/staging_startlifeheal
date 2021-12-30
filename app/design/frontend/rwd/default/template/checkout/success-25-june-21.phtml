@@ -1,0 +1,231 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<style>.col1-layout{width:100%; margin-top:5rem;}</style>
+<div class="container">
+  <div class="success_section">
+    <div class="success-title">
+      <h1><?php echo $this->__('Your order has been received.') ?></h1>
+    </div>
+    <?php echo $this->getMessagesBlock()->toHtml() ?>
+    <h2 class="sub-title"><?php echo $this->__('Thank you for your purchase!') ?></h2>
+
+<?php if ($this->getOrderId()):?>
+
+<?php 
+      $order = Mage::getModel('sales/order')->load(Mage::getSingleton('checkout/session')->getLastOrderId());   
+      $orderBillingTelephone = $order->getBillingAddress()->getTelephone();
+      $customerId = $order->getCustomerId(); 
+      $customer = Mage::getModel('customer/customer')->load($customerId); 
+
+      $primarymobileno = $customer->getPrimarymobileno();
+      $customerBillingAddress = $customer->getPrimaryBillingAddress();
+
+    if ( $customerBillingAddress ) { 
+      $customerBillingTelephone = $customerBillingAddress->getTelephone();
+      if( $primarymobileno=='' && $customerBillingTelephone!='' )
+      {
+       $customer->setPrimarymobileno($customerBillingTelephone);
+       $customer->save();
+      }
+    } 
+    else
+    {
+     $orderBillingTelephone = $order->getBillingAddress()->getTelephone();
+  
+   if( $primarymobileno=='' && $orderBillingTelephone!='' )
+    {
+      $customer->setPrimarymobileno($orderBillingTelephone);
+        $customer->save();
+    }
+   
+ }
+ $customer = Mage::getModel('customer/customer')->load($customerId); 
+ $primarymobileno = $customer->getPrimarymobileno();
+ $encMobileno = base64_encode($primarymobileno);
+ ?>
+ <a class="fill_form" href="<?php echo Mage::getBaseUrl();?>patientintakeform?ctrl=<?php echo $encMobileno;?>" target="_blank">Fill your form now </a>
+
+
+<?php if ($this->getCanViewOrder()) :?>
+    <p><?php echo $this->__('Your order # is: %s.', sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getViewOrderUrl()), $this->escapeHtml($this->getOrderId()))) ?></p>
+<?php  else :?>
+    <p><?php echo $this->__('Your order # is: %s.', $this->escapeHtml($this->getOrderId())) ?></p>
+<?php endif;?>
+    <p><?php echo $this->__('You will receive an order confirmation email with details of your order and a link to track its progress.') ?></p>
+<?php if ($this->getCanViewOrder() && $this->getCanPrintOrder()) :?>
+    <p>
+        <?php echo $this->__('Click <a href="%s" onclick="this.target=\'_blank\'">here to print</a> a copy of your order confirmation.', $this->getPrintUrl()) ?>
+        <?php echo $this->getChildHtml() ?>
+    </p>
+<?php endif;?>
+<?php endif;?>
+
+<?php if ($this->getAgreementRefId()): ?>
+    <p><?php echo $this->__('Your billing agreement # is: %s.', sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getAgreementUrl()), $this->escapeHtml($this->getAgreementRefId())))?></p>
+<?php endif;?>
+
+<?php if ($profiles = $this->getRecurringProfiles()):?>
+<p><?php echo $this->__('Your recurring payment profiles:'); ?></p>
+<ul class="disc">
+<?php foreach($profiles as $profile):?>
+<?php $profileIdHtml = ($this->getCanViewProfiles() ? sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getProfileUrl($profile)), $this->escapeHtml($this->getObjectData($profile, 'reference_id'))) : $this->escapeHtml($this->getObjectData($profile, 'reference_id')));?>
+    <li><?php echo $this->__('Payment profile # %s: "%s".', $profileIdHtml, $this->escapeHtml($this->getObjectData($profile, 'schedule_description')))?></li>
+<?php endforeach;?>
+</ul>
+<?php endif;?>
+
+    <div class="buttons-set">
+      <button type="button" class="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Continue Shopping')) ?>" onclick="window.location='<?php echo $this->getUrl() ?>'"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
+    </div>
+  </div>
+</div>
+<?php Mage::helper('checkout/data')->sendOrderSMS($this->getOrderId());?>
+<?php
+$order = Mage::getModel('sales/order')->load(Mage::getSingleton('checkout/session')->getLastOrderId()); 
+$subtotal = $order->getSubtotal();
+$order_id = $order->getIncrementId(); //the id of the order
+//$order->getIncrementId();//the increment id of the order
+$gtotal = $order->getGrandTotal();//grand total of the order 
+$shippingVal=$order->getShippingAmount();
+$taxAmount=$order->getTaxAmount();
+?>
+<script type="text/javascript">
+ga('require', 'ecommerce');
+
+ga('ecommerce:addTransaction', {
+  'id': '<?php echo $order_id; ?>',                     // Transaction ID. Required.
+  'affiliation': '',   // Affiliation or store name.
+  'revenue': '<?php echo $gtotal;?>',               // Grand Total.
+  'shipping': '<?php echo $shippingVal;?>',                  // Shipping.
+  'tax': '<?php echo $taxAmount;?>'                     // Tax.
+});
+
+<?php 
+$items = $order->getAllItems();
+$itemcount=count($items);
+$myValue  =  Mage::getSingleton('core/session')->getDeliverydaytime();
+if(isset($myValue)){
+  $order->setOrdertime($myValue);
+  $order->save();
+}
+
+Mage::getSingleton('core/session')->unsDeliverydaytime(); 
+foreach ($items as $itemId => $item) { ?>
+ga('ecommerce:addItem', {
+  'id': '<?php echo $order_id; ?>',                     // Transaction ID. Required.
+  'name': '<?php echo $item->getName(); ?>',    // Product name. Required.
+  'sku': '<?php echo $item->getSku(); ?>',                 // SKU/code.
+  'category': '',         // Category or variation.
+  'price': '<?php echo $item->getPrice(); ?>',                 // Unit price.
+  'quantity': '<?php echo $item->getQtyToInvoice(); ?>'                   // Quantity.
+});
+<?php  } ?> 
+ga('ecommerce:send');
+/* FB SUCCESS PAGE -*/
+fbq('track', 'Purchase', {
+value: "<?php echo $gtotal; ?>",
+currency: 'USD'
+});
+</script>
+
+<style type="text/css">
+  .success_section{
+    box-sizing: border-box;
+    padding: 20px;
+    width: 65%;
+    margin: 50px auto;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  }
+  .success-title h1{
+    text-align: center;
+    text-transform: capitalize;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #00ae8e;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding: 10px 0px;
+    margin-bottom: 20px;
+  }
+  .success_section h2{
+    text-align: center;    
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #313131;   
+    margin-bottom: 20px;
+  }
+  .success_section a.fill_form{
+    display: block;
+    width: 260px;
+    line-height: 50px;
+    height: 50px;
+    text-align: center;
+    background: #0eb58f;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1.3rem;
+    text-transform: capitalize;
+    margin: 20px auto;
+    font-weight: 700;
+  }
+  .success_section .buttons-set{
+    float: none;
+  }
+  .success_section .buttons-set button.button {
+    display: block;
+    width: 250px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    margin: 25px auto;
+    background: #0eb58f;
+    border: 1px solid #269a9b;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 600;
+    padding: 0;
+  }
+  .success_section p{
+    font-size: 1rem;
+    line-height: 1.6rem;
+    text-align: center;
+   }
+@media screen and (min-width: 310px) and (max-width: 640px){
+  .success_section{   
+    padding: 15px;
+    width: 95%;   
+  }
+  .success-title h1{   
+    font-size: 1.3rem;    
+  }
+  .success_section h2{      
+    font-size: 1.1rem;    
+  }
+}
+
+</style>

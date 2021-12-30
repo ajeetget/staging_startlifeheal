@@ -1,0 +1,1273 @@
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+
+<link href="<?php echo $this->getSkinUrl();?>css/SimpleStarRating.css" rel="stylesheet" type="text/css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<link href="<?php echo $this->getSkinUrl();?>css/illustration-style.css" rel="stylesheet" type="text/css"/>
+<script src="<?php echo $this->getSkinUrl();?>js/spots-settings.js"></script>
+	<script src="<?php echo $this->getSkinUrl();?>js/interact-script.js"></script>
+<script src="<?php echo $this->getSkinUrl();?>js/SimpleStarRating.js"></script>
+
+	
+<style>
+	
+	.glyphicon-chevron-right::before {
+    content: "\e080";
+    color: gray;
+		font-size:20px;
+    text-align: center;
+    text-shadow: none;
+}
+	.glyphicon-chevron-left::before {
+    content: "\e079";
+    color: gray;
+		font-size:20px;
+    text-align: center;
+    text-shadow: none;
+}
+	.carousel-caption {
+    color: #74c163 !important;
+    text-align: center;
+    text-shadow: none !important;
+    font-weight: 600;
+}
+	.carousel-caption h3 {
+    font-size: 24px;
+    font-weight: 600;
+}
+	.carousel-caption {
+    right: 0;
+    left: 0;
+    padding-bottom: 30px;
+}
+	.carousel-caption {
+    position: relative;
+    right:0;
+    bottom: 20px;
+    left: 0;
+    z-index: 10;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0,0,0,.6);
+}
+.carousel-control {
+    position: relative;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    font-size: 20px;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0,0,0,.6);
+    background-color: rgba(0,0,0,0);
+    filter: alpha(opacity=50);
+    opacity: .5;
+    float: left;
+    margin-top: -50%;
+}
+	.carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right, .carousel-control .icon-next, .carousel-control .icon-prev {
+    position: absolute;
+    top: 50%;
+    z-index: 5;
+    display: inline-block;
+    margin-top: -10px;
+}
+	.carousel-control .glyphicon-chevron-left, .carousel-control .icon-prev {
+    margin-left: 0px;
+    float: left;
+    left: 0;
+}
+	.carousel-control .glyphicon-chevron-right, .carousel-control .icon-next {
+    margin-right:0px;
+    float: right;
+    right: 0;
+}
+
+	.-chart-div a, .amcharts-chart-div a{display:none !important;}
+</style>
+  
+	<span id="anatip"></span>
+<div id="anawrapper">
+	<!-- V1.000.2.3 JS-->
+  <div id="basea">
+	  
+	  <div class="menuarea">
+		  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="1400" transform="translate(0 0)" style="position: relative;z-index: 1;">
+	   <!--menu-->
+	  
+	  <g xmlns="http://www.w3.org/2000/svg" id="Menu_bar" data-name="Menu bar" transform="translate(-120 -79)">
+      <path id="Rectangle_383" data-name="Rectangle 383" d="M0,0H37A37,37,0,0,1,74,37V591a0,0,0,0,1,0,0H37A37,37,0,0,1,0,554V0A0,0,0,0,1,0,0Z" transform="translate(120 531)" fill="#fff"/>
+      <path id="Rectangle_384" data-name="Rectangle 384" d="M37,0h0A37,37,0,0,1,74,37V279a37,37,0,0,1-37,37H0a0,0,0,0,1,0,0V37A37,37,0,0,1,37,0Z" transform="translate(120 99)" fill="#fff"/>
+		        <path id="Path_9209" data-name="Path 9209" d="M31.825,29.854,19.342,17.371a4.648,4.648,0,0,0-6.566,0L.295,29.854a1,1,0,0,0,1.419,1.42l.8-.8v12.76A2.886,2.886,0,0,0,5.4,46.123h5.019a.627.627,0,0,0,.627-.627V36.211a3.137,3.137,0,0,1,3.137-3.137h3.764a3.137,3.137,0,0,1,3.137,3.137V45.5a.627.627,0,0,0,.627.627h5.019a2.886,2.886,0,0,0,2.886-2.886V30.477l.8.8a1,1,0,0,0,1.419-1.42Z" fill="#74c163"/>
+			  </g>
+		
+			  
+	  
+	  <g xmlns="http://www.w3.org/2000/svg" id="browser" transform="translate(20.999 150.845)">
+		
+      <path id="Path_9209" data-name="Path 9209" d="M31.825,29.854,19.342,17.371a4.648,4.648,0,0,0-6.566,0L.295,29.854a1,1,0,0,0,1.419,1.42l.8-.8v12.76A2.886,2.886,0,0,0,5.4,46.123h5.019a.627.627,0,0,0,.627-.627V36.211a3.137,3.137,0,0,1,3.137-3.137h3.764a3.137,3.137,0,0,1,3.137,3.137V45.5a.627.627,0,0,0,.627.627h5.019a2.886,2.886,0,0,0,2.886-2.886V30.477l.8.8a1,1,0,0,0,1.419-1.42Z" fill="#74c163"/>
+		
+    </g>
+	  <g id="icon-contract" transform="translate(16 380)">
+	  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="" height="32px" width="32px"><g>
+		  <path d="m197.332031 0h-160c-20.585937 0-37.332031 16.746094-37.332031 37.332031v96c0 20.589844 16.746094 37.335938 37.332031 37.335938h160c20.589844 0 37.335938-16.746094 37.335938-37.335938v-96c0-20.585937-16.746094-37.332031-37.335938-37.332031zm0 0" data-original="#000000" class="active-path" data-old_color="#000000" fill="#74C163" transform="translate(-14.792 67.292)"></path>
+		  <path d="m197.332031 213.332031h-160c-20.585937 0-37.332031 16.746094-37.332031 37.335938v224c0 20.585937 16.746094 37.332031 37.332031 37.332031h160c20.589844 0 37.335938-16.746094 37.335938-37.332031v-224c0-20.589844-16.746094-37.335938-37.335938-37.335938zm0 0" data-original="#000000" class="active-path" data-old_color="#000000" fill="#74C163" transform="translate(0 67.292)"></path>
+		  <path d="m474.667969 341.332031h-160c-20.589844 0-37.335938 16.746094-37.335938 37.335938v96c0 20.585937 16.746094 37.332031 37.335938 37.332031h160c20.585937 0 37.332031-16.746094 37.332031-37.332031v-96c0-20.589844-16.746094-37.335938-37.332031-37.335938zm0 0" data-original="#000000" class="active-path" data-old_color="#000000" fill="#74C163" transform="translate(-14.792 67.292)"></path>
+		  <path d="m474.667969 0h-160c-20.589844 0-37.335938 16.746094-37.335938 37.332031v224c0 20.589844 16.746094 37.335938 37.335938 37.335938h160c20.585937 0 37.332031-16.746094 37.332031-37.335938v-224c0-20.585937-16.746094-37.332031-37.332031-37.332031zm0 0" data-original="#000000" class="active-path" data-old_color="#000000" fill="#74C163" transform="translate(0 67.292)"></path>
+		  </g> </svg>
+			  </g>
+			  
+			  <g id="icon-expand" transform="translate(-120 -80)"  xmlns="http://www.w3.org/2000/svg">
+	  <path id="Exclusion_1" data-name="Exclusion 1" d="M34.528,118H-13V0H34.891A36.969,36.969,0,0,0-2.081,37V81a36.968,36.968,0,0,0,36.609,37Z" transform="translate(133 414)" fill="#fff"/>
+      <text id="DASHBOARD" transform="translate(159 510) rotate(-90)" fill="#fff" font-size="12" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">DASHBOARD</tspan></text>
+			  </g>
+			  
+	  <g xmlns="http://www.w3.org/2000/svg" id="blog" transform="translate(16.5 587)">
+		
+      <path id="Path_9212" data-name="Path 9212" d="M211,75h9.25v6.27H211Z" transform="translate(-194.792 -67.292)" fill="#74c163"/>
+      <path id="Path_9213" data-name="Path 9213" d="M136,34.02h24.667V0H136Zm4.625-29.4h15.417V17.061H140.625Zm0,15.52h15.417v3.083H140.625Zm0,6.167h15.417V29.4H140.625Z" transform="translate(-127.5)" fill="#74c163"/>
+    
+	  </g>
+	 
+	 
+	  <g xmlns="http://www.w3.org/2000/svg" id="user_4_" data-name="user (4)" transform="translate(21 766)">
+		
+      <path id="Path_9222" data-name="Path 9222" d="M96.27,18.476A8.939,8.939,0,0,0,102.8,15.77a8.938,8.938,0,0,0,2.706-6.532A8.94,8.94,0,0,0,102.8,2.706a9.236,9.236,0,0,0-13.063,0,8.939,8.939,0,0,0-2.707,6.531,8.938,8.938,0,0,0,2.707,6.532A8.941,8.941,0,0,0,96.27,18.476Zm0,0" transform="translate(-80.512)" fill="#74c163"/>
+      <path id="Path_9223" data-name="Path 9223" d="M31.922,258.283a22.817,22.817,0,0,0-.311-2.424,19.1,19.1,0,0,0-.6-2.437,12.036,12.036,0,0,0-1-2.273,8.576,8.576,0,0,0-1.511-1.969,6.66,6.66,0,0,0-2.17-1.363,7.5,7.5,0,0,0-2.77-.5,2.812,2.812,0,0,0-1.5.637c-.45.294-.977.633-1.564,1.008a8.962,8.962,0,0,1-2.024.892,7.859,7.859,0,0,1-4.951,0,8.941,8.941,0,0,1-2.022-.891c-.582-.372-1.109-.711-1.566-1.009a2.808,2.808,0,0,0-1.5-.637,7.489,7.489,0,0,0-2.77.5,6.654,6.654,0,0,0-2.17,1.363,8.577,8.577,0,0,0-1.51,1.968,12.059,12.059,0,0,0-1,2.273,19.14,19.14,0,0,0-.6,2.436,22.738,22.738,0,0,0-.311,2.424c-.051.734-.077,1.5-.077,2.265a6.369,6.369,0,0,0,1.892,4.818,6.809,6.809,0,0,0,4.874,1.778H25.234a6.808,6.808,0,0,0,4.874-1.778A6.366,6.366,0,0,0,32,260.548c0-.773-.026-1.535-.078-2.266Zm0,0" transform="translate(0 -228.789)" fill="#74c163"/>
+	  
+    </g>
+		 
+	  <path xmlns="http://www.w3.org/2000/svg" id="settings" d="M28.511,23.878a3.971,3.971,0,0,1,3.73-2.01,1.608,1.608,0,0,0,1.608-1.318,15.789,15.789,0,0,0,0-5.5,1.608,1.608,0,0,0-1.608-1.318,3.971,3.971,0,0,1-3.73-2.01,4.02,4.02,0,0,1,.145-4.261,1.608,1.608,0,0,0-.338-2.122,16.078,16.078,0,0,0-4.679-2.717,1.608,1.608,0,0,0-1.994.707,3.971,3.971,0,0,1-7.171,0,1.608,1.608,0,0,0-1.994-.772A16.078,16.078,0,0,0,7.8,5.34a1.608,1.608,0,0,0-.338,2.122,4.02,4.02,0,0,1,.145,4.261,3.971,3.971,0,0,1-3.73,2.01,1.608,1.608,0,0,0-1.608,1.318,15.789,15.789,0,0,0,0,5.5,1.608,1.608,0,0,0,1.608,1.318,3.971,3.971,0,0,1,3.73,2.01,4.02,4.02,0,0,1-.145,4.261A1.608,1.608,0,0,0,7.8,30.261a16.078,16.078,0,0,0,4.679,2.717,1.608,1.608,0,0,0,1.994-.707,3.971,3.971,0,0,1,7.171,0,1.608,1.608,0,0,0,1.994.772,16.078,16.078,0,0,0,4.679-2.717,1.608,1.608,0,0,0,.338-2.122A4.02,4.02,0,0,1,28.511,23.878Zm-10.451.354A6.431,6.431,0,1,1,24.491,17.8,6.431,6.431,0,0,1,18.06,24.232Z" transform="translate(19.91 945.544)" fill="#74c163"/>
+	 </svg>
+	  <!--menu-->
+	  </div>
+	  
+	  <div class="dashboarddetail">
+	  <div class="personimgbox"></div>
+	  <h3>Hi Sandra,</h3>
+	  <h1>Here is your Health Dashboard!</h1>
+		    <div class="imgboxhuman">
+	<image overflow="visible" class="baseaimg img-repsonive" src="<?php echo $this->getSkinUrl('images/humanimg.png') ?>"></image>
+	<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="1400" width="100%" style="position: absolute;" >
+  <defs>
+   
+  
+    <filter id="Previously_Checked" x="1436" y="91" width="393" height="69" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-3"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-3"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Key_Components" x="1463" y="1087" width="341" height="69" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-4"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-4"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle_439" x="1462" y="927" width="341" height="77" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-5"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-5"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle_445" x="23" y="2482" width="398" height="175" filterUnits="userSpaceOnUse">
+      <feOffset dy="9" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="9" result="blur-6"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-6"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle_449" x="417" y="2482" width="398" height="175" filterUnits="userSpaceOnUse">
+      <feOffset dy="9" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="9" result="blur-7"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-7"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle_451" x="1205" y="2482" width="398" height="175" filterUnits="userSpaceOnUse">
+      <feOffset dy="9" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="9" result="blur-8"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-8"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle_450" x="811" y="2482" width="398" height="175" filterUnits="userSpaceOnUse">
+      <feOffset dy="9" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="9" result="blur-9"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-9"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle_452" x="1599" y="2482" width="398" height="175" filterUnits="userSpaceOnUse">
+      <feOffset dy="9" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="9" result="blur-10"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-10"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Ellipse_1168" x="778" y="608" width="86" height="86" filterUnits="userSpaceOnUse">
+      <feOffset dy="9" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="9" result="blur-11"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-11"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Path_9210" x="-60.313" y="1718.187" width="1221.665" height="550" filterUnits="userSpaceOnUse">
+      <feOffset dy="10" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="40" result="blur-12"/>
+      <feFlood flood-color="#74c163" flood-opacity="0.412"/>
+      <feComposite operator="in" in2="blur-12"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle_397" x="-10" y="1691" width="1131" height="496" filterUnits="userSpaceOnUse">
+      <feOffset dy="10" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="20" result="blur-13"/>
+      <feFlood flood-color="#74c163" flood-opacity="0.612"/>
+      <feComposite operator="in" in2="blur-13"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <linearGradient id="linear-gradient-3" x1="0.946" y1="0.881" x2="0.117" y2="0.286" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#f0d4ff"/>
+      <stop offset="1" stop-color="#fbc0ee"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-4" x1="0.946" y1="0.881" x2="0.117" y2="0.286" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#74c163"/>
+      <stop offset="1" stop-color="#fa9b0b"/>
+    </linearGradient>
+    <filter id="Rectangle_351" x="1175" y="1676" width="609" height="574" filterUnits="userSpaceOnUse">
+      <feOffset dy="10" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="40" result="blur-14"/>
+      <feFlood flood-color="#7b7ef6" flood-opacity="0.22"/>
+      <feComposite operator="in" in2="blur-14"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle_371" x="1041" y="1691" width="889" height="499" filterUnits="userSpaceOnUse">
+      <feOffset dy="10" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="20" result="blur-15"/>
+      <feFlood flood-color="#74c163" flood-opacity="0.62"/>
+      <feComposite operator="in" in2="blur-15"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <linearGradient id="linear-gradient-9" x1="0.5" x2="0.5" y2="0.684" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#c5ceef" stop-opacity="0.302"/>
+      <stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-10" x1="0.141" y1="0.433" x2="0.728" y2="0.431" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.02"/>
+      <stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-11" x1="0.859" y1="0.433" x2="0.272" y2="0.431" xlink:href="#linear-gradient-10"/>
+    <clipPath id="clip-Dashboard_Design_Layout">
+      <rect width="1920" height="2729"/>
+    </clipPath>
+  </defs>
+	  <g id="anaspotsa"></g>
+	 </svg
+		
+	  <!--previous checked-->
+		</div>
+		  </div>
+    <div class="rightchecked">
+      <div class="previouschecked">
+	
+		<h2>Previously Checked</h2>
+	<!--previouschecked scroller-->
+		   <div transform="translate(1050 178)" class="container slidercheck">
+    
+  <div id="myCarousel" class="carousel slide" data-ride="carousel"  data-interval="false" >
+    <!-- Indicators -->
+    <ol class="carousel-indicators" style="display:none;">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1" class=""></li>
+      <li data-target="#myCarousel" data-slide-to="2" class=""></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner"  data-interval="false" >
+      <div class="item active">
+        <img src="<?php echo $this->getSkinUrl('images/body-lungs.png') ?>" alt="Los Angeles" style="width:100%;">
+        <div class="carousel-caption">
+          <h3>Liver</h3>
+			 <img src="<?php echo $this->getSkinUrl('images/liverscroll.png') ?>" alt="Los Angeles" style="width:70px;margin: auto;">
+			<!-- product__review -->
+ 
+<span class="rating"></span>
+    <!-- /review-mark -->
+        
+          <p><small>Improved from the last 3 months</small></p>
+			
+        </div>
+		  <button class="btn-success" style="border-radius: 30px;padding: 15px 10px;width: 250px;margin:auto; box-shadow:none;float:none;display: block;border: 0px;font-size: 16px;">Know More</button>
+      </div>
+
+      <div class="item">
+        <img src="<?php echo $this->getSkinUrl('images/body-lungs.png') ?>" alt="Chicago" style="width:100%;">
+           <div class="carousel-caption">
+          <h3>Lungs</h3>
+			    <img src="<?php echo $this->getSkinUrl('images/lungsscroll.png') ?>" alt="Los Angeles" style="width:70px;margin: auto;">
+			<span class="rating"></span>
+          <p><small>Improved from the last 3 months</small></p>
+        </div>
+		  <button class="btn-success" style="border-radius: 30px;padding: 15px 10px;width: 250px;margin:auto; box-shadow:none;float:none;display: block;border: 0px;font-size: 16px;">Know More</button>
+      </div>
+    
+      <div class="item">
+        <img src="<?php echo $this->getSkinUrl('images/body-lungs.png') ?>" alt="New york" style="width:100%;">
+         <div class="carousel-caption">
+          <h3>Heart</h3>
+			  <img src="<?php echo $this->getSkinUrl('images/heartscroll.png') ?>" alt="Los Angeles" style="width:50px;margin: auto;">
+		<span class="rating"></span>
+          <p><small>Improved from the last 3 months</small></p>
+        </div>
+		  <button class="btn-success" style="border-radius: 30px;padding: 15px 10px;width: 250px;margin:auto; box-shadow:none;float:none;display: block;border: 0px;font-size: 16px;">Know More</button>
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+			   <!--previouschecked scroller-->
+	  </g>
+	  </g>
+	  
+</svg>
+
+  </div>
+	  </div>
+<div class="keycomponent">
+<h2>Key Components</h2>
+	 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="1400">
+	<g xmlns="http://www.w3.org/2000/svg" id="Group_2952" data-name="Group 2952">
+      <text id="Working_Good" data-name="Working Good" fill="#74c163" font-size="26" font-family="Lora-Bold, Lora" font-weight="700" transform="translate(150 62)"><tspan x="0" y="0">Working Good</tspan></text>
+      <text id="Can_be_Better" data-name="Can be Better" fill="#74c163" font-size="26" font-family="Lora-Bold, Lora" font-weight="700" transform="translate(150 124)"><tspan x="0" y="0">Can be Better</tspan></text>
+      <text id="Focus_Required" data-name="Focus Required" fill="#74c163" font-size="26" font-family="Lora-Bold, Lora" font-weight="700" transform="translate(150 184)"><tspan x="0" y="0">Focus Required</tspan></text>
+      <circle id="Ellipse_1176" data-name="Ellipse 1176" cx="14" cy="14" r="14" fill="#0bd00b" transform="translate(100 40)"></circle>
+      <circle id="Ellipse_1177" data-name="Ellipse 1177" cx="14" cy="14" r="14" fill="#fa9b0b" transform="translate(100 100)"></circle>
+      <circle id="Ellipse_1178" data-name="Ellipse 1178" cx="14" cy="14" r="14" fill="#f41616" transform="translate(100 160)"></circle>
+    </g>
+	</svg>
+</div>
+	</div>
+	    <!-- basea-->
+	</div>
+	    <!--statistical weight report-->
+</div>
+<div class="clear"></div>
+
+		<!--other Organ-->
+<div class="gettoknow">
+	<hr>
+	Get to know more about your other body organs
+<div class="organtable">
+	<div class="organbox"><span class="imgknow"><img src="<?php echo $this->getSkinUrl('images/thyroidimgknow.png') ?>"></span><span class="textknow">Thyroid</span></div>
+	<div class="organbox"><span class="imgknow"><img src="<?php echo $this->getSkinUrl('images/heartimgknow.png') ?>"></span><span class="textknow">Heart</span></div>
+	<div class="organbox" style="background:#F18322;"><span class="imgknow"><img src="<?php echo $this->getSkinUrl('images/lungsimgknow.png') ?>"></span><span class="textknow" >Lungs</span></div>
+	<div class="organbox"><span class="imgknow"><img src="<?php echo $this->getSkinUrl('images/liverimgknow.png') ?>"></span><span class="textknow">Liver</span></div>
+	<div class="organbox" style="background:#F05558;"><span class="imgknow"><img src="<?php echo $this->getSkinUrl('images/pancreasimgknow.png') ?>"></span><span class="textknow">Pancreas</span></div>
+	<div class="organbox"><span class="imgknow"><img src="<?php echo $this->getSkinUrl('images/gutimgknow.png') ?>"></span><span class="textknow">Gut</span></div>
+	<div class="organbox"><span class="imgknow"><img src="<?php echo $this->getSkinUrl('images/pancreasimgknow.png') ?>"></span><span class="textknow">BMI</span></div>
+	</div>
+
+</div>
+   <!--statitics detail-->
+	    <div class="gettoknow">
+Statistical Details  -<span style="color:#74c163; font-size:30px; font-weight:700;">LIVER</span>
+	  </div>
+	  <div class="weightprogress">
+		
+	  <div class="recoveredtoday"><div class="recoverrate">
+		  <p style="font-style: italic;">Factor Affecting hba1c</p><br>
+		  <h2>5.2</h2><br>
+		   <p>as of Jan 20, 20</p>
+		  </div>
+		  </div>
+		  
+		  <div class="dailyrecord">
+		<div id="hba1c" style="width: 100%; height:350px;" ></div>
+		  </div>
+	  </div>
+  <div class="weightprogress">
+		
+	  <div class="recoveredtoday">
+		 <div class="recoverrate">
+		  <p style="font-style: italic;">Factor Affecting Waist</p><br>
+		  <h2>0.8</h2><br>
+		   <p>as of Jan 20, 13</p>
+		  </div>
+		  </div>
+		  
+		  <div class="dailyrecord">
+		<div id="waisttoheight" style="width: 100%; height:350px; background-color: #ffffff;" ></div>
+		  </div>
+	  </div>
+
+ <div class="weightprogress" style="margin-top:0;">
+		
+	  <div class="recoveredtoday">
+		 <div class="recoverrate">
+		  <p style="font-style: italic;">Factor Affecting Stress</p><br>
+		  <h2>0</h2><br>
+		  <p>as of Jan 20, 13</p>
+		  </div>
+		  </div>
+		  
+		  <div class="dailyrecord">
+			  <div id="stress" style="width: 100%; height:350px; background-color: #ffffff;" ></div>
+		<!--<span>You have no Data</span>-->
+		  </div>
+	  </div>
+
+<div class="weightprogress" style="margin-top:0;">
+		
+	  <div class="recoveredtoday">
+		 <div class="recoverrate">
+		  <p style="font-style: italic;">Factor Affecting hsCRP</p><br>
+		  <h2>5</h2><br>
+		  <p>as of Jan 20, 13</p>
+		  </div>
+		  </div>
+		  
+		  <div class="dailyrecord">
+		<div id="hsCRP" style="width: 100%; height:350px; background-color: #ffffff;" ></div>
+		  </div>
+	  </div>
+
+<div class="weightprogress" style="margin-top:0;">
+		
+	  <div class="recoveredtoday">
+		 <div class="recoverrate">
+		  <p style="font-style: italic;">Factor Affecting BP</p><br>
+			 <p>Systolic BP</p>
+		  <h2>180</h2><br>
+			 <p>Diastolic BP</p>
+		  <h2>100</h2><br>
+		  <p>as of Jan 20, 13</p>
+		  </div>
+		  </div>
+		  
+		  <div class="dailyrecord">
+		<div id="BP" style="width: 100%; height: 350px; background-color: #FFFFFF;" ></div>
+		  </div>
+	  </div>
+
+<!--thyroid chart-->
+<div class="gettoknow">
+Statistical Details  -<span style="color:#74c163; font-size:30px; font-weight:700;">THYROID</span>
+	  </div>
+  <div class="weightprogress">
+		
+	  <div class="recoveredtoday"><div class="recoverrate">
+		  <p style="font-style: italic;">Factor Affecting TSH</p><br>
+		  <h2>0.3</h2><br>
+		   <p>as of Feb 20, 20</p>
+		  </div>
+		  </div>
+		  
+		  <div class="dailyrecord">
+		<div id="TSH-thyroid" style="width: 100%; height:350px;" ></div>
+		  </div>
+	  </div>
+  <div class="weightprogress">
+		
+	  <div class="recoveredtoday">
+		 <div class="recoverrate">
+		  <p style="font-style: italic;">Factor Affecting Waist</p><br>
+		  <h2>1</h2><br>
+		   <p>as of Feb 20, 13</p>
+		  </div>
+		  </div>
+		  
+		  <div class="dailyrecord">
+		<div id="t4level" style="width: 100%; height:350px; background-color: #ffffff;" ></div>
+		  </div>
+	  </div>
+
+
+<div class="weightprogress" style="margin-top:0;">
+		
+	  <div class="recoveredtoday">
+		 <div class="recoverrate">
+		  <p style="font-style: italic;">Factor Affecting hsCRP</p><br>
+		  <h2>5</h2><br>
+		  <p>as of Jan 20, 13</p>
+		  </div>
+		  </div>
+		  
+		  <div class="dailyrecord">
+		<div id="t3level" style="width: 100%; height:350px; background-color: #ffffff;" ></div>
+		  </div>
+	  </div>
+
+	 <!--statitics detail-->
+
+<!-- amCharts javascript sources -->
+		<script type="text/javascript" src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+		<script type="text/javascript" src="https://www.amcharts.com/lib/3/serial.js"></script>
+		<script type="text/javascript" src="https://www.amcharts.com/lib/3/themes/patterns.js"></script>
+		<!-- amCharts javascript code -->
+<!--thyroid chart-->
+<!-- amCharts javascript code -->
+<!--TSH-->
+		<script type="text/javascript">
+			AmCharts.makeChart("TSH-thyroid",
+				{
+					"type": "serial",
+					"categoryField": "category",
+					"dataDateFormat": "YYYY-MM-DD",
+					"startDuration": 1,
+					"categoryAxis": {
+						"gridPosition": "start",
+						"parseDates": true,
+						"gridThickness": 0
+					},
+					"chartCursor": {
+						"enabled": true
+					},
+					"chartScrollbar": {
+						"enabled": false
+					},
+					"trendLines": [],
+					"graphs": [
+						{
+							"bullet": "round",
+							"id": "AmGraph-1",
+							"lineColor": "#00B3BB",
+							"title": "graph 1",
+							"valueField": "column-1"
+						},
+						{
+							"bullet": "round",
+							"id": "AmGraph-2",
+							"title": "graph 2",
+							"valueField": "column-2"
+						},
+						{
+							"bullet": "round",
+							"id": "AmGraph-3",
+							"title": "graph 3",
+							"valueField": "column-3"
+						}
+					],
+					"guides": [],
+					"valueAxes": [
+						{
+							"id": "ValueAxis-1",
+							"gridThickness": 0,
+							"title": "Below/ Normal/ Above TSH Level"
+						}
+					],
+					"allLabels": [],
+					"balloon": {},
+					"titles": [
+						{
+							"id": "Title-1",
+							"size": 15,
+							"text": "TSH LEVEL"
+						}
+					],
+					"dataProvider": [
+						{
+							"category": "2020-02-02",
+							"column-1": "0"
+						},
+						{
+							"category": "2020-03-02",
+							"column-1": "0.3"
+						},
+						{
+							"category": "2020-04-03",
+							"column-1": "5.5"
+						},
+						{
+							"category": "2020-04-15",
+							"column-1": "1"
+						},
+						{
+							"category": "2020-04-25",
+							"column-1": "0.2"
+						},
+						{
+							"category": "2020-05-05",
+							"column-1": "4"
+						},
+						{
+							"category": "2020-06-15",
+							"column-1": "2"
+						},
+						{
+							"category": "2020-06-25",
+							"column-1": "10"
+						}
+					]
+				}
+			);
+		</script>
+
+
+<!--t4-->
+
+		<script type="text/javascript">
+			AmCharts.makeChart("t4level",
+				{
+					"type": "serial",
+					"categoryField": "category",
+					"dataDateFormat": "YYYY-MM-DD",
+					"startDuration": 1,
+					"categoryAxis": {
+						"gridPosition": "start",
+						"parseDates": true,
+						"gridThickness": 0
+					},
+					"chartCursor": {
+						"enabled": true
+					},
+					"chartScrollbar": {
+						"enabled": false
+					},
+					"trendLines": [],
+					"graphs": [
+						{
+							"bullet": "round",
+							"id": "AmGraph-1",
+							"lineColor": "#00B3BB",
+							"title": "graph 1",
+							"valueField": "column-1"
+						}
+					],
+					"guides": [],
+					"valueAxes": [
+						{
+							"id": "ValueAxis-1",
+							"gridThickness": 0,
+							"title": "Below/ Normal/ Above T4  Level"
+						}
+					],
+					"allLabels": [],
+					"balloon": {},
+					"titles": [
+						{
+							"id": "Title-1",
+							"size": 15,
+							"text": "T4  LEVEL"
+						}
+					],
+					"dataProvider": [
+						{
+							"category": "2020-02-02",
+							"column-1": "1"
+						},
+						{
+							"category": "2020-03-02",
+							"column-1": "2.3"
+						},
+						{
+							"category": "2020-04-03",
+							"column-1": "45"
+						},
+						{
+							"category": "2020-04-15",
+							"column-1": "1"
+						},
+						{
+							"category": "2020-04-25",
+							"column-1": "59"
+						},
+						{
+							"category": "2020-05-05",
+							"column-1": "7.5"
+						},
+						{
+							"category": "2020-06-15",
+							"column-1": "12"
+						},
+						{
+							"category": "2020-06-25",
+							"column-1": "10"
+						}
+					]
+				}
+			);
+		</script>
+<!--t3-->
+
+		<script type="text/javascript">
+			AmCharts.makeChart("t3level",
+				{
+					"type": "serial",
+					"categoryField": "category",
+					"dataDateFormat": "YYYY-MM-DD",
+					"startDuration": 1,
+					"categoryAxis": {
+						"gridPosition": "start",
+						"parseDates": true,
+						"gridThickness": 0
+					},
+					"chartCursor": {
+						"enabled": true
+					},
+					"chartScrollbar": {
+						"enabled": false
+					},
+					"trendLines": [],
+					"graphs": [
+						{
+							"bullet": "round",
+							"id": "AmGraph-1",
+							"lineColor": "#00B3BB",
+							"title": "graph 1",
+							"valueField": "column-1"
+						}
+					],
+					"guides": [],
+					"valueAxes": [
+						{
+							"id": "ValueAxis-1",
+							"gridThickness": 0,
+							"title": "Below/ Normal/ Above T3 Level"
+						}
+					],
+					"allLabels": [],
+					"balloon": {},
+					"titles": [
+						{
+							"id": "Title-1",
+							"size": 15,
+							"text": "T3 LEVEL"
+						}
+					],
+					"dataProvider": [
+						{
+							"category": "2020-02-02",
+							"column-1": "1"
+						},
+						{
+							"category": "2020-03-02",
+							"column-1": "2.3"
+						},
+						{
+							"category": "2020-04-03",
+							"column-1": "45"
+						},
+						{
+							"category": "2020-04-15",
+							"column-1": "1"
+						},
+						{
+							"category": "2020-04-25",
+							"column-1": "59"
+						},
+						{
+							"category": "2020-05-05",
+							"column-1": "7.5"
+						},
+						{
+							"category": "2020-06-15",
+							"column-1": "12"
+						},
+						{
+							"category": "2020-06-25",
+							"column-1": "10"
+						}
+					]
+				}
+			);
+		</script>
+<!--thyroid chart-->
+
+	<!-- amCharts javascript code -->
+		<script type="text/javascript">
+			AmCharts.makeChart("hba1c",
+				{
+					"type": "serial",
+					"categoryField": "date",
+					"columnSpacing3D": 3,
+					"dataDateFormat": "YYYY-MM-DD",
+					"classNamePrefix": "",
+					"color": "#222222",
+					"path": "",
+					"processTimeout": 2,
+					"theme": "white",
+					"categoryAxis": {
+						"parseDates": true,
+						"gridThickness": 0
+					},
+					"chartCursor": {
+						"enabled": true
+					},
+					"chartScrollbar": {
+						"enabled": false
+					},
+					"trendLines": [],
+					"graphs": [
+						{
+							"balloonColor": "#00B3BB",
+							"bullet": "round",	
+							"color": "#222222",
+							"id": "AmGraph-1",
+							"lineColor": "#00B3BB",
+							"title": "Month",
+							"valueField": "column-1"
+						}
+					],
+					"guides": [],
+					"valueAxes": [
+						{
+							"id": "ValueAxis-1",
+							"gridThickness": 0,
+							"title": "The Rate of HBA1C Progression"
+						}
+					],
+					"allLabels": [],
+					"balloon": {},
+					"legend": {
+						"enabled": true,
+						"rollOverColor": "#0000FF",
+						"useGraphSettings": true
+					},
+					"titles": [
+						{
+							"color": "#222222",
+							"id": "Title-1",
+							"size": 18,
+							"text": "HBA1C Reports"
+						}
+					],
+					"dataProvider": [
+						{
+							"date": "2020-02-03",
+							"column-1": "8"
+						},
+						{
+							"date": "2020-03-02",
+							"column-1": "6"
+						},
+						{
+							"date": "2020-04-03",
+							"column-1": "4.4"
+						},
+						{
+							"date": "2020-04-15",
+							"column-1": "10"
+						},
+						{
+							"date": "2020-04-25",
+							"column-1": "5.6"
+						},
+						{
+							"date": "2020-05-15",
+							"column-1": "5.6"
+						},
+						{
+							"date": "2020-06-25",
+							"column-1": "5.8"
+						}
+					]
+				}
+			);
+		</script>
+
+<!-- amCharts javascript code -->
+		<script type="text/javascript">
+			AmCharts.makeChart("waisttoheight",
+			{
+					"type": "serial",
+					"categoryField": "date",
+					"columnSpacing3D": 3,
+					"dataDateFormat": "YYYY-MM-DD",
+					"classNamePrefix": "",
+					"color": "#222222",
+					"path": "",
+					"processTimeout": 2,
+					"theme": "white",
+					"categoryAxis": {
+						"parseDates": true,
+						"gridThickness": 0
+					},
+					"chartCursor": {
+						"enabled": true
+					},
+					"chartScrollbar": {
+						"enabled": false
+					},
+					"trendLines": [],
+					"graphs": [
+						{
+							"balloonColor": "#00B3BB",
+							"bullet": "round",	
+							"color": "#222222",
+							"id": "AmGraph-1",
+							"lineColor": "#00B3BB",
+							"title": "Month",
+							"valueField": "column-1"
+						}
+					],
+					"guides": [],
+					"valueAxes": [
+						{
+							"id": "ValueAxis-1",
+							"gridThickness": 0,
+							"title": "Waist"
+						}
+					],
+					"allLabels": [],
+					"balloon": {},
+					"legend": {
+						"enabled": true,
+						"rollOverColor": "#0000FF",
+						"useGraphSettings": true
+					},
+					"titles": [
+						{
+							"color": "#222222",
+							"id": "Title-1",
+							"size": 18,
+							"text": "Waist to Height"
+						}
+					],
+					"dataProvider": [
+						{
+							"date": "2020-02-03",
+							"column-1": "0.80"
+						},
+						{
+							"date": "2020-03-02",
+							"column-1": "0.60"
+						},
+						{
+							"date": "2020-04-03",
+							"column-1": "0.40"
+						},
+						{
+							"date": "2020-04-15",
+							"column-1": "0.30"
+						},
+						{
+							"date": "2020-04-25",
+							"column-1": "0.20"
+						},
+						{
+							"date": "2020-05-15",
+							"column-1": "0.55"
+						},
+						{
+							"date": "2020-06-25",
+							"column-1": "0.10"
+						}
+						
+					]
+				}
+			);
+</script>
+
+<!-- amCharts javascript code -->
+		<script type="text/javascript">
+			AmCharts.makeChart("hsCRP",
+				
+				{
+					"type": "serial",
+					"categoryField": "date",
+					"columnSpacing3D": 3,
+					"dataDateFormat": "YYYY-MM-DD",
+					"classNamePrefix": "",
+					"color": "#222222",
+					"path": "",
+					"processTimeout": 2,
+					"theme": "white",
+					"categoryAxis": {
+						"parseDates": true,
+						"gridThickness": 0
+					},
+					"chartCursor": {
+						"enabled": true
+					},
+					"chartScrollbar": {
+						"enabled": false
+					},
+					"trendLines": [],
+					"graphs": [
+						{
+							"balloonColor": "#00B3BB",
+							"bullet": "round",	
+							"color": "#222222",
+							"id": "AmGraph-1",
+							"lineColor": "#00B3BB",
+							"title": "Month",
+							"valueField": "column-1"
+						}
+					],
+					"guides": [],
+					"valueAxes": [
+						{
+							"id": "ValueAxis-1",
+							"gridThickness": 0,
+							"title": "hsCRP Level  0.3 - 17"
+						}
+					],
+					"allLabels": [],
+					"balloon": {},
+					"legend": {
+						"enabled": true,
+						"rollOverColor": "#0000FF",
+						"useGraphSettings": true
+					},
+					"titles": [
+						{
+							"color": "#222222",
+							"id": "Title-1",
+							"size": 18,
+							"text": "hsCRP"
+						}
+					],
+					"dataProvider": [
+						{
+							"date": "2020-02-03",
+							"column-1": "0.4"
+						},
+						{
+							"date": "2020-03-02",
+							"column-1": "0.3"
+						},
+						{
+							"date": "2020-04-03",
+							"column-1": "0.8"
+						},
+						{
+							"date": "2020-04-15",
+							"column-1": "1"
+						},
+						{
+							"date": "2020-04-25",
+							"column-1": "3"
+						},
+						{
+							"date": "2020-05-15",
+							"column-1": "1.5"
+						},
+						{
+							"date": "2020-06-25",
+							"column-1": "17"
+						}
+						
+						
+					]
+				}
+			);
+		</script>
+
+<!-- amCharts javascript code -->
+		<script type="text/javascript">
+			AmCharts.makeChart("stress",
+				{
+					"type": "serial",
+					"categoryField": "date",
+					"columnSpacing3D": 3,
+					"dataDateFormat": "YYYY-MM-DD",
+					"classNamePrefix": "",
+					"color": "#222222",
+					"path": "",
+					"processTimeout": 2,
+					"theme": "white",
+					"categoryAxis": {
+						"parseDates": true,
+						"gridThickness": 0
+					},
+					"chartCursor": {
+						"enabled": true
+					},
+					"chartScrollbar": {
+						"enabled": false
+					},
+					"trendLines": [],
+					"graphs": [
+						{
+							"balloonColor": "#00B3BB",
+							"bullet": "round",	
+							"color": "#222222",
+							"id": "AmGraph-1",
+							"lineColor": "#00B3BB",
+							"title": "Month",
+							"valueField": "column-1"
+						}
+					],
+					"guides": [],
+					"valueAxes": [
+						{
+							"id": "ValueAxis-1",
+							"gridThickness": 0,
+							"title": "Stress"
+						}
+					],
+					"allLabels": [],
+					"balloon": {},
+					"legend": {
+						"enabled": true,
+						"rollOverColor": "#0000FF",
+						"useGraphSettings": true
+					},
+					"titles": [
+						{
+							"color": "#222222",
+							"id": "Title-1",
+							"size": 18,
+							"text": "Stress Reports"
+						}
+					],
+					"dataProvider": [
+						{
+							"date": "2020-02-03",
+							"column-1": "8"
+						},
+						{
+							"date": "2020-03-02",
+							"column-1": "6"
+						},
+						{
+							"date": "2020-04-03",
+							"column-1": "4.4"
+						},
+						{
+							"date": "2020-04-15",
+							"column-1": "10"
+						},
+						{
+							"date": "2020-04-25",
+							"column-1": "5.6"
+						},
+						{
+							"date": "2020-05-15",
+							"column-1": "5.6"
+						},
+						{
+							"date": "2020-06-25",
+							"column-1": "5.8"
+						}
+					]
+				}
+			);
+		</script>
+
+
+<!-- amCharts javascript code -->
+		<script type="text/javascript">
+			AmCharts.makeChart("BP",
+				{
+					"type": "serial",
+					"categoryField": "category",
+					"columnSpacing3D": 3,
+					"dataDateFormat": "YYYY-MM-DD",
+					"classNamePrefix": "",
+					"color": "#222222",
+					"path": "",
+					"processTimeout": 2,
+					"theme": "white",
+					"categoryAxis": {
+						"parseDates": true,
+						"gridThickness": 0
+					},
+					"chartCursor": {
+						"enabled": true
+					},
+					"chartScrollbar": {
+						"enabled": false
+					},
+					"trendLines": [],
+					"graphs": [
+						{
+							"bullet": "round",
+							"id": "AmGraph-1",
+							"lineColor": "#00B3BB",
+							"title": "graph 1",
+							"valueField": "Systolic-BP"
+						},
+						{
+							"bullet": "round",
+							"id": "AmGraph-2",
+							"lineColor": "#F18322",
+							"title": "graph 2",
+							"valueField": "Diastolic-BP"
+						}
+					],
+					"guides": [],
+					"valueAxes": [
+						{
+							"id": "ValueAxis-1",
+							"gridThickness": 0,
+							"title": "Systolic/ Diastolic Pressure (mm Hg)"
+						}
+					],
+					"allLabels": [],
+					"balloon": {},
+					"titles": [
+						{
+							"id": "Title-1",
+							"size": 15,
+							"text": "Systolic / Diastolic  BP"
+						}
+					],
+					"dataProvider": [
+						{
+							"Diastolic-BP": "100",
+							"Systolic-BP": "180",
+							"category": "2020-02-02"
+						},
+						{
+							"Diastolic-BP": "95",
+							"Systolic-BP": "170",
+							"category": "2020-03-03"
+						},
+						{
+							"Diastolic-BP": "85",
+							"Systolic-BP": "160",
+							"category": "2020-04-03"
+						},
+						{
+							"Diastolic-BP": "70",
+							"Systolic-BP": "150",
+							"category": "2020-04-15"
+						},
+						{
+							"Diastolic-BP": "75",
+							"Systolic-BP": "140",
+							"category": "2020-04-25"
+						},
+						{
+							"Diastolic-BP": "65",
+							"Systolic-BP": "130",
+							"category": "2020-05-15"
+						},
+						{
+							"Diastolic-BP": "60",
+							"Systolic-BP": "120",
+							"category": "2020-06-25"
+						}
+					]
+				}
+			);
+			
+</script>
+	  <!--statistical weight report-->
+ 
+        <script>
+            var ratings = document.getElementsByClassName('rating');
+
+            for (var i = 0; i < ratings.length; i++) {
+                var r = new SimpleStarRating(ratings[i]);
+
+                ratings[i].addEventListener('rate', function(e) {
+                    console.log('Rating: ' + e.detail);
+                });
+            }
+        </script>
+

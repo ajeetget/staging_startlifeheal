@@ -1,0 +1,124 @@
+<!-- Hero Banner Start -->
+	<div class="hero">	    
+	    <!-- Banner -->
+	    <div class="hero-banner webinar">
+	        <div class="hero-banner-container">	        	
+	        	<div class="hero-banner-text">
+		        	<h1>  Food and Mood  </h1>
+		        	<p> How gut affects your mood.</p>
+		        	<p><strong>Presented by: Jasmine Channa</strong>, Chief Dietitian,&nbsp;LifeHeal</p>
+		        </div>		        
+	        </div>
+	    </div>	    
+	</div>
+	<!-- Hero Banner End -->
+
+	<!-- Webinar Detail Start -->
+	<div class="webinar-detail" data-aos="fade-up" data-aos-offset="0" data-aos-duration="1000">
+		<div class="webinar-detail-container">
+			<div class="webinar-detail-left">
+				<h2>Learn about the connection between your gut and your mood.</h2>
+				<p>Do you see yourself running to food when you are stressed about something? Learn how your gut is connected to your brain. Get insights on:</p>
+				<ul>
+					<li>Comfort eating</li>
+					<li>Controlling your cravings</li>
+					<li>Let go of stress</li>					
+				</ul>
+				<a href="#appointment_success">Register Below</a>
+			</div>
+			
+			<div class="webinar-detail-right">	
+				<div class="webinar-date-wrapper">
+					<div class="webinar-date-day">FRIDAY</div>
+					<div class="webinar-date-date">10</div>
+					<div class="webinar-date-month">
+						SEPTEMBER <span>6:30 - 7:30 pm</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Webinar Detail End -->
+
+<!-- Success Start -->
+	<div class="appointment-success" id="appointment_success">
+		<iframe id='st_registerform_iframe' src='https://showtime.zoho.in/embedform#sessionId=7785000000261004&zaid=50003091195&utm_st_source=embed&header=true' frameborder='0' allowfullscreen='' > </iframe>
+	</div>
+<!-- Success End -->
+
+
+<style>
+	.webinar-detail-left a{
+		margin-top: 6px;
+		display: inline-block;		
+    	color: #4b4b4b;
+    	padding: 9px 18px;
+    	text-decoration: none;
+	}
+	.webinar-detail-left ul{
+		padding-left: 20px;
+	}
+	.webinar-detail-left ul li{
+		font-weight: 400;
+		font-size: 16px;
+		position: relative;
+		padding-left: 20px;
+		list-style: none;
+		padding-bottom: 12px;
+	}
+	.webinar-detail-left ul li:after{
+		content: '';
+		position: absolute;
+		left:0;
+		top:4px;
+		width:8px;
+		height: 8px;
+		background: #471d58;
+		border-radius: 100%;
+	}
+	.webinar-detail-right  span{
+		padding-top: 4px;
+		display: block;
+		font-size: 12px;
+		text-align: center;
+	}
+	.webinar {
+		background-image: url('<?php echo $this->getSkinUrl("images/webinar-hero-banner-jasmine.jpg")?>');
+	}			
+	.webinar h1 {	
+		color: #fff;
+	}			
+	.webinar p {
+		color: #FFFFFF;
+	}
+	.appointment-success{
+		width:60%;
+		margin:0 auto;
+		padding: 2rem 0 2rem 0;
+	}
+	.appointment-success iframe{
+		height: 490px;
+		width:100%;
+	}
+	.appointment-success .btn {    	
+    	padding: 12px 10px !important;
+	}
+	@media only screen and (max-width: 768px) {
+		.webinar {
+			background-image: url('<?php echo $this->getSkinUrl("images/webinar-hero-banner-mobile-jasmine.jpg")?>');
+		}
+		.appointment-success{
+			width:95%;			
+		}
+		.webinar-detail-left p{
+			text-align: justify;
+		}
+		.webinar-detail-right {    
+    		justify-content: center;
+		}
+		.webinar-detail-container {
+    		padding: 2rem 1.5rem 0 1.5rem;
+		}
+	}	
+</style>

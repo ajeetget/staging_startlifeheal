@@ -1,0 +1,154 @@
+<link href="<?php echo $this->getSkinUrl('css/pricingprogramcss.css') ?>" rel="stylesheet" type="text/css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+	h1{margin: 0;
+line-height: 2;
+text-align: left;
+width: 100%;
+float: left;}
+	
+
+</style>
+<script>
+$(document).ready(function(){
+  // Add smooth scrolling to all links
+  $("a").on('click', function(event) {
+
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
+
+      // Store hash
+      var hash = this.hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 800, function(){
+   
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
+  });
+});
+</script>
+<!-- basic -->
+
+<div class="basic">
+
+
+
+                <aside class="basic__navigation">
+
+                    <a href="#" class="basic__navigation-current-item">INTRODUCTION</a>             
+
+                    <div class="basic__navigation-wrap">
+                        <ul>
+							<li><a href="#INTRO" class="basic__navigation-item" id="intobtn">INTRODUCTION</a></li>
+                            <li><a href="#REFERRAL" class="basic__navigation-item" id="refferalbtn">REFERRAL PROGRAM</a></li> 
+
+                            <li><a href="#PRICING" class="basic__navigation-item" id="pricingbtn">PRICING UPDATES</a></li> 
+
+                            <li><a href="#ADVANCED" class="basic__navigation-item" id="advancebtn">ADVANCED PRICING TIERS</a></li>
+
+                            <li><a href="#CGM" class="basic__navigation-item" id="cgmbtn">CGM SENSORS</a></li>
+
+                            <li><a href="#CONSULTING" class="basic__navigation-item" id="consultbtn">CONSULTING</a></li>
+
+                            <li><a href="#CANCELLATION" class="basic__navigation-item" id="cancelbtn">CANCELLATION POLICY</a></li>
+						</ul>
+                    </div>
+                </aside>
+
+
+
+                <!-- basic__article -->
+
+                <div class="basic__article article">
+					
+<h2 style="margin-bottom:0px;"> Referral Program and Pricing</h2>
+
+ <p STYLE="float:left; width:100%;">Mar 1, 2020</p>
+ <p style="float:left; width:100%;margin-bottom:0px;">Dear Client,</p>
+ <p style="float:left; width:100%;">We have a new referral program and updated pricing packages with savings.</p>
+					
+                    <hr>
+                    <div style="width: 100%;float: left;"   class="anchor">
+<h3  id="REFERRAL">1. REFERRAL PROGRAM : <span style="font-weight: normal;color:#000">GET 20% SAVINGS</span></h3>
+					<p>Get a referral to join and both you and they will save 20%</p>
+<ol style="list-style-position: outside;list-style-type: disc;text-align: justify;">
+<p style="margin:10px 0px;">Terms & Conditions:</p>
+<li>Referrals save 20% on sign up</li>				
+<li>Referee's earn store credit in the same amount of savings as their referral to apply towards next renewal or extra days</li>	
+<li>Offer valid only for new sign ups to the program</li>
+<li>If new sign up cancels then store credit to referee is also withdrawn.</li>	
+<li>Cannot be combined with any other promotions or discounts</li>	
+</ol>
+	
+	</div>
+					<hr>
+					<div style="width: 100%;float: left;"   class="anchor">
+					<h3  id="PRICING">2. PRICING UPDATES : <span style="font-weight: normal;color:#000">PAY FOR 3 MONTHS, GET 4TH MONTH FREE</span></h3>
+					<p>LOCK IN your price. We may be increasing prices in the Summer as vegetable prices and delivery costs increase.</p>
+					</div>
+					<hr>
+					<div style="width: 100%;float: left;"   class="anchor">
+					<h3   id="ADVANCED"  class="anchor">3. ADVANCED PRICING TIERS : <span style="font-weight: normal;color:#000;text-transform: initial;">New pricing for clients who begin intermittent fasting or no longer require a full meal program</span></h3>
+						<ol style="list-style-position: outside;list-style-type: disc;text-align: justify;">
+					<li>Full meal (3 + 1 Meals) + Consulting = 1100/day</li>
+					<li>Part Meal (2 Meals) + Consulting = 600/day</li>
+						</ol>
+					<p style="margin:10px 0px;font-weight:bold">Advanced Fasting Packages : </p>
+						<ol style="list-style-position: outside;list-style-type: disc;text-align: justify;">
+					<li>One Meal a day with extra juice + Probiotics + extra consulting support = 600/day</li>
+					<li>One Meal a day with deluxe food combo + consulting = 550/day</li>
+				    <li>Daily Soup+Salad + Breakfast + extra consulting = 550/day</li>
+						</ol>
+						
+					<p style="margin:10px 0px;font-weight:bold">Non Consulting Packages : </p>
+						<ol style="list-style-position: outside;list-style-type: disc;text-align: justify;">
+					<li>One Meal a day with deluxe food combo = 350/day</li>
+							<li>One Soup+Salad combo with breakfast = 350/day</li>
+							<li>One Meal a Day simple combo = 200/day, available in Gurgaon. 50/day extra for Delhi</li>
+						</ol>
+						</div>
+					<hr>
+					<div style="width: 100%;float: left;"   class="anchor">
+					<h3 id="CGM" class="anchor">4. CGM SENSORS : </h3>
+						<ol style="list-style-position: outside;list-style-type: disc;text-align: justify;">
+					<li>Rs 2500 with food subscription</li>
+					<li>Rs 4000 without food subscription</li>
+						</ol>
+					</div>
+					<hr>
+					<div style="width: 100%;float: left;"  class="anchor">
+					<h3 id="CONSULTING"  class="anchor">5. CONSULTING : </h3>
+						<ol style="list-style-position: outside;list-style-type: disc;text-align: justify;">
+					<li>Single Session - 3000</li>
+					<li>Monthly Plan - 10,000</li>
+						</ol>
+					</div>
+					<hr>
+					<div style="width: 100%;float: left;"   class="anchor">
+					<h3 id="CANCELLATION"  class="anchor">6. CANCELLATION POLICY : </h3>
+					
+						<ol style="list-style-position: outside;list-style-type: disc;text-align: justify;margin-bottom: 40px;">
+<li>A 10 day meal plan is non refundable</li>				
+<li>A 30 day subscription is cancellable within 10 days for refund. 
+After 10 days of a 30 day subscription, the food subscription can be cancelled and the remaining balance can be used as store credit towards any purchase from Life Healing Food. Reimbursements are not possible at this time.</li>	
+<li>Any balance store credit can be used towards any plan, product or service in case the client wants to change their plan.</li>
+<li>Store credit can be transferred to another client for a Rs 500 administrative fee.</li>
+<li>Your services can be cancelled by us for any reason.</li>	
+<li>Prices subject to change.</li>
+</ol>
+</div>
+</div>
+
+<!-- /basic__article -->
+
+</div>
+	
+<!-- /basic -->

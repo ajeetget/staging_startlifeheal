@@ -1,0 +1,262 @@
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" />
+<style>
+.loader {
+  position: fixed;
+  left: 40%;
+  top: 50%;
+  z-index: 9999;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #a61d3f;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+button.like{
+  width: 45px;;
+  height: 45px;;
+  margin: 0 auto;
+  border-radius: 50%;
+  color: rgba(0,150,136 ,1);
+  background-color:#f8f9fa;
+  background-color:rgba(38,166,154 ,0.3);
+  border-color: rgba(0,150,136 ,1);
+  border-width: 1px;
+  font-size: 15px;
+}
+button.dislike{
+  width: 45px;;
+  height: 45px;;
+  margin: 0 auto;
+  border-radius: 50%;
+  color: rgba(255,82,82 ,1);
+  background-color: rgba(255,138,128 ,0.3);
+  border-color: rgba(255,82,82 ,1);
+  border-width: 1px;
+  font-size: 15px;
+}
+
+button.learnmore{
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: rgba(0,151,167 ,1);
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-size: 16px;
+  color: #fff;
+  letter-spacing: 1px;
+}
+section, .footer-container, .breadcrumbs{display:none;}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  max-width:560px;
+  margin:auto;
+}
+h2{font-weight: normal;margin: auto;
+width: 560px;
+height: 40px;color: #000;
+line-height: 40px;}
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+.noprint {font-family: arial, sans-serif;border-collapse: collapse;width: 100%;max-width: 560px;margin: 20px auto;}
+
+.modal-footer{margin: auto;width: 560px;padding: 10px 0px;}
+@media print
+{
+.noprint {display:none;font-family: arial, sans-serif;border-collapse: collapse;width: 100%;max-width: 560px;margin: 20px auto;}
+}
+
+@media print 
+{
+    @page {
+      size: A4; /* DIN A4 standard, Europe */
+      margin:0;
+    }
+    html, body {
+        width: 210mm;
+        /* height: 297mm; */
+        height: 282mm;
+        font-size: 11px;
+        background: #FFF;
+        overflow:visible;
+    }
+    body {
+        padding-top:15mm;
+    }
+}
+</style>
+
+<?php 
+$params = $this->getRequest()->getParams(); 
+$orderId =  $params['id']; 
+$orderInfo =  Mage::getModel("heal/order")->load($orderId);
+$customerEmail = $orderInfo->getEmail();
+// $websiteId = Mage::app()->getStore()->getWebsiteId();
+    
+$customer = Mage::getModel("customer/customer"); 
+$customer->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
+$customer->loadByEmail($customerEmail);
+$mobile = $customer->getPrimarymobileno();
+$customerid = $customer->getId();
+$name = $customer->getFirstname()." ". $customer->getLastname();
+$customerBillingAddressId  = $customer->getDefaultBilling();
+$customerShippingAddressId  = $customer->getDefaultShipping();
+
+ //$customer->getName()."= customerBillingAddressId=".$customerBillingAddressId;
+ //$customer->getName()."= customerShippingAddressId=".$customerShippingAddressId;
+//$defaultShipping = $customer->getDefaultShippingAddress();
+if(is_object($orderInfo )) {
+ $orderDate = $orderInfo->getOrderdate(); 
+$formattedDate = date("d M Y",strtotime($orderDate)); 
+$breakfastCollection = $orderInfo->getCusineDetails($orderId,$cusine='breakfast');
+$lunchCollection = $orderInfo->getCusineDetails($orderId,$cusine='lunch');
+$dinnerCollection = $orderInfo->getCusineDetails($orderId,$cusine='dinner');
+$highteaCollection = $orderInfo->getCusineDetails($orderId,$cusine='hightea ');
+?> 
+<div class="loader" style="display: none;"></div>
+<table>
+<h2 style="font-weight: normal;"><b><?php echo $orderInfo->getName();?></b>  Order review  <b><?php echo $formattedDate;?></b></h2>
+  <tr>
+    <th style="color: #000;font-weight: bold;">Breakfast</th>
+    <th></th>
+     <th></th>    
+  </tr>
+  <?php if(count($breakfastCollection)>0)
+      {  
+       foreach($breakfastCollection as $iteminfo) {
+        //echo "<pre>"; print_r($iteminfo); die(); ?>
+        <tr>
+        <td><?php echo $iteminfo['itemname'];?></td>
+        <td style="text-align:center;"><button class="like" onclick="likeFunction('<?php echo $customerid; ?>','<?php echo $name; ?>','<?php echo $mobile; ?>','<?php echo $iteminfo['itemname']; ?>','<?php 
+        echo $iteminfo['productid']; ?>')"> <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+</button></td>
+        <td style="text-align:center;"><button class="dislike" onclick="dislikeFunction('<?php echo $customerid; ?>','<?php echo $name; ?>','<?php echo $mobile; ?>','<?php echo $iteminfo['itemname']; ?>','<?php 
+        echo $iteminfo['productid']; ?>')"> <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+</button></td>
+        </tr>
+  <?php   }  } ?>
+
+  <tr>
+    <th style="color: #000;font-weight: bold;">Lunch</th>
+    <th></th>
+    <th></th>
+  </tr>
+<?php if(count($lunchCollection)>0)
+      {
+       foreach($lunchCollection as $iteminfo)
+       { ?>
+        <tr>
+        <td><?php echo $iteminfo['itemname'];?></td>
+        <td style="text-align:center;"><button class="like" onclick="likeFunction('<?php echo $customerid; ?>','<?php echo $name; ?>','<?php echo $mobile; ?>','<?php echo $iteminfo['itemname']; ?>','<?php 
+        echo $iteminfo['productid']; ?>')">
+        <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button></td>
+        <td style="text-align:center;"><button class="dislike" onclick="dislikeFunction('<?php echo $customerid; ?>','<?php echo $name; ?>','<?php echo $mobile; ?>','<?php echo $iteminfo['itemname']; ?>','<?php 
+        echo $iteminfo['productid']; ?>')"> <i class="fa fa-thumbs-o-down" aria-hidden="true"></i> </button></td>
+        </tr>
+  <?php   }
+     }?>
+  <tr>
+    <th style="color: #000;font-weight: bold;">Dinner</th>
+   <th></th>
+    <th></th>        
+  </tr>
+ <?php if(count($dinnerCollection)>0)
+      {
+       foreach($dinnerCollection as $iteminfo)
+       { ?>
+        <tr>
+        <td><?php echo $iteminfo['itemname'];?></td>
+        <td style="text-align:center;"><button class="like" onclick="likeFunction('<?php echo $customerid; ?>','<?php echo $name; ?>','<?php echo $mobile; ?>','<?php echo $iteminfo['itemname']; ?>','<?php 
+        echo $iteminfo['productid']; ?>')">
+        <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button></td>
+        <td style="text-align:center;"><button class="dislike" onclick="dislikeFunction('<?php echo $customerid; ?>','<?php echo $name; ?>','<?php echo $mobile; ?>','<?php echo $iteminfo['itemname']; ?>','<?php 
+        echo $iteminfo['productid']; ?>')">
+        <i class="fa fa-thumbs-o-down" aria-hidden="true"></i> </button></td>
+        </tr>
+  <?php   }
+     }?>
+  <tr>
+    <th style="color: #000;font-weight: bold;">HiTea</th>
+       <th></th>
+    <th></th>
+   
+    
+  </tr>
+  <?php if(count($highteaCollection)>0)
+      {
+       foreach($highteaCollection as $iteminfo)
+       { ?>
+        <tr>
+        <td><?php echo $iteminfo['itemname'];?></td>
+        <td style="text-align:center;"><button class="like" onclick="likeFunction('<?php echo $customerid; ?>','<?php echo $name; ?>','<?php echo $mobile; ?>','<?php echo $iteminfo['itemname']; ?>','<?php 
+        echo $iteminfo['productid']; ?>')">
+        <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button></td>
+        <td style="text-align:center;"><button class="dislike" onclick="dislikeFunction('<?php echo $customerid; ?>','<?php echo $name; ?>','<?php echo $mobile; ?>','<?php echo $iteminfo['itemname']; ?>','<?php 
+        echo $iteminfo['productid']; ?>')">
+        <i class="fa fa-thumbs-o-down" aria-hidden="true"></i> </button></td>
+        </tr>
+  <?php   }
+     }?>
+  </table>
+<?php } else { echo "No order exist";}?>
+<script type="text/javascript">
+function likeFunction(customerid,name,mobile,productname,productid) {
+  jQuery(".loader").css("display", "block");
+  
+  jQuery.ajax({
+        url: "<?php echo Mage::getBaseUrl().'heal/index/like' ?>",
+        type: "POST",
+        data: {
+          customerid: customerid,
+          name: name,
+          mobile: mobile,
+          productname: productname,
+          productid: productid,
+          like: 1
+        },
+        success: function(response){
+          setTimeout(function() {
+            jQuery(".loader").css("display", "none");
+          }, 1000);        
+        }
+    });
+}
+function dislikeFunction(customerid,name,mobile,productname,productid) {
+  jQuery(".loader").css("display", "block");
+  jQuery.ajax({
+        url: "<?php echo Mage::getBaseUrl().'heal/index/dislike' ?>",
+        type: "POST",
+        data: {
+          customerid: customerid,
+          name: name,
+          mobile: mobile,
+          productname: productname,
+          productid: productid,
+          dislike: 1
+        },
+        success: function(response){
+          setTimeout(function() {
+            jQuery(".loader").css("display", "none");
+          }, 1000);
+        }
+    });
+}
+</script>

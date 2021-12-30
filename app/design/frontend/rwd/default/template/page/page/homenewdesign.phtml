@@ -1,0 +1,585 @@
+<style>
+#oldfooter{display:none !important;}
+.detail-sec h4 {
+    font-size: 35px;
+	text-align: left;
+    line-height: 53px;
+}
+.detail-txt p{font-size: 18px;
+line-height: 30px;}
+</style>
+
+<section style="margin-bottom: 100px;">
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<link href="http://cure.americanarearugs.com/skin/frontend/rwd/default/css/styles.css"></script>
+
+  
+       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+  <div class="container">
+  
+    <div id="carouselExampleIndicators"  data-interval="false" class="carousel slide hp" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active " data-interval="false">
+        <video controls id="video" width="100%" height="100%" poster="<?php echo $this->getSkinUrl('images/Design-of-HP_03.jpg') ?>" preload="auto" disablepictureinpicture  controlsList="nodownload" autoplay="autoplay">
+          <source src="<?php echo Mage::getBaseUrl();?>video/rain.mp4" type="video/mp4" />
+          
+        </video>
+      </div>
+      <div class="carousel-item" data-interval="false">
+       <video controls id="video2" width="100%" height="100%" poster="<?php echo $this->getSkinUrl('images/Design-of-HP_03.jpg') ?>" preload="auto" disablepictureinpicture  controlsList="nodownload" >
+          <source src="<?php echo Mage::getBaseUrl();?>video/BigBuckBunnysmall.mp4" type="video/mp4" />
+          
+        </video>
+      </div>
+      
+      <div class="carousel-item" data-interval="false">
+       <video controls id="video3" width="100%" height="100%" poster="<?php echo $this->getSkinUrl('images/Design-of-HP_03.jpg') ?>" preload="auto" disablepictureinpicture  controlsList="nodownload">
+          <source src="<?php echo Mage::getBaseUrl();?>video/rain.mp4" type="video/mp4" />
+         
+        </video>
+      </div>
+    </div>
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true" onclick="checkVideos();"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true" onclick="checkVideos();"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </div>
+</section>
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('homepagecontactuspage')->toHtml(); ?> 
+
+<!--ourservices  class="padd-10"-->
+<section>
+        <div class="container">
+            <div class="sec-head" style="background: #f3f3f3;">
+              our services
+            </div>
+            
+            <div class="row services" style="background: #f3f3f3;padding-bottom: 40px;">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div>
+                <h2>Food delivery with Consultancy</h2>
+                <p>At Cure My Diabetes our focus is to reduce and reserve diabetes through nutrition and food.</p>
+                
+                <button class="read-more myModal" style="margin:0px;" data-toggle="modal" data-target="#myModal">learn more</button>
+                
+  <!-- The Modal -->
+  <div class="modal" id="myModal">
+    <div class="modal-dialog  modal-lg">
+      <div class="modal-content">      
+         <!-- Modal Header -->
+        <div class="modal-header">
+         
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+         <ul class="list-group list-group-horizontal">
+    <li class="list-group-item col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+    <div class="row">
+    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3"><img src="<?php echo $this->getSkinUrl('images/diet1.png') ?>" alt=""></div>
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 col-xl-9"><h4>MEET OUR DIETICIAN</h4>
+    <p>At Cure My Diabetes our focus is to reduce 
+and reverse diabetes through 
+nutrition and food. </p>
+</div>
+    </div>
+   </li>
+    <li class="list-group-item col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+    <div class="row">
+    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3"><img src="<?php echo $this->getSkinUrl('images/diet4.png') ?>" alt=""></div>
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 col-xl-9"><h4>INSTALL GLUCOSE MONITORING CHIP</h4>
+    <p>At Cure My Diabetes our focus is to reduce 
+and reverse diabetes through 
+nutrition and food. </p>
+</div>
+    </div>
+    </li>
+    
+  </ul>
+  <ul class="list-group list-group-horizontal">
+   
+    <li class="list-group-item col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+    <div class="row">
+    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3"><img src="<?php echo $this->getSkinUrl('images/diet2.png') ?>" alt=""></div>
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 col-xl-9"><h4>DOCTOR REVIEW</h4>
+    <p>At Cure My Diabetes our focus is to reduce 
+and reverse diabetes through 
+nutrition and food. </p>
+</div>
+    </div>
+    </li>
+     <li class="list-group-item col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+    <div class="row">
+    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3"><img src="<?php echo $this->getSkinUrl('images/diet5.png') ?>" alt=""></div>
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 col-xl-9"><h4>FOOD DELIVERY BEGINS</h4>
+    <p>At Cure My Diabetes our focus is to reduce 
+and reverse diabetes through 
+nutrition and food. </p>
+</div>
+    </div>
+    </li>
+  </ul>
+  <ul class="list-group list-group-horizontal">
+    <li class="list-group-item col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+    <div class="row">
+    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3"><img src="<?php echo $this->getSkinUrl('images/diet3.png') ?>" alt=""></div>
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 col-xl-9"><h4>GLUCOSE LEVEL REVIEW & MEDICINE ADJUSTMENT</h4>
+    <p>At Cure My Diabetes our focus is to reduce 
+and reverse diabetes through 
+nutrition and food. </p>
+</div>
+    </div>
+    </li>
+   
+    
+  </ul>
+        </div>
+        
+       
+        
+      </div>
+    </div>
+  </div>
+  <!-- The Modal -->
+
+                </div>
+                </div>
+               
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div>
+                <h2>Only Consultancy</h2>
+                 <p style="width: 100%;">At Cure My Diabetes our focus is to reduce and reserve diabetes through nutrition and food.</p>
+                	<a href="<?php echo Mage::getBaseUrl().'our-products'?>" ><button class="read-more">
+                    learn more</button> </a>
+                </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </section>  
+  
+<!--question-->
+<section class="brief-sec">
+    <div class="container">
+        <div class="row ">
+          
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="detail-sec" style="height: 100%;margin:0px;">
+                    
+                    <div class="detail-txt" style="padding: 100px 100px;">
+                        <h4>What Is It?</h4>
+<p style="width: 100%;">It has now been proven that food can reverse diabetes. However making this food is very hard, time consuming.
+
+Simple, we take care of all the work, the planning and of course the scientific research to give you daily therapeutic meals.  <a href="whatitis" style="font-weight: bold;">Learn More...  </a></p>
+             
+                                                               </div>
+                </div>
+            </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding: 0;">
+                <div class="detail-sec"  style="height: 100%;margin:0px;border: 1px solid #eee;margin:0px;">
+                <iframe width="100%" height="500px" src="https://www.youtube.com/embed/p-cagGj4m5g" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                 </div>
+            </div>
+            
+            </div>
+            <!--row1-->
+            <!--row2-->
+             <div class="row" style="background-color: #f8f8f8;margin: 20px -15px;">
+            
+          
+          
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">      
+            <div class="detail-sec"  style="height: 100%;margin:0px;">
+                   
+                    <div class="detail-txt" style="padding: 100px 100px;">
+                        <h4>How Does It Work?</h4>
+<p style="width: 100%;">All you have to do is eat!
+
+We do the planning, cooking and delivery of therapeutic meals. The food is delivered right to your doorstep.  <a href="howdoesitwork" style="font-weight: bold;">Learn More...  </a></p>
+              
+             
+             </div>
+                </div>
+          </div>  
+          
+          
+          
+          
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding: 0;">
+                <div class="detail-sec"  style="height: 100%;margin:0px;border: 1px solid #eee;margin:0px;">
+                <iframe width="100%" height="500px" src="https://www.youtube.com/embed/p-cagGj4m5g" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                 </div>
+            </div>
+            
+          </div>
+          <!--row2-->
+          <!--row3-->
+          
+          <div class="row ">
+          
+           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">      
+            <div class="detail-sec" style="height: 100%;margin:0px;">
+                    <div class="detail-txt" style="padding: 100px 100px;">
+                        <h4>What Happens At End?</h4>
+<p style="width: 100%;">Cooking and eating to maintain your health is far easier. We will give you a program which can be achieved within a normal home's cooking possibilities and time.  <a href="whathappenedatend" style="font-weight: bold;">Learn More...  </a></p>
+             
+                                                               </div>
+                </div>
+          </div>  
+          
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding: 0;">
+                <div class="detail-sec"  style="height: 100%;margin:0px;border: 1px solid #eee;margin:0px;">
+                <iframe width="100%" height="500px" src="https://www.youtube.com/embed/p-cagGj4m5g" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                 </div>
+            </div>
+            
+            
+        </div>
+        <!--row3-->
+        <!--row4-->
+         <div class="row " style="background-color: #f8f8f8;margin: 20px -15px;">
+            
+            
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="detail-sec" style="height: 100%;margin:0px;">
+                    <div class="detail-txt" style="padding: 100px 100px;">
+                        <h4>Will It Help Me?</h4>
+<p style="width: 100%;">We have seen improvements in 99% of our clients. Medications are reduced within 12 hours of starting the program. The results are visible thanks to the most advanced glucose monitoring technology we use. <a href="willithelpme"style="font-weight: bold;">Learn More... </a></p>
+              
+                                                               </div>
+                </div>
+            </div>  
+            
+            
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding: 0;">
+                <div class="detail-sec" style="height: 100%;margin:0px;border: 1px solid #eee;margin:0px;">
+                <iframe width="100%" height="500px" src="https://www.youtube.com/embed/p-cagGj4m5g" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                 </div>
+            </div>
+            
+            </div>
+            <!--row4-->
+            <!--row5-->
+            <div class="row ">
+            
+           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">     
+             <div class="detail-sec" style="height: 100%;margin:0px;">
+                    <div class="detail-txt" style="padding: 100px 100px;">
+                        <h4>Any Side Effects?</h4>
+<p style="width: 100%;">There are no known side effects to eating healthy food.
+
+There are no known medicine reactions to eating food.  <a href="anysideeffect" style="font-weight: bold;">Learn More...  </a></p>
+           
+                                                               </div>
+                </div>
+          </div>  
+             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding: 0;">
+                <div class="detail-sec"  style="height: 100%;margin:0px;border: 1px solid #eee;margin:0px;">
+                <iframe width="100%" height="500px" src="https://www.youtube.com/embed/p-cagGj4m5g" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                 </div>
+            </div>
+            
+            
+            
+          </div>
+          <!--row5-->
+          <!--row6-->
+            <div class="row "  style="background-color: #f8f8f8;margin: 20px -15px;">
+            
+           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">      <div class="detail-sec" style="height:100%;margin:0px;">
+                    <div class="detail-txt" style="padding: 100px 100px;">
+                        <h4>Is The Cure Permanent ?</h4>
+<p style="width: 100%;">If you return to a non-diabetic state it means you are non diabetic. It means your body is able to control your sugar levels, and keep them within 70 - 140 range like a non-diabetic person.  <a href="isthecurepermanent" style="font-weight: bold;">Learn More...  </a></p>
+             
+                                                               </div>
+                </div>
+          </div>  
+          
+          
+             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding: 0;">
+                <div class="detail-sec"  style="height: 100%;margin:0px;border: 1px solid #eee;margin:0px;">
+                <iframe width="100%" height="500px" src="https://www.youtube.com/embed/p-cagGj4m5g" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                 </div>
+            </div>
+            
+            
+            
+        </div>
+        <!--row6-->
+        <!--row7-->
+         <div class="row ">                      
+            
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="detail-sec" style="height: 100%;margin:0px;">
+                    <div class="detail-txt" style="padding: 100px 100px;">
+                        <h4>How Reliable Is It?</h4>
+<p style="width: 100%;">Our program is completely based on food. And food is very reliable. We are seeing visible and measurable results in 99% of clients with no side effects and lots of other positive effects such as <a href="howreliableitis" style="font-weight: bold;">Learn More...  </a></p>
+                
+                                                               </div>
+                </div>
+            </div>  
+            
+             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding: 0;">
+                <div class="detail-sec"  style="height: 100%;margin:0px;border: 1px solid #eee;margin:0px;">
+                <iframe width="100%" height="500px" src="https://www.youtube.com/embed/p-cagGj4m5g" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                 </div>
+            </div>
+            
+            
+            </div>
+            <!--row7-->
+            <!--row8-->
+             <div class="row "  style="background-color: #f8f8f8;margin: 20px -15px;">
+            
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">      <div class="detail-sec" style="height: 100%;margin:0px;">
+                    <div class="detail-txt" style="padding: 100px 100px;">
+                        <h4>How Long Does It Take?</h4>
+<p style="width: 100%;">It has now been proven that food can reverse diabetes. However making this food is very hard, time consuming.
+
+Simple, we take care of all the work, the planning and of course the scientific research to give you daily therapeutic meals.  <a href="howlongdoesittake" style="font-weight: bold;">Learn More...  </a></p>
+             
+                                                               </div>
+                </div>
+          </div>  
+           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding: 0;">
+                <div class="detail-sec" style="height: 100%;margin:0px;border: 1px solid #eee;margin:0px;">
+                <iframe width="100%" height="500px" src="https://www.youtube.com/embed/p-cagGj4m5g" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                 </div>
+            </div>
+            
+            
+          </div>
+          <!--row8-->
+          <!--row9-->
+           <div class="row " >
+           
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">     
+             <div class="detail-sec"  style="height:100%;margin:0px;">
+                    <div class="detail-txt" style="padding: 100px 100px;">
+                        <h4>How Do I Start?</h4>
+<p style="width: 100%;">Starting is easy. We simply need to know your glucose levels and we can start. You can come in to our center or our dietician can come and visit you at home.  <a href="howdoistart" style="font-weight: bold;">Learn More...  </a></p>
+             
+                                                               </div>
+                </div>
+          </div>  
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding: 0;">
+                <div class="detail-sec" style="height: 100%;margin:0px;border: 1px solid #eee;margin:0px;">
+                <iframe width="100%" height="500px" src="https://www.youtube.com/embed/p-cagGj4m5g" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                 </div>
+            </div>
+            
+            
+        </div>
+        <!--row9-->
+    </div>    
+</section>
+
+<section class="brief-sec patients-sec">
+  <div class="container">
+      <div class="sec-head">What our patients says</div>
+      <div class="row">
+          <div class="col-lg-6 col-md1-6 col-sm-12 col-xs-12">
+              <div class="row">
+                  <div class="col-xs-12 col-sm-3 col-md-3 col-lg-4 p-0">
+                      <img src="<?php echo $this->getSkinUrl('images/Design-of-HP_33.jpg') ?>" alt="">
+                      <div class="paitient">
+                          <div class="name">Dr. Meera Singla</div>
+                          <div class="post">Age 36</div>
+                      </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-9 col-md-9 col-lg-7 paitient-says">
+                    <p>  <b  class="l-dbl-quate"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="quote-left" class="svg-inline--fa fa-quote-left fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="14px" width="14px"><path fill="currentColor" d="M464 256h-80v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8c-88.4 0-160 71.6-160 160v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48zm-288 0H96v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8C71.6 32 0 103.6 0 192v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48z"></path></svg></b>Thanks to Cure My Diabetes I am needing to take less insulin during my pregnancy and my sugars are also in much better control.</p>
+                  </div>
+                 <!-- <div class="col-sm-1"></div>-->
+              </div>
+          </div>
+          <div class="col-lg-6 col-md1-6 col-sm-12 col-xs-12">
+              <div class="row">
+                  <!-- <div class="col-sm-1"></div>-->
+                  <div class="col-xs-12 col-sm-3 col-md-3 col-lg-4 p-0">
+                      <img src="<?php echo $this->getSkinUrl('images/Rajiv-testimonial.png') ?>" alt="">
+                      <div class="paitient">
+                          <div class="name">Mr. Rajiv Gupta</div>
+                          <div class="post">Age 59 Diabetic for 22 years.</div>
+                      </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-9 col-md-9 col-lg-7 paitient-says">
+                      <p>  <b  class="l-dbl-quate"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="quote-left" class="svg-inline--fa fa-quote-left fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="14px" width="14px"><path fill="currentColor" d="M464 256h-80v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8c-88.4 0-160 71.6-160 160v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48zm-288 0H96v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8C71.6 32 0 103.6 0 192v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48z"></path></svg></b>Today I am 59 and I feel Cure My Diabetes has given me a 2nd innings in my life. I used to carry so many injections everywhere I travelled and now I don't have to.    Thank you Cure My Diabetes for changing my life.</p>
+                  </div>
+              </div>
+          </div>
+       </div>
+
+      <?php /*?> <div class="row">
+          <div class="col-lg-6 col-md1-6 col-sm-12 col-xs-12">
+              <div class="row">
+                  <div class="col-xs-12 col-sm-3 col-md-3 col-lg-4 p-0">
+                      <img src="<?php echo $this->getSkinUrl('images/Design-of-HP_33.jpg') ?>" alt="">
+                      <div class="paitient">
+                          <div class="name">Dr. Meera Singla</div>
+                          <div class="post">Age 36</div>
+                      </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-9 col-md-9 col-lg-7 paitient-says">
+                    <p>  <b  class="l-dbl-quate"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="quote-left" class="svg-inline--fa fa-quote-left fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="14px" width="14px"><path fill="currentColor" d="M464 256h-80v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8c-88.4 0-160 71.6-160 160v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48zm-288 0H96v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8C71.6 32 0 103.6 0 192v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48z"></path></svg></b>Thanks to Cure My Diabetes I am needing to take less insulin during my pregnancy and my sugars are also in much better control.</p>
+                  </div>
+                 <!-- <div class="col-sm-1"></div>-->
+              </div>
+          </div>
+          <div class="col-lg-6 col-md1-6 col-sm-12 col-xs-12">
+              <div class="row">
+                    <!-- <div class="col-sm-1"></div>-->
+                  <div class="col-xs-12 col-sm-3 col-md-3 col-lg-4 p-0">
+                      <img src="<?php echo $this->getSkinUrl('images/Rajiv-testimonial.png') ?>" alt="">
+                      <div class="paitient">
+                          <div class="name">Mr. Rajiv Gupta</div>
+                          <div class="post">Age 59  Diabetic for 22 years.</div>
+                      </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-9 col-md-9 col-lg-7 paitient-says">
+                      <p>  <b  class="l-dbl-quate"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="quote-left" class="svg-inline--fa fa-quote-left fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="14px" width="14px"><path fill="currentColor" d="M464 256h-80v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8c-88.4 0-160 71.6-160 160v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48zm-288 0H96v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8C71.6 32 0 103.6 0 192v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48z"></path></svg></b>Today I am 59 and I feel Cure My Diabetes has given me a 2nd innings in my life. I used to carry so many injections everywhere I travelled and now I don't have to.    Thank you Cure My Diabetes for changing my life.</p>
+                  </div>
+              </div>
+          </div>
+       </div>
+
+       <div class="row">
+          <div class="col-lg-6 col-md1-6 col-sm-12 col-xs-12">
+              <div class="row">
+                  <div class="col-xs-12 col-sm-3 col-md-3 col-lg-4 p-0">
+                      <img src="<?php echo $this->getSkinUrl('images/Design-of-HP_33.jpg') ?>" alt="">
+                      <div class="paitient">
+                          <div class="name">Dr. Meera Singla</div>
+                          <div class="post">Age 36</div>
+                      </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-9 col-md-9 col-lg-7 paitient-says">
+                    <p>  <b  class="l-dbl-quate"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="quote-left" class="svg-inline--fa fa-quote-left fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="14px" width="14px"><path fill="currentColor" d="M464 256h-80v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8c-88.4 0-160 71.6-160 160v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48zm-288 0H96v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8C71.6 32 0 103.6 0 192v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48z"></path></svg></b>Thanks to Cure My Diabetes I am needing to take less insulin during my pregnancy and my sugars are also in much better control.</p>
+                  </div>
+                  <!-- <div class="col-sm-1"></div>-->
+              </div>
+          </div>
+          <div class="col-lg-6 col-md1-6 col-sm-12 col-xs-12">
+              <div class="row">
+                  <!-- <div class="col-sm-1"></div>-->
+                  <div class="col-xs-12 col-sm-3 col-md-3 col-lg-4 p-0">
+                      <img src="<?php echo $this->getSkinUrl('images/Rajiv-testimonial.png') ?>" alt="">
+                      <div class="paitient">
+                          <div class="name">Mr. Rajiv Gupta</div>
+                          <div class="post">Age 59  Diabetic for 22 years.</div>
+                      </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-9 col-md-9 col-lg-7 paitient-says">
+                      <p>  <b  class="l-dbl-quate">
+					  <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="quote-left" class="svg-inline--fa fa-quote-left fa-w-16"
+					   role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="14px" width="14px">
+					   <path fill="currentColor" 
+					   d="M464 256h-80v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8c-88.4 0-160 71.6-160 160v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48zm-288 0H96v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8C71.6 32 0 103.6 0 192v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48z"></path></svg></b>
+                       Today I am 59 and I feel Cure My Diabetes has given me a 2nd innings in my life. I used to carry so many injections everywhere I travelled and now I don't have to.   
+                        Thank you Cure My Diabetes for changing my life.</p>
+                  </div>
+              </div>
+          </div>
+       </div><?php */?>
+             
+                     
+  </div>
+</section>
+
+<footer id="new-footer">
+        <div class="container">
+            <div class="footer-links-web">
+                <ul class="list-inline list-unstyled text-uppercase">
+                <li class="text-left"><a href="<?php echo Mage::getBaseUrl();?>how">How</a></li>
+                   <li> <a href="<?php echo Mage::getBaseUrl();?>start">Start</a></li>
+                   <li> <a href="<?php echo Mage::getBaseUrl();?>pricing">Pricing</a></li>
+                   <li> <a href="<?php echo Mage::getBaseUrl();?>menuorder">Menu</a></li>
+                    <li><a href="https://www.curemydiabetes.com/recipes" target="_blank">Recipes</a></li>
+                    <li><a href="<?php echo Mage::getBaseUrl();?>questions">Questions</a></li>
+                    <li><a href="<?php echo Mage::getBaseUrl();?>disclaimer">Disclaimer</a></li>
+                    <li><a href="<?php echo Mage::getBaseUrl();?>contacts">Contact Us</a></li>
+                    <li><a href="<?php echo Mage::getBaseUrl();?>terms">Terms of Service</a></li>
+                   
+                <li><a href="<?php echo Mage::getBaseUrl();?>privacypolicy">Privacy Policy</a></li>
+                <li><a href="<?php echo Mage::getBaseUrl();?>privacypractice">Privacy Practice</a></li>               
+                <li  class="text-right"><a href="<?php echo Mage::getBaseUrl();?>telehealth">Telehealth Consent</a></li>
+                
+                    
+                </ul>
+            </div>
+           
+            <div class="footer-support-icons">
+                <div class="customer-support">
+                   <p>Braided-Rugs.Com © 2019 Premium Rugs Online Store</p>
+                        
+                    </div>
+                
+                <div class="social-media text-right">
+                    <ul class="list-inline list-unstyled text-uppercase">
+                        <li class="text-uppercase">Join us on</li>
+                        <li>
+                           <a target="_blank" href="https://www.facebook.com/curemydiabetesofficial"><img width="14" height="auto" src="<?php echo $this->getSkinUrl('images/1grey.png') ?>" alt=""></a>
+                        </li>
+                        <li>
+                     <a target="_blank" href="https://www.youtube.com/channel/UCrocY4uHeWsxtnM_JpbxBVA"><img src="<?php echo $this->getSkinUrl('images/ytgrey.png') ?>" alt=""></a>
+
+                        </li>
+                        <li>
+                         <a target="_blank" href="https://www.instagram.com/curemydiabetes/"><img src="<?php echo $this->getSkinUrl('images/2grey.png') ?>" alt=""></a>
+
+                        </li>
+                        <li>
+                        <a target="_blank" href="https://www.linkedin.com/in/junior-gupta-1a43a84/"><img src="<?php echo $this->getSkinUrl('images/3grey.png') ?>" alt=""></a>
+
+                        </li>
+                        <li>
+                         <a target="_blank" href="https://twitter.com/JGupta_me"><img src="<?php echo $this->getSkinUrl('images/4grey.png') ?>" alt=""></a>
+
+                        </li>
+                        <li>
+                         <a href="mailto:team@curemydiabetes.com"><img src="<?php echo $this->getSkinUrl('images/5grey.png') ?>" alt=""></a>
+
+                        </li>
+                    </ul>
+                </div>
+            </div></div>
+        
+    </footer>  
+    
+<script type="text/javascript">
+var $j = jQuery.noConflict();
+function checkVideos()
+{
+	$j.noConflict();
+	
+	$j('video').each(function() 
+	{
+		$j(this)[0].pause();
+	});
+}
+
+$j(document).ready(function(){
+  $j(".myModal").click(function(){
+	  $j("#myModal").toggle();
+
+  });
+  $j(".close").click(function(){
+	  $j("#myModal").toggle();
+
+  });
+});
+
+</script>

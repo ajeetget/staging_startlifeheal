@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<modules>
+			<St_Override> <!--Change St To Your Module NameSpace and Override to Your Module name-->
+					<version>0.1.0</version>
+			</St_Override>
+	</modules>
+	<frontend>
+		<routers>
+			<checkout>
+				<args>
+					<modules>
+						<St_Override before="Mage_Checkout">St_Override</St_Override><!--Change St To Your Module NameSpace and Override to Your Module name-->
+					</modules>
+				</args>
+			</checkout>
+			<customer>
+				<args>
+					<modules>
+						<St_Override before="Mage_Customer">St_Override</St_Override><!--Change St To Your Module NameSpace and Override to Your Module name-->
+					</modules>
+				</args>
+			</customer>
+			<override>
+				<use>standard</use>
+                <args>
+                    <module>St_Override</module>
+                    <frontName>override</frontName>
+                </args>
+			</override>
+		</routers>
+	</frontend>
+	
+	
+		<adminhtml>
+			  <events>
+				<adminhtml_customer_save_after>
+				  <observers>
+					<St_Override_customer_save_after>
+					  <type>singleton</type>
+					  <class>St_Override_Model_Observer</class>
+					  <method>customerSaveAfter</method>
+					</St_Override_customer_save_after>
+				 </observers>
+				</adminhtml_customer_save_after>
+			  </events>
+	  </adminhtml>
+ 
+</config>

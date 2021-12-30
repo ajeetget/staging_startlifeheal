@@ -1,0 +1,1538 @@
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <link rel="stylesheet" href="<?php echo $this->getSkinUrl();?>css/preloader.css">
+
+    <link rel="stylesheet" href="<?php echo $this->getSkinUrl();?>css/perfect-scrollbar.min.css">
+   
+    <link rel="stylesheet" href="<?php echo $this->getSkinUrl();?>css/catalog-page.css">
+ <script src="<?php echo $this->getSkinUrl();?>js/jquery-3.2.1.min.js"></script>
+
+<script src="<?php echo $this->getSkinUrl();?>js/catalog.min.js"></script>
+ <style>
+	 label{float: left;
+width: 170px;
+display: inline;}
+	 .SSFcO {
+   float: right;
+color:#3d4152;
+cursor: pointer;
+font-size: 24px;
+position: absolute;
+right: 10px;
+padding: 5px;
+top: -5px;
+}
+	 .usecode{text-align: center;width: 100%;float: left;font-size: 18px;margin-top: 5px;margin-bottom: 15px;color: red;border: 1px dashed red;background: #f8f6f6;text-transform: uppercase;padding: 10px;}
+	 .locationsec{z-index: 2;
+position: absolute;
+width: 460px;
+left: 15%;
+background-color:#fff;
+height: 200px;
+		 
+border: 1px solid #ccc;}
+	 #pac-container .dropbtn {
+  padding: 0 !important;
+font-size: 16px;
+border: none;
+cursor: pointer;
+width:100%;
+}
+
+	 .dropbtn {
+padding: 0px 24px !important;
+font-size: 16px;
+border: none;
+cursor: pointer;
+width:50%;
+background:#fff;
+float: left;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color:#fff;
+}
+
+#myInput {
+  box-sizing: border-box;
+background-position: 14px 12px;
+background-repeat: no-repeat;
+font-size: 14px;
+padding: 0px 0px 0px 15px;
+border: none;
+	text-align: left;
+    border-bottom-color: currentcolor;
+    border-bottom-style: none;
+    border-bottom-width: medium;
+border-bottom: 1px solid #ddd;
+
+height: 50px !important;
+border-radius: 4px;
+background:#fff;
+color:#000;
+width: 100% !important;
+}
+
+#myInput:focus {outline: 3px solid #ddd;}
+
+.dropdown, .dropdown1{
+position: relative;
+display: inline-block;
+margin: 20px auto auto auto;
+width: 100%;
+}
+
+.dropdown-content {
+  display: none;
+position: absolute;
+background-color:#f6f6f6;
+min-width: 230px;
+width: 100%;
+overflow: auto;
+border: 1px solid #ddd;
+z-index: 1;
+height: 200px;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;border: 1px solid #ddd;
+}
+.dropdown-content1 {
+  display: none;
+position: absolute;
+background-color:#f6f6f6;
+min-width: 230px;
+width: 100%;
+overflow: auto;
+border: 1px solid #ddd;
+z-index: 1;
+height: 200px;
+}
+
+.dropdown-content1 a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;border: 1px solid #ddd;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+	.dropdown1 a:hover {background-color: #ddd;}
+
+.show {display: block;}
+	/*.main-container .container{max-width:100%;padding:0px;}*/
+	/*the container must be positioned relative:*/
+.custom-selectnew{
+  position: relative;
+ width: 100%;
+float: left;
+}
+ .custom-selectloc {
+position: relative;
+width: 57%;
+float: left;
+margin: auto 14px;
+}
+.custom-selectnew select, .custom-selectloc select {
+  display: none; /*hide original SELECT element:*/
+}
+
+.select-selected, .select-selectedloc {
+  background-color: #fff;
+}
+
+/*style the arrow inside the select element:*/
+.select-selected:after, .select-selectedloc:after {
+  position: absolute;
+  content: "";
+  top: 20px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #269a9b transparent transparent transparent;
+}
+
+/*point the arrow upwards when the select box is open (active):*/
+.select-selected.select-arrow-active:after, .select-selectedloc.select-arrow-active:after {
+  border-color: #269a9b transparent transparent transparent;
+  top: 15px;
+}
+
+/*style the items (options), including the selected item:*/
+.select-items div,.select-selected, .select-selectedloc {
+ color:#888;
+padding: 8px 16px;
+border: 1px solid rgba(0, 0, 0, 0.1);
+    border-top-color: rgba(0, 0, 0, 0.1);
+    border-right-color: rgba(0, 0, 0, 0.1);
+    border-bottom-color: rgba(0, 0, 0, 0.1);
+    border-left-color: rgba(0, 0, 0, 0.1);
+border-color:rgba(0, 0, 0, 0.1);
+cursor: pointer;
+user-select: none;
+height: 50px;
+line-height: 30px;
+border-radius: 4px;
+font-size: 14px !important;
+}
+#search_button{cursor: pointer;}
+
+/*style items (options):*/
+.custom-selectloc .select-items {
+  position: absolute;
+  background-color: #fff;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+	height: 200px;
+overflow-x: scroll;
+}
+	.custom-selectnew .select-items { position: absolute;
+  background-color: #fff;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;}
+/*hide the items when the select box is closed:*/
+.select-hide {
+  display: none;
+}
+
+.select-items div:hover, .same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.location_area {
+    font-weight: bold;
+    font-size: 1.0em;
+    color: #000;
+text-shadow: 0px 0px  #fff;
+}
+	.sub_area {
+    color: #000;
+text-shadow: 0px 0px     #fff;
+}
+      #description {
+        font-size: 15px;
+        font-weight: 300;
+      }
+
+      #infowindow-content .title {
+        font-weight: bold;
+      }
+
+      #infowindow-content {
+        display: none;
+      }
+
+      #map #infowindow-content {
+        display: inline;
+      }
+
+      .pac-card {
+box-sizing: border-box;
+-moz-box-sizing: border-box;
+outline: none;
+width: 100%;
+float: left;
+max-width: 100%;
+margin: auto auto;
+padding: 15px;
+      }
+
+      #pac-container {
+   padding-bottom: 12px;
+float: left;
+width: 100%;
+margin-top: 5%;
+      }
+
+      .pac-controls {
+        display: inline-block;
+        padding: 5px 11px;
+      }
+
+      .pac-controls label {
+       
+        font-size: 13px;
+        font-weight: 300;
+      }
+
+      #pac-input {
+    background-color:#fff;
+
+font-size: 15px;
+
+font-weight: 300;
+
+margin-left: 18px;
+
+padding: 0px 0px 0 13px;
+
+text-overflow: ellipsis;
+
+width: 63%;
+
+line-height: 50px;
+
+height: 50px;
+
+max-width: 80%;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
+	#pac-card .rightredbtn{     
+	float: right;
+min-width: 20%;
+margin: 0;
+background:#269a9b;
+border: 1px solid #269a9b;
+color:#fff;
+font-size: 18px;
+text-align: center;
+height: 50px;
+line-height: 50px;
+font-weight: 600;border-radius: 4px;}
+      #title {
+color: #444;
+    font-size: 40px;
+    font-weight: 500;
+    padding: 15px 15px;
+      }
+	.importantRule{display: none !important;}
+  .importantRule1{display: none !important;}
+   .importantRule2{display: block;}
+	.desktopimg{display:block;}
+	.mobileimg{display:none;}
+		section{background-color: rgba(30, 30, 30, 0.85);}
+.paccardimg span {
+    position: absolute;
+width: 50%;
+padding: 10px;
+font-size: 1.8em;
+margin: auto;
+float: none;
+left: 25%;
+bottom: 30%;
+height: auto;
+background:rgba(0,0,0,0.4);
+color:#fff;
+text-align: center;
+text-transform: uppercase;
+border: 1px solid #000;
+}
+	.paccardimg span a{font-size:1em;}
+	@media screen and (min-width:260px) and (max-width:760px)
+	{
+		.usecode{text-align: center;width: 100%;float: left;font-size: 11px;margin-top: 5px;margin-bottom:10px;color: red;border: 1px dashed red;background: #f8f6f6;text-transform: uppercase;padding:5px;}
+		.SSFcO {
+    float: right;
+    color: #fff;
+    cursor: pointer;
+    font-size: 24px;
+    position: absolute;
+    right: 10px;
+    padding: 5px;
+    top: -5px;
+}
+		.stickyhead{position: fixed;
+top:23px !important;
+width: 100%;
+}
+		 .desktopmenuitem label{font-size:13px;width:auto;}
+.dropbtn {
+    padding: 0 !important;
+    font-size: 13px;
+    border: none;
+    cursor: pointer;
+    width: 50%;
+    background:#fff;
+    float: left;
+}
+		 #sticky-anchor{display:none;}
+	.stickyhead {
+    top: 0px !important;
+}
+		 #sticky{	display:none;}
+		 
+			 #sticky.stick {
+    position: fixed;
+    top: 0;
+		display:none;	 
+    z-index: 10000;
+    border-radius: 0 0 0.5em 0.5em;
+    background: #f1f6f6;
+    width: 100%;
+    left: 0;
+    padding: 20px 0px 20px;
+}
+		.paccardimg span a{font-size:15px;}
+		.dropdown, .dropdown1{
+    position: relative;
+    display: inline-block;
+    margin: 14px auto;
+    width: 100%;
+}
+		.site{padding:0px;}
+		.custom-selectnew {
+    position: relative;
+    width: 100%;
+    float: left;
+}
+		.custom-selectloc {
+    position: relative;
+    width: 100%;
+    float: left;
+    margin: 15px auto;
+}
+		#pac-card .rightredbtn {
+    float: right;
+    min-width: 100%;
+    margin: 0;
+    background: #269a9b;
+border: 1px solid #269a9b;
+color: #fff;
+    font-size: 18px;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    font-weight: 600;
+    border-radius: 4px;
+}
+		.locationsec {
+    z-index: 3;
+ 
+    width: 100%;
+    left: 0;
+    background-color: #fff;
+height: auto;
+border: 1px solid    #ccc;
+    top: 0%;
+}
+		.pac-card {
+   -moz-box-sizing: border-box;
+outline: none;
+width: 90%;
+float: left;
+max-width: 100%;
+margin: 15px;
+padding: 20px 10px;
+z-index: 2;
+position: relative;
+
+background:rgba(0,0,0,0.8);
+border: 4px solid #000;
+border-radius: 4px;
+}
+		.kitchentime{font-size:11px;}
+		.paccardimg img{height: 250px;
+width: 375px;
+margin: auto;}
+		
+		.desktopimg{display:none !important;}
+	.mobileimg{display:block !important;}
+		.paccardimg span {
+    position: absolute;
+    width: 100% !important;
+    padding: 10px;
+    font-size: .9em !important;
+    margin: auto;
+    float: none;
+    left: 0% !important;
+    bottom: 20%  !important;
+    height:auto!important;
+   background:rgba(0,0,0,0.4);
+color:#fff;
+text-align: center;
+text-transform: uppercase;
+border: 1px solid #000;
+}
+	}
+
+	@media screen and (min-width:768px) and (max-width:999px)
+	{
+		
+		.paccardimg span {
+    position: absolute;
+width: 50%;
+padding: 10px 0px;
+font-size: 1.4em;
+margin: auto;
+float: none;
+bottom: 20%;
+background:rgba(0,0,0,0.4);
+color:#fff;
+text-align: center;
+text-transform: uppercase;
+border: 1px solid #000;
+left: 25%;
+}
+		.dropdown, .dropdown1 {
+    position: relative;
+display: inline-block;
+margin: 10px auto auto;
+width: 100%;
+}
+		.dropbtn {
+    padding: 0 !important;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    width:50%;
+}
+		.custom-selectnew {
+    position: relative;
+    width:100%;
+    float: left;
+}
+		#pac-card .rightredbtn {
+    float: right;
+    min-width: 24%;
+    margin: 0;
+    background: #269a9b;
+border: 1px solid #269a9b;
+color:#fff;
+    font-size: 16px;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    font-weight: 600;
+    border-radius: 4px;
+}
+	}
+	@media screen and (min-width:800px) and (max-width:1200px)
+	{
+		.paccardimg span {
+   position: absolute;
+width: 50%;
+padding: 10px 0px;
+font-size: 1.4em;
+margin: auto;
+float: none;
+bottom: 20%;
+height: auto;
+background:rgba(0,0,0,0.4);
+color:#fff;
+text-align: center;
+text-transform: uppercase;
+border: 1px solid #000;
+left: 25%;
+}
+	}
+  
+sticky {
+  padding: 0.5ex;
+  width: 600px;
+  background-color: #333;
+  color: #fff;
+  font-size: 2em;
+  border-radius: 0.5ex;
+}
+
+
+</style>
+    <!-- site -->
+    <div class="site container">
+
+        <!-- site__content -->
+        <div class="site__content">
+			<!--<p class="productcategoryname">INDIAN</p>-->
+
+            <!-- catalog -->
+            <div class="catalog">
+
+              
+                <!-- catalog__frame -->
+                <div class="catalog__frame">
+
+    
+					
+					<div class="bannertext">
+					</div>
+					<div class="minorderarea"><div style="float: left;width:50%;text-align: center;line-height: 20px;margin: 0px 0px;cursor: pointer;" class="addressbtn"><b id="finaladdress">Cyber City 1</b><br><span style="font-size:12px;border-bottom: 1px dotted #000;">Change Location </span></div>
+						
+						
+						
+						<div style="float: left;width:50%;text-align: center;line-height: 20px;margin: 0px 0px;"><b class="rupee" id="rupee">199</b><br><span style="font-size:12px;">Min Order</span></div></div>
+				
+        </div>
+					<section class="locationsec" style="display:none;">
+<div class="container">
+	
+                
+  <div class="pac-card" id="pac-card">
+	  <span class="SSFcO icon-close">x</span>
+      <div id="pac-container">
+		  	<div class="custom-selectnew">
+    <select id="sort">
+		<option value="0">Please Select</option>
+    <option value="1" selected="selected">GURGAON</option>
+    <option value="2" >DELHI</option>
+  </select>
+</div>
+	<div class="dropdown">
+  <div onclick="myFunction1()" class="dropbtn">
+    <input type="text" placeholder="Enter Locality (eg. Sector 31)" id="myInput" onkeyup="filterFunction()" >
+    <div id="myDropdown" class="dropdown-content" style="display:none;">
+    
+
+  </div>
+ 
+  </div>
+</div>
+		  
+  
+</div>
+<div class="showdatatime" style="display:none;padding:0px; margin-top:-15px; padding-bottom:10px">
+    <div class="col-sm-12 hidden-xs kitchentime ng-binding" style="color: #fff; font-size: 13px; padding:0px;font-weight: bold; font-family: Sans-serif;float: left;margin: 20px auto auto;" align="center">
+
+    </div>
+  </div>
+  <div class="showdatatime1" style="display:none;padding:0px; margin-top:-15px; padding-bottom:10px">
+    <div class="col-sm-12 hidden-xs kitchentime1 ng-binding" style="color: #fff; font-size: 13px;font-weight: bold; padding:0px; font-family: Sans-serif;float: left;margin: 20px auto auto;" align="center">
+
+    </div>
+  </div>
+    </div>
+         </div>
+</section>
+	<div class="desktopmenuitem">
+					
+			<button class="dropbtn catalogfiltermenuexpress removedelhimenu" onclick="showCategoryProducts('express-menu','')" style="display:none;">
+					<label><b>Express Menu</b> <input type="radio"  name="yesno" id="noCheck" checked>
+						<span style="text-align: center;width:95%;float: left;font-size:12px;">90 min Delivery</span>
+						</label>
+			</button>	
+					
+			<button class="dropbtn catalogfiltermenufull" id="catalogfiltermenufull" onclick="showCategoryProducts('fullmenu','')" >
+				 <label><b>Full Menu</b> <input type="radio"name="yesno" id="yesCheck">
+						<span style="text-align: center;width:95%;float: left;font-size:12px;">200 min Delivery</span>
+						</label>
+                         </button>
+                                            
+                         <button class="dropbtn catalogfiltermenufull"  id="catalogfiltermenufull-nextday" onclick="showCategoryProducts('fullmenu','nextday')" >
+				 <label style="float: right;"><b>Next Day Delivery</b> <input type="radio"name="yesno" id="yesCheck">
+					 
+					 <select id="pmdelivery" name="deliverydaytime" style="font-size:12px;float: none;width: auto;margin: auto;text-align: center;">
+            <option value="12-1PM">12-1PM</option>
+            <option value="1-2PM">1-2PM</option>
+            <option value="2-3PM">2-3PM</option>
+            <option value="3-4PM">3-4PM</option>
+          </select>
+				
+						<!--<span style="text-align: center;width:95%;float: left;font-size:12px;">12 PM Delivery</span>-->
+						</label>
+							   </button>                  
+						<span class="usecode">save 50% on Next Day Delivery. code: <b>ND50</b></span>
+                      
+						<br>
+   <div class="dropdown-contentfullexpress" style="display:none;">
+	         <div class="cuisineitem" style="border: 0px;cursor: auto;"></div>
+	         <div class="optionitem" style="border: 0px;cursor: auto;"></div>
+		</div>
+	<div class="dropdown-contentfull" id='dropdown-contentfull'>
+	         <div class="cuisineitem" id="selected_cuisine">Cuisine</div>
+	         <div class="optionitem" id="div_subcategory">Options</div>
+		 <div class="dropdown-contentcuisine" id="div_parent_cat">
+                     <a onclick="showOptionsAndCategoryProducts('all-combos','117','')" style="cursor: pointer;" >Combos(All Cuisines)</a>
+                     <a onclick="showOptionsAndCategoryProducts('indianall','62','')"  style="cursor: pointer;">Indian and Mughlai</a>
+                     <a onclick="showOptionsAndCategoryProducts('chineseall','61','')"  style="cursor: pointer;">Chinese</a>
+                     <a onclick="showOptionsAndCategoryProducts('italianall','89','')"  style="cursor: pointer;">Italian</a>
+               </div>
+               <div class="dropdown-contentoption" id="cuisine_options">
+                    <a onclick="showCategoryProducts('fullmenu','')" style="cursor: pointer;">All</a>
+                    <a onclick="showCategoryProducts('all-combos','')" style="cursor: pointer;">Combos</a>
+                    <a onclick="showCategoryProducts('soupall','')" style="cursor: pointer;">Soup</a>
+                    <a onclick="showCategoryProducts('saladsall','')" style="cursor: pointer;">Salads</a>
+                    <a  onclick="showCategoryProducts('ricenrotiall','')" style="cursor: pointer;">Rice/Roti</a>
+                    <a onclick="showCategoryProducts('dessertsall','')" style="cursor: pointer;">Desserts</a>
+                    <a onclick="showCategoryProducts('allnoodles','')" style="cursor: pointer;">Noodles</a>
+              </div>
+        </div>	
+                                                
+        <div class="dropdown-contentfull-nextday" id='dropdown-contentfull-nextday'>
+	         <div class="cuisineitem" id="selected_cuisine-nextday">Cuisine</div>
+	         <div class="optionitem" id="div_subcategory-nextday">Options</div>
+		 <div class="dropdown-contentcuisine" id="div_parent_cat-nextday">
+                     <a onclick="showOptionsAndCategoryProducts('all-combos','117','nextday')" style="cursor: pointer;" >Combos(All Cuisines)</a>
+                     <a onclick="showOptionsAndCategoryProducts('indianall','62','nextday')"  style="cursor: pointer;">Indian and Mughlai</a>
+                     <a onclick="showOptionsAndCategoryProducts('chineseall','61','nextday')"  style="cursor: pointer;">Chinese</a>
+                     <a onclick="showOptionsAndCategoryProducts('italianall','89','nextday')"  style="cursor: pointer;">Italian</a>
+               </div>
+               <div class="dropdown-contentoption" id="cuisine_options-nextday">
+                    <a onclick="showCategoryProducts('fullmenu','nextday')" style="cursor: pointer;">All</a>
+                    <a onclick="showCategoryProducts('all-combos','nextday')" style="cursor: pointer;">Combos</a>
+                    <a onclick="showCategoryProducts('soupall','nextday')" style="cursor: pointer;">Soup</a>
+                    <a onclick="showCategoryProducts('saladsall','nextday')" style="cursor: pointer;">Salads</a>
+                    <a  onclick="showCategoryProducts('ricenrotiall','nextday')" style="cursor: pointer;">Rice/Roti</a>
+                    <a onclick="showCategoryProducts('dessertsall','nextday')" style="cursor: pointer;">Desserts</a>
+                    <a onclick="showCategoryProducts('allnoodles','nextday')" style="cursor: pointer;">Noodles</a>
+              </div>
+        </div>	                                        
+                                                
+						
+  
+     </div>
+					
+				
+		
+					
+					
+					
+                  
+                    <!-- catalog__wrap -->
+                    <div class="catalog__wrap" id="category-products-container">
+
+                        <!-- catalog__wrap -->
+                        <div class="catalog__list">
+
+                           
+
+                        </div>
+
+                    </div>
+                    <!-- /catalog__wrap -->
+
+                  
+
+                </div>
+                <!-- /catalog__frame -->
+
+            </div>
+            <!-- /catalog -->
+
+           
+           
+        <!-- /site__content -->
+
+
+    </div>
+    <!-- /site -->
+    <script src="<?php echo $this->getSkinUrl();?>js/perfect-scrollbar.jquery.min.js"></script>
+
+<script type="text/javascript">
+    var queryString = window.location.search;
+    var urlParams = new URLSearchParams(queryString);
+    var address = urlParams.get('address');
+    var orderamount = urlParams.get('orderamount');
+    if(address){
+        document.getElementById("finaladdress").innerHTML = address;
+    }else{
+        document.getElementById("finaladdress").innerHTML = 'Gurgaon';
+    }
+    if(orderamount){
+         document.getElementById("rupee").innerHTML = orderamount;
+    }else{
+        document.getElementById("rupee").innerHTML = '199';
+    }
+    
+    
+
+       function showCategoryProducts(buttonId,nextday)
+       {    
+		   
+	     jQuery(".firstindiall").removeClass("active");
+		  jQuery(".dropdown-contentfullexpress").hide();
+            if(buttonId=='express-menu')
+			
+           {
+             catid=95;
+	    //  jQuery("#selected_cuisine").text('Cuisine');
+           }  
+           else if(buttonId=='fullmenu')
+           {
+                    catid=97;
+                    if(nextday!='')
+                    {
+						 jQuery(".dropdown-contentfullexpress").hide();
+                        jQuery("#dropdown-contentfull-nextday").show();
+                        jQuery("#dropdown-contentfull").hide();
+                        jQuery("#selected_cuisine-nextday").text('Combo (All Cuisines)');
+                        jQuery("#div_subcategory-nextday").text('All');
+                        jQuery("#div_parent_cat-nextday").hide();
+                        jQuery("#cuisine_options-nextday").hide();
+						
+                    }
+                    else
+                    {   
+						jQuery(".dropdown-contentfullexpress").hide();
+                        jQuery("#dropdown-contentfull").show();
+                        jQuery("#dropdown-contentfull-nextday").hide();
+                        jQuery("#selected_cuisine").text('Cuisine');
+                        jQuery("#div_subcategory").text('Options');
+                        jQuery("#div_parent_cat").hide();
+                        jQuery("#cuisine_options").hide();  
+						
+                    }
+           }  
+		 
+	   else if (buttonId=='all-combos')
+           {
+                    catid=117; 
+                    if(nextday!='')
+                    {
+                          jQuery("#selected_cuisine-nextday").text('Combo (All Cuisines)');
+                          jQuery("#div_subcategory-nextday").text('Combo');
+                          jQuery("#div_parent_cat-nextday").hide();
+                          jQuery("#cuisine_options-nextday").hide();
+                     }
+                      else {
+
+                           jQuery("#selected_cuisine").text('Combo (All Cuisines)');
+                           jQuery("#div_subcategory").text('Combo');
+                           jQuery("#div_parent_cat").hide();
+                           jQuery("#cuisine_options").hide();
+                      }
+	      
+           }	
+	   else if (buttonId=='soupall')
+           {
+               catid=118;
+             /*  jQuery("#div_subcategory").text('Soup');
+              jQuery("#div_parent_cat").hide();
+              jQuery("#cuisine_options").hide();
+			   jQuery("#div_subcategory-nextday").text('Soup');
+			   jQuery("#div_parent_cat-nextday").hide();
+                          jQuery("#cuisine_options-nextday").hide();*/
+			   ////////////////////
+			   if(nextday!='')
+                    {
+                          jQuery("#selected_cuisine-nextday").text('Combo (All Cuisines)');
+                          jQuery("#div_subcategory-nextday").text('Soup');
+                          jQuery("#div_parent_cat-nextday").hide();
+                          jQuery("#cuisine_options-nextday").hide();
+                     }
+                      else {
+
+                          jQuery("#selected_cuisine").text('Combo (All Cuisines)');
+                           jQuery("#div_subcategory").text('Soup');
+                           jQuery("#div_parent_cat").hide();
+                           jQuery("#cuisine_options").hide();
+                      }
+			   ////////////////////////
+           }	
+		 else if (buttonId=='saladsall')
+           {
+              catid=119; 
+              if(nextday!='')
+                    {
+                          jQuery("#selected_cuisine-nextday").text('Combo (All Cuisines)');
+                          jQuery("#div_subcategory-nextday").text('Salads');
+                          jQuery("#div_parent_cat-nextday").hide();
+                          jQuery("#cuisine_options-nextday").hide();
+                     }
+                      else {
+
+                           jQuery("#selected_cuisine").text('Combo (All Cuisines)');
+                           jQuery("#div_subcategory").text('Salads');
+                           jQuery("#div_parent_cat").hide();
+                           jQuery("#cuisine_options").hide();
+                      }
+           }	
+		   else if (buttonId=='ricenrotiall')
+           {
+              catid=120; 
+			   
+              if(nextday!='')
+                    {
+                          jQuery("#selected_cuisine-nextday").text('Combo (All Cuisines)');
+                          jQuery("#div_subcategory-nextday").text('Rice Roti');
+                          jQuery("#div_parent_cat-nextday").hide();
+                          jQuery("#cuisine_options-nextday").hide();
+                     }
+                      else {
+
+                           jQuery("#selected_cuisine").text('Combo (All Cuisines)');
+                           jQuery("#div_subcategory").text('Rice Roti');
+                           jQuery("#div_parent_cat").hide();
+                           jQuery("#cuisine_options").hide();
+                      }
+           }	
+		   else if (buttonId=='dessertsall')
+           {
+              catid=121; 
+			   
+               if(nextday!='')
+                    {
+                          jQuery("#selected_cuisine-nextday").text('Combo (All Cuisines)');
+                          jQuery("#div_subcategory-nextday").text('Desserts');
+                          jQuery("#div_parent_cat-nextday").hide();
+                          jQuery("#cuisine_options-nextday").hide();
+                     }
+                      else {
+
+                           jQuery("#selected_cuisine").text('Combo (All Cuisines)');
+                           jQuery("#div_subcategory").text('Desserts');
+                           jQuery("#div_parent_cat").hide();
+                           jQuery("#cuisine_options").hide();
+                      }
+           }	
+		    else if (buttonId=='allnoodles')
+           {
+              catid=122; 
+			   if(nextday!='')
+                    {
+                          jQuery("#selected_cuisine-nextday").text('Combo (All Cuisines)');
+                          jQuery("#div_subcategory-nextday").text('Noodles');
+                          jQuery("#div_parent_cat-nextday").hide();
+                          jQuery("#cuisine_options-nextday").hide();
+                     }
+                      else {
+
+                           jQuery("#selected_cuisine").text('Combo (All Cuisines)');
+                           jQuery("#div_subcategory").text('Noodles');
+                           jQuery("#div_parent_cat").hide();
+                           jQuery("#cuisine_options").hide();
+                      }
+           }	
+		
+	  else if (buttonId=='indianall')
+           {
+              catid=62;
+			   //alert('indianall');
+			
+         jQuery("#div_subcategory").text('All');
+         jQuery("#selected_cuisine").text('Indian and Mughlai');
+         jQuery("#div_parent_cat").hide();
+         jQuery("#cuisine_options").hide();
+		 jQuery("#div_parent_cat-nextday").hide();
+         jQuery("#cuisine_options-nextday").hide();
+		 jQuery("#selected_cuisine-nextday").text('Indian and Mughlai');
+         jQuery("#div_subcategory-nextday").text('All');
+           }
+		else if (buttonId=='combo')
+           {
+              catid=87; 
+			   
+			   jQuery("#italianitem").removeClass("active");
+			    jQuery("#selected_cuisine-nextday").text('Indian and Mughlai');
+			  jQuery("#selected_cuisine").text('Indian and Mughlai');
+         jQuery("#div_parent_cat").hide();
+         jQuery("#cuisine_options").hide();
+		 jQuery("#div_parent_cat-nextday").hide();
+         jQuery("#cuisine_options-nextday").hide();
+         jQuery("#div_subcategory").text('Combo');        
+		 jQuery("#div_subcategory-nextday").text('Combo');
+           }	
+		
+		else if (buttonId=='indiansoup')
+           {
+              catid=99; 
+			
+         jQuery("#div_subcategory").text('Soup');
+         jQuery("#selected_cuisine-nextday").text('Indian and Mughlai');
+	     jQuery("#selected_cuisine").text('Indian and Mughlai');
+         jQuery("#div_parent_cat").hide();
+         jQuery("#cuisine_options").hide();
+		 jQuery("#div_parent_cat-nextday").hide();
+         jQuery("#cuisine_options-nextday").hide();
+		 jQuery("#div_subcategory-nextday").text('Soup');
+           }
+		else if (buttonId=='salads')
+           {
+              catid=77; 
+		
+         jQuery("#div_subcategory").text('Salad');
+          jQuery("#selected_cuisine-nextday").text('Indian and Mughlai');
+	      jQuery("#selected_cuisine").text('Indian and Mughlai');
+         jQuery("#div_parent_cat").hide();
+         jQuery("#cuisine_options").hide();
+		 jQuery("#div_parent_cat-nextday").hide();
+         jQuery("#cuisine_options-nextday").hide();
+		 jQuery("#div_subcategory-nextday").text('Salad');
+           }
+		else if (buttonId=='indianrice')
+           {
+              catid=100; 
+			
+         jQuery("#div_subcategory").text('Rice');
+        jQuery("#selected_cuisine-nextday").text('Indian and Mughlai');
+	      jQuery("#selected_cuisine").text('Indian and Mughlai');
+         jQuery("#div_parent_cat").hide();
+         jQuery("#cuisine_options").hide();
+		 jQuery("#div_parent_cat-nextday").hide();
+         jQuery("#cuisine_options-nextday").hide();
+		 jQuery("#div_subcategory-nextday").text('Rice');
+           }		
+		else if (buttonId=='desserts')
+           {
+              catid=86; 
+			  
+         jQuery("#div_subcategory").text('Desserts');
+         jQuery("#selected_cuisine-nextday").text('Indian and Mughlai');
+	      jQuery("#selected_cuisine").text('Indian and Mughlai');
+         jQuery("#div_parent_cat").hide();
+         jQuery("#cuisine_options").hide();
+		 jQuery("#div_parent_cat-nextday").hide();
+         jQuery("#cuisine_options-nextday").hide();
+		 jQuery("#div_subcategory-nextday").text('Desserts');
+			 
+           }
+          
+		
+          else if (buttonId=='chineseall')
+           {
+                          catid=61; 
+			  
+         jQuery("#div_subcategory").text('All');
+          jQuery("#selected_cuisine").text('Chinese');
+          jQuery("#div_parent_cat").hide();
+          jQuery("#cuisine_options").hide();
+		  jQuery("#div_parent_cat-nextday").hide();
+         jQuery("#cuisine_options-nextday").hide();
+		 jQuery("#selected_cuisine-nextday").text('Chinese');
+         jQuery("#div_subcategory-nextday").text('All');
+           }
+		else if (buttonId=='chinesecombo')
+           {
+              catid=75; 
+			   
+         jQuery("#div_subcategory").text('Combo');
+        jQuery("#selected_cuisine-nextday").text('Chinese');
+	      jQuery("#selected_cuisine").text('Chinese');
+         jQuery("#div_parent_cat").hide();
+         jQuery("#cuisine_options").hide();
+		 jQuery("#div_parent_cat-nextday").hide();
+         jQuery("#cuisine_options-nextday").hide();
+		 jQuery("#div_subcategory-nextday").text('Combo');
+           }
+		else if (buttonId=='chinesesoup')
+           {
+              catid=64; 
+			    
+         jQuery("#div_subcategory").text('Soup');
+         jQuery("#selected_cuisine-nextday").text('Chinese');
+	      jQuery("#selected_cuisine").text('Chinese');
+         jQuery("#div_parent_cat").hide();
+         jQuery("#cuisine_options").hide();
+		 jQuery("#div_parent_cat-nextday").hide();
+         jQuery("#cuisine_options-nextday").hide();
+		 jQuery("#div_subcategory-nextday").text('Soup');
+           }
+		else if (buttonId=='chinesesalad')
+           {
+              catid=66; 
+			
+         jQuery("#div_subcategory").text('Salad');
+         jQuery("#selected_cuisine-nextday").text('Chinese');
+	     jQuery("#selected_cuisine").text('Chinese');
+         jQuery("#div_parent_cat").hide();
+         jQuery("#cuisine_options").hide();
+		 jQuery("#div_parent_cat-nextday").hide();
+         jQuery("#cuisine_options-nextday").hide();
+		 jQuery("#div_subcategory-nextday").text('Salad');
+           }
+		else if (buttonId=='chinesemomos')
+           {
+              catid=67; 
+			    
+         jQuery("#div_subcategory").text('Momos');
+         jQuery("#cuisine_options").hide();
+			   jQuery("#cuisine_options-nextday").hide();
+		 jQuery("#div_subcategory-nextday").text('Momos');
+			   
+           }
+		
+		else if (buttonId=='chineserice')
+           {
+              catid=72; 
+			   
+         jQuery("#div_subcategory").text('Noodles');
+         jQuery("#selected_cuisine-nextday").text('Chinese');
+	     jQuery("#selected_cuisine").text('Chinese');
+         jQuery("#div_parent_cat").hide();
+         jQuery("#cuisine_options").hide();
+		 jQuery("#div_parent_cat-nextday").hide();
+         jQuery("#cuisine_options-nextday").hide();
+		 jQuery("#div_subcategory-nextday").text('Noodles');
+           }
+		else if (buttonId=='chinesedesserts')
+           {
+              catid=74; 
+			  
+         jQuery("#div_subcategory").text('Desserts');
+         jQuery("#selected_cuisine-nextday").text('Chinese');
+	      jQuery("#selected_cuisine").text('Chinese');
+         jQuery("#div_parent_cat").hide();
+         jQuery("#cuisine_options").hide();
+		 jQuery("#div_parent_cat-nextday").hide();
+         jQuery("#cuisine_options-nextday").hide();
+		 jQuery("#div_subcategory-nextday").text('Desserts');
+           }		
+		
+		else if (buttonId=='italianall')
+           {
+              catid=89; 
+			  
+         jQuery("#div_subcategory").text('All');
+          jQuery("#selected_cuisine").text('Italian');
+          jQuery("#div_parent_cat").hide();
+          jQuery("#cuisine_options").hide();
+		  jQuery("#div_parent_cat-nextday").hide();
+         jQuery("#cuisine_options-nextday").hide();
+		 jQuery("#selected_cuisine-nextday").text('Italian');
+         jQuery("#div_subcategory-nextday").text('All');	 
+           }
+		else if (buttonId=='italiancombo')
+           {
+              catid=90; 
+			  
+         jQuery("#div_subcategory").text('Combo');
+                          jQuery("#selected_cuisine").text('Italian');
+                           jQuery("#div_parent_cat").hide();
+                           jQuery("#cuisine_options").hide();
+			  jQuery("#div_parent_cat-nextday").hide();
+         jQuery("#cuisine_options-nextday").hide();
+		 jQuery("#selected_cuisine-nextday").text('Italian');
+         jQuery("#div_subcategory-nextday").text('Combo1'); 
+           }
+		else if (buttonId=='italiansoup')
+           {
+              catid=113; 
+			 
+         jQuery("#div_subcategory").text('Soup');
+                         jQuery("#selected_cuisine").text('Italian');
+                           jQuery("#div_parent_cat").hide();
+                           jQuery("#cuisine_options").hide();
+		  jQuery("#div_parent_cat-nextday").hide();
+         jQuery("#cuisine_options-nextday").hide();
+		 jQuery("#selected_cuisine-nextday").text('Italian');
+         jQuery("#div_subcategory-nextday").text('Soup');	 
+           }
+		else if (buttonId=='italiansalad')
+           {
+              catid=114; 
+			  
+         jQuery("#div_subcategory").text('Salad');
+                         jQuery("#selected_cuisine").text('Italian');
+                           jQuery("#div_parent_cat").hide();
+                           jQuery("#cuisine_options").hide();
+		  jQuery("#div_parent_cat-nextday").hide();
+         jQuery("#cuisine_options-nextday").hide();
+		 jQuery("#selected_cuisine-nextday").text('Italian');
+         jQuery("#div_subcategory-nextday").text('Salad');	 
+           }
+		else if (buttonId=='italianrice')
+           {
+              catid=115; 
+			  
+         jQuery("#div_subcategory").text('Rice');
+                           jQuery("#selected_cuisine").text('Italian');
+                           jQuery("#div_parent_cat").hide();
+                           jQuery("#cuisine_options").hide();
+			 jQuery("#div_parent_cat-nextday").hide();
+         jQuery("#cuisine_options-nextday").hide();
+		 jQuery("#selected_cuisine-nextday").text('Italian');
+         jQuery("#div_subcategory-nextday").text('Rice');
+           }
+		else if (buttonId=='italianmains')
+           {
+              catid=61; 
+			  
+                           jQuery("#selected_cuisine").text('Italian');
+                           jQuery("#div_parent_cat").hide();
+                           jQuery("#cuisine_options").hide();
+			  jQuery("#div_parent_cat-nextday").hide();
+         jQuery("#cuisine_options-nextday").hide();
+         jQuery("#selected_cuisine-nextday").text('Italian'); 
+           }
+		else if (buttonId=='italiandesserts')
+           {
+              catid=116; 
+			 
+                           jQuery("#div_subcategory").text('Desserts');
+                          jQuery("#selected_cuisine").text('Italian');
+                           jQuery("#div_parent_cat").hide();
+                           jQuery("#cuisine_options").hide();
+			   jQuery("#div_parent_cat-nextday").hide();
+         jQuery("#cuisine_options-nextday").hide();
+		 jQuery("#selected_cuisine-nextday").text('Italian');
+         jQuery("#div_subcategory-nextday").text('Desserts');
+           }
+           else
+           {
+                jQuery("#selected_cuisine").text('Cuisine');
+                jQuery("#cuisine_options").html();
+                jQuery("#cuisine_options").hide();
+			  jQuery("#cuisine_options-nextday").html();
+         jQuery("#cuisine_options-nextday").hide();
+		 jQuery("#selected_cuisine-nextday").text('Cuisine');
+           }
+		
+           jQuery.ajax({
+                        url: "<?php echo Mage::getBaseUrl().'override/index/getcategoryproducts' ?>",
+                        type: "POST",
+                        data: {
+                                 catid: catid,
+                                 nextday:nextday
+                              }, 
+                        success: function(response) {
+                            //alert(response);
+                            
+                            jQuery("#category-products-container").html(response);
+							
+
+                        }
+                      }); 
+                      
+                      
+                      
+                    
+                          
+		
+       }
+        </script>
+<script>
+
+jQuery(document).ready(function(){
+	 var buttonId = 'express-menu'; 
+	 showCategoryProducts(buttonId);
+	 
+	
+  jQuery("#catalogfiltermenufull").click(function(){
+    jQuery("#dropdown-contentfull").show();
+    jQuery("#dropdown-contentfull-nextday").hide();
+	  jQuery(".dropdown-contentexpress").hide();
+  });
+  
+   jQuery("#catalogfiltermenufull-nextday").click(function(){
+       
+    jQuery("#dropdown-contentfull-nextday").show();
+    jQuery("#dropdown-contentfull").hide();
+	  jQuery(".dropdown-contentexpress").hide();
+  });
+  
+  
+  
+  
+jQuery(".catalogfiltermenuexpress").click(function(){
+    jQuery(".dropdown-contentexpress").show();
+	jQuery("#dropdown-contentfull").hide();
+        jQuery("#dropdown-contentfull-nextday").hide();
+  });
+	
+        jQuery("#selected_cuisine").click(function(){
+           jQuery("#div_parent_cat").show();
+	   jQuery("#cuisine_options").hide();
+	   jQuery("#dropdown-contentfull").show();
+		
+  });
+  
+  jQuery("#selected_cuisine-nextday").click(function(){ 
+     
+           jQuery("#dropdown-contentfull-nextday").show();
+           jQuery("#div_parent_cat-nextday").show();
+	   jQuery("#cuisine_options-nextday").hide();
+	   
+		
+  });
+	jQuery("#div_subcategory").click(function(){
+           jQuery("#cuisine_options").show();
+	   jQuery("#div_parent_cat").hide();
+	   jQuery("#dropdown-contentfull").show();
+	
+           });
+           
+           jQuery("#div_subcategory-nextday").click(function(){
+              jQuery("#cuisine_options-nextday").show();
+	      jQuery("#div_parent_cat-nextday").hide();
+	      jQuery("#dropdown-contentfull-nextday").show();
+	
+           });
+});
+	
+
+
+	  
+  function showbottomCartInfo()
+   {
+        jQuery.ajax({
+        url: "<?php echo Mage::getBaseUrl().'checkout/cart/getcartinfo' ?>",
+        type: "POST",                         
+        success: function(cartresponse) {
+                   if(cartresponse!='')
+                   {
+                        jQuery('#bottomcartdetails').show();
+                         jQuery("#bottomcartdetails").html(cartresponse);
+                        // jQuery('#bottomcartdetails').hide(10000);
+                   }
+                }
+             });
+   }
+ 
+ 
+ 
+ function showOptionsAndCategoryProducts(buttonId,catId,nextdate){
+    //jQuery("#div_parent_cat").toggle();
+    //this.toggle
+     jQuery.ajax({
+        url: "<?php echo Mage::getBaseUrl().'override/index/getsubcatsinfo' ?>",
+        type: "POST",
+        data: {
+                 catid: catId,
+                 buttonid:buttonId
+              },
+        success: function(subcategoryResponseStr) {
+              //   response
+                   showCategoryProducts(buttonId,nextdate);
+                   if(nextdate=='')
+                   {
+                     jQuery("#cuisine_options").html(subcategoryResponseStr);
+                   }
+                   else
+                   {
+                     jQuery("#cuisine_options-nextdate").html(subcategoryResponseStr);   
+                   }
+                   
+                    
+                 }
+             });
+ }
+</script>
+
+   
+<script>
+	/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+jQuery(document).ready(function(){
+    jQuery('#dropdown-contentfull').hide(); 
+    jQuery('#dropdown-contentfull-nextday').hide(); 
+	jQuery(".wrapper").mouseup(function() {
+                   event.stopPropagation();
+                  jQuery('#cuisine_options').hide(); 
+                   jQuery('#cuisine_options-nextday').hide(); 
+        });
+     jQuery('#cuisine_options').hide(); 
+     jQuery('#cuisine_options-nextday').hide(); 
+ });
+ 
+	jQuery(".wrapper").mouseup(function() {
+            event.stopPropagation();
+        jQuery('#div_parent_cat').hide(); 
+        jQuery('#div_parent_cat-nextday').hide(); 
+     });
+	jQuery(".wrapper").click(function() {
+            jQuery(".dd-wrpr").html(''); 
+        });
+        
+  jQuery(".dropbtn").click(function(){
+     jQuery(".dropdown-content").toggle();
+  });
+  
+
+jQuery("#search_button").click(function(){
+  if(jQuery("#myInput").val().length >= 5 ) {
+    var addressas =  encodeURI(jQuery("#myInput").val());
+    var city = jQuery(".select-selected").text();
+    //console.log(addressas);
+    var orderamount = Cookies.get('orderamount');
+    //console.log(orderamount);
+    var url = "<?php echo Mage::getBaseUrl().'orderlist' ?>"+ '?address='+addressas +'&orderamount='+orderamount;
+    //console.log(url);
+    window.location.href = url; 
+  }
+});
+function deliverytime(number){
+  jQuery(".showdatatime").hide();
+  jQuery(".showdatatime1").hide();
+  var minorder = jQuery(".gurgaon"+number).attr('minorder');
+  var lunchtime = jQuery(".gurgaon"+number).attr('lunchtime');
+  var dinnertime = jQuery(".gurgaon"+number).attr('dinnertime');
+  var location = jQuery(".gurgaon"+number).attr('location');
+  //console.log(location);
+  jQuery("#myInput").val(location);
+  //document.cookie = "orderamount="+minorder;
+  Cookies.set('orderamount', minorder);
+  
+  jQuery(".removedelhimenu").css("display","block");
+  jQuery("#noCheck").prop("checked", true);
+  //addressbtn
+  document.getElementById("finaladdress").innerHTML = location;
+  document.getElementById("rupee").innerHTML = minorder;
+  jQuery( ".locationsec" ).slideToggle("slow");
+  // var htmraw ='Minimum Order <i class="fa fa-inr "></i> '+ minorder +' &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; Last Order by 4:00 PM &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  // jQuery(".kitchentime").html(htmraw);
+  // jQuery(".showdatatime").css("display","block");
+  
+}
+
+function delhideliverytime(number){
+  jQuery(".showdatatime1").hide();
+  jQuery(".showdatatime").hide();
+  var minorder = jQuery(".delhi"+number).attr('minorder');
+  var lunchtime = jQuery(".delhi"+number).attr('lunchtime');
+  var dinnertime = jQuery(".delhi"+number).attr('dinnertime');
+  var location = jQuery(".delhi"+number).attr('location');
+  //document.cookie = "orderamount="+minorder;
+  Cookies.set('orderamount', minorder);
+  jQuery(".dropdown-content1").css("display","none");
+  jQuery(".dropdown-content1").hide();
+  jQuery("#myInput").val(location);
+  document.getElementById("finaladdress").innerHTML = location;
+  document.getElementById("rupee").innerHTML = minorder;
+  jQuery( ".locationsec" ).slideToggle("slow");
+  jQuery(".removedelhimenu").css("display","none");
+  jQuery("#yesCheck").prop("checked", true);
+  // var htmraw ='Minimum Order <i class="fa fa-inr "></i> '+ minorder +' &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; Last Order by 4:00 PM &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  // jQuery(".kitchentime1").html(htmraw);
+  // jQuery(".showdatatime1").show();
+}
+
+
+function filterFunction() { 
+  var input, filter, ul, li, a, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  div = document.getElementById("myDropdown");
+  a = div.getElementsByTagName("a");
+  // div1 = document.getElementById("myDropdown1");
+  // a1 = div1.getElementsByTagName("a");
+  for (i = 0; i < a.length; i++) {
+    txtValue = a[i].textContent || a[i].innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      a[i].style.display = "";
+    } else {
+      a[i].style.display = "none";
+    }
+  }
+  // for (i = 0; i < a1.length; i++) {
+  //   txtValue1 = a1[i].textContent || a1[i].innerText;
+  //   if (txtValue1.toUpperCase().indexOf(filter) > -1) {
+  //     a1[i].style.display = "";
+  //   } else {
+  //     a1[i].style.display = "none";
+  //   }
+  // }
+}
+	
+var x, i, j, selElmnt, a, b, c;
+/*look for any elements with the class "custom-select":*/
+x = document.getElementsByClassName("custom-selectnew");
+for (i = 0; i < x.length; i++) {
+  selElmnt = x[i].getElementsByTagName("select")[0];
+  /*for each element, create a new DIV that will act as the selected item:*/
+  a = document.createElement("DIV");
+  a.setAttribute("class", "select-selected");
+  a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+  x[i].appendChild(a);
+  /*for each element, create a new DIV that will contain the option list:*/
+  b = document.createElement("DIV");
+  b.setAttribute("class", "select-items select-hide");
+  for (j = 1; j < selElmnt.length; j++) {
+    /*for each option in the original select element,
+    create a new DIV that will act as an option item:*/
+    c = document.createElement("DIV");
+    c.innerHTML = selElmnt.options[j].innerHTML;
+    c.addEventListener("click", function(e) {
+        /*when an item is clicked, update the original select box,
+        and the selected item:*/
+        var y, i, k, s, h;
+        s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+        h = this.parentNode.previousSibling;
+        for (i = 0; i < s.length; i++) {
+          if (s.options[i].innerHTML == this.innerHTML) {
+            s.selectedIndex = i;
+            h.innerHTML = this.innerHTML;
+            y = this.parentNode.getElementsByClassName("same-as-selected");
+            for (k = 0; k < y.length; k++) {
+              y[k].removeAttribute("class");
+            }
+            this.setAttribute("class", "same-as-selected");
+            break;
+          }
+        }
+        h.click();
+    });
+    b.appendChild(c);
+  }
+  x[i].appendChild(b);
+  a.addEventListener("click", function(e) {
+      /*when the select box is clicked, close any other select boxes,
+      and open/close the current select box:*/
+      e.stopPropagation();
+      closeAllSelect(this);
+      this.nextSibling.classList.toggle("select-hide");
+      this.classList.toggle("select-arrow-active");
+    });
+}
+function closeAllSelect(elmnt) {
+  /*a function that will close all select boxes in the document,
+  except the current select box:*/
+  var x, y, i, arrNo = [];
+  x = document.getElementsByClassName("select-items");
+  y = document.getElementsByClassName("select-selected");
+  for (i = 0; i < y.length; i++) {
+    if (elmnt == y[i]) {
+      arrNo.push(i)
+    } else {
+      y[i].classList.remove("select-arrow-active");
+    }
+  }
+  for (i = 0; i < x.length; i++) {
+    if (arrNo.indexOf(i)) {
+      x[i].classList.add("select-hide");
+    }
+  }
+}
+/*if the user clicks anywhere outside the select box,
+then close all select boxes:*/
+document.addEventListener("click", closeAllSelect);
+function myFunction1() {
+  var delhiaddress ='<a onclick="delhideliverytime(1)" class="delhi1" location="South Delhi, India" minorder="800" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">South Delhi,</span> <span class="sub_area ng-binding"> Delhi, India</span></a><a onclick="delhideliverytime(2)" class="delhi2" location="East Delhi, India" minorder="1000" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">East Delhi,</span> <span class="sub_area ng-binding"> Delhi, India</span></a><a onclick="delhideliverytime(3)" class="delhi3" location="West Delhi, India" minorder="1000" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">West Delhi,</span> <span class="sub_area ng-binding"> Delhi, India</span></a><a onclick="delhideliverytime(4)" class="delhi4" location="North Delhi, India" minorder="1000" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">North Delhi,</span> <span class="sub_area ng-binding"> Delhi, India</span></a>';
+  var gurgaonaddress ='<a onclick="deliverytime(2)" class="gurgaon2" location="DLF Cyber City" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">DLF Cyber City,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(3)" class="gurgaon3" location="DLF Phase 1" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">DLF Phase 1,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(4)" class="gurgaon4" location="DLF Phase 2" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">DLF Phase 2,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(5)" class="gurgaon5" location="DLF Phase 3" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">DLF Phase 3,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(6)" class="gurgaon6" location="DLF Phase 4" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">DLF Phase 4,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(7)" class="gurgaon7" location="DLF Phase 5" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">DLF Phase 5,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(8)" class="gurgaon8" location="Essel Towers, MG Road" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Essel Towers, MG Road,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(15)" class="gurgaon15" location="Oakwood Estate, DLF Phase 2" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Oakwood Estate, DLF Phase 2,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(11)" class="gurgaon11" location="Golf Course Road" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Golf Course Road,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(13)" class="gurgaon13" location="MG Road" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">MG Road,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(19)" class="gurgaon19" location="Ridgewood Estate, DLF Phase 4" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Ridgewood Estate, DLF Phase 4,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(14)" class="gurgaon14" location="Nirvana Country (Sector 50)" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Nirvana Country (Sector 50),</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(17)" class="gurgaon17" location="Park Centra, Sector 30" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Park Centra, Sector 30,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(18)" class="gurgaon18" location="Patel Nagar, Gurgaon" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Patel Nagar,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(20)" class="gurgaon20" location="Sector-12" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-12,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(21)" class="gurgaon21" location="Sector-13" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-13,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(22)" class="gurgaon22" location="Sector-14" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-14,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(23)" class="gurgaon23" location="Sector-15" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-15,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(24)" class="gurgaon24" location="Sector-16" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-16,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(25)" class="gurgaon25" location="Sector-17" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-17,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(1)" class="gurgaon1" location="Civil Lines" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Civil Lines,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(26)" class="gurgaon26" location="Sector-18" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-18,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(27)" class="gurgaon27" location="Sector-19" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-19,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(28)" class="gurgaon28" location="Sector-20" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-20,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(29)" class="gurgaon29" location="Sector-24" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-24,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(30)" class="gurgaon30" location="Sector-25" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-25,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(31)" class="gurgaon31" location="Sector-26 A" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-26 A,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(32)" class="gurgaon32" location="Sector-27" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-27,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(33)" class="gurgaon33" location="Sector-28" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-28,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(34)" class="gurgaon34" location="Sector-29" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-29,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(35)" class="gurgaon35" location="Sector-30" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-30,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(36)" class="gurgaon36" location="Sector-31" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-31,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(37)" class="gurgaon37" location="Sector-32" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-32,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(38)" class="gurgaon38" location="Sector-33" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-33,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(39)" class="gurgaon39" location="Sector-34" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-34,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(40)" class="gurgaon40" location="Sector-36" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-36,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(41)" class="gurgaon41" location="Sector-38" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-38,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(42)" class="gurgaon42" location="Sector-39" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-39,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(43)" class="gurgaon43" location="Sector-40" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-40,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(44)" class="gurgaon44" location="Sector-41" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-41,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(45)" class="gurgaon45" location="Sector-42" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-42,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(46)" class="gurgaon46" location="Sector-43" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-43,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(47)" class="gurgaon47" location="Sector-44" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-44,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(48)" class="gurgaon48" location="Sector-45" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-45,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(49)" class="gurgaon49" location="Sector-46" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-46,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(50)" class="gurgaon50" location="Sector-47" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-47,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(51)" class="gurgaon51" location="Sector-48" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-48,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(52)" class="gurgaon52" location="Sector-49" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-49,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(53)" class="gurgaon53" location="Sector-50" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-50,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(54)" class="gurgaon54" location="Sector-51" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-51,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(55)" class="gurgaon55" location="Sector-52 A" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-52 A,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(56)" class="gurgaon56" location="Sector-52" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-52,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(57)" class="gurgaon57" location="Sector-53" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-53,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(58)" class="gurgaon58" location="Sector-54" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-54,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(59)" class="gurgaon59" location="Sector-55" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-55,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(60)" class="gurgaon60" location="Sector-56" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-56,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(61)" class="gurgaon61" location="Sector-57" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-57,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(62)" class="gurgaon62" location="Sector-58"minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sector-58,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(63)" class="gurgaon63" location="Signature Tower, Sector 30" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Signature Tower, Sector 30,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(64)" class="gurgaon64" location="Silver Oak, DLF Phase 1" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Silver Oak, DLF Phase 1,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(65)" class="gurgaon65" location="Sohna Road" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sohna Road,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(66)" class="gurgaon66" location="South City-1" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">South City-1,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(67)" class="gurgaon67" location="South City-2" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">South City-2,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(68)" class="gurgaon68" location="Star Tower, Sector 30" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Star Tower, Sector 30,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(69)" class="gurgaon69" location="Sushant Lok Extension" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sushant Lok Extension,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(70)" class="gurgaon70" location="Sushant Lok Phase 1" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sushant Lok Phase 1,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(71)" class="gurgaon71" location="Sushant Lok Phase 2" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sushant Lok Phase 2,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(72)" class="gurgaon72" location="Sushant Lok Phase 3" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Sushant Lok Phase 3,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(73)" class="gurgaon73" location="The Palms, South City 1" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">The Palms, South City 1,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(74)" class="gurgaon74" location="Udyog Vihar Phase 1" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Udyog Vihar Phase 1,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(75)" class="gurgaon75" location="Udyog Vihar Phase 2" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Udyog Vihar Phase 2,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(76)" class="gurgaon76" location="Udyog Vihar Phase 3" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Udyog Vihar Phase 3,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(77)" class="gurgaon77" location="Udyog Vihar Phase 4" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Udyog Vihar Phase 4,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(78)" class="gurgaon78" location="Udyog Vihar - Phase 4" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Udyog Vihar - Phase 4,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(79)" class="gurgaon79" location="Udyog Vihar Phase 5" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Udyog Vihar Phase 5,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(80)" class="gurgaon80" location="Unitech Business Park, South City 1" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Unitech Business Park, South City 1,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(81)" class="gurgaon81" location="Unitech Commercial Tower, Sector 45" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Unitech Commercial Tower, Sector 45,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(82)" class="gurgaon82" location="Unitech Cyber Park - Sector 39" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Unitech Cyber Park - Sector 39,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(83)" class="gurgaon83" location="Unitech Infospace, Sector 48" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Unitech Infospace, Sector 48,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(84)" class="gurgaon84" location="Unitech Millenium Plaza, Sushant Lok Phase 1" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Unitech Millenium Plaza, Sushant Lok Phase 1,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(85)" class="gurgaon85" location="Unitech Trade Centre, Sector 43" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Unitech Trade Centre, Sector 43,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(86)" class="gurgaon86" location="Uniworld City, Sector 30" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Uniworld City, Sector 30,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(87)" class="gurgaon87" location="World Spa East, Sector 30" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">World Spa East, Sector 30,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(88)" class="gurgaon88" location="World Spa West, Sector 30" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">World Spa West, Sector 30,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(9)" class="gurgaon9" location="Frsh Office, E-113, Sushant Shopping Arcade" minorder="199" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Frsh Office, E-113, Sushant Shopping Arcade,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a> <a onclick="deliverytime(12)" class="gurgaon12" location="Infotech Centre, Old Delhi Gurgaon Road" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Infotech Centre, Old Delhi Gurgaon Road,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a><a onclick="deliverytime(16)" class="gurgaon16" location="Old Delhi Gurgaon Road" minorder="300" lunchtime="2 HOURS" dinnertime="3 HOURS"><span class="location_area ng-binding">Old Delhi Gurgaon Road,</span> <span class="sub_area ng-binding">Gurgaon, India</span></a>'; 
+var city = jQuery(".select-selected").text();
+  if(city.toLowerCase() == "gurgaon"){ 
+    //console.log(city.toLowerCase());
+    //jQuery(".dropdown-content1").addClass('importantRule1');
+    //jQuery(".dropdown-content").removeClass('importantRule');
+    jQuery(".dropdown-content").html(gurgaonaddress);
+  }else{
+    console.log(city.toLowerCase());
+    jQuery(".dropdown-content").html(delhiaddress);
+    //jQuery(".dropdown-content1").removeClass('importantRule1');
+    //jQuery(".dropdown-content").addClass('importantRule');
+    //jQuery(".showdatatime").hide();
+    //jQuery(".showdatatime1").hide();
+
+  }
+}
+	
+	jQuery(".addressbtn" ).click(function() {
+  jQuery( ".locationsec" ).slideToggle("slow");
+	
+});
+	jQuery(".icon-close" ).click(function() {
+  jQuery( ".locationsec" ).slideToggle("slow");
+		
+});
+
+  jQuery("#pmdelivery").change(function () {
+    setdeliveryinsession();
+    //console.log("pmdelivery");
+  });
+
+  function setdeliveryinsession(){
+  //jQuery("#pmdelivery").change(function () {
+    var deliverydaytime= jQuery('select[name=deliverydaytime]').val() 
+    console.log("time set "+deliverydaytime);
+    jQuery.ajax({
+        url: "<?php echo Mage::getBaseUrl().'override/index/setdeliverytimedate' ?>",
+        type: "POST",
+        data: {
+          deliverydaytime:deliverydaytime
+        },                       
+        success: function(data) {
+          console.log("success");
+        }
+    });
+  //});  
+  };  
+  
+</script>    
+	
+

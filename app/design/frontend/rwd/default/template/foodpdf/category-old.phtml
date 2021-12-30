@@ -1,0 +1,166 @@
+<style type="text/css">
+.loader {
+  position: fixed;
+  left: 40%;
+  top: 50%;
+  z-index: 9999;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #a61d3f;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+</style>
+<div id="pageloader" class="loader" style="display: none;"></div>
+<input type="button" value="Add Category" onclick="showTextBox()" />
+<br>
+<div id="divCat" style="display:none" >
+	<div>
+	      Category ::<input id="catName" type="text" value="" onblur="CheckExistOrNot(this.value)" />
+		  <span id="catMsg"></spna>
+	</div>
+	<div>
+	    <input type="button" value="Save" onclick="saveCategory()" />
+	    <input type="button" value="Cancel" onclick="doNotSaveCategory()" />
+	</div>
+</div>
+
+<div id="allCategory">
+
+</div>
+
+
+
+<script type="text/javascript">
+jQuery( document ).ready(function() {
+    showcategory();
+});
+
+function showTextBox()
+{
+	
+	jQuery("#divCat").show();
+}
+
+function doNotSaveCategory()
+{
+	jQuery("#divCat").hide();
+}
+
+function showcategory()
+{
+	var baseUrl = window.location.origin;
+		   jQuery.ajax({
+							url: baseUrl+'/foodpdf/index/showcategory',
+							type: "POST",
+							beforeSend: function()
+								 {
+									jQuery(".loader").css("display", "block"); 
+								 },
+						    success: function(response)
+								 {  
+									jQuery("#allCategory").html(response);  
+								 },
+						  complete:function(data)
+						           {
+								     jQuery(".loader").css("display", "none"); 
+								   }
+					});
+}
+
+function saveCategory()
+{
+	var catName = jQuery("#catName").val();
+	if(catName!='')
+	{
+		   var baseUrl = window.location.origin;
+		   jQuery.ajax({
+							url: baseUrl+'/foodpdf/index/savecategory',
+							type: "POST",
+							data: {
+									   catname: catName, 
+								  },
+							beforeSend: function()
+								 {
+											 jQuery(".loader").css("display", "block"); 
+								 },
+						    success: function(response)
+								 {  
+									 if(response=='saved')
+									 {
+										    jQuery("#catMsg").html('<div class="msgdiv">Category <b>'+catName+ '</b> hase been saved saved.</div>'); 
+											setTimeout(function() 
+														 { jQuery("#catMsg").fadeOut('fast');
+														 }, 1000);
+											jQuery("#catName").val('');	
+										return false;	
+									 }
+									 else if(response=='exist')
+									 {
+										    jQuery("#catMsg").html('<div class="msgdiv">This category already exist.</div>'); 
+											setTimeout(function() 
+														 { jQuery("#catMsg").fadeOut('fast');
+														 }, 1000);
+											jQuery("#catName").val('');	
+											return false;	
+									 }
+									   
+								 },
+						  complete:function(data)
+						           {
+									   showcategory();
+									   jQuery(".loader").css("display", "none"); 
+								   }
+					});
+	}
+	else
+	{
+		jQuery("#catMsg").html('<div class="msgdiv">Please enter the category Name.</div>'); 
+											setTimeout(function() 
+														 { jQuery("#catMsg").fadeOut('fast');
+														 }, 1000);
+			return false;											 
+	}
+}
+
+function CheckExistOrNot(catName)
+	{
+			 if(catName!='')
+			 {				 
+					var baseUrl = window.location.origin;
+					
+					 jQuery.ajax({
+									url: baseUrl+'/foodpdf/index/checkcategory',
+									type: "POST",
+									data: {
+											   catname: catName, 
+										  },
+									beforeSend: function()
+									{
+											 jQuery(".loader").css("display", "block"); 
+									},
+									success: function(response)
+								    {  
+										 if(response=='exist')
+										 {
+										    jQuery("#catMsg").html('<div class="msgdiv">This category already exist.</div>'); 
+											setTimeout(function() 
+														 { jQuery("#catMsg").fadeOut('fast');
+														 }, 1000);
+											jQuery("#catName").val('');	
+											return false;	
+										 }
+									   
+								    },
+								    complete:function(data){
+									   
+									   jQuery(".loader").css("display", "none"); 
+								    }
+								 });
+			 }
+	 }
+
+</script>
+

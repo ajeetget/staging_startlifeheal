@@ -1,0 +1,135 @@
+<?php
+/**
+ * Advanced Checkout
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Onestepcheckout.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.advancedcheckout.com/license-agreement
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category 	Advanced Checkout
+ * @package 	Advanced_Onestepcheckout
+ * @copyright 	Copyright (c) 2015 Advanced Checkout (http://www.advancedcheckout.com/)
+ * @license 	http://www.advancedcheckout.com/license-agreement
+ */
+/**
+ * onestepcheckout template
+ * 
+ * @see Advanced_Onestepcheckout_Block_Onestepcheckout
+ */
+?>
+
+<?php $column = Mage::getStoreConfig('onestepcheckout/style/column', Mage::app()->getStore()->getStoreId()); ?>
+
+<div id="form-loadding-review" class="form-loadding"></div>
+<?php echo $this->getChildHtml('items_before'); ?>
+<div id="checkout-review-table-wrapper">
+   
+        		<div id="shopping-cart-table" class="chekout-order-review">
+					
+				
+					<div class="checkout-order-review-detail">
+						<div class="checkout-order-review-detail-product">
+						    
+						
+							<div class="checkout-order-review-products-header">
+								<p class="checkout-order-review-products-header-product">Products</p>
+								<p class="checkout-order-review-products-header-price">Price</p>
+							</div>
+							<!-- Product Start -->
+							<?php foreach ($this->getItems() as $_item): ?>
+                                   <?php echo $this->getItemHtml($_item) ?>
+                            <?php endforeach ?>
+							<!--<div class="checkout-order-review-products-detail">
+								<p class="checkout-order-review-products-detail-product">3 Month Weight Management Meal plan</p>
+								<p class="checkout-order-review-products-detail-price">Rs. 18,000</p>
+								<button type="button" class="checkout-order-review-products-detail-remove-product" onclick="removeProduct()"><i class="fa fa-times" aria-hidden="true"></i></button>
+							</div> -->
+						</div>
+						<div class="checkout-order-review-detail-promo-summary">
+							<div class="checkout-order-review-detail-promo">
+								 <?php 
+							   		$cartHelper = Mage::helper('checkout/cart');             
+									 $items = $cartHelper->getCart()->getItems(); 
+									 //print_r($items); 
+									 $showContent = true;		
+									 $checkIdsArray  = [2697,2696,2695];
+									 $checkyearendsaleIds  = [2740];
+									 foreach ($items as $item)  {     
+										           
+										$itemId = $item->getProduct()->getId();								 
+										if(in_array($itemId,$checkIdsArray)) {
+											$showContent = false; 
+										}
+
+									} 
+									
+									if ($showContent==true) { 
+										
+										echo '<p class="checkout-order-review-detail-promo-text">
+								       	Year End Sale. Use code FIT50
+								       </p>	';
+										
+								       /*echo '<p class="checkout-order-review-detail-promo-text">
+								       	Diwali Sale FIT50 for 1 & 3 month plans.
+								       </p>';*/
+								       
+								      
+								 	echo $this->getBlockHtml('onestepcheckout.review.coupon');
+								 		
+								        } ?>	
+							</div>
+							<div class="checkout-order-review-detail-summary">
+								<!--<div class="checkout-order-review-detail-summary-subtotal">
+									<p>Subtotal</p>
+									<h3>Rs. XXXXX</h3>
+								</div>
+								<div class="checkout-order-review-detail-summary-tax">
+									<p>Tax</p>
+									<h3>Rs. XXXXX</h3>
+								</div>
+								<div class="checkout-order-review-detail-summary-total">
+									<p>Grand Total</p>
+									<h3>Rs. XXXXX</h3>
+								</div>-->
+								<?php echo $this->getBlockHtml('onestepcheckout.review.info.totals'); ?>
+							</div>
+						</div>
+						<div class="checkout-order-review-action">
+							<a href="<?php echo Mage::getBaseUrl();?>" class="checkout-order-review-action-continue-shopping"><i class="fa fa-arrow-left" aria-hidden="true"></i> Continue Shopping</a>
+						</div>
+					</div>
+				</div>
+</div>
+<!-- Gift wrap -->
+<script>
+    function checkPaymentMethod() {
+        var options = document.getElementsByName('payment[method]');
+        var pay = true;
+        for (var i = 0; i < options.length; i++) {
+            if ($(options[i].id).checked) {
+                pay = false;
+                break;
+            }
+        }
+        return pay;
+    }
+
+    
+
+</script>
+
+<?php echo $this->getChildHtml('items_after'); ?>
+<script type="text/javascript">
+//<![CDATA[
+    decorateTable('checkout-review-table');
+    truncateOptions();
+//]]>
+
+</script>

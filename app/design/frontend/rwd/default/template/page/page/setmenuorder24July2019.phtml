@@ -1,0 +1,803 @@
+<link href="<?php echo $this->getSkinUrl();?>css/datatables.min.css" rel="stylesheet" />
+<script type="text/javascript">
+jQuery(document).ready(function (){
+    jQuery("#example9").dataTable({"bPaginate": false});
+    jQuery("#example8").dataTable({"bPaginate": false});
+    jQuery("#example7").dataTable({"bPaginate": false});
+    jQuery("#example6").dataTable({"bPaginate": false});
+    jQuery("#example5").dataTable({"bPaginate": false});
+    jQuery("#example4").dataTable({"bPaginate": false});
+    jQuery("#example3").dataTable({"bPaginate": false});
+    jQuery("#example2").dataTable({"bPaginate": false});
+    jQuery("#example1").dataTable({"bPaginate": false});
+    jQuery("#example").dataTable({"bPaginate": false});
+});
+</script>
+<script src="<?php echo $this->getSkinUrl();?>js/datatables.min.js" type="text/javascript"></script>
+<style>
+* {box-sizing: border-box}
+.loader {
+  position: fixed;
+  left: 40%;
+  top: 50%;
+  z-index: 9999;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #a61d3f;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+/* Set height of body and the document to 100% */
+.dataTables_filter {
+   float: left !important;
+}
+h3{clear: both;
+text-align: center;
+margin-bottom: 25px;
+border-bottom: 2px solid grey;
+max-width: 1110px;
+padding-right: 0px;
+padding-left: 0px;
+margin-right: auto;
+margin-left: auto;
+width: 100%;}
+.dataTables_length{float:right !important;}
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial;
+}
+.tabcontentdinner  button, .tabcontentlunch button, .tabcontentbreakfast button, .tabcontenthitea button{float:left !important;
+
+background: #a61d3f;
+
+color: #fff;
+
+border: 1px solid #a61d3f;
+
+padding: 0px 10px;}
+h3 button{float:left !important;
+
+background: #a61d3f;
+
+color: #fff;
+
+border: 1px solid #a61d3f;
+
+padding: 0px 10px;}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+/* Style tab links */
+.tablink {
+  background-color: #555;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 25%;
+}
+.tablinkdate{
+background-color: #535;color: white; float: left; border: none; outline: none;  cursor: pointer; padding: 14px 16px; font-size: 17px; width: 14.2%;margin-bottom: 20px;
+}
+.tablinkdinner{
+background-color: #585;color: white; float: left; border: none; outline: none;  cursor: pointer; padding: 14px 16px; font-size: 17px; width: 25%;
+}
+
+.tablinklunch{
+background-color: #595;color: white; float: left; border: none; outline: none;  cursor: pointer; padding: 14px 16px; font-size: 17px; width: 25%;
+}
+
+.tablink:hover {
+  background-color: #777;
+}
+.tablinkdinner:hover {
+  background-color: #789;
+}
+.tablinklunch:hover {
+  background-color: #889;
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+  color: white;
+  display: none;
+  padding: 100px 20px;
+  height: 100%;
+}
+.tabcontentdinner{
+color: white; display: none; padding: 100px 20px; height: 100%;
+}
+.tabcontentlunch{
+color: white; display: none; padding: 100px 20px; height: 100%;
+}
+.activecurrentdate{ background-color: #c31f41; }
+
+/*#Dinner {background-color: #c31f41;}
+#Breakfast {background-color: green;}
+#Lunch {background-color: blue;}
+#About {background-color: orange;}*/
+</style>
+<?php $tempdates = date('d-m-Y');
+  $dates = date('Y-m-d', strtotime($tempdates. ' + 2 days')); 
+  for ($i=0; $i < 7; $i++) { ?>
+      <button onclick="tablinkdate(event)" class="tablinkdate <?php if($i ==0){  echo ' activecurrentdate'; } ?>" data-date="<?php echo date ("j", strtotime("+".$i." day", strtotime($dates))); ?>" ><?php echo date ("F j, Y", strtotime("+".$i." day", strtotime($dates))); ?></button>
+   <?php } ?> </br> </br></br>
+
+<button class="tablink" onclick="openPage('Dinner', this, '#c31f41')" id="defaultOpen">Dinner</button>
+<button class="tablink" onclick="openPage('Breakfast', this, '#c31f41')" >BreakFast</button>
+<button class="tablink" onclick="openPage('Lunch', this, '#c31f41')">Lunch</button>
+<button class="tablink" onclick="openPage('HiTea', this, '#c31f41')">HiTea</button>
+
+<div class="loader" style="display: none;"></div>
+<!-- diner code start here -->
+<div id="Dinner" class="tabcontent">
+  <button class="tablinkdinner" onclick="openPagedinner('Dinner Indian', this, '#c31f41')" id="defaultOpendinner">Dinner Indian</button>
+  <button class="tablinkdinner" onclick="openPagedinner('Dinner Mughlai', this, '#c31f41')" >Dinner Mughlai</button>
+  <button class="tablinkdinner" onclick="openPagedinner('Dinner Italian', this, '#c31f41')">Dinner Italian</button>
+  <button class="tablinkdinner" onclick="openPagedinner('Dinner Chinese', this, '#c31f41')">Dinner Chinese</button>
+    <div id="Dinner Indian" class="tabcontentdinner" style="display: block">
+          <h3 style="clear: both;text-align: center; margin-bottom: 25px;border-bottom: 2px solid grey;">  Dinner Indian <button style="float: right;" onclick="SaveIndianDinner('indiandinner')"> Save </button>  <span class="finalmessage" style="color:#c31f41;float:left;">  </span>
+          <span style="color:#c31f41;float:right;padding-right: 20px;"><button style="float: right;" onclick="SaveRemoveAll('indiandinner')"> Remove All </button></span></h3> 
+        <table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Add Menu</th>
+            <th>Add Set Menu</th>
+            <th>Remove Menu</th>
+            <th>Remove Set Menu</th>
+        </tr>
+        </thead>  
+        <tfoot>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Add Menu</th>
+            <th>Add Set Menu</th>
+            <th>Remove Menu</th>
+            <th>Remove Set Menu</th>
+        </tr>
+        </tfoot>
+        <tbody>
+        <?php  $dinnerindiancategoryId = 47; // Dinner Indian Category
+        $dinnerindianproducts = Mage::getSingleton('catalog/category')->load($dinnerindiancategoryId)
+            ->getProductCollection()
+            ->addAttributeToSelect('*');
+        foreach ($dinnerindianproducts as $dinnerindiandata) { ?>
+            
+            <tr>
+            <td><?php echo $dinnerindiandata->getId();?></td>
+            <td><?php echo $dinnerindiandata->getName(); ?></td>
+            <td><input type="checkbox" name="indiadinnerdate" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            <td><input type="checkbox" name="indiadinnersetmenu" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            <td><input type="checkbox" name="removemenu" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            <td><input type="checkbox" name="removesetmenu" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            </tr>
+        <?php } ?> 
+        </tbody>
+        </table>
+    </div>
+    <div id="Dinner Mughlai" class="tabcontentdinner">
+        <h3 style="clear: both;text-align: center; margin-bottom: 25px;border-bottom: 2px solid grey;">  Dinner Mughlai <button style="float: right;" onclick="SaveIndianDinner('mughlaidinner')"> Save </button> <span class="finalmessage" style="color:#c31f41;float:left;">  </span> <span style="color:#c31f41;float:right;padding-right: 20px;"><button style="float: right;" onclick="SaveRemoveAll('mughlaidinner')"> Remove All </button></span></h3> 
+        <table id="example1" class="display" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Add Menu</th>
+            <th>Add Set Menu</th>
+            <th>Remove Menu</th>
+            <th>Remove Set Menu</th>
+        </tr>
+        </thead>  
+        <tfoot>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Add Menu</th>
+            <th>Add Set Menu</th>
+            <th>Remove Menu</th>
+            <th>Remove Set Menu</th>
+        </tr>
+        </tfoot>
+        <tbody>
+        <?php  $dinnerindiancategoryId = 48; // Dinner Indian Category
+        $dinnerindianproducts = Mage::getSingleton('catalog/category')->load($dinnerindiancategoryId)
+            ->getProductCollection()
+            ->addAttributeToSelect('*');
+        foreach ($dinnerindianproducts as $dinnerindiandata) { ?>
+            <tr>
+            <td><?php echo $dinnerindiandata->getId();?></td>
+            <td><?php echo $dinnerindiandata->getName(); ?></td>
+            <td><input type="checkbox" name="indiadinnerdate" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            <td><input type="checkbox" name="indiadinnersetmenu" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            <td><input type="checkbox" name="removemenu" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            <td><input type="checkbox" name="removesetmenu" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            </tr>
+        <?php } // dinner foreachloop close ?> 
+        </tbody>
+        </table>
+    </div>
+    <div id="Dinner Italian" class="tabcontentdinner">
+       <h3 style="clear: both;text-align: center; margin-bottom: 25px;border-bottom: 2px solid grey;">  Dinner Italian <button style="float: right;" onclick="SaveIndianDinner('italiandinner')"> Save </button> <span class="finalmessage" style="color:#c31f41;float:left;">  </span> <span style="color:#c31f41;float:right;padding-right: 20px;"><button style="float: right;" onclick="SaveRemoveAll('italiandinner')"> Remove All </button></span></h3> 
+        <table id="example2" class="display" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Add Menu</th>
+            <th>Add Set Menu</th>
+            <th>Remove Menu</th>
+            <th>Remove Set Menu</th>
+        </tr>
+        </thead>  
+        <tfoot>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Add Menu</th>
+            <th>Add Set Menu</th>
+            <th>Remove Menu</th>
+            <th>Remove Set Menu</th>
+        </tr>
+        </tfoot>
+        <tbody>
+        <?php  $dinnerindiancategoryId = 49; // Dinner Italian Category
+        $dinnerindianproducts = Mage::getSingleton('catalog/category')->load($dinnerindiancategoryId)
+            ->getProductCollection()
+            ->addAttributeToSelect('*');
+        foreach ($dinnerindianproducts as $dinnerindiandata) { ?>
+            <tr>
+            <td><?php echo $dinnerindiandata->getId();?></td>
+            <td><?php echo $dinnerindiandata->getName(); ?></td>
+            <td><input type="checkbox" name="indiadinnerdate" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            <td><input type="checkbox" name="indiadinnersetmenu" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            <td><input type="checkbox" name="removemenu" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            <td><input type="checkbox" name="removesetmenu" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            </tr>
+        <?php } // dinner foreachloop close ?> 
+        </tbody>
+        </table>
+    </div>
+    <div id="Dinner Chinese" class="tabcontentdinner">
+       <h3 style="clear: both;text-align: center; margin-bottom: 25px;border-bottom: 2px solid grey;">  Dinner Chinese <button style="float: right;" onclick="SaveIndianDinner('chinesedinner')"> Save </button> <span class="finalmessage" style="color:#c31f41;float:left;">  </span> <span style="color:#c31f41;float:right;padding-right: 20px;"><button style="float: right;" onclick="SaveRemoveAll('chinesedinner')"> Remove All </button></span></h3> 
+        <table id="example3" class="display" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Add Menu</th>
+            <th>Add Set Menu</th>
+            <th>Remove Menu</th>
+            <th>Remove Set Menu</th>
+        </tr>
+        </thead>  
+        <tfoot>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Add Menu</th>
+            <th>Add Set Menu</th>
+            <th>Remove Menu</th>
+            <th>Remove Set Menu</th>
+        </tr>
+        </tfoot>
+        <tbody> 
+        <?php  $dinnerindiancategoryId = 50; // Dinner Indian Category
+        $dinnerindianproducts = Mage::getSingleton('catalog/category')->load($dinnerindiancategoryId)
+            ->getProductCollection()
+            ->addAttributeToSelect('*');
+        foreach ($dinnerindianproducts as $dinnerindiandata) { ?>
+            <tr>
+            <td><?php echo $dinnerindiandata->getId();?></td>
+            <td><?php echo $dinnerindiandata->getName(); ?></td>
+            <td><input type="checkbox" name="indiadinnerdate" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            <td><input type="checkbox" name="indiadinnersetmenu" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            <td><input type="checkbox" name="removemenu" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            <td><input type="checkbox" name="removesetmenu" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            </tr>
+        <?php } // dinner foreachloop close ?> 
+        </tbody>
+        </table>
+    </div>
+</div>
+<!-- diner code end here -->
+<!-- breakfast code start here -->
+<div id="Breakfast" class="tabcontent">
+
+  <h3 style="clear: both;text-align: center; margin-bottom: 25px;border-bottom: 2px solid grey;">  Breakfast <button style="float: right;" onclick="SaveIndianDinner('breakfast')"> Save </button> <span class="finalmessage" style="color:#c31f41;float:left;">  </span> <span style="color:#c31f41;float:right;padding-right: 20px;"><button style="float: right;" onclick="SaveRemoveAll('breakfast')"> Remove All </button></span></h3> 
+  <table id="example4" class="display" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Add Menu</th>
+            <th>Add Set Menu</th>
+            <th>Remove Menu</th>
+            <th>Remove Set Menu</th>
+        </tr>
+        </thead>  
+        <tfoot>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Add Menu</th>
+            <th>Add Set Menu</th>
+            <th>Remove Menu</th>
+            <th>Remove Set Menu</th>
+        </tr>
+        </tfoot>
+        <tbody> 
+        <?php  $dinnerindiancategoryId = 51; // Dinner Indian Category
+        $dinnerindianproducts = Mage::getSingleton('catalog/category')->load($dinnerindiancategoryId)
+            ->getProductCollection()
+            ->addAttributeToSelect('*');
+        foreach ($dinnerindianproducts as $dinnerindiandata) { ?>
+            <tr>
+            <td><?php echo $dinnerindiandata->getId();?></td>
+            <td><?php echo $dinnerindiandata->getName(); ?></td>
+            <td><input type="checkbox" name="indiadinnerdate" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            <td><input type="checkbox" name="indiadinnersetmenu" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            <td><input type="checkbox" name="removemenu" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            <td><input type="checkbox" name="removesetmenu" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            </tr>
+        <?php } // breakfast foreachloop close ?> 
+        </tbody>
+        </table>
+</div>
+<!-- breakfast code end here -->
+<!-- Lunch code start here -->
+<div id="Lunch" class="tabcontent">
+  <button class="tablinklunch" onclick="openPagelunch('Lunch Indian', this, '#c31f41')" id="defaultOpenlunch">Lunch Indian</button>
+  <button class="tablinklunch" onclick="openPagelunch('Lunch Mughlai', this, '#c31f41')" >Lunch Mughlai</button>
+  <button class="tablinklunch" onclick="openPagelunch('Lunch BSB', this, '#c31f41')">Lunch BSB</button>
+  <button class="tablinklunch" onclick="openPagelunch('Lunch Chinese', this, '#c31f41')">Lunch Chinese</button>
+    <div id="Lunch Indian" class="tabcontentlunch">
+          <h3 style="clear: both;text-align: center; margin-bottom: 25px;border-bottom: 2px solid grey;">  Lunch Indian <button style="float: right;" onclick="SaveIndianDinner('lunchindian')"> Save </button> <span class="finalmessage" style="color:#c31f41;float:left;">  </span> <span style="color:#c31f41;float:right;padding-right: 20px;"><button style="float: right;" onclick="SaveRemoveAll('lunchindian')"> Remove All </button></span></h3> 
+        <table id="example5" class="display" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Add Menu</th>
+            <th>Add Set Menu</th>
+            <th>Remove Menu</th>
+            <th>Remove Set Menu</th>
+        </tr>
+        </thead>  
+        <tfoot>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Add Menu</th>
+            <th>Add Set Menu</th>
+            <th>Remove Menu</th>
+            <th>Remove Set Menu</th>
+        </tr>
+        </tfoot>
+        <tbody>   
+        <?php  $dinnerindiancategoryId = 52; // Dinner Indian Category
+        $dinnerindianproducts = Mage::getSingleton('catalog/category')->load($dinnerindiancategoryId)
+            ->getProductCollection()
+            ->addAttributeToSelect('*');
+        foreach ($dinnerindianproducts as $dinnerindiandata) { ?>
+            <tr>
+            <td><?php echo $dinnerindiandata->getId();?></td>
+            <td><?php echo $dinnerindiandata->getName(); ?></td>
+            <td><input type="checkbox" name="indiadinnerdate" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            <td><input type="checkbox" name="indiadinnersetmenu" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            <td><input type="checkbox" name="removemenu" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            <td><input type="checkbox" name="removesetmenu" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            </tr>
+        <?php } // dinner foreachloop close ?> 
+        </tbody>
+        </table>
+    </div>
+    <div id="Lunch Mughlai" class="tabcontentlunch">
+        <h3 style="clear: both;text-align: center; margin-bottom: 25px;border-bottom: 2px solid grey;">  Lunch Mughlai <button style="float: right;" onclick="SaveIndianDinner('lunchmughlai')"> Save </button> <span class="finalmessage" style="color:#c31f41;float:left;">  </span> <span style="color:#c31f41;float:right;padding-right: 20px;"><button style="float: right;" onclick="SaveRemoveAll('lunchmughlai')"> Remove All </button></span></h3> 
+        <table id="example6" class="display" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Add Menu</th>
+            <th>Add Set Menu</th>
+            <th>Remove Menu</th>
+            <th>Remove Set Menu</th>
+        </tr>
+        </thead>  
+        <tfoot>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Add Menu</th>
+            <th>Add Set Menu</th>
+            <th>Remove Menu</th>
+            <th>Remove Set Menu</th>
+        </tr>
+        </tfoot>
+        <tbody> 
+        <?php  $dinnerindiancategoryId = 53; // Dinner Indian Category
+        $dinnerindianproducts = Mage::getSingleton('catalog/category')->load($dinnerindiancategoryId)
+            ->getProductCollection()
+            ->addAttributeToSelect('*');
+        foreach ($dinnerindianproducts as $dinnerindiandata) { ?>
+            <tr>
+            <td><?php echo $dinnerindiandata->getId();?></td>
+            <td><?php echo $dinnerindiandata->getName(); ?></td>
+            <td><input type="checkbox" name="indiadinnerdate" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            <td><input type="checkbox" name="indiadinnersetmenu" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            <td><input type="checkbox" name="removemenu" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            <td><input type="checkbox" name="removesetmenu" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            </tr>
+        <?php } // dinner foreachloop close ?> 
+        </tbody>
+        </table>
+    </div>
+    <div id="Lunch BSB" class="tabcontentlunch">
+      <h3 style="clear: both;text-align: center; margin-bottom: 25px;border-bottom: 2px solid grey;">  Lunch BSB <button style="float: right;" onclick="SaveIndianDinner('lunchbsb')"> Save </button> <span class="finalmessage" style="color:#c31f41;float:left;">  </span> <span style="color:#c31f41;float:right;padding-right: 20px;"><button style="float: right;" onclick="SaveRemoveAll('lunchbsb')"> Remove All </button></span></h3> 
+      <table id="example7" class="display" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Add Menu</th>
+            <th>Add Set Menu</th>
+            <th>Remove Menu</th>
+            <th>Remove Set Menu</th>
+        </tr>
+        </thead>  
+        <tfoot>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Add Menu</th>
+            <th>Add Set Menu</th>
+            <th>Remove Menu</th>
+            <th>Remove Set Menu</th>
+        </tr>
+        </tfoot>
+        <tbody> 
+        <?php  $dinnerindiancategoryId = 54; // Dinner Indian Category
+        $dinnerindianproducts = Mage::getSingleton('catalog/category')->load($dinnerindiancategoryId)
+            ->getProductCollection()
+            ->addAttributeToSelect('*');
+        foreach ($dinnerindianproducts as $dinnerindiandata) { ?>
+            <tr>
+            <td><?php echo $dinnerindiandata->getId();?></td>
+            <td><?php echo $dinnerindiandata->getName(); ?></td>
+            <td><input type="checkbox" name="indiadinnerdate" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            <td><input type="checkbox" name="indiadinnersetmenu" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            <td><input type="checkbox" name="removemenu" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            <td><input type="checkbox" name="removesetmenu" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            </tr>
+        <?php } // dinner foreachloop close ?> 
+        </tbody>
+        </table>
+    </div>
+    <div id="Lunch Chinese" class="tabcontentlunch">
+      <h3 style="clear: both;text-align: center; margin-bottom: 25px;border-bottom: 2px solid grey;">  Lunch Chinese <button style="float: right;" onclick="SaveIndianDinner('lunchchinese')"> Save </button> <span class="finalmessage" style="color:#c31f41;float:left;">  </span> <span style="color:#c31f41;float:right;padding-right: 20px;"><button style="float: right;" onclick="SaveRemoveAll('lunchchinese')"> Remove All </button></span></h3> 
+      <table id="example8" class="display" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Add Menu</th>
+            <th>Add Set Menu</th>
+            <th>Remove Menu</th>
+            <th>Remove Set Menu</th>
+        </tr>
+        </thead>  
+        <tfoot>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Add Menu</th>
+            <th>Add Set Menu</th>
+            <th>Remove Menu</th>
+            <th>Remove Set Menu</th>
+        </tr>
+        </tfoot>
+        <tbody> 
+        <?php  $dinnerindiancategoryId = 55; // Dinner Indian Category
+        $dinnerindianproducts = Mage::getSingleton('catalog/category')->load($dinnerindiancategoryId)
+            ->getProductCollection()
+            ->addAttributeToSelect('*');
+        foreach ($dinnerindianproducts as $dinnerindiandata) { ?>
+            <tr>
+            <td><?php echo $dinnerindiandata->getId();?></td>
+            <td><?php echo $dinnerindiandata->getName(); ?></td>
+            <td><input type="checkbox" name="indiadinnerdate" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            <td><input type="checkbox" name="indiadinnersetmenu" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            <td><input type="checkbox" name="removemenu" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            <td><input type="checkbox" name="removesetmenu" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            </tr>
+        <?php } // dinner foreachloop close ?> 
+        </tbody>
+        </table>
+    </div>
+</div>
+<!-- Lunch code end here -->
+<!-- HiTea code end here -->
+<div id="HiTea" class="tabcontent">
+  <h3 style="clear: both;text-align: center; margin-bottom: 25px;border-bottom: 2px solid grey;">  HiTea <button style="float: right;" onclick="SaveIndianDinner('hitea')"> Save </button>  <span class="finalmessage" style="color:#c31f41;float:left;">  </span><span style="color:#c31f41;float:right;padding-right: 20px;"><button style="float: right;" onclick="SaveRemoveAll('hitea')"> Remove All </button></span></h3> 
+        <table id="example9" class="display" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Add Menu</th>
+            <th>Add Set Menu</th>
+            <th>Remove Menu</th>
+            <th>Remove Set Menu</th>
+        </tr>
+        </thead>  
+        <tfoot>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Add Menu</th>
+            <th>Add Set Menu</th>
+            <th>Remove Menu</th>
+            <th>Remove Set Menu</th>
+        </tr>
+        </tfoot>
+        <tbody> 
+        <?php  $dinnerindiancategoryId = 56; // Dinner Indian Category
+        $dinnerindianproducts = Mage::getSingleton('catalog/category')->load($dinnerindiancategoryId)
+            ->getProductCollection()
+            ->addAttributeToSelect('*');
+        foreach ($dinnerindianproducts as $dinnerindiandata) { ?>
+            <tr>
+            <td><?php echo $dinnerindiandata->getId();?></td>
+            <td><?php echo $dinnerindiandata->getName(); ?></td>
+            <td><input type="checkbox" name="indiadinnerdate" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            <td><input type="checkbox" name="indiadinnersetmenu" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            <td><input type="checkbox" name="removemenu" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            <td><input type="checkbox" name="removesetmenu" value="<?php echo $dinnerindiandata->getId(); ?>"></td>
+            </tr>
+        <?php } // dinner foreachloop close ?> 
+        </tbody>
+        </table>
+</div>
+<!-- HiTea code end here -->
+
+<script>   
+    // Quick & dirty toggle to demonstrate modal toggle behavior
+function tablinkdate(evt) {
+  var i, tabcontent, tablinkdate;
+  tablinkdate = document.getElementsByClassName("tablinkdate");
+  for (i = 0; i < tablinkdate.length; i++) {
+    tablinkdate[i].className = tablinkdate[i].className.replace(" activecurrentdate", "");
+  } 
+  evt.currentTarget.className += " activecurrentdate";
+}
+var menudate = jQuery(".activecurrentdate").attr("data-date");
+
+function openPage(pageName,elmnt,color) {
+  var i, tabcontent, tablinks;
+
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+    tabcontent[i].classList.remove("toplevel");
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].style.backgroundColor = "";
+  }
+  document.getElementById(pageName).style.display = "block";
+  elmnt.style.backgroundColor = color;
+  document.getElementById(pageName).classList.add("toplevel");
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+
+function openPagedinner(pageName,elmnt,color) {
+  var i, tabcontentdinner, tablinks;
+  tabcontentdinner = document.getElementsByClassName("tabcontentdinner");
+  for (i = 0; i < tabcontentdinner.length; i++) {
+    tabcontentdinner[i].style.display = "none";
+    tabcontentdinner[i].classList.remove("dinnertoplevel");
+  }
+  tablinks = document.getElementsByClassName("tablinkdinner");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].style.backgroundColor = "";
+  }
+  document.getElementById(pageName).style.display = "block";
+  elmnt.style.backgroundColor = color;
+  document.getElementById(pageName).classList.add("dinnertoplevel");
+}
+// Get the element with id="defaultOpendinner" and click on it
+document.getElementById("defaultOpendinner").click();
+
+function openPagelunch(pageName,elmnt,color) {
+  var i, tabcontentlunch, tablinks;
+  tabcontentlunch = document.getElementsByClassName("tabcontentlunch");
+  for (i = 0; i < tabcontentlunch.length; i++) {
+    tabcontentlunch[i].style.display = "none";
+    tabcontentlunch[i].classList.remove("lunchtoplevel");
+  }
+  tablinks = document.getElementsByClassName("tablinklunch");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].style.backgroundColor = "";
+  }
+  document.getElementById(pageName).style.display = "block";
+  elmnt.style.backgroundColor = color;
+  document.getElementById(pageName).classList.add("lunchtoplevel");
+}
+// Get the element with id="defaultOpenlunch" and click on it
+document.getElementById("defaultOpenlunch").click();
+
+// dinner india save menu code
+
+function SaveIndianDinner(cousine){
+   jQuery(".loader").css("display", "block"); 
+   jQuery(".finalmessage").text('');
+   jQuery(".finalmessage").delay(100).fadeIn();
+   jQuery(".finalmessage").text("Please wait ");
+   var indiadinnersetmenu = ''; 
+   var indiadinnerdate = '';
+   var removeindiadinnersetmenu = ''; 
+   var removeindiadinnerdate = '';
+   var menudate = jQuery(".activecurrentdate").attr("data-date");
+   if( cousine =='indiandinner' || cousine =='mughlaidinner'  || cousine =='italiandinner' || cousine =='chinesedinner'){
+    jQuery.each(jQuery(".dinnertoplevel input[name='indiadinnersetmenu']:checked"), function(){ 
+            indiadinnersetmenu = indiadinnersetmenu + jQuery(this).val()+',';
+        });
+    jQuery.each(jQuery(".dinnertoplevel input[name='removesetmenu']:checked"), function(){ 
+            removeindiadinnersetmenu = removeindiadinnersetmenu + jQuery(this).val()+',';
+        });
+    jQuery.each(jQuery(".dinnertoplevel input[name='indiadinnerdate']:checked"), function(){ 
+            indiadinnerdate = indiadinnerdate + jQuery(this).val()+',';
+        });
+    jQuery.each(jQuery(".dinnertoplevel input[name='removemenu']:checked"), function(){ 
+            removeindiadinnerdate = removeindiadinnerdate + jQuery(this).val()+',';
+        });
+   }
+   if( cousine =='breakfast'){
+    jQuery.each(jQuery(".toplevel input[name='indiadinnersetmenu']:checked"), function(){ 
+            indiadinnersetmenu = indiadinnersetmenu + jQuery(this).val()+',';
+    });  
+    jQuery.each(jQuery(".toplevel input[name='removesetmenu']:checked"), function(){ 
+        removeindiadinnersetmenu = removeindiadinnersetmenu + jQuery(this).val()+',';
+    });     
+    jQuery.each(jQuery(".toplevel input[name='indiadinnerdate']:checked"), function(){
+            indiadinnerdate = indiadinnerdate + jQuery(this).val()+',';
+    });
+    jQuery.each(jQuery(".toplevel input[name='removemenu']:checked"), function(){
+            removeindiadinnerdate = removeindiadinnerdate + jQuery(this).val()+',';
+    });
+    }
+    if( cousine =='lunchindian' || cousine =='lunchmughlai'  || cousine =='lunchbsb' || cousine =='lunchchinese'){
+    jQuery.each(jQuery(".lunchtoplevel input[name='indiadinnersetmenu']:checked"), function(){ 
+            indiadinnersetmenu = indiadinnersetmenu + jQuery(this).val()+',';
+        });
+    jQuery.each(jQuery(".lunchtoplevel input[name='removesetmenu']:checked"), function(){ 
+            removeindiadinnersetmenu = removeindiadinnersetmenu + jQuery(this).val()+',';
+        });
+    jQuery.each(jQuery(".lunchtoplevel input[name='indiadinnerdate']:checked"), function(){ 
+            indiadinnerdate = indiadinnerdate + jQuery(this).val()+',';
+        });
+    jQuery.each(jQuery(".lunchtoplevel input[name='removemenu']:checked"), function(){ 
+            removeindiadinnerdate = removeindiadinnerdate + jQuery(this).val()+',';
+        });
+    }
+    if( cousine =='hitea'){
+    jQuery.each(jQuery(".toplevel input[name='indiadinnersetmenu']:checked"), function(){ 
+            indiadinnersetmenu = indiadinnersetmenu + jQuery(this).val()+',';
+        });
+    jQuery.each(jQuery(".toplevel input[name='removesetmenu']:checked"), function(){ 
+            removeindiadinnersetmenu = removeindiadinnersetmenu + jQuery(this).val()+',';
+        });
+    jQuery.each(jQuery(".toplevel input[name='indiadinnerdate']:checked"), function(){
+            indiadinnerdate = indiadinnerdate + jQuery(this).val()+',';
+        });
+    jQuery.each(jQuery(".toplevel input[name='removemenu']:checked"), function(){
+            removeindiadinnerdate = removeindiadinnerdate + jQuery(this).val()+',';
+        });
+    }
+    jQuery.ajax({
+        url: "<?php echo Mage::getBaseUrl().'heal/index/setMenuOrder' ?>",
+        type: "POST",
+        data: {
+          indiadinnerdate: indiadinnerdate,
+          indiadinnersetmenu: indiadinnersetmenu,
+          menudate: menudate,
+          removeindiadinnerdate: removeindiadinnerdate,
+          removeindiadinnersetmenu: removeindiadinnersetmenu,
+          cousine:cousine
+        },
+        success: function(response){
+            jQuery(".finalmessage").text('');
+            jQuery(".finalmessage").text(" Menu updated ");
+            jQuery(".finalmessage").delay(5000).fadeOut();
+            jQuery(".loader").css("display", "none"); 
+        }
+    }); 
+
+}
+
+function SaveRemoveAll(cousine){
+    jQuery(".loader").css("display", "block"); 
+    jQuery(".finalmessage").text('');
+    jQuery(".finalmessage").delay(100).fadeIn();
+    jQuery(".finalmessage").text("Please wait ");
+    var allProductitems = '';
+    var menudate = jQuery(".activecurrentdate").attr("data-date");
+    if( cousine =='indiandinner' || cousine =='mughlaidinner'  || cousine =='italiandinner' || cousine =='chinesedinner'){
+        jQuery.each(jQuery(".dinnertoplevel input[name='indiadinnersetmenu']"), function(){ 
+                allProductitems = allProductitems + jQuery(this).val()+',';
+        });
+    }
+    if( cousine =='breakfast'){
+        jQuery.each(jQuery(".toplevel input[name='indiadinnersetmenu']"), function(){ 
+                allProductitems = allProductitems + jQuery(this).val()+',';
+        });
+    }
+    if( cousine =='lunchindian' || cousine =='lunchmughlai'  || cousine =='lunchbsb' || cousine =='lunchchinese'){
+        jQuery.each(jQuery(".lunchtoplevel input[name='indiadinnersetmenu']"), function(){ 
+            allProductitems = allProductitems + jQuery(this).val()+',';
+        });
+    }
+    if( cousine =='hitea'){
+        jQuery.each(jQuery(".toplevel input[name='indiadinnersetmenu']"), function(){ 
+                allProductitems = allProductitems + jQuery(this).val()+',';
+        });
+    }
+    jQuery.ajax({
+        url: "<?php echo Mage::getBaseUrl().'heal/index/removeMenuOrder' ?>",
+        type: "POST",
+        data: {
+          allProductitems: allProductitems,  
+          menudate: menudate,
+          cousine:cousine
+        },
+        success: function(response){
+            jQuery(".finalmessage").text('');
+            jQuery(".finalmessage").text(" Menu updated ");
+            jQuery(".finalmessage").delay(5000).fadeOut();
+            jQuery(".loader").css("display", "none"); 
+        }
+    });
+}    
+
+jQuery(document).ready(function (){
+    var table = jQuery('#example').DataTable();
+    var table1 = jQuery('#example1').DataTable();
+    var table2 = jQuery('#example2').DataTable();
+    var table3 = jQuery('#example3').DataTable();
+    var table4 = jQuery('#example4').DataTable();
+    var table5 = jQuery('#example5').DataTable();
+    var table6 = jQuery('#example6').DataTable();
+    var table7 = jQuery('#example7').DataTable();
+    var table8 = jQuery('#example8').DataTable();
+    var table9 = jQuery('#example9').DataTable();
+}); 
+</script>

@@ -1,0 +1,1657 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+
+<link href="<?php echo $this->getSkinUrl();?>css/metabolic.css" rel="stylesheet" />
+<style>
+
+.targetDiv a:active, .tab button a:active, .tab button:active{color:#888;}
+.active-tab{color: #29303b;
+background-color: transparent;
+border: 0;
+    border-bottom-color: currentcolor;
+    border-bottom-style: none;
+    border-bottom-width: 0px;
+border-bottom: 6px inset #007791;
+cursor: default;}
+.showSingle{
+display: inline-block;
+margin: 0 1%;
+padding: 2%;
+}
+.btn-group-xs>.btn, .btn-xs {
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+	background: none;
+border: 1px solid #fff;
+color: #fff
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+#videosection{ height: 490px;}
+video {
+  width: 100%    !important;
+  height: 100%   !important;
+}
+.bperror{ color: red;font-size: 14px;display: none;text-align: center; }
+.tgerror{ color: red;font-size: 14px;display: none; text-align: center;}
+.hdlerror{ color: red;font-size: 14px;display: none; text-align: center;}
+.heightwaisterror{ color: red;font-size: 14px;display: none; text-align: center;}
+.fastingglerror{ color: red;font-size: 14px;display: none; text-align: center;}
+* {box-sizing: border-box}
+.loader {
+  position: fixed;
+  left: 40%;
+  top: 50%;
+  z-index: 9999;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #a61d3f;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+.bpresult, .hdlresult, .tgresult, .WaistToHeightResult, .fastingglucoseresult{bottom: -5px;position: relative;}
+.graphbp .pull-left, .graphtg .pull-left{float: left !important;
+width: 95%;}
+.graphtg .pull-left input{width:95%;float:left;margin: 0px 5px;}
+.pull-left input{width: 45%;
+float: left;
+margin: 0px 5px;}
+.graphbp .pull-right, .graphtg .pull-right{font-size: 17px;
+height: 35px;
+line-height: 35px;}
+
+/* Safari */
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+/* Style the tab */
+.tab {
+overflow-y: scroll;
+  float: left;
+  width:30%;
+  border: 1px solid #ccc;
+  /*background-color: #f1f1f1;*/
+  height: 535px;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+ display: block;
+background-color: inherit;
+color: black;
+padding: 10px 0px;
+width: 100%;
+border: none;
+outline: none;
+text-align: left;
+cursor: pointer;
+transition: 0.3s;
+font-size: 14px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+/*  background-color: #ddd;
+*/}
+
+/* Create an active/current "tab button" class */
+.tab button.active {
+/*  background-color: #ccc;
+*/}
+
+/* Style the tab content */
+.tabcontent {
+  float: left;
+  padding: 0px;
+  border: 1px solid #ccc;
+  width: 70%;
+  border-left: none;
+  height:535px;
+}
+.panel-default>.panel-heading {
+  color: #333;
+  background-color: #fff;
+  border-color: #e4e5e7;
+  padding: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.panel-default>.panel-heading a {
+  display: block;
+  padding: 15px 15px;
+  background: #f1f1f1;
+}
+
+.panel-default>.panel-heading a:after {
+  content: "";
+  position: relative;
+ top: -20px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  float: right;
+  transition: transform .25s linear;
+  -webkit-transition: -webkit-transform .25s linear;
+}
+
+.panel-default>.panel-heading a[aria-expanded="true"] {
+  background-color: #eee;
+}
+
+.panel-default>.panel-heading a[aria-expanded="true"]:after {
+  content: "\2212";
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.panel-default>.panel-heading a[aria-expanded="false"]:after {
+  content: "\002b";
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+.accordion-option {
+ width: 100%;
+float: left;
+clear: both;
+margin: 15px 0;
+padding: 0 15px;
+}
+
+.accordion-option .title {
+  font-size: 20px;
+  font-weight: bold;
+  float: left;
+  padding: 0;
+  margin: 0;
+}
+
+.accordion-option .toggle-accordion {
+  float: right;
+  font-size: 16px;
+  color: #6a6c6f;
+}
+
+.accordion-option .toggle-accordion:before {
+  content: "Expand All";
+}
+
+.accordion-option .toggle-accordion.active:before {
+  content: "Collapse All";
+}
+.font-text-xs {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.33em;
+}
+.mr-space-xxs {
+    margin-right: 4px;
+}
+.ml-space-xxs {
+    margin-left: 4px;
+}
+#accordion .panel {
+    margin-bottom: 10px;
+    border-radius: 0px !important;
+    float: left;
+    width: 100%;
+}
+#videoTitle{text-transform: none;}
+#accordion h4{margin-bottom:0px !important;}
+
+  
+@media screen and (min-width:260px) and (max-width:767px)
+{
+	.togglechapter{height: 50px;
+white-space: nowrap;
+position: relative;
+overflow-x: auto;
+overflow-y: hidden;
+width: 100%;}
+	.showSingle {
+    margin: 0 1%;
+    padding: 2%;
+    position: relative;
+    display: inline-block;
+    float: none;
+}
+	#videosection{ height:auto;}
+	.tab {
+float: left;
+border: 1px solid #ccc;
+width: 100%;
+height: 100%;
+margin-top:77%;
+position: relative;
+z-index: 1;
+}
+.tabcontent {
+float: left;
+padding: 0px;
+border: 1px solid #ccc;
+width: 100%;
+height:265px;
+position: absolute;
+}
+.containertab{position: relative;
+float: left;
+width: 100%;}
+}
+@media screen and (min-width:768px) and (max-width:999px)
+{
+	#videosection{ height:280px;}
+	.tab {
+height: 327px;
+}
+.tabcontent {
+ height: 327px;
+}
+}
+</style>
+<?php 
+$customerInfo = Mage::helper("weeklyclientinfo")->checkDiseaseLevel();
+//echo "<pre>"; print_r($customerInfo);
+?>
+<div class="col-main-dash">
+<div class="loader" style="display: none;"></div>
+<div class="row">
+<div class="col-xl-4 col-lg-6 col-md-6">
+    <div class="panel bppanel <?php if (strpos($customerInfo['bpresult'], 'Not') === false){ echo 'panel-green';}else{ echo 'panel-red';};?>">
+        <div class="panel-heading">
+            <div class="row">
+                
+                <div class="col-xs-9 text-left">
+                    <div class="huge">BP</div>
+                    <div class="bpresult"> <?php echo $customerInfo['bplabel'];?></div>
+                </div>
+                <div class="col-xs-3 text-right">
+                <div style="top:-5px;position: absolute;right: 15px;"><button type="button" class="btn-xs btn" data-toggle="modal" data-target="#myModalbp">History</button></div>
+                   <div style="" class="bpdata">
+				   <?php echo $customerInfo['upperBP'].'/'.$customerInfo['lowerBP'];?></div>
+                </div>
+            </div>
+        </div>
+        <div class="graphbp">
+            <div class="panel-footer">
+                <span class="pull-left"><input type="text" class="form-control" id="high" placeholder="Upper BP"><input type="text" class="form-control" id="Low" placeholder="Lower BP">
+</span>
+                <span class="pull-right" style='font-size:17px;'onclick="SaveBPData()">&#10095;</span>
+
+                <div class="clearfix"></div>
+            </div>
+            
+            <div class="bperror" style="bottom: -5px;position: relative;"> </div>
+        </div>
+       <!--bptable modal-->
+                                    <div class="modal fade" id="myModalbp" tabindex="-1" role="dialog" 
+                                    aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title" id="myModalLabel">Daily report</h4>
+                                </div>
+                                <div class="modal-body">
+                                  <table>
+                                  <tr>
+                                    <th>Date</th>
+                                    <th>Lower BP</th>
+                                    <th>Upper BP</th>
+                                  </tr>
+                <?php $bpInfo = Mage::helper("weeklyclientinfo")->getBPData();
+                foreach ($bpInfo as $bpInfovalue) { if(strtolower($bpInfovalue['lowerBP']) != 'na' && strtolower($bpInfovalue['upperBP']) != 'na' ) { ?>   
+                                  <tr>
+                                    <td><?php echo $bpInfovalue['date'] ?></td>
+                                    <td><?php echo $bpInfovalue['lowerBP'] ?></td>
+                                    <td><?php echo $bpInfovalue['upperBP'] ?></td>
+                                  </tr>
+                <?php } } ?>                  
+                                </table>
+                                </div>
+                              
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                     <!--bptable moadal-->
+      
+    </div>
+</div>
+                        
+                                          
+              
+<!--modal-->
+<div class="col-xl-4 col-lg-6 col-md-6">
+    <div class="panel tgpanel <?php if (strpos($customerInfo['tgresult'], 'Not') === false){ echo 'panel-green';}else{ echo 'panel-red';};?>">
+        <div class="panel-heading">
+            <div class="row">
+              <div class="col-xs-9 text-left">
+                    <div class="huge">TG</div>
+                    <div class="tgresult"> <?php echo $customerInfo['tglabel'];?></div>
+                </div>
+                <div class="col-xs-3 text-right">
+                <div style="top:-5px;position: absolute;right: 15px;"><button type="button" class="btn-xs btn" data-toggle="modal" data-target="#myModalTG">History</button></div>
+                   <div style="" class="tgdata"><?php echo $customerInfo['tg'];?></div>
+                </div>
+            </div>
+        </div>
+        <div class="graphtg">
+            <div class="panel-footer">
+                <span class="pull-left"><input type="text" class="form-control" id="tgvalue" placeholder="TG Value"></span>
+                <span class="pull-right" style='font-size:17px;' onclick="SaveTGData()">&#10095;</span>
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="tgerror"> </div>
+        </div>
+         <!--TGtable modal-->
+                                    <div class="modal fade" id="myModalTG" tabindex="-1" role="dialog" 
+                                    aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title" id="myModalLabel">Daily TG report</h4>
+                                </div>
+                                <div class="modal-body">
+                                <table>
+                                <tr>
+                                  <th>Date</th>
+                                  <th>TG Rate</th>
+                                </tr>
+                <?php $tgData = Mage::helper("weeklyclientinfo")->getTgdata(); 
+                foreach ($tgData as $tgDatavalue) { if(strtolower($tgDatavalue['tg']) != 'na' ){ ?>     
+                                <tr>
+                                  <td><?php echo $tgDatavalue['date'] ?></td>
+                                  <td><?php echo $tgDatavalue['tg'] ?></td>
+                                </tr>
+                <?php } } ?>                
+                                </table>
+                                </div>
+                              
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                     <!--TGtable moadal-->
+    </div>
+</div>
+<div class="col-xl-4 col-lg-6 col-md-6">
+    <div class="panel hdlpanel <?php if (strpos($customerInfo['hdlresult'], 'Not') === false){ echo 'panel-green';}else{ echo 'panel-red';};?>">
+        <div class="panel-heading">
+           <div class="row">
+              <div class="col-xs-9 text-left">
+                    <div class="huge">HDL</div>
+                    <div class="hdlresult"><?php echo $customerInfo['hdlabel'];?></div>
+                </div>
+                <div class="col-xs-3 text-right">
+                <div style="top:-5px;position: absolute;right: 15px;"><button type="button" class="btn-xs btn" data-toggle="modal" data-target="#myModalHDL">History</button></div>
+                    <div style="" class="hdldata">
+					<?php echo $customerInfo['hdl'];?> mg/dl</div>
+                </div>
+            </div>
+        </div>
+       <div class="graphtg">
+            <div class="panel-footer">
+                <span class="pull-left"><input type="text" class="form-control" id="hdlvalue" placeholder="HDL Value"></span>
+                <span class="pull-right" style='font-size:17px;' onclick="SaveHDLData()">&#10095;</span>
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="hdlerror"> </div>
+        </div>
+         <!--HDLtable modal-->
+                                    <div class="modal fade" id="myModalHDL" tabindex="-1" role="dialog" 
+                                    aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title" id="myModalLabel">Daily HDL report</h4>
+                                </div>
+                                <div class="modal-body">
+                                <table>
+                                <tr>
+                                  <th>Date</th>
+                                  <th>HDL Rate</th>
+                                </tr>
+              <?php $hdlData = Mage::helper("weeklyclientinfo")->getHDLdata();
+                foreach ($hdlData as $hdlDatavalue) { if(strtolower($hdlDatavalue['hdl']) != 'na' ) { ?>
+                                <tr>
+                                  <td><?php echo $hdlDatavalue['date'] ?></td>
+                                  <td><?php echo $hdlDatavalue['hdl'] ?></td>
+                                </tr>
+                <?php } } ?>                
+                              </table>
+                                </div>
+                              
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                     <!--HDLtable moadal-->
+    </div>
+</div>
+<div class="col-xl-4 col-lg-6 col-md-6">
+    <div class="panel WaistToHeightResultpanel <?php if (strpos($customerInfo['WaistToHeightResult'], 'Not') === false){ echo 'panel-green';}else{ echo 'panel-red';};?>">
+        <div class="panel-heading">
+           <div class="row">
+              <div class="col-xs-9 text-left">
+                    <div class="huge">Waist to Height</div>
+                    <div class="WaistToHeightResult"><?php echo $customerInfo['ratiolabel'];?></div>
+                </div>
+                <div class="col-xs-3 text-right">
+                <div style="top:-5px;position: absolute;right: 15px;"><button type="button" class="btn-xs btn" data-toggle="modal" data-target="#myModalheighttowaist">History</button></div>
+                    <div style="" class="WaistToHeight"><?php echo $customerInfo['WaistToHeight'];?></div>
+                </div>
+            </div>
+        </div>
+        <div class="graphbp">
+            <div class="panel-footer">
+                <span class="pull-left"><input type="text" class="form-control" id="waist" placeholder="Waist in cm">
+                <input type="text" class="form-control" id="height" placeholder="Height in cm">
+</span>
+                <span class="pull-right" style='font-size:17px;'onclick="SaveWeistHeightData()">&#10095;</span>
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="heightwaisterror"> </div>
+        </div>
+        <!--heightwaisttable modal-->
+                                    <div class="modal fade" id="myModalheighttowaist" tabindex="-1" role="dialog" 
+                                    aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title" id="myModalLabel">Daily Waist to Height report</h4>
+                                </div>
+                                <div class="modal-body">
+                                <table>
+                                  <tr>
+                                    <th>Date</th>
+                                    <th>Waist in cm</th>
+                                    <th>Height in cm</th>
+                                    <th>Ratio</th>
+                                  </tr>
+                  <?php $waistHeightRatio = Mage::helper("weeklyclientinfo")->getWaistToHeightRatio();
+                    foreach ($waistHeightRatio as $waistHeightRatiovalue) { if(strtolower($waistHeightRatiovalue['waist']) !='na' && strtolower($waistHeightRatiovalue['height']) != 'na' &&  strtolower($waistHeightRatiovalue['waistToHeightRatio']) != 'na') {?>
+                                  <tr>
+                                    <td><?php echo $waistHeightRatiovalue['date'] ?></td>
+                                    <td><?php echo $waistHeightRatiovalue['waist'] ?></td>
+                                    <td><?php echo $waistHeightRatiovalue['height'] ?></td>
+                                    <td><?php echo $waistHeightRatiovalue['waistToHeightRatio'] ?></td>
+                                  </tr>
+                  <?php } } ?>                
+                                </table>
+                                </div>
+                              
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                     <!--heigthwaisttable moadal-->
+    </div>
+</div>
+
+<div class="col-xl-4 col-lg-6 col-md-6">
+    <div class="panel fastingglucoseresultpanel <?php if (strpos($customerInfo['fastingglucoseresult'], 'Not') === false)
+	{ echo 'panel-green';}else{ echo 'panel-red';};?>">
+        <div class="panel-heading">
+           <div class="row">
+              <div class="col-xs-9 text-left">
+                    <div class="huge">Fasting Glucose</div>
+                    <div class="fastingglucoseresult"> <?php echo $customerInfo['fastinglabel'];?></div>
+                </div>
+                <div class="col-xs-3 text-right">
+                 <div style="top:-5px;position: absolute;right: 15px;"><button type="button" class="btn-xs btn" data-toggle="modal" data-target="#myModalfastingglucose">History</button></div>
+                   <div style="" class="fastinggldata"><?php echo $customerInfo['fastinggl'];?> mg/dl</div>
+                </div>
+            </div>
+        </div>
+         <div class="graphtg">
+            <div class="panel-footer">
+                <span class="pull-left"><input type="text" class="form-control" id="fastinggl" placeholder="Fasting Glucose"></span>
+                <span class="pull-right" style='font-size:17px;' onclick="SaveFastingGlucoseData()">&#10095;</span>
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="fastingglerror"> </div>
+        </div>
+         <!--fastingglucosetable modal-->
+                                    <div class="modal fade" id="myModalfastingglucose" tabindex="-1" role="dialog" 
+                                    aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title" id="myModalLabel">Daily Fasting Glucose report</h4>
+                                </div>
+                                <div class="modal-body">    
+                              <table>
+                                <tr>
+                                  <th>Date</th>
+                                  <th>Fasting Glucose Rate</th>    
+                                </tr>
+                <?php $fastingData = Mage::helper("weeklyclientinfo")->getFastingData();
+                foreach ($fastingData as  $fastingDatavalue) { if( strtolower($fastingDatavalue['fastinggl']) != 'na' ){ ?>  
+                                <tr>
+                                  <td><?php echo $fastingDatavalue['date'] ?></td>
+                                  <td><?php echo $fastingDatavalue['fastinggl'] ?></td> 
+                                </tr>  
+                <?php } } ?>                
+                              </table>
+                                </div>
+                              
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                     <!--fastingglucosetable moadal-->
+    </div>
+</div>
+
+</div>
+
+ <!--box video tab row-->
+ </div>
+ </div>
+ </div>
+   </div>
+<!--col-main-->
+   <div class="accordion-option" style="padding:0;display:none;">
+     <h3 class="title" style="color: #a61d3f;font-family: 'Open Sans', sans-serif;font-size: 24px;font-weight: bold;line-height: 1.4;text-rendering: optimizeSpeed;text-transform: capitalize;">Course Content</h3>
+<!--    <a href="javascript:void(0)" class="toggle-accordion active" accordion-id="#accordion"></a>
+ --></div>
+
+<div class="containertab" style="width:100%; float:left;display:none;">
+<div class="togglechapter">
+<a  class="showSingle show1 active-tab" target="1">By Week</a>
+<a  class="showSingle show2" target="2">By Section</a>
+<a  class="showSingle show3" target="3">By Health Dashboard</a>
+</div>
+	<?php /*
+<section class="cnt">
+<!--div1-->
+<div id="div1" class="targetDiv">
+   
+
+<div class="tab">
+ <div class="accordion-option">
+     <h3 class="title">By Week</h3>
+</div>
+ <div class="clearfix"></div>
+ 
+<!--panelgroup-->
+  <div class="panel-group" id="accordiondiv2" role="tablist" aria-multiselectable="true">
+  <!--week1-->
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="headingdivOne">
+        <h4 class="panel-title" style="margin-bottom:0px;">
+        <a role="button"  data-toggle="collapse" data-parent="#accordiondiv2" href="#collapsedivOne" aria-expanded="true" aria-controls="collapsedivOne">
+         WEEK 1
+                   <div class="font-text-xs"><span class="mr-space-xxs">4 / 4</span>|<span data-purpose="section-duration" class="ml-space-xxs">12min</span></div>
+
+        </a>
+      </h4>
+      </div>
+      <div id="collapsedivOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingdivOne">
+        <div class="panel-body" >
+        
+  <h4 style="margin-top: 10px;">Section 1:Basics of Kitchen Staff Management</h4>
+  <button  class="tablinks" onclick="showVideo('Video1.mp4','Could be going wrong in your kitchen', '15min')" id="defaultOpen">
+  <a href="#videosection">i. Could be going wrong in your kitchen.</a></button>
+  <button class="tablinks" onclick="showVideo('Video6.mp4','How to ensure correct amount of oil is used', '15min')" ><a href="#videosection">ii. How to ensure correct amount of oil is used.</a></button>
+  
+  
+  <h4 style="margin-top: 10px;">Section 2:Basics of Meal Planning </h4>
+        <button  class="tablinks" onclick="showVideo('Video6.mp4','The biggest problem in Indian meals')">
+        <a href="#videosection">i. The biggest problem in Indian meals.</a></button>
+  <button class="tablinks" onclick="showVideo('Video6.mp4','Some samples of Indian meals being made healthie')"><a href="#videosection">ii. Some samples of Indian meals being made healthier.</a></button>
+  <a href="#videosection">
+  <button class="tablinks" onclick="showVideo('Video1.mp4','Could be going wrong in your kitchen', '15min')"> 
+  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordiondivsec2" href="#collapsedivTwoC"
+  aria-expanded="true" aria-controls="collapsedivTwoC">
+  iii. Foundation : Rice and Roti made healthier.
+  </a>
+  </button>
+  </a>
+  
+  <div id="collapsedivTwoC" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingdivTwoC">
+        <div class="panel-body" style="padding: 0px 15px;">
+          <button class="tablinks" onclick="showVideo('Video6.mp4','Lauki Roti : Buying our Atta mixes for lauki roti')"><a href="#videosection">A. Lauki Roti : Buying our Atta mixes for lauki roti.</a></button>
+  <button class="tablinks" onclick="showVideo('Video6.mp4','Brown rice')"><a href="#videosection">B. Brown rice.</a></button>
+  <button class="tablinks" onclick="showVideo('Video6.mp4','Quinoa in rice')"><a href="#videosection">C. Quinoa in rice.</a></button>
+   <button class="tablinks" onclick="showVideo('Video6.mp4','Cauliflower rice')"><a href="#videosection">D. Cauliflower rice.</a></button>
+        </div>
+        </div>
+        
+        
+        <h4 style="margin-top: 10px;">Section 3:What brings weight loss </h4>
+         <button  class="tablinks" onclick="showVideo('Video6.mp4','Raw Vegetables and salads')"><a href="#videosection">i. Raw Vegetables and salads.</a></button>
+
+   <h4 style="margin-top: 10px;">Section 4: Self management </h4>
+         <button  class="tablinks" onclick="showVideo('Video6.mp4','Eating the correct amount')"><a href="#videosection">i. Eating the correct amount.</a></button>
+          <button  class="tablinks" onclick="showVideo('Video1.mp4','Eating everything')"><a href="#videosection">ii. Eating everything.</a></button>
+
+    <h4 style="margin-top: 10px;">Section 5: Education</h4>
+<button  class="tablinks" onclick="showVideo('Video6.mp4','Late night snacking, good or bad')"><a href="#videosection">xii. Late night snacking, good or bad.</a></button>
+<a href="#videosection">
+<button class="tablinks" onclick="showVideo('Video1.mp4','What is Fasting or Intermittent Fasting', '6min')"><a class="collapsed" role="button" data-toggle="collapse"
+ data-parent="#accordionsec3" href="#collapsefiveo" aria-expanded="true" aria-controls="collapsefiveo">
+  xiii. What is Fasting or Intermittent Fasting.
+  </a>
+  </button>
+  </a>
+  
+  <div id="collapsedivfiveo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingdivfive">
+        <div class="panel-body" style="padding: 0px 15px;">
+          <button class="tablinks" onclick="showVideo('Video6.mp4','Insulin Resistance')"><a href="#videosection">A. Insulin Resistance.</a></button>
+  <button class="tablinks" onclick="showVideo('Video6.mp4','Autophagee')"><a href="#videosection">B. Autophagee.</a></button>
+        </div>
+        </div>
+        
+        <h4 style="margin-top: 10px;"> Section 6: Recipes</h4>
+        <button  class="tablinks" onclick="showVideo('Video6.mp4','Dessert Ideas')"><a href="#videosection">iv. Dessert Ideas.</a></button>
+<a href="#videosection">
+<button class="tablinks" onclick="showVideo('Video6.mp4','Cooking Techniques', '15min')"><a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordiondivsec6" href="#collapsedivsixf" aria-expanded="true" aria-controls="collapsedivsixf"> vi. Cooking Techniques.</a></button>
+</a>
+  
+  <div id="collapsedivsixf" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingdivsix">
+        <div class="panel-body" style="padding: 0px 15px;">
+          <button class="tablinks" onclick="showVideo('Video1.mp4','Cooking without oil')"><a href="#videosection">A. Cooking without oil.</a></button>
+        </div>
+        </div>
+        
+        
+
+       </div>
+      </div>
+    </div>
+     <!--week1-->
+    
+     <!--week2-->
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="headingweektwo">
+        <h4 class="panel-title" style="margin-bottom:0px;">
+        <a role="button"  data-toggle="collapse" data-parent="#accordiondiv2" href="#collapseweektwo" aria-expanded="true" aria-controls="collapseweektwo">
+         WEEK 2
+                   <div class="font-text-xs"><span class="mr-space-xxs">4 / 4</span>|<span data-purpose="section-duration" class="ml-space-xxs">12min</span></div>
+
+        </a>
+      </h4>
+      </div>
+      <div id="collapseweektwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingweektwo">
+        <div class="panel-body" >
+        
+  <h4 style="margin-top: 10px;">Section 1:Basics of Kitchen Staff Management</h4>
+  <button  class="tablinks" onclick="showVideo('Video1.mp4','Could be going wrong in your kitchen', '15min')">
+  <a href="#videosection">i. Could be going wrong in your kitchen.</a></button>
+  <button class="tablinks" onclick="showVideo('Video6.mp4','How to ensure correct amount of oil is used', '15min')" ><a href="#videosection">ii. How to ensure correct amount of oil is used.</a></button>
+  
+  
+  <h4 style="margin-top: 10px;">Section 2:Basics of Meal Planning </h4>
+        <button  class="tablinks" onclick="showVideo('Video6.mp4','The biggest problem in Indian meals')">
+        <a href="#videosection">i. The biggest problem in Indian meals.</a></button>
+  <button class="tablinks" onclick="showVideo('Video6.mp4','Some samples of Indian meals being made healthie')"><a href="#videosection">ii. Some samples of Indian meals being made healthier.</a></button>
+  <a href="#videosection">
+  <button class="tablinks" onclick="showVideo('Video1.mp4','Could be going wrong in your kitchen', '15min')"> 
+  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordiondivsec2" href="#collapsedivTwoC"
+  aria-expanded="true" aria-controls="collapsedivTwoC">
+  iii. Foundation : Rice and Roti made healthier.
+  </a>
+  </button>
+  </a>
+  
+  <div id="collapsedivTwoC" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingdivTwoC">
+        <div class="panel-body" style="padding: 0px 15px;">
+          <button class="tablinks" onclick="showVideo('Video6.mp4','Lauki Roti : Buying our Atta mixes for lauki roti')"><a href="#videosection">A. Lauki Roti : Buying our Atta mixes for lauki roti.</a></button>
+  <button class="tablinks" onclick="showVideo('Video6.mp4','Brown rice')"><a href="#videosection">B. Brown rice.</a></button>
+  <button class="tablinks" onclick="showVideo('Video6.mp4','Quinoa in rice')"><a href="#videosection">C. Quinoa in rice.</a></button>
+   <button class="tablinks" onclick="showVideo('Video6.mp4','Cauliflower rice')"><a href="#videosection">D. Cauliflower rice.</a></button>
+        </div>
+        </div>
+        
+        
+        <h4 style="margin-top: 10px;">Section 3:What brings weight loss </h4>
+         <button  class="tablinks" onclick="showVideo('Video6.mp4','Raw Vegetables and salads')"><a href="#videosection">i. Raw Vegetables and salads.</a></button>
+
+   <h4 style="margin-top: 10px;">Section 4: Self management </h4>
+         <button  class="tablinks" onclick="showVideo('Video6.mp4','Eating the correct amount')"><a href="#videosection">i. Eating the correct amount.</a></button>
+          <button  class="tablinks" onclick="showVideo('Video1.mp4','Eating everything')"><a href="#videosection">ii. Eating everything.</a></button>
+
+    <h4 style="margin-top: 10px;">Section 5: Education</h4>
+<button  class="tablinks" onclick="showVideo('Video6.mp4','Late night snacking, good or bad')"><a href="#videosection">xii. Late night snacking, good or bad.</a></button>
+<a href="#videosection">
+<button class="tablinks" onclick="showVideo('Video1.mp4','What is Fasting or Intermittent Fasting', '6min')"><a class="collapsed" role="button" data-toggle="collapse"
+ data-parent="#accordionsec3" href="#collapsefiveo" aria-expanded="true" aria-controls="collapsefiveo">
+  xiii. What is Fasting or Intermittent Fasting.
+  </a>
+  </button>
+  </a>
+  
+  <div id="collapsedivfiveo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingdivfive">
+        <div class="panel-body" style="padding: 0px 15px;">
+          <button class="tablinks" onclick="showVideo('Video6.mp4','Insulin Resistance')"><a href="#videosection">A. Insulin Resistance.</a></button>
+  <button class="tablinks" onclick="showVideo('Video6.mp4','Autophagee')"><a href="#videosection">B. Autophagee.</a></button>
+        </div>
+        </div>
+        
+        <h4 style="margin-top: 10px;"> Section 6: Recipes</h4>
+        <button  class="tablinks" onclick="showVideo('Video6.mp4','Dessert Ideas')"><a href="#videosection">iv. Dessert Ideas.</a></button>
+<a href="#videosection">
+<button class="tablinks" onclick="showVideo('Video6.mp4','Cooking Techniques', '15min')"><a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordiondivsec6" href="#collapsedivsixf" aria-expanded="true" aria-controls="collapsedivsixf"> vi. Cooking Techniques.</a></button>
+</a>
+  
+  <div id="collapsedivsixf" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingdivsix">
+        <div class="panel-body" style="padding: 0px 15px;">
+          <button class="tablinks" onclick="showVideo('Video1.mp4','Cooking without oil')"><a href="#videosection">A. Cooking without oil.</a></button>
+        </div>
+        </div>
+        
+        
+
+       </div>
+      </div>
+    </div>
+     <!--week2-->
+     
+     
+  </div>
+<!--panelgroup-->
+
+</div>
+ <div class="tabcontent">
+<span id="VideoTime" style="float:right;color: #636363;padding: 10px;"></span>
+<h3 id="videoTitle" style="background: #eee;padding: 10px;margin-bottom: 0px;"></h3>
+<div id="videosection"><p><video src="http://cure.americanarearugs.com/skin/frontend/rwd/default/media/Video6.mp4" controls=""></video></p></div>
+</div>
+ 
+</div>
+
+<!--div1-->
+<!--div2-->
+<div id="div2" class="targetDiv" style="display:none;">
+<div class="tab">
+  <div class="accordion-option">
+     <h3 class="title">By Section</h3>
+</div>
+  <div class="clearfix"></div>
+
+ <!--panelgroup-->
+  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <!--video1-->
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="headingOne">
+        <h4 class="panel-title">
+        <a role="button"  data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Section 1:Basics of Kitchen Staff Management
+          <div class="font-text-xs"><span class="mr-space-xxs">4 / 4</span>|<span data-purpose="section-duration" class="ml-space-xxs">12min</span></div>
+        </a>
+      </h4>
+      </div>
+      <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+        <div class="panel-body" >
+        
+  
+  <button  class="tablinks" onclick="showVideo('Video1.mp4','Could be going wrong in your kitchen', '15min')" id="defaultOpen">
+  <a href="#videosection">i. Could be going wrong in your kitchen.</a></button>
+  <button class="tablinks" onclick="showVideo('Video6.mp4','How to ensure correct amount of oil is used', '15min')" ><a href="#videosection">ii. How to ensure correct amount of oil is used.</a></button>
+  <button class="tablinks" onclick="showVideo('Video1.mp4','How to ensure correct amount of oil is used', '20min')"><a href="#videosection">iii.  Weighing scale.</a></button>
+  <button class="tablinks" onclick="showVideo('Video6.mp4','How to monitor sugar usage', '5min')"><a href="#videosection">iv. How to monitor sugar usage.</a></button>
+  <button class="tablinks" onclick="showVideo('h264.mov','Proportions and quantity : Hidden factors', '10min')"><a href="#videosection">v. Proportions and quantity : Hidden factors.</a></button>
+  <button class="tablinks" onclick="showVideo('Video6.mp4','Overcooking and reheating : nutrient preservation', '11min')"><a href="#videosection">vi. Overcooking and reheating : nutrient preservation.</a></button>
+       </div>
+      </div>
+    </div>
+     <!--video1-->
+      <!--video2-->
+    <div class="panel panel-default">
+      <div class="panel-heading tabopen" role="tab" id="headingTwo">
+        <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+         Section 2:Basics of Meal Planning 
+           <div class="font-text-xs"><span class="mr-space-xxs">4 / 4</span>|<span data-purpose="section-duration" class="ml-space-xxs">12min</span></div>
+
+        </a>
+      </h4>
+      </div>
+      <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+        <div class="panel-body">
+        <button  class="tablinks" onclick="showVideo('Video6.mp4','The biggest problem in Indian meals')">
+        <a href="#videosection">i. The biggest problem in Indian meals.</a></button>
+  <button class="tablinks" onclick="showVideo('Video6.mp4','Some samples of Indian meals being made healthie')"><a href="#videosection">ii. Some samples of Indian meals being made healthier.</a></button>
+ 
+  <button class="tablinks" onclick="showVideo('Video1.mp4','Could be going wrong in your kitchen', '15min')"  href="#videosection"> 
+  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionsec2" href="#collapseTwoC"
+  aria-expanded="true" aria-controls="collapseTwoC">
+  iii. Foundation : Rice and Roti made healthier.
+  </a>
+  </button>
+  
+  
+  <div id="collapseTwoC" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwoC">
+        <div class="panel-body" style="padding: 0px 15px;">
+          <button class="tablinks" onclick="showVideo('Video6.mp4','Lauki Roti : Buying our Atta mixes for lauki roti')"><a href="#videosection">A. Lauki Roti : Buying our Atta mixes for lauki roti.</a></button>
+  <button class="tablinks" onclick="showVideo('Video6.mp4','Brown rice')"><a href="#videosection">B. Brown rice.</a></button>
+  <button class="tablinks" onclick="showVideo('Video6.mp4','Quinoa in rice')"><a href="#videosection">C. Quinoa in rice.</a></button>
+   <button class="tablinks" onclick="showVideo('Video6.mp4','Cauliflower rice')"><a href="#videosection">D. Cauliflower rice.</a></button>
+        </div>
+        </div>
+        
+  <button class="tablinks" onclick="showVideo('Video6.mp4','Biggest culprit in Indian meals')"><a href="#videosection">iv. Biggest culprit in Indian meals.</a></button>
+  <button class="tablinks" onclick="showVideo('Video1.mp4','Ideal Meal')"><a href="#videosection">v. Ideal Meal.</a></button>
+        </div>
+      </div>
+    </div>
+     <!--video2-->
+    <!--video3-->
+     <div class="panel panel-default">
+      <div class="panel-heading tabopen" role="tab" id="headingThree">
+        <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+        Section 3: What brings weight loss 
+          <div class="font-text-xs"><span class="mr-space-xxs">4 / 4</span>|<span data-purpose="section-duration" class="ml-space-xxs">12min</span></div>
+
+        </a>
+      </h4>
+      </div>
+      <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+        <div class="panel-body">
+         <button  class="tablinks" onclick="showVideo('Video6.mp4','Raw Vegetables and salads')"><a href="#videosection">i. Raw Vegetables and salads.</a></button>
+ 
+        </div>
+      </div>
+    </div>
+   <!--video3-->
+    <!--video4-->
+    <div class="panel panel-default">
+      <div class="panel-heading tabopen" role="tab" id="headingfour">
+        <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsefour" aria-expanded="true" aria-controls="collapsefour">
+        Section 4: Self management 
+          <div class="font-text-xs"><span class="mr-space-xxs">4 / 4</span>|<span data-purpose="section-duration" class="ml-space-xxs">12min</span></div>
+
+        </a>
+      </h4>
+      </div>
+      <div id="collapsefour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingfour">
+        <div class="panel-body">
+         <button  class="tablinks" onclick="showVideo('Video6.mp4','Eating the correct amount')"><a href="#videosection">i. Eating the correct amount.</a></button>
+          <button  class="tablinks" onclick="showVideo('Video1.mp4','Eating everything')"><a href="#videosection">ii. Eating everything.</a></button>
+           <button  class="tablinks" onclick="showVideo('Video6.mp4','Proportions and balancing')" ><a href="#videosection">iii.Proportions and balancing.</a></button>
+            <button  class="tablinks" onclick="showVideo('Video1.mp4','Processed Foods')"><a href="#videosection">iv. Processed Foods.</a></button>
+             <button  class="tablinks" onclick="showVideo('Video1.mp4','Blood Tests - Link to blood test section')"><a href="#videosection">v. Blood Tests - Link to blood test section.</a></button>
+            <button  class="tablinks" onclick="showVideo('Video1.mp4','Supplements - link to supplements section')"><a href="#videosection">vi. Supplements - link to supplements section.</a></button>
+        </div>
+      </div>
+    </div>
+   <!--video4-->
+    <!--video5-->
+    <div class="panel panel-default">
+      <div class="panel-heading tabopen" role="tab" id="headingfive">
+        <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsefive" aria-expanded="true" aria-controls="collapsefive">
+        Section 5: Education
+          <div class="font-text-xs"><span class="mr-space-xxs">10 / 4</span>|<span data-purpose="section-duration" class="ml-space-xxs">22min</span></div>
+
+        </a>
+      </h4>
+      </div>
+      <div id="collapsefive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingfive">
+        <div class="panel-body">
+ <button  class="tablinks" onclick="showVideo('Video1.mp4','Why Processed Foods are bad')"><a href="#videosection">i. Why Processed Foods are bad.</a></button>
+ <button  class="tablinks" onclick="showVideo('Video6.mp4','Simple Carbs : what are they')" ><a href="#videosection">ii. Simple Carbs : what are they.</a></button>
+ <button  class="tablinks" onclick="showVideo('Video1.mp4','Complex carbs : what are they')"><a href="#videosection">iii. Complex carbs : what are they.</a></button>
+<button  class="tablinks" onclick="showVideo('Video6.mp4','Whole grains : Are they different')"><a href="#videosection">iv. Whole grains : Are they different.</a></button>
+<button  class="tablinks" onclick="showVideo('Video1.mp4','Fats : 4 different types of fats')"><a href="#videosection">v. Fats : 4 different types of fats.</a></button>
+<button  class="tablinks" onclick="showVideo('Video6.mp4','Fats : why you need them, but only the right kind')"><a href="#videosection">vi. Fats : why you need them, but only the right kind.</a></button>
+<button  class="tablinks" onclick="showVideo('Video1.mp4','Phytochemicals : what are they')" ><a href="#videosection">v. Phytochemicals : what are they.</a></button>
+<button  class="tablinks" onclick="showVideo('Video6.mp4','Vitamins and Minerals : Why they matter')"><a href="#videosection">vi. Vitamins and Minerals : Why they matter.</a></button>  
+<button  class="tablinks" onclick="showVideo('Video1.mp4','How to get more nutrition in your food')"><a href="#videosection">vii. How to get more nutrition in your food.</a></button>
+<button  class="tablinks" onclick="showVideo('Video6.mp4','Why fruit juice is bad but vegetable juice is good')"><a href="#videosection">viii. Why fruit juice is bad but vegetable juice is good.</a></button>
+<button  class="tablinks" onclick="showVideo('Video1.mp4','What is Keto and pro's and cons')"><a href="#videosection">ix. What is Keto and pro's and cons.</a></button>
+<button  class="tablinks" onclick="showVideo('Video6.mp4','What is Vegan, pros' and cons')"><a href="#videosection">x. What is Vegan, pros' and cons.</a></button>
+<button  class="tablinks" onclick="showVideo('Video1.mp4','What is Paleo or caveman diet, pro's and cons')"><a href="#videosection">xi. What is Paleo or caveman diet, pro's and cons.</a></button>
+<button  class="tablinks" onclick="showVideo('Video6.mp4','Late night snacking, good or bad')"><a href="#videosection">xii. Late night snacking, good or bad.</a></button>
+<button class="tablinks" onclick="showVideo('Video1.mp4','What is Fasting or Intermittent Fasting', '6min')"><a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionsec3" href="#collapsefiveo" aria-expanded="true" aria-controls="collapsefiveo">
+ xiii. What is Fasting or Intermittent Fasting.  </a>  </button>
+ 
+  
+  <div id="collapsefiveo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingfive">
+        <div class="panel-body" style="padding: 0px 15px;">
+          <button class="tablinks" onclick="showVideo('Video6.mp4','Insulin Resistance')"><a href="#videosection">A. Insulin Resistance.</a></button>
+  <button class="tablinks" onclick="showVideo('Video6.mp4','Autophagee')"><a href="#videosection">B. Autophagee.</a></button>
+        </div>
+        </div>
+        </div>
+      </div>
+    </div>
+   <!--video5-->
+   <!--video6-->
+    <div class="panel panel-default">
+      <div class="panel-heading tabopen" role="tab" id="headingsix">
+        <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsesix" aria-expanded="true" aria-controls="collapsesix">
+        Section 6: Recipes
+          <div class="font-text-xs"><span class="mr-space-xxs">10 / 4</span>|<span data-purpose="section-duration" class="ml-space-xxs">22min</span></div>
+        </a>
+      </h4>
+      </div>
+      <div id="collapsesix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingsix">
+        <div class="panel-body">
+<button  class="tablinks" onclick="showVideo('Video6.mp4','Salad Dressings')"><a href="#videosection">i. Salad Dressings.</a></button>
+<button  class="tablinks" onclick="showVideo('Video6.mp4','Salad Combos')" ><a href="#videosection">ii. Salad Combos.</a></button>
+<button  class="tablinks" onclick="showVideo('Video1.mp4','Soup Recipes')"><a href="#videosection">iii. Soup Recipes.</a></button>
+<button  class="tablinks" onclick="showVideo('Video6.mp4','Dessert Ideas')"><a href="#videosection">iv. Dessert Ideas.</a></button>
+<button  class="tablinks" onclick="showVideo('Video1.mp4','Lauki Roti')"><a href="#videosection">v. Lauki Roti.</a></button>
+<button class="tablinks" onclick="showVideo('Video6.mp4','Cooking Techniques', '15min')"><a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionsec6" href="#collapsesixf" aria-expanded="true" aria-controls="collapsesixf"> vi. Cooking Techniques.</a></button>
+
+  
+  <div id="collapsesixf" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingsix">
+        <div class="panel-body" style="padding: 0px 15px;">
+          <button class="tablinks" onclick="showVideo('Video1.mp4','Cooking without oil')"><a href="#videosection">A. Cooking without oil.</a></button>
+        </div>
+        </div>
+        
+        </div>
+      </div>
+    </div>
+   <!--video6-->
+   <!--video7-->
+    <div class="panel panel-default">
+      <div class="panel-heading tabopen" role="tab" id="headingseven">
+        <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseseven" aria-expanded="true" aria-controls="collapseseven">
+        Section 7: Suggestions by Meal
+          <div class="font-text-xs"><span class="mr-space-xxs">4 / 4</span>|<span data-purpose="section-duration" class="ml-space-xxs">12min</span></div>
+
+        </a>
+      </h4>
+      </div>
+      <div id="collapseseven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingseven">
+        <div class="panel-body">
+         <button  class="tablinks"  onclick="showVideo('Video1.mp4','Breakfast')"><a href="#videosection">i. Breakfast.</a></button>
+          <button  class="tablinks" onclick="showVideo('Video6.mp4','Lunch')"><a href="#videosection">ii. Lunch.</a></button>
+           <button  class="tablinks" onclick="showVideo('Video1.mp4','Snacks - buy from us')" ><a href="#videosection">iii. Snacks - buy from us.</a></button>
+            <button  class="tablinks" onclick="showVideo('Video6.mp4','Dinner')"><a href="#videosection">iv. Dinner.</a></button>
+             <button  class="tablinks" onclick="showVideo('Video1.mp4','Desserts')"><a href="#videosection">v. Desserts.</a></button>
+            <button  class="tablinks" onclick="showVideo('Video6.mp4','Late night snacks')"><a href="#videosection">vi. Late night snacks.</a></button>
+        </div>
+      </div>
+    </div>
+   <!--video7-->
+   <!--video8-->
+      <div class="panel panel-default">
+      <div class="panel-heading tabopen" role="tab" id="heading8">
+        <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse8" aria-expanded="true" aria-controls="collapse8">
+        Section 8: Charts, downloads, graphs 
+          <div class="font-text-xs"><span class="mr-space-xxs">4 / 4</span>|<span data-purpose="section-duration" class="ml-space-xxs">12min</span></div>
+
+        </a>
+      </h4>
+      </div>
+      <div id="collapse8" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading8">
+        <div class="panel-body">
+         <button  class="tablinks" onclick="showVideo('Video1.mp4','Weight tracker chart')"><a href="#videosection">i. Weight tracker chart.</a></button>
+          <button  class="tablinks" onclick="showVideo('Video1.mp4','Glucose tracker chart')"><a href="#videosection">ii. Glucose tracker chart.</a></button>
+        </div>
+      </div>
+    </div>
+   <!--video8-->
+   <!--video9-->
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="heading9">
+        <h4 class="panel-title">
+        
+        <button  class="tablinks" style="padding:0px;" onclick="showVideo('Video1.mp4','Test Video1')"><a href="#videosection">Section 9: Blood Test 
+          <div class="font-text-xs"><span class="mr-space-xxs">1 / 1</span>|<span data-purpose="section-duration" class="ml-space-xxs">5min</span></div></a></button>
+
+      </h4>
+      </div>
+     
+    </div>
+   <!--video9-->
+    <!--video10-->
+    <div class="panel panel-default">
+      <div class="panel-heading tabopen" role="tab" id="heading10">
+        <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse10" aria-expanded="true" aria-controls="collapse10">
+        Section 10: Lifestyle 
+          <div class="font-text-xs"><span class="mr-space-xxs">4 / 4</span>|<span data-purpose="section-duration" class="ml-space-xxs">12min</span></div>
+
+        </a>
+      </h4>
+      </div>
+      <div id="collapse10" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading10">
+        <div class="panel-body">
+         <button  class="tablinks" onclick="showVideo('Video6.mp4','Eating Out : What to eat, what to avoid')"><a href="#videosection">i. Eating Out : What to eat, what to avoid.</a></button>
+          <button  class="tablinks" onclick="showVideo('Video1.mp4','What to eat when travelling')"><a href="#videosection">ii. What to eat when travelling.</a></button>
+           <button  class="tablinks" onclick="showVideo('Video6.mp4','What to order when at an office')" ><a href="#videosection">iii. What to order when at an office.</a></button>
+            <button  class="tablinks" onclick="showVideo('Video1.mp4','How to manage my cravings')"><a href="#videosection">iv. How to manage my cravings.</a></button>
+             <button  class="tablinks" onclick="showVideo('Video6.mp4','Stress and Meditation')"><a href="#videosection">v. Stress and Meditation.</a></button>
+        </div>
+      </div> 
+    </div>
+   <!--video10-->
+   <!--video11-->
+    <div class="panel panel-default">
+      <div class="panel-heading tabopen" role="tab" id="heading11">
+        <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse11" aria-expanded="true" aria-controls="collapse11">
+        Section 11: Exercise 
+          <div class="font-text-xs"><span class="mr-space-xxs">10 / 5</span>|<span data-purpose="section-duration" class="ml-space-xxs">35min</span></div>
+
+        </a>
+      </h4>
+      </div>
+      <div id="collapse11" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading11">
+        <div class="panel-body">
+         <button  class="tablinks" onclick="showVideo('Video6.mp4','Why you should do it')"><a href="#videosection">i. Why you should do it.</a></button>
+          <button  class="tablinks" onclick="showVideo('Video1.mp4','How to find what suits you')" ><a href="#videosection">ii. How to find what suits you.</a></button>
+           <button  class="tablinks" onclick="showVideo('Video1.mp4','Avoiding injury')"><a href="#videosection">iii. Avoiding injury.</a></button>
+            <button  class="tablinks" onclick="showVideo('Video6.mp4','Dessert Ideas')"><a href="#videosection">iv. Dessert Ideas.</a></button>
+         
+          <button class="tablinks" onclick="showVideo('Video1.mp4','Forms of exercise')" href="#videosection" >
+          <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionsec11" href="#collapse11e" aria-expanded="true" 
+             aria-controls="collapse11e"> v. Forms of exercise.</a>
+             </button>
+            
+  
+  <div id="collapse11e" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading11">
+        <div class="panel-body" style="padding: 0px 15px;">
+          <button class="tablinks" onclick="showVideo('Video1.mp4','Yoga')"><a href="#videosection">A. Yoga.</a></button>
+          <button class="tablinks" onclick="showVideo('Video6.mp4','Walking')"><a href="#videosection">B. Walking.</a></button>
+          <button class="tablinks" onclick="showVideo('Video1.mp4','Swimming')"><a href="#videosection">C. Swimming.</a></button>
+          <button class="tablinks" onclick="showVideo('Video6.mp4','Sports')"><a href="#videosection">D. Sports.</a></button>
+          <button class="tablinks" onclick="showVideo('Video1.mp4','Gym')"><a href="#videosection">E. Gym.</a></button>
+          <button class="tablinks" onclick="showVideo('Video6.mp4','Youtube and apps')"><a href="#videosection">F. Youtube and apps.</a></button>
+        </div>
+        </div>
+        </div>
+      </div>
+    </div>
+   <!--video11-->
+  </div>
+  <!--panelgroup-->
+</div>
+
+ <div class="tabcontent">
+<span id="VideoTime" style="float:right;color: #636363;padding: 10px;"></span>
+<h3 id="videoTitle" style="background: #eee;padding: 10px;margin-bottom: 0px;"></h3>
+<div id="videosection"><p><video src="http://cure.americanarearugs.com/skin/frontend/rwd/default/media/Video6.mp4" controls=""></video></p></div>
+</div>
+</div>
+
+     <!--div2-->
+
+<!--div2-->
+<!--div3-->
+<div id="div3" class="targetDiv" style="display:none;">
+<div class="tab">
+ <div class="accordion-option">
+     <h3 class="title">By Health Dashboard</h3>
+</div>
+ <div class="clearfix"></div>
+<!--panelgroup-->
+  <div class="panel-group" id="accordionhealth" role="tablist" aria-multiselectable="true">
+  <!--BP-->
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="headinghealthOne">
+        <h4 class="panel-title" style="margin-bottom:0px;">
+        <a role="button"  data-toggle="collapse" data-parent="#accordionhealth" href="#collapsehealthOne" aria-expanded="true" aria-controls="collapsehealthOne">
+        BP <div class="font-text-xs"><span class="mr-space-xxs">4 / 4</span>|<span data-purpose="section-duration" class="ml-space-xxs">12min</span></div>
+
+        </a>
+      </h4>
+      </div>
+      <div id="collapsehealthOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headinghealthOne">
+        <div class="panel-body" >
+        
+  <h4 style="margin-top: 10px;">Section 1:Basics of Kitchen Staff Management</h4>
+  <button  class="tablinks" onclick="showVideo('Video1.mp4','Could be going wrong in your kitchen', '15min')" id="defaultOpen">
+  <a href="#videosection">i. Could be going wrong in your kitchen.</a></button>
+  <button class="tablinks" onclick="showVideo('Video6.mp4','How to ensure correct amount of oil is used', '15min')" ><a href="#videosection">ii. How to ensure correct amount of oil is used.</a></button>
+  
+  
+  <h4 style="margin-top: 10px;">Section 2:Basics of Meal Planning </h4>
+        <button  class="tablinks" onclick="showVideo('Video6.mp4','The biggest problem in Indian meals')">
+        <a href="#videosection">i. The biggest problem in Indian meals.</a></button>
+  <button class="tablinks" onclick="showVideo('Video6.mp4','Some samples of Indian meals being made healthie')"><a href="#videosection">ii. Some samples of Indian meals being made healthier.</a></button>
+  <a href="#videosection">
+  <button class="tablinks" onclick="showVideo('Video1.mp4','Could be going wrong in your kitchen', '15min')"> 
+  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionhealthsec2" href="#collapsehealthTwoC"
+  aria-expanded="true" aria-controls="collapsehealthTwoC">
+  iii. Foundation : Rice and Roti made healthier.
+  </a>
+  </button>
+  </a>
+  
+  <div id="collapsehealthTwoC" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headinghealthTwoC">
+        <div class="panel-body" style="padding: 0px 15px;">
+          <button class="tablinks" onclick="showVideo('Video6.mp4','Lauki Roti : Buying our Atta mixes for lauki roti')"><a href="#videosection">A. Lauki Roti : Buying our Atta mixes for lauki roti.</a></button>
+  <button class="tablinks" onclick="showVideo('Video6.mp4','Brown rice')"><a href="#videosection">B. Brown rice.</a></button>
+  <button class="tablinks" onclick="showVideo('Video6.mp4','Quinoa in rice')"><a href="#videosection">C. Quinoa in rice.</a></button>
+   <button class="tablinks" onclick="showVideo('Video6.mp4','Cauliflower rice')"><a href="#videosection">D. Cauliflower rice.</a></button>
+        </div>
+        </div>
+        
+        
+        <h4 style="margin-top: 10px;">Section 3:What brings weight loss </h4>
+         <button  class="tablinks" onclick="showVideo('Video6.mp4','Raw Vegetables and salads')"><a href="#videosection">i. Raw Vegetables and salads.</a></button>
+
+   <h4 style="margin-top: 10px;">Section 4: Self management </h4>
+         <button  class="tablinks" onclick="showVideo('Video6.mp4','Eating the correct amount')"><a href="#videosection">i. Eating the correct amount.</a></button>
+          <button  class="tablinks" onclick="showVideo('Video1.mp4','Eating everything')"><a href="#videosection">ii. Eating everything.</a></button>
+
+    <h4 style="margin-top: 10px;">Section 5: Education</h4>
+<button  class="tablinks" onclick="showVideo('Video6.mp4','Late night snacking, good or bad')"><a href="#videosection">xii. Late night snacking, good or bad.</a></button>
+<a href="#videosection">
+<button class="tablinks" onclick="showVideo('Video1.mp4','What is Fasting or Intermittent Fasting', '6min')"><a class="collapsed" role="button" data-toggle="collapse"
+ data-parent="#accordionhealthsec3" href="#collapsefiveo" aria-expanded="true" aria-controls="collapsehealthfiveo">
+  xiii. What is Fasting or Intermittent Fasting.
+  </a>
+  </button>
+  </a>
+  
+  <div id="collapsehealthfiveo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headinghealthfive">
+        <div class="panel-body" style="padding: 0px 15px;">
+          <button class="tablinks" onclick="showVideo('Video6.mp4','Insulin Resistance')"><a href="#videosection">A. Insulin Resistance.</a></button>
+  <button class="tablinks" onclick="showVideo('Video6.mp4','Autophagee')"><a href="#videosection">B. Autophagee.</a></button>
+        </div>
+        </div>
+        
+        <h4 style="margin-top: 10px;"> Section 6: Recipes</h4>
+        <button  class="tablinks" onclick="showVideo('Video6.mp4','Dessert Ideas')"><a href="#videosection">iv. Dessert Ideas.</a></button>
+<a href="#videosection">
+<button class="tablinks" onclick="showVideo('Video6.mp4','Cooking Techniques', '15min')"><a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionhealthsec6" href="#collapsehealthsixf" aria-expanded="true" aria-controls="collapsehealthsixf"> vi. Cooking Techniques.</a></button>
+</a>
+  
+  <div id="collapsehealthsixf" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headinghealthsix">
+        <div class="panel-body" style="padding: 0px 15px;">
+          <button class="tablinks" onclick="showVideo('Video1.mp4','Cooking without oil')"><a href="#videosection">A. Cooking without oil.</a></button>
+        </div>
+        </div>
+        
+        
+
+       </div>
+      </div>
+    </div>
+     <!--BP-->
+    
+      <!--TG-->
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="headinghealthtwo">
+        <h4 class="panel-title" style="margin-bottom:0px;">
+        <a role="button"  data-toggle="collapse" data-parent="#accordionhealth" href="#collapsehealthtwo" aria-expanded="true" aria-controls="collapsehealthtwo">
+         TG <div class="font-text-xs"><span class="mr-space-xxs">4 / 4</span>|<span data-purpose="section-duration" class="ml-space-xxs">12min</span></div>
+        </a>
+      </h4>
+      </div>
+      <div id="collapsehealthtwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headinghealthtwo">
+        <div class="panel-body" >
+        
+  <h4 style="margin-top: 10px;">Section 1:Basics of Kitchen Staff Management</h4>
+  <button  class="tablinks" onclick="showVideo('Video1.mp4','Could be going wrong in your kitchen', '15min')">
+  <a href="#videosection">i. Could be going wrong in your kitchen.</a></button>
+  <button class="tablinks" onclick="showVideo('Video6.mp4','How to ensure correct amount of oil is used', '15min')" ><a href="#videosection">ii. How to ensure correct amount of oil is used.</a></button>
+  
+  
+  <h4 style="margin-top: 10px;">Section 2:Basics of Meal Planning </h4>
+        <button  class="tablinks" onclick="showVideo('Video6.mp4','The biggest problem in Indian meals')">
+        <a href="#videosection">i. The biggest problem in Indian meals.</a></button>
+  <button class="tablinks" onclick="showVideo('Video6.mp4','Some samples of Indian meals being made healthie')"><a href="#videosection">ii. Some samples of Indian meals being made healthier.</a></button>
+  <a href="#videosection">
+  <button class="tablinks" onclick="showVideo('Video1.mp4','Could be going wrong in your kitchen', '15min')"> 
+  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordiondivsec2" href="#collapsedivTwoC"
+  aria-expanded="true" aria-controls="collapsedivTwoC">
+  iii. Foundation : Rice and Roti made healthier.
+  </a>
+  </button>
+  </a>
+  
+  <div id="collapsehealthtwoC" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headinghealthTwoC">
+        <div class="panel-body" style="padding: 0px 15px;">
+          <button class="tablinks" onclick="showVideo('Video6.mp4','Lauki Roti : Buying our Atta mixes for lauki roti')"><a href="#videosection">A. Lauki Roti : Buying our Atta mixes for lauki roti.</a></button>
+  <button class="tablinks" onclick="showVideo('Video6.mp4','Brown rice')"><a href="#videosection">B. Brown rice.</a></button>
+  <button class="tablinks" onclick="showVideo('Video6.mp4','Quinoa in rice')"><a href="#videosection">C. Quinoa in rice.</a></button>
+   <button class="tablinks" onclick="showVideo('Video6.mp4','Cauliflower rice')"><a href="#videosection">D. Cauliflower rice.</a></button>
+        </div>
+        </div>
+        
+        
+        <h4 style="margin-top: 10px;">Section 3:What brings weight loss </h4>
+         <button  class="tablinks" onclick="showVideo('Video6.mp4','Raw Vegetables and salads')"><a href="#videosection">i. Raw Vegetables and salads.</a></button>
+
+   <h4 style="margin-top: 10px;">Section 4: Self management </h4>
+         <button  class="tablinks" onclick="showVideo('Video6.mp4','Eating the correct amount')"><a href="#videosection">i. Eating the correct amount.</a></button>
+          <button  class="tablinks" onclick="showVideo('Video1.mp4','Eating everything')"><a href="#videosection">ii. Eating everything.</a></button>
+
+    <h4 style="margin-top: 10px;">Section 5: Education</h4>
+<button  class="tablinks" onclick="showVideo('Video6.mp4','Late night snacking, good or bad')"><a href="#videosection">xii. Late night snacking, good or bad.</a></button>
+<a href="#videosection">
+<button class="tablinks" onclick="showVideo('Video1.mp4','What is Fasting or Intermittent Fasting', '6min')"><a class="collapsed" role="button" data-toggle="collapse"
+ data-parent="#accordionhealthsec3" href="#collapsefiveo" aria-expanded="true" aria-controls="collapsehealthfiveo">
+  xiii. What is Fasting or Intermittent Fasting.
+  </a>
+  </button>
+  </a>
+  
+  <div id="collapsehealthfiveo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headinghealthfive">
+        <div class="panel-body" style="padding: 0px 15px;">
+          <button class="tablinks" onclick="showVideo('Video6.mp4','Insulin Resistance')"><a href="#videosection">A. Insulin Resistance.</a></button>
+  <button class="tablinks" onclick="showVideo('Video6.mp4','Autophagee')"><a href="#videosection">B. Autophagee.</a></button>
+        </div>
+        </div>
+        
+        <h4 style="margin-top: 10px;"> Section 6: Recipes</h4>
+        <button  class="tablinks" onclick="showVideo('Video6.mp4','Dessert Ideas')"><a href="#videosection">iv. Dessert Ideas.</a></button>
+<a href="#videosection">
+<button class="tablinks" onclick="showVideo('Video6.mp4','Cooking Techniques', '15min')"><a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionhealthsec6" href="#collapsehealthsixf" aria-expanded="true" aria-controls="collapsehealthsixf"> vi. Cooking Techniques.</a></button>
+</a>
+  
+  <div id="collapsehealthsixf" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headinghealthsix">
+        <div class="panel-body" style="padding: 0px 15px;">
+          <button class="tablinks" onclick="showVideo('Video1.mp4','Cooking without oil')"><a href="#videosection">A. Cooking without oil.</a></button>
+        </div>
+        </div>
+        
+        
+
+       </div>
+      </div>
+    </div>
+     <!--TG-->
+     
+     
+  </div>
+  
+   <!--panelgroup-->
+</div>
+ <div class="tabcontent">
+<span id="VideoTime" style="float:right;color: #636363;padding: 10px;"></span>
+<h3 id="videoTitle" style="background: #eee;padding: 10px;margin-bottom: 0px;"></h3>
+<div id="videosection"><p><!--<video src="http://cure.americanarearugs.com/skin/frontend/rwd/default/media/Video6.mp4" controls=""></video>--></p></div>
+</div>
+</div>
+
+<!--div3-->
+
+<!--div4-->
+</section>
+ */?>
+ </div>
+ <!--box video tab row-->
+
+                    
+              
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<?php
+$customer = Mage::getSingleton('customer/session')->getCustomer();
+?>                   
+<script>
+
+/*tab vido section*/
+
+
+
+function showVideo(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+ //document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+
+var jq = $.noConflict();
+jq(function(){
+              jq('.showSingle').click(function(){
+			    //remove all pre-existing active classes
+              jq('.active-tab').removeClass('active-tab'); 
+              //add the active class to the link we clicked
+              jq(this).addClass('active-tab');
+              jq('.targetDiv').hide();  
+			  
+			  jq('#div'+jq(this).attr('target')).show();
+        });
+});
+  jq(".toggle-accordion").on("click", function() {
+    var accordionId = jq(this).attr("accordion-id"),
+      numPanelOpen = jq(accordionId + ' .collapse.in').length;
+    
+    jq(this).toggleClass("active");
+
+    if (numPanelOpen == 0) {
+      openAllPanels(accordionId);
+    } else {
+      closeAllPanels(accordionId);
+    }
+  })
+
+  openAllPanels = function(aId) {
+    console.log("setAllPanelOpen");
+    jq(aId + ' .panel-collapse:not(".in")').collapse('show');
+	
+  }
+  closeAllPanels = function(aId) {
+    console.log("setAllPanelclose");
+   jq(aId + ' .panel-collapse.in').collapse('hide');
+  }
+  
+
+jq(function() {
+
+    var jqallVideos = jq("iframe[src^='//player.vimeo.com'], iframe[src^='//www.youtube.com'], object, embed"),
+   jqfluidEl = jq("figure");
+
+	jqallVideos.each(function() {
+
+	  jq(this)
+	    // jQuery .data does not work on object/embed elements
+	    .attr('data-aspectRatio', this.height / this.width)
+	    .removeAttr('height')
+	    .removeAttr('width');
+
+	});
+
+	jq(window).resize(function() {
+
+	  var newWidth = jqfluidEl.width();
+	 jqallVideos.each(function() {
+
+	    var jqel = jq(this);
+	    jqel
+	        .width(newWidth)
+	        .height(newWidth * jqel.attr('data-aspectRatio'));
+
+	  });
+
+	}).resize();
+
+});
+
+function SaveBPData(){
+jQuery(".loader").css("display", "block"); 
+jQuery(".bperror").css("display","none");
+var upperbp = jQuery("#high").val();
+var lowerbp = jQuery("#Low").val();
+if(upperbp && lowerbp){
+jQuery.ajax({
+    url: "<?php echo Mage::getBaseUrl().'weeklyhealthcheckin/index/insetBpRecords' ?>",
+    type: "post",
+    data: {
+      mobile : "<?php echo $customer->getPrimarymobileno() ?>",
+      name : "<?php echo $customer->getName() ?>",
+      email: "<?php echo $customer->getEmail() ?>",
+      lowerbp: lowerbp,  
+      upperbp: upperbp,
+      customerid:"<?php echo $customer->getId() ?>"
+    },
+    success: function(response){
+		result=JSON.parse(response);    	
+    	var finallog = (result.graphdata.bpresult).toLowerCase();
+    	jQuery(".loader").css("display", "none"); 
+    	jQuery(".bperror").text("Thank you for information");
+    	jQuery(".bperror").css("color","#5cb85c"); 
+		jQuery(".bperror").css("display","block"); 
+		jQuery(".bpdata").text(upperbp+'/'+lowerbp);
+		jQuery('.bppanel').removeClass('panel-green panel-red');
+		jQuery(".bpresult").text(result.graphdata.bplabel);		
+    	if( finallog == 'not good'){
+    	jQuery('.bppanel').addClass('panel-red');
+    	}else { jQuery('.bppanel').addClass('panel-green'); }
+    }
+});
+}else{ 
+	jQuery(".bperror").text( "Please enter Lower and Upper BP values");
+	jQuery(".bperror").css("display","block");
+	jQuery(".loader").css("display", "none");
+	}
+}
+function SaveTGData(){
+jQuery(".loader").css("display", "block"); 
+jQuery(".tgerror").css("display","none");
+var tgvalue = jQuery("#tgvalue").val();
+if(tgvalue){
+jQuery.ajax({
+    url: "<?php echo Mage::getBaseUrl().'weeklyhealthcheckin/index/insetTGRecords' ?>",
+    type: "POST",
+    data: {
+      mobile : "<?php echo $customer->getPrimarymobileno() ?>",
+      name : "<?php echo $customer->getName() ?>",
+      email: "<?php echo $customer->getEmail() ?>",
+      tg: tgvalue,
+      customerid:"<?php echo $customer->getId() ?>"
+    },
+    success: function(response){
+    	result=JSON.parse(response);    	
+    	var finallog = (result.graphdata.tgresult).toLowerCase();
+    	jQuery(".loader").css("display", "none");
+    	jQuery(".tgerror").text("Thank you for information");
+    	jQuery(".tgerror").css("color","#5cb85c"); 
+		jQuery(".tgerror").css("display","block");
+		jQuery(".tgdata").text(tgvalue); 
+		jQuery('.tgpanel').removeClass('panel-green panel-red');
+		jQuery(".tgresult").text(result.graphdata.tglabel);		
+    	if( finallog == 'not good'){
+    	jQuery('.tgpanel').addClass('panel-red');
+    	}else { jQuery('.tgpanel').addClass('panel-green'); }
+    }
+});
+}else{ 
+	jQuery(".tgerror").text("Please enter TG value");
+	jQuery(".tgerror").css("display","block");
+	jQuery(".loader").css("display", "none"); 
+}
+}
+
+function SaveHDLData(){
+jQuery(".loader").css("display", "block"); 
+jQuery(".hdlerror").css("display","none");
+var hdlvalue = jQuery("#hdlvalue").val();
+if(hdlvalue){
+jQuery.ajax({
+    url: "<?php echo Mage::getBaseUrl().'weeklyhealthcheckin/index/insetHDLRecords' ?>",
+    type: "POST",
+    data: {
+      mobile : "<?php echo $customer->getPrimarymobileno() ?>",
+      name : "<?php echo $customer->getName() ?>",
+      email: "<?php echo $customer->getEmail() ?>",
+      hdl: hdlvalue,
+      customerid:"<?php echo $customer->getId() ?>"
+    },
+    success: function(response){
+    	result=JSON.parse(response);    	
+    	var finallog = (result.graphdata.hdlresult).toLowerCase();
+    	jQuery(".loader").css("display", "none"); 
+    	jQuery(".hdlerror").text("Thank you for information");
+    	jQuery(".hdlerror").css("color","#5cb85c"); 
+		jQuery(".hdlerror").css("display","block");
+		jQuery(".hdldata").text(hdlvalue+" mg/dl");
+		jQuery('.hdlpanel').removeClass('panel-green panel-red');
+		jQuery(".hdlresult").text(result.graphdata.hdlabel);	
+    	if( finallog == 'not good'){
+    	jQuery('.hdlpanel').addClass('panel-red');
+    	}else { jQuery('.hdlpanel').addClass('panel-green'); }  
+    }
+});
+}else{ 
+	jQuery(".hdlerror").text("Please enter HDL value");
+	jQuery(".hdlerror").css("display","block");
+	jQuery(".loader").css("display", "none");
+}
+}	
+function SaveWeistHeightData(){
+jQuery(".loader").css("display", "block"); 
+jQuery(".heightwaisterror").css("display","none");
+var waist = jQuery("#waist").val();
+var height = jQuery("#height").val();
+if(waist && height){
+jQuery.ajax({
+    url: "<?php echo Mage::getBaseUrl().'weeklyhealthcheckin/index/insetheightwaistRecords' ?>",
+    type: "POST",
+    data: {
+      mobile : "<?php echo $customer->getPrimarymobileno() ?>",
+      name : "<?php echo $customer->getName() ?>",
+      email: "<?php echo $customer->getEmail() ?>",
+      waist: waist,  
+      height: height,
+      customerid:"<?php echo $customer->getId() ?>"
+    },
+    success: function(response){
+    	result=JSON.parse(response);    	
+    	var finallog = (result.graphdata.WaistToHeightResult).toLowerCase();
+    	jQuery(".loader").css("display", "none"); 
+    	jQuery(".heightwaisterror").text("Thank you for information");
+    	jQuery(".heightwaisterror").css("color","#5cb85c"); 
+		jQuery(".heightwaisterror").css("display","block");
+		jQuery('.WaistToHeightResultpanel').removeClass('panel-green panel-red');
+		jQuery(".WaistToHeightResult").text(result.graphdata.ratiolabel);	
+    jQuery(".WaistToHeight").text(result.graphdata.WaistToHeight);
+    	if( finallog == 'not good'){
+    	jQuery('.WaistToHeightResultpanel').addClass('panel-red');
+    	}else { jQuery('.WaistToHeightResultpanel').addClass('panel-green'); } 
+
+    }
+});
+}else{ 
+	jQuery(".heightwaisterror").text( "Please enter values" );
+	jQuery(".heightwaisterror").css("display","block");
+	jQuery(".loader").css("display", "none");
+	}
+}	
+
+function SaveFastingGlucoseData(){
+jQuery(".loader").css("display", "block"); 
+jQuery(".fastingglerror").css("display","none");
+var fastinggl = jQuery("#fastinggl").val();
+if(fastinggl){
+jQuery.ajax({
+    url: "<?php echo Mage::getBaseUrl().'weeklyhealthcheckin/index/insetFstGlucoseRecords' ?>",
+    type: "POST",
+    data: {
+      mobile : "<?php echo $customer->getPrimarymobileno() ?>",
+      name : "<?php echo $customer->getName() ?>",
+      email: "<?php echo $customer->getEmail() ?>",
+      fastinggl: fastinggl,
+      customerid:"<?php echo $customer->getId() ?>"
+    },
+    success: function(response){
+    	result=JSON.parse(response);    	
+    	var finallog = (result.graphdata.fastingglucoseresult).toLowerCase();
+    	jQuery(".loader").css("display", "none"); 
+    	jQuery(".fastingglerror").text("Thank you for information");
+    	jQuery(".fastingglerror").css("color","#5cb85c"); 
+		jQuery(".fastingglerror").css("display","block"); 
+		jQuery(".fastinggldata").text(fastinggl+" mg/dl");
+		jQuery('.fastingglucoseresultpanel').removeClass('panel-green panel-red');
+		jQuery(".fastingglucoseresult").text(result.graphdata.fastinglabel);	
+    	if( finallog == 'not good'){
+    	jQuery('.fastingglucoseresultpanel').addClass('panel-red');
+    	}else { jQuery('.fastingglucoseresultpanel').addClass('panel-green'); } 
+    }
+});
+}else{
+	jQuery(".fastingglerror").text("Please enter Fasting Glucose value");
+	jQuery(".fastingglerror").css("display","block");
+	jQuery(".loader").css("display", "none"); 
+}
+} 
+
+function showVideo(videoName,videoTitle,VideoTime)
+{
+	jQuery(".loader").css("display", "block"); 
+	jQuery.ajax({
+		url: "<?php echo Mage::getBaseUrl().'weeklyhealthcheckin/index/video' ?>",
+		type: "POST",
+		data: {
+		  file : videoName,
+		  title : videoTitle,
+		  time : VideoTime
+		 
+		},
+		success: function(response){
+	  
+ 
+			jQuery(".loader").css("display", "none");
+			jQuery("#videosection").html(response);
+			jQuery("#videoTitle").text(videoTitle);
+			jQuery("#VideoTime").text(VideoTime);
+			
+		}
+	});
+	
+	
+}
+</script> 

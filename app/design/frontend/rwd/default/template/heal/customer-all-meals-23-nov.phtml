@@ -1,0 +1,604 @@
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js"></script>
+     <style>
+		 #searchByCustomerName{width:500px}
+</style>           
+               
+<?php    $uniqueCustomersJson = Mage::helper('heal')->getUniqueCustomersJson();  ?>
+<script>
+  $( function() {
+    $( "#start_datepicker" ).datepicker();
+     $( "#end_datepicker" ).datepicker();
+  } );
+  </script>
+  <script>
+ 
+
+  var customers = <?php echo $uniqueCustomersJson;?>;
+  
+  $( function() {
+    $( "#datepicker-from" ).datepicker();
+	$( "#datepicker-to" ).datepicker();
+	   $("#tooltip-1").tooltip();
+	  
+	   $("#customers").select2({
+				  data: customers
+				});
+				
+	 
+	    <?php if(isset($_POST['customers'])) { ?>
+		
+		$("#customers").val("<?php echo  $_POST['customers'];?>");
+	        $('#customers').trigger('change');
+	 
+			<?php } ?>
+	   
+	    
+  } );
+  </script>
+  
+	<style>
+		.selecttext{margin: 10px 0px;width: 30%;float: left;}
+		.selectoption{margin:5px 0px;width: 70%;float: left;}
+
+		#myHeadertop.stickyhead {
+position: fixed;
+top:0px;
+width: 100%;
+z-index: 6;
+
+}
+
+.stickyhead + .main-container {
+  padding-top: 200px;
+}
+
+input[type="text"] {
+height: 45px;	width:100%;	}
+	input[type="submit"] {
+	-webkit-appearance: button;
+	cursor: pointer;
+	padding: 5px 10px;
+	margin: 10px auto;
+	background: #269a9b;
+	color: #fff;
+	border-color: #269a9b;
+		}
+		.tabledata{width: 100%;
+float: left;
+margin-top: 30px;}
+		.downloadcsv {
+   width: auto !important;
+float: right;
+margin-top: 6%;
+cursor: pointer;
+padding: 5px 10px;
+background:#269a9b;
+color:#fff;
+border-color:#269a9b;
+position: absolute;
+z-index: 2;
+right: 14%;
+}
+		.downloadcsv a{color:#fff;}
+
+		.Theadbox{float: left;width: 100%;background: #d7d4d4;text-align: center;}
+		#datewise{width: 100%;
+  padding: 50px 0;
+  text-align: center;
+  background-color: lightblue;
+  margin-top: 20px;}
+		
+	.select2-container {
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 0;
+    position: relative;
+    vertical-align: middle;
+        width: 100% !important;
+    height:45px;
+    line-height:45px;
+    padding: 0px 0px;
+}
+		.select2-container .select2-selection--single {
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    height: 45px;
+		}
+		.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 26px;
+    position: absolute;
+    top:5px;
+    right: 10px;
+    width: 20px;
+}
+		.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #444;
+    line-height: 45px;
+}
+	.btn-danger {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    margin: 4px;
+}
+	.breadcrumbs{display:none;}	
+	#myHeaderhead, #oldfooter, .navbar{font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100% !important;
+    margin: 0 !important;
+	}
+	#printdate input[type="text"] {
+    max-width: 100%;
+    background: #f6fcfc;
+    height: 45px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+    border: 0;
+    margin: 10px;
+    width: 80%;text-align: center;
+}	
+#printdate select {
+    font-size: 14px;
+    margin: 10px;
+    width: 80%;
+    max-width: 100%;
+    background: #f6fcfc;
+    height: 45px;text-align: center;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+    border: 0;
+}
+.ui-datepicker td {
+    border: 0;
+    padding: 1px;
+    width: 10%;
+}
+
+#customerMealResport{text-align: center;font-size: 24px;margin: 30px auto;
+	text-transform: capitalize;width: 100%;display: block;}
+* {box-sizing: border-box}
+.loader {
+  position: fixed;
+  left: 40%;
+  top: 50%;
+  z-index: 9999;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #a61d3f;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  
+  margin:auto;
+}
+h2{font-weight: normal;margin: auto;
+width: 560px;font-size:17px;
+height:60px;color: #000;
+line-height:60px;}
+		.tabledata td, .tabledata th{padding:10px;font-size:12px;width: auto;}
+		.dataalign{    float: left;
+    text-align: center;
+    width: 33%;
+    margin: 10px auto}
+.noprint {font-family: arial, sans-serif;border-collapse: collapse;width: 100%;max-width: 560px;margin: 20px auto;}
+
+.modal-footer{margin: auto;width: 560px;padding: 10px 0px;}
+@media print
+{
+.noprint {display:none;font-family: arial, sans-serif;border-collapse: collapse;width: 100%;max-width: 560px;margin: 20px auto;}
+}
+
+@media print {
+    @page {
+      size: A4; /* DIN A4 standard, Europe */
+      margin:0;
+    }
+    html, body {
+        width: 210mm;
+        /* height: 297mm; */
+        height: 282mm;
+        font-size: 18px;
+        background: #FFF;
+        overflow:visible;
+    }
+    body {
+        padding-top:15mm;
+    }
+}
+
+@media all {
+.page-break { display: none; }
+}
+
+@media print {
+.page-break { display: block; page-break-before: always; }
+}
+@media screen and (min-width:260px) and (max-width:767px){
+	#customerMealResport {
+    text-align: center;
+    font-size: 24px;
+    margin: 0px auto 70px auto;
+    text-transform: capitalize;
+    width: 100%;
+    display: block;
+    float: left;
+}
+	.selecttext{margin: 10px 0px;width: 100%;float: left;}
+		.selectoption{margin:0px 0px;width: 100%;float: left;}
+	.downloadcsv {
+    width: auto !important;
+    float: right;
+    margin-top: 37%;
+    z-index: 2;
+		right:5%;
+    position: absolute;
+}
+	.tabledata{margin-top:0;font-size: 14px;width: 100% !important;}
+	#myHeadertop{font-size: 14px;width: 100% !important;}
+	.table-scroll{width: 100%;
+font-size: 14px;
+overflow: scroll;
+height: 400px;
+max-width: 600px;}
+	#printdate input[type="text"] {
+    max-width: 100%;
+    background: #f6fcfc;
+    height: 45px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+    border: 0;
+    margin: 10px;
+    width: 68%;
+}	
+	.dataalign{float: left;
+text-align: center;
+width: 100%;
+margin: 10px;}
+#printdate select {
+    font-size: 17px;
+    margin: 10px;
+    width: 68%;
+    max-width: 100%;
+    background: #f6fcfc;
+    height: 45px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+    border: 0;
+}
+@media screen and (min-width:768px) and (max-width:999px){
+	#printdate input[type="text"] {
+    max-width: 100%;
+    background: #f6fcfc;
+    height: 45px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+    border: 0;
+    margin: 10px;
+    width: 80%;
+}	
+#printdate select {
+    font-size: 14px;
+    margin: 10px;
+    width: 80%;
+    max-width: 100%;
+    background: #f6fcfc;
+    height:45px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+    border: 0;
+}
+
+}
+
+.hideme{display:none;}
+</style>
+<?php
+
+
+
+
+ $dbRead      = Mage::getSingleton('core/resource')->getConnection('core_read');
+ $selectDatewiseOrders='';
+ $name='';
+ $customerEmail='';
+ $start_orderdate='';
+ $start_orderdate_toshow='';
+ $start_formattedOrderdate='';
+ $end_orderdate='';
+ $end_orderdate_toshow='';
+ $end_formattedOrderdate='';
+ $startEndDateMsg='';
+ $msg ="";
+ $cid='';
+if (isset($_POST["submitCustomer"]) )
+{
+	 
+	  $choosenCustomer= $_POST['customers'];
+          
+         
+           if($choosenCustomer=='')
+          {
+             $msg.="Please select the customer.<br>" ;
+          }
+          
+           $customerEmail  = strtolower($_POST['customers']);
+     $start_orderdate   = $_POST['start_datepicker'];	
+     $end_orderdate   = $_POST['end_datepicker'];	
+     $formattedOrderdate='';
+    
+    
+     if($start_orderdate !='')
+     {
+        $start_dateInfo = explode("/",$start_orderdate);
+        $start_formattedOrderdate = $start_dateInfo[2]."-".$start_dateInfo[0]."-".$start_dateInfo[1];
+       $start_orderdate_toshow = date("d-M-Y",strtotime($start_formattedOrderdate));
+        $startEndDateMsg.=" From ".$start_orderdate_toshow;
+     }
+     
+     if($end_orderdate !='')
+     {
+        $end_dateInfo = explode("/",$end_orderdate);
+        $end_formattedOrderdate = $end_dateInfo[2]."-".$end_dateInfo[0]."-".$end_dateInfo[1];
+        $end_orderdate_toshow = date("d-M-Y",strtotime($end_formattedOrderdate));
+        $startEndDateMsg.=" To ".$end_orderdate_toshow;
+     }
+    
+    
+        $msgCustomer='';
+        if($customerEmail!='' && $start_formattedOrderdate=='' &&  $end_formattedOrderdate=='')
+        {
+           $selectDatewiseOrders= "select * from healorder where email='".$customerEmail."' order by formatted_orderdate asc";
+        }
+        else if( $customerEmail!='' && $start_formattedOrderdate!=''  &&  $end_formattedOrderdate=='')
+        {
+           $selectDatewiseOrders= "select * from healorder where email='".$customerEmail."' and formatted_orderdate>='".$start_formattedOrderdate."' order by formatted_orderdate asc";
+          
+        }
+        
+         else if( $customerEmail!='' && $start_formattedOrderdate==''  &&  $end_formattedOrderdate!='')
+        {
+           $selectDatewiseOrders= "select * from healorder where email='".$customerEmail."' and formatted_orderdate<='".$end_formattedOrderdate."' order by formatted_orderdate asc";
+          
+        }
+        
+        else if( $customerEmail!='' && $start_formattedOrderdate!=''  &&  $end_formattedOrderdate!='')
+        {
+           $selectDatewiseOrders= "select * from healorder where email='".$customerEmail."' and formatted_orderdate>='".$start_formattedOrderdate."' and formatted_orderdate<='".$end_formattedOrderdate."' order by formatted_orderdate asc";
+          
+        }
+        
+       
+        
+        if($customerEmail=='' )
+        {
+           $msgCustomer="Please select the customer name";
+
+        }
+        
+             $customerEmail = $_POST['customers'];
+             $customer = Mage::getModel("customer/customer"); 
+             $customer->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
+             $customer->loadByEmail($customerEmail);
+             $name = $customer->getFirstname(). " ".  $customer->getLastname();  
+             $cid=$customer->getId(); 
+}
+
+
+	   
+?>
+<div class="noprint">
+
+
+<h1 class="noprint" style="text-align: center;font-size: 24px;margin: 30px auto !important;text-transform: capitalize;">Customer Meal Tracking</h1>
+
+  <div id="searchByCustomerName"  class="noprint">
+      <form method="POST" action="<?php echo Mage::getBaseUrl().'heal/index/customerallmeals';?>" >
+       <fieldset>
+        <legend>Search Order By Customer name and date:</legend>
+           <div>
+               <div class="selecttext"> Select Customer</div>
+                <div class="selectoption"><select id="customers" name="customers"></select></div>
+         </div>
+          <div>
+             <div class="selecttext">Start Order Date</div>
+             <div class="selectoption">  <input type="text" id="start_datepicker" name="start_datepicker" value="<?php echo $start_orderdate;?>" ></div>
+
+          </div>
+         <div>
+             <div class="selecttext">End Order Date</div>
+             <div class="selectoption">  <input type="text" id="end_datepicker" name="end_datepicker" value="<?php echo $end_orderdate;?>"  ></div>
+
+          </div>
+       </fieldset>
+
+      <input type="submit" name="submitCustomer" value="Search Meal Orders" >
+                  
+      </form>
+      <?php if($msg!=''){?>
+         <div><?php echo $msg;?></div>
+       <?php } ?>   
+  </div>
+     
+
+
+</div>
+<?php 
+//echo '<pre>'; print_r($_POST);
+      //echo   $selectDatewiseOrders; //die;
+        
+       if($selectDatewiseOrders!='')
+       {
+          // echo $selectDatewiseOrders;
+              $customerResult = $dbRead->fetchAll($selectDatewiseOrders);
+
+
+        if( count($customerResult)>0)
+        {   ?>
+<div class=" downloadcsv"> 
+    <a href="<?php echo Mage::getBaseUrl( Mage_Core_Model_Store::URL_TYPE_WEB, true ).'download-customer-report.php' ?>?cid=<?php echo $cid;?>&start_date=<?php echo $start_formattedOrderdate;?>&end_dateate=<?php echo $end_formattedOrderdate;?>" target="_blank" >Export Customer Report</a>
+  </div>
+<div class="print">
+<span id="customerMealResport"><b><?php echo $name;?> </b> Daily Meal Report<?php echo $startEndDateMsg;?></b></span>
+   <div id="sticky-anchor"></div>
+    <div class="tabledata">
+		<div  id="myHeadertop">
+    <div class="Theadbox">
+       <div  style="font-weight:600;float: left;width:10%;padding: 10px;">Order Date</div>
+       <div style="font-weight:600;float: left;width: 10%;padding: 10px;">Order Id</div>
+       <div  style="font-weight:600;float: left;width:20%;padding: 10px;">Dinner</div>
+       <div  style="font-weight:600;float: left;width:20%;padding: 10px;">Breakfast</div>
+       <div  style="font-weight:600;float: left;width:20%;padding: 10px;">Lunch</div>
+       <div  style="font-weight:600;float: left;width:20%;padding: 10px;">High Tea</div>
+   </div>
+			</div>
+        <input type="text" id="hiddenOrderinfo" email="<?php echo $_POST['customers'];?>" date="<?php echo $formattedOrderdate;?>" orderid="<?php echo $_POST['orderid'];?>" />
+    <div class="table-scroll" style="Width:100%;">
+         <table cellpadding="2" cellspacing="2" border="1">
+         <?php       
+         foreach($customerResult as $row)
+         { 
+                 $orderId   =  $row['id']; 
+                 $orderInfo =  Mage::getModel("heal/order")->load($orderId);
+                 $customerEmail = $orderInfo->getEmail();
+               
+                $orderDate = $orderInfo->getFormattedOrderdate(); 
+                $formattedDate = date("d M Y",strtotime($orderDate)); 
+                $breakfastCollection = $orderInfo->getCusineDetails($orderId,$cusine='breakfast');
+                $lunchCollection = $orderInfo->getCusineDetails($orderId,$cusine='lunch');
+                $dinnerCollection = $orderInfo->getCusineDetails($orderId,$cusine='dinner');
+                $highteaCollection = $orderInfo->getCusineDetails($orderId,$cusine='hightea ');
+                ?>
+             <tr>
+       <td style="width:10%;"><?php echo $formattedDate;?></td>
+      <td style="width:10%;"><?php echo $orderId;?></td>
+      <td style="width:20%;">
+        <!-- Dinner Starts -->
+        <?php if(count($dinnerCollection)>0) {           
+                foreach($dinnerCollection as $iteminfo) { ?>
+        <span class="item-values"><?php echo $iteminfo['itemname']."( ".$iteminfo['qty']." )"; ?><br> </span>
+                     
+        <?php  } 
+          
+            } ?>
+             <!-- Dinner Ends -->
+       </td>
+      <td style="width:20%;">
+         <!-- Breakfast Starts -->
+        <?php if(count($breakfastCollection)>0) {           
+                foreach($breakfastCollection as $iteminfo) { ?>
+        <span class="item-values"><?php echo $iteminfo['itemname']."(".$iteminfo['qty'].")"; ?><br> </span>
+                     
+        <?php  } 
+          
+            } ?>
+             <!-- Breakfast Ends -->
+      </td>
+      <td style="width:20%;">
+       <!-- Lunch Starts -->
+        <?php if(count($lunchCollection)>0) {           
+                foreach($lunchCollection as $iteminfo) { ?>
+        <span class="item-values"><?php echo $iteminfo['itemname']."(".$iteminfo['qty'].")"; ?><br> </span>
+                     
+        <?php  } 
+          
+            } ?>
+             <!-- Lunch Ends -->
+       
+      </td>
+      <td style="width:20%;">
+            <!-- Hightea Starts -->
+        <?php if(count($highteaCollection)>0) {           
+                foreach($highteaCollection as $iteminfo) { ?>
+        <span class="item-values"><?php echo $iteminfo['itemname']."(".$iteminfo['qty'].")"; ?><br> </span>
+                     
+        <?php  } 
+          
+            } ?>
+             <!-- Hightea Ends -->
+           
+      </td>
+      
+      </tr>  
+             <?php
+         }
+      ?>
+             
+         </table>
+                    
+     </div> 
+    
+  
+       
+ <?php
+}
+else {  ?>
+            <div style="text-align: center">No meal record found.</div>
+<?php }
+
+
+}
+
+
+
+?>
+ 
+	 </div> 
+
+<script>
+    
+    function downloadCsv(customerEmail,startFormattedDate,endFormattedDate)
+    {
+        jQuery.ajax({
+						url: "<?php echo Mage::getBaseUrl().'heal/index/downloadcustreport' ?>",
+						type: "POST",
+						data: {
+						 customerEmail: customerEmail,
+                                                 startFormattedDate: startFormattedDate,
+                                                 endFormattedDate: endFormattedDate,
+						},
+						  success: function(response)
+						 {  
+							  alert('CSV has been downloaded');
+							//jQuery("#resultTable").html(response);
+								
+						 }
+			});
+    }
+    
+    
+
+	window.onscroll = function() {myFunction()};
+
+var header = document.getElementById("myHeadertop");
+var sticky = header.offsetTop;
+function changeprint()
+	{
+		$(".collapsiblereportprint").show();
+		print();
+	}
+	
+	
+	function myFunctiontophead() {
+  if (window.pageYOffset > sticky) {
+    header.classList.add("stickyheadtop");
+ } else {
+   header.classList.remove("stickyheadtop");
+ }
+}
+</script>

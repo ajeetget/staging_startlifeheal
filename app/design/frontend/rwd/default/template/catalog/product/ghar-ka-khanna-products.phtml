@@ -1,0 +1,1202 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ */
+/* @var $this Mage_Catalog_Block_Product_List */
+?>
+    
+    <link rel="stylesheet" href="<?php echo $this->getSkinUrl('');?>css/swipslideritem.css" /> 
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl('');?>css/swiper.min.css" />
+<script type="text/javascript" src="<?php echo $this->getSkinUrl();?>js/swiper.jquery.min.js"></script>
+ <script type="text/javascript" src="<?php echo $this->getSkinUrl();?>js/swipslideritem.js"></script>
+	<style>
+			.dVfvkq2 .dd-wrpr {
+    position:absolute;
+    z-index: 1;    
+}
+		.cCbxqa .itm-dsc__actn__sz__dd-mn__itm {
+    height: auto;
+    display: ruby;
+		}
+		.cCbxqa {float:left;}
+		.stand-out__photo {
+    height: 130px;
+    display: block;
+    float: left;
+    width: 100%;
+}
+		.stand-out__content {float:left;}
+		.stand-out__photo img {
+    display: block;
+    width: 100%;
+    height: 130px;
+}
+		.nm-icn {
+    width: 100%;
+    box-shadow: 0px 0px 3px rgba(0,0,0,0.2);
+    padding: 5px 5px;
+    height: 40px;
+    line-height: 24px;
+}
+	.nm-icn  input[type="checkbox"]{margin-top:3px;}
+.loginformbox{position: absolute;
+width: 300px;
+float: left;
+background:#fff;
+height: auto;
+padding: 10px;}
+	
+	 /* The popup form - hidden by default */
+.form-popup {
+  display: none;
+position: fixed;
+bottom: 0;
+border: 3px solid #f1f1f1;
+z-index: 9;
+top: 0;
+background:rgba(0,0,0,0.4);
+width: 100%;
+left: 0;
+}
+
+/* Add styles to the form container */
+.form-container {
+ max-width: 300px;
+
+margin: auto;
+margin-top: 10%;
+
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 0px 0 0px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #269A9B;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color:#a61d40;
+width: 30px;
+height: 30px;
+border-radius: 50%;
+padding: 0px 5px;
+float: right;
+margin-top: -18%;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+	.stand-out__content .itm-dsc__actn__sz {
+    flex-flow: column nowrap;
+    width: 100%;
+    margin: auto;
+}
+	.stand-out__content .itm-dsc__actn {
+    flex-basis: auto;
+    flex-flow: row nowrap;
+    display: flex;
+    margin-top: 0.4rem;
+    margin-bottom: 1.5rem;
+    margin-top: 0rem;
+    margin-bottom: 0.5rem;
+    width: 100%;
+}
+	p {
+    margin-top: 0;
+    margin-bottom: 0rem;
+}
+	.itm-dsc__actn__sz__dd-ttl {
+    font-size: 13px;
+	}
+	
+		.jrxrSi {
+    align-self: center;
+    margin: auto;
+}
+	.jrxrSi button {
+    cursor: pointer;
+    padding: 0.433rem;
+    border: 0px solid 
+rgb(38, 154, 155) !important;
+color:
+    rgb(38, 154, 155);
+    background: none;
+}
+	
+    /* Add padding and border to inner content
+    for better animation effect */
+    .box, .box2, .box3, .box4{
+        float: left;
+overflow: hidden;
+background:#f0e68c;
+height: 142px;
+width: 100%;
+position: absolute;
+z-index: 3;
+right: 0%;
+		 display:none;
+    }
+	 .cCbxqa .itm-dsc__actn__sz {
+    flex-flow: column nowrap;
+    width: 100%;
+    margin: auto;
+}
+	 .SSFcO {
+   float: right;
+color:#3d4152;
+cursor: pointer;
+font-size: 24px;
+position: absolute;
+right: 10px;
+padding: 5px;
+top: -5px;
+}
+	
+#myInput {
+  box-sizing: border-box;
+background-position: 14px 12px;
+background-repeat: no-repeat;
+font-size: 14px;
+padding: 0px 0px 0px 15px;
+border: none;
+	text-align: left;
+    border-bottom-color: currentcolor;
+    border-bottom-style: none;
+    border-bottom-width: medium;
+border-bottom: 1px solid #ddd;
+
+height: 50px !important;
+border-radius: 4px;
+background:#fff;
+color:#000;
+width: 100% !important;
+}
+
+#myInput:focus {outline: 3px solid #ddd;}
+
+
+
+	/*.main-container .container{max-width:100%;padding:0px;}*/
+
+	@media screen and (min-width:260px) and (max-width:760px)
+	{
+		.catalog__filter, .catalog__filter-item {
+    display: block;
+}
+		.catalog__list {
+    max-width: 100%;
+    margin: 20px auto;
+}
+		.SSFcO {
+    float: right;
+    color: 
+    #fff;
+    cursor: pointer;
+    font-size: 24px;
+    position: absolute;
+    right: 10px;
+    padding: 5px;
+    top: -5px;
+}
+		.stickyhead{position: fixed;
+top:0px !important;
+width: 100%;
+}
+	 }
+	 
+</style>
+<?php
+    $_productCollection=$this->getLoadedProductCollection();
+    $_helper = $this->helper('catalog/output');
+?>
+
+<?php if(!$_productCollection->count()): ?>
+<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<?php else: ?>
+<div class="category-products catalog_product_view">
+    <?php echo $this->getToolbarHtml() ?>
+    <?php // List mode ?>
+    <?php if($this->getMode()!='grid'): ?>
+    <?php $_iterator = 0; ?>
+	
+    <ol class="products-list" id="products-list">
+    <?php foreach ($_productCollection as $_product): ?>
+        <li class="item<?php if( ++$_iterator == sizeof($_productCollection) ): ?> last<?php endif; ?>">
+            <?php // Product Image ?>
+            <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
+                <?php /* Based on the native RWD styling, product images are displayed at a max of ~400px wide when viewed on a
+                        one column page layout with four product columns from a 1280px viewport. For bandwidth reasons,
+                        we are going to serve a 300px image, as it will look fine at 400px and most of the times, the image
+                        will be displayed at a smaller size (eg, if two column are being used or viewport is smaller than 1280px).
+                        This $_imgSize value could even be decreased further, based on the page layout
+                        (one column, two column, three column) and number of product columns. */ ?>
+                <?php $_imgSize =180; ?>
+                <img id="product-collection-image-<?php echo $_product->getId(); ?>"
+                     src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($_imgSize); ?>"
+                     alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+               
+            </a>
+            <?php // Product description ?>
+            <div class="product-shop">
+                <div class="f-fix">
+                    <div class="product-primary">
+                        <?php $_productNameStripped = $this->stripTags($_product->getName(), null, true); ?>
+                        <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped; ?>"><?php echo $_helper->productAttribute($_product, $_product->getName() , 'name'); ?></a></h2>
+                        <?php if($_product->getRatingSummary()): ?>
+                        <?php echo $this->getReviewsSummaryHtml($_product) ?>
+                        <?php endif; ?>
+                        <?php
+                        // Provides extra blocks on which to hang some features for products in the list
+                        // Features providing UI elements targeting this block will display directly below the product name
+                        if ($this->getChild('name.after')) {
+                            $_nameAfterChildren = $this->getChild('name.after')->getSortedChildren();
+                            foreach ($_nameAfterChildren as $_nameAfterChildName) {
+                                $_nameAfterChild = $this->getChild('name.after')->getChild($_nameAfterChildName);
+                                $_nameAfterChild->setProduct($_product);
+                                echo $_nameAfterChild->toHtml();
+                            }
+                        }
+                        ?>
+                    </div>
+                    <div class="product-secondary">
+                        <?php echo $this->getPriceHtml($_product, true) ?>
+                    </div>
+                    <div class="product-secondary">
+                                 <div class="number">
+                                        open
+                                 </div>
+                        <?php if(!$_product->canConfigure() && $_product->isSaleable()): ?>
+                            <p class="action"><button type="button" title="<?php echo $this->quoteEscape($this->__('Add')) ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add') ?></span></span></button>
+						</p>
+                        <?php elseif($_product->getStockItem() && $_product->getStockItem()->getIsInStock()): ?>
+                            <p class="action"><a title="<?php echo $this->quoteEscape($this->__('View Details')) ?>" class="button" href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->__('View Details') ?></a></p>
+                        <?php else: ?>
+                            <p class="action availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                        <?php endif; ?>
+                   
+                    </div>
+					
+
+                    <div class="desc std">
+                        <?php echo $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description') ?>
+                        <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped ?>" class="link-learn"><?php echo $this->__('Learn More') ?></a>
+                    </div>
+                </div>
+            </div>
+        </li>
+    <?php endforeach; ?>
+    </ol>
+    <script type="text/javascript">decorateList('products-list', 'none-recursive')</script>
+
+    <?php else: ?>
+
+    <?php // Grid Mode ?>
+
+    <?php $_collectionSize = $_productCollection->count();?>
+    <?php $_columnCount = $this->getColumnCount(); ?>
+     <?php 
+          $nextday = Mage::app()->getRequest()->getParam('nextday');
+          $tomorrowDay = ''; 
+          $isMealToShow = true;
+          if(isset($nextday) && $nextday!='')
+          {
+            $tomorrowDay = ucfirst(date("l", strtotime('tomorrow')));
+           }
+
+     ?>
+
+		</div>
+	
+			
+           <section class="stand-out">
+         
+         <div class="stand-out__wrap">
+            <button class="stand-out__slider-prev">
+                <svg viewBox="0 0 46.001 85.999">
+                    <path d="M44.998,80.094c1.338,1.352,1.338,3.541,0,4.893c-1.336,1.35-3.506,1.352-4.844,0L1.003,45.447  c-1.338-1.352-1.338-3.543,0-4.895l39.15-39.539c1.338-1.352,3.506-1.352,4.844,0S46.335,4.555,45,5.906L9.294,43L44.998,80.094z"></path>
+                </svg>
+            </button>     
+                    <div class="stand-out__slider">
+    <ul  class="swiper-wrapper products-grid--max-<?php echo $_columnCount; ?>-col">
+        <?php $i=0; foreach ($_productCollection as $_product): 
+            if(isset($nextday) && $nextday!='')
+              {
+                 $isMealToShow = checkMealDayAvailability($_product,$tomorrowDay);
+              }
+            if($isMealToShow==true) {?> 
+            <?php /*if ($i++%$_columnCount==0): ?>
+            <?php endif*/ ?>
+          <?php $vegNonvegClass ='';
+                $tmpVegnonveg = $_product->getData('veg_notveg');
+                if(isset($tmpVegnonveg) && $tmpVegnonveg=='0'){  $vegNonvegClass='nonveg'; } else {  $vegNonvegClass ='veg'; }
+               ?>
+		  
+     <li class="stand-out__item swiper-slide item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
+			 			<dl class="stand-out__content">
+                        <dt><div class="sc-hmzhuo cCbxqa">
+				<div class="itm-nm-dsc ">
+					<span class="itm-dsc__nm"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></span>
+					</div>
+				
+				</div></dt>    
+                    </dl>
+		 
+                        <div class="stand-out__photo">
+                       <img id="product-collection-image-<?php echo $_product->getId(); ?>"  class="img-wrpr__img"
+                         src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($_imgSize); ?>"
+                         alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /> 
+							
+                      </div>
+					  <?php if($_product->getFoodtype()=='gharkakhana') {?>
+					  
+		 <div class="sc-hmzhuo cCbxqa">
+		 
+						<div class="stand-out__content" style="margin-top: 20px;">
+			 <?php  $bundleProduct = Mage::getModel("catalog/product")->load($_product->getEntityId());
+                                $productType = $bundleProduct->getTypeId();
+                                $comboCollection='';
+                                    $like_dislike='disliked';
+                                    if(Mage::getSingleton('customer/session')->isLoggedIn())
+                                    {
+                                        
+                                        $customer = Mage::getSingleton('customer/session')->getCustomer();
+                                        $custID = $customer->getId();
+                                        
+                                        if($productType=='bundle')
+                                        {
+                                          $comboCollection = Mage::getModel('favourite/customerfavourite')->getCollection()
+                                                  ->addFieldToFilter('custid',$custID)
+                                                  ->addFieldToFilter('combo_id',$_product->getEntityId())
+                                                  ->addFieldToFilter('product_is_combo_child','yes');
+                                        }
+                                        else if($productType=='simple')
+                                        {
+                                            $comboCollection = Mage::getModel('favourite/customerfavourite')->getCollection()
+                                          ->addFieldToFilter('custid',$custID)
+                                          ->addFieldToFilter('productid',$_product->getEntityId())
+                                          ->addFieldToFilter('product_is_combo_child','no');
+                                          
+                                        }
+                                        
+                                        if(sizeof( $comboCollection)>0 )
+                                        {
+                                            $like_dislike = 'liked';
+                                        }
+                                    }
+                                    
+                                    if($productType=='bundle')
+                                    { 
+                                      //  echo $bundleProduct->getName().'--shailesh';
+                                    $optionCollection = $bundleProduct->getTypeInstance(true)->getOptionsCollection($bundleProduct);
+                                    $selectionCollection = $bundleProduct->getTypeInstance(true)->getSelectionsCollection(
+                                        $bundleProduct->getTypeInstance(true)->getOptionsIds($bundleProduct),$bundleProduct
+                                    );
+
+                                    $allOptions = $optionCollection->appendSelections($selectionCollection);
+
+                                   foreach ($allOptions as $option) 
+                                   {
+                                       
+                                     $selections = $option->getSelections();
+                                     
+                                     $optionId    = $option->getId();
+                                     if(isset($selections) && sizeof($selections)>0)
+                                     {
+                                        foreach ($selections as $selection)
+                                            {
+                                     
+                                     //$optionTitle = $options->getDefaultTitle();
+                                     $selectionId = $selection->getSelectionId();
+                                     $productIdFromSelection = $selection->getProductId();
+                                     $selectionPrice = round($selection->getSelectionPriceValue(),4); 
+                                     $optionTitle = $selection->getName();
+                                     
+                                    /////////////////Check selection product is in databast or not ///////////////
+                                      $checked='';
+                                      $checkSingleProductCollection = Mage::getModel('favourite/customerfavourite')->getCollection()
+                                                  ->addFieldToFilter('custid',$custID)
+                                                  ->addFieldToFilter('combo_id',$_product->getEntityId())
+                                                  ->addFieldToFilter('productid',$productIdFromSelection)
+                                                  ->addFieldToFilter('product_is_combo_child','yes');
+                                      if(count($checkSingleProductCollection)==1)
+                                      {
+                                          $checked='checked';
+                                      }
+                                     ///////////////////////////////
+                              ?> 
+                 
+				<!--Option start-->
+				<div class="itm-dsc__actn">
+			   	    <div class="itm-dsc__actn__sz" >
+					<div style="width:100%; float:left;">
+						
+							<div class="injectStyles-sc-1jy9bcf-0 dVfvkq2">
+							      <div class="dd-wrpr" id="<?php echo $_product->getEntityId();?>_Div_<?php echo $optionId;?>_<?php echo $selectionId;?>" ></div>
+							      <div class="nm-icn">
+								  <div datalabel="<?php echo $optionTitle ;?>" id="<?php echo $_product->getEntityId();?>_<?php echo $optionId;?>_<?php echo $selectionId;?>" class="itm-dsc__actn__sz__dd-ttl" ><?php echo $optionTitle ;?></div>
+								 <input  type="checkbox" name="check_<?php echo $_product->getEntityId();?>"  optionid="<?php echo $optionId;?>" selectionid="<?php echo $selectionId;?>" <?php echo $checked;?> />
+							      </div>
+							</div>
+					</div>
+				    </div>
+				</div>
+					<!--Option end-->
+							
+                          <?php } 
+                              }
+                            }  
+                          }?>
+					
+				<div class="itm-dsc__actn__adCrt">
+                                            <span id="success_<?php echo $_product->getEntityId();?>" style="position: absolute;width: 100%;float: left;z-index: 1;background: #cfcfcf;padding: 10px;display:none;"></span>						
+                                            <div class="injectStyles-sc-1jy9bcf-0 jrxrSi addTocartBtn">
+                                                    <button  class="addcombo">
+														<span>
+													<div class="img-wrpr__fav tooltip" data-label="favorite">
+										<div class="<?php echo $like_dislike;?>"  id="like-dislike-<?php echo $_product->getEntityId();?>"onclick="savecombo(this.id,'<?php echo $_product->getEntityId();?>','<?php echo $productType;?>')"></div>
+                                                                                    <input type="hidden" class="selcted<?php echo $_product->getEntityId();?>"  selectedoptions="" selectedid="<?php echo $_product->getEntityId();?>"/>
+										    				
+                                                                                    <span class="tooltiptext">Save your combo.</span>
+                                                                                    
+                                                                                </div>
+						                                 
+					                                
+												   </span>
+												</button>
+                                                   
+                                            </div>	
+					<span style="display: block;width: 100%;font-size:12px;margin: auto;position: absolute;" class="success-<?php echo $_product->getEntityId();?>"></span>
+					</div>
+						<!--<p><small>Food Level 1-5</small></p>-->
+					
+						</div>
+		 </div>
+					  <?php } else { ?>
+					  
+					        <?php  $bundled_product1 = Mage::getModel("catalog/product")->load($_product->getEntityId());
+                                   $productType = $bundled_product1->getTypeId();
+                         
+                                    $like_dislike='disliked';
+                                    if(Mage::getSingleton('customer/session')->isLoggedIn())
+                                    {
+                                        
+                                        $customer = Mage::getSingleton('customer/session')->getCustomer();
+                                        $custID = $customer->getId();
+                                        $comboCollection='';
+                                        if($productType=='bundle')
+                                        {
+                                          $comboCollection = Mage::getModel('favourite/customerfavourite')->getCollection()
+                                                  ->addFieldToFilter('custid',$custID)
+                                                  ->addFieldToFilter('combo_id',$_product->getEntityId())
+                                                  ->addFieldToFilter('product_is_combo_child','yes');;
+                                        }
+                                        else if($productType=='simple')
+                                        {
+                                            $comboCollection = Mage::getModel('favourite/customerfavourite')->getCollection()
+                                          ->addFieldToFilter('custid',$custID)
+                                          ->addFieldToFilter('productid',$_product->getEntityId())
+                                          ->addFieldToFilter('product_is_combo_child','no');
+                                          
+                                        }
+                                        if(sizeof( $comboCollection)>0 )
+                                        {
+                                            $like_dislike = 'liked';
+                                        }
+                                    }?>        
+ 
+					  		 <div class="sc-hmzhuo cCbxqa">
+		 			           <div class="stand-out__content" style="margin-top: 20px;">
+							   <?php
+							           try{ 
+                                     if($productType=='bundle')
+                                    { 
+									   $optionsCollection1 = $bundled_product1->getTypeInstance(true)->getOptionsCollection($bundled_product1);
+									 //  echo "<pre>"; print_r($optionsCollection1);  die;
+									   foreach ($optionsCollection1 as $options) 
+									   {
+										 $optionId    = $options->getOptionId();
+										 $optionTitle = 'Add '.$options->getDefaultTitle();
+										 $optionPosition = $options->getPosition();
+										 $getPreselectedItemDetails = getSelectedOptionDetails($bundled_product1,$optionId,$optionsCollection1);
+										 
+										 $selectedItemOptionId='';
+										 $selectedItemSelectionId ='';
+										 $selectedItemPrice ='';
+										 $selectedItemVale='';
+										 if(isset($getPreselectedItemDetails) && is_array($getPreselectedItemDetails))
+										 {
+										   $selectedItemOptionId    =  $getPreselectedItemDetails[0];
+										   $selectedItemSelectionId =  $getPreselectedItemDetails[1];
+										   $selectedItemPrice       =  $getPreselectedItemDetails[2];
+										   $selectedItemVale        =  $getPreselectedItemDetails[3]; 
+										   $optionTitle             =  $getPreselectedItemDetails[4]; 
+										 }
+									 
+                                        ?> 
+ 								          
+										   <!--Option start-->
+				<div class="itm-dsc__actn">
+			   	    <div class="itm-dsc__actn__sz" >
+					<div style="width:100%; float:left;">
+						
+							<div class="injectStyles-sc-1jy9bcf-0 dVfvkq2">
+							      <div class="dd-wrpr" id="<?php echo $_product->getEntityId();?>_Div_<?php echo $optionId;?>" ></div>
+							      <div class="nm-icn">
+								  <div datalabel="<?php echo $optionTitle ;?>" id="<?php echo $_product->getEntityId();?>_<?php echo $optionId;?>" onclick="showhideDeluxCuisine('<?php echo $_product->getEntityId();?>','<?php echo $optionId;?>','<?php echo $optionPosition;?>')" class="itm-dsc__actn__sz__dd-ttl" style="box-shadow: 0px 0px 3px rgba(0,0,0,0.2);padding:10px 10px;border-radius:8px;"><?php echo $optionTitle ;?></div>
+								 <input class="hidcls<?php echo $_product->getEntityId();?> options" type="hidden" id="<?php echo $_product->getEntityId();?>_h_<?php echo $optionId;?>" optionid="<?php echo $selectedItemOptionId;?>" selectionid="<?php echo $selectedItemSelectionId;?>" price="<?php echo $selectedItemPrice;?>" value="<?php echo $selectedItemVale;?>" position="<?php echo  $optionPosition;?>"  />
+							      </div>
+							</div>
+					</div>
+				    </div>
+				</div>
+					<!--Option end-->
+										 
+							  <?php
+							      } 
+                             }?>
+                              <!--  submit starts -->
+							  <div class="itm-dsc__actn__adCrt">
+                                            <span id="success_<?php echo $_product->getEntityId();?>" style="position: absolute;width: 100%;float: left;z-index: 1;background: #cfcfcf;padding: 10px;display:none;"></span>						
+                                            <div class="injectStyles-sc-1jy9bcf-0 jrxrSi addTocartBtn">
+                                                    <button  class="addcombo">
+														<span>
+													<div class="img-wrpr__fav tooltip" data-label="favorite">
+										<div class="<?php echo $like_dislike;?>"  id="like-dislike-<?php echo $_product->getEntityId();?>"onclick="savecombo(this.id,'<?php echo $_product->getEntityId();?>','<?php echo $productType;?>')"></div>
+                                                                                    <input type="hidden" class="selcted<?php echo $_product->getEntityId();?>"  selectedoptions="" selectedid="<?php echo $_product->getEntityId();?>"/>
+										    				
+                                                                                    <span class="tooltiptext">Save your combo.</span>
+                                                                                    
+                                                                                </div>
+						                                 
+					                                
+												   </span>
+												</button>
+                                                   
+                                            </div>	
+					<span style="display: block;width: 100%;font-size:12px;margin: auto;position: absolute;" class="success-<?php echo $_product->getEntityId();?>"></span>
+					</div>
+							  <!-- submit ends -->
+ 							  
+							   
+							   
+							   </div>
+							  </div>
+					  
+									   <?php }catch(Exception $e) {
+  echo 'Message: ' .$e->getMessage();
+}
+
+
+									   } ?>
+			
+			</li>
+		
+		
+ 
+            <?php /*if ($i%$_columnCount==0 || $i==$_collectionSize): ?>
+            <?php endif*/ ?>
+            <?php } endforeach ?>
+    </ul>
+		</div>			
+       	 <button class="stand-out__slider-next">
+    <svg viewBox="0 0 46.001 85.999">
+        <path d="M1.003,80.094c-1.338,1.352-1.338,3.541,0,4.893c1.337,1.35,3.506,1.352,4.845,0l39.149-39.539  c1.338-1.352,1.338-3.543,0-4.895L5.848,1.014c-1.339-1.352-3.506-1.352-4.845,0c-1.338,1.352-1.338,3.541-0.001,4.893L36.706,43  L1.003,80.094z"></path>
+    </svg>
+</button>
+</div>
+</section>  
+		
+<div class="form-popup" id="myloginForm">
+	
+  <div  class="form-container">
+	   <div class="loginformbox">
+    <h1>Login</h1>
+    <button type="button" class="btn cancel" onclick="closeForm()">X</button>
+    <label for="email"><b>Mobile No</b></label>
+    <span id="emailmsg"></span>
+    <input type="text" autocapitalize="off" autocorrect="off" spellcheck="false" name="login" value="" class="input-text required-entry getmobilenumber" title="Mobile No " />
+    <div class="mobile_error" style="color: red;"></div>
+    <div class="otp_verification" style="display: none">
+    <label for="email" class="required"><em>*</em>OTP</label>
+    <input type="text" autocapitalize="off" autocorrect="off" spellcheck="false" name="otp" value="" id="onetimepass" class="input-text required-entry otp_verification" title="Please Enter OTP" />
+    </div>
+    <div class="otp_msg" style="color:black;"></div>
+    <?php $vales = mt_rand(1000, 9999); ?>
+    <input style="display: none;" type="hidden" id="verification" value="<?php echo $vales; ?>" />
+    <input style="display: none;" type="hidden" id="otpurl" value="<?php echo Mage::getBaseUrl().'override/index/accountmobile' ?>">
+    <input style="display: none;" type="hidden" id="verifyotpurl" value="<?php echo Mage::getBaseUrl().'override/index/loginmobile' ?>">
+   <!-- <label for="psw"><b>Password</b></label>
+    <span id="passmsg"></span>
+    <input type="password" placeholder="Enter Password" name="pass" id="pass" required>-->
+    <div class="buttons-set getotpstep" style="clear:both;float: none;">
+      <button onclick="checkdata()" type="submit" class="button" title="<?php echo $this->quoteEscape($this->__('Get OTP')) ?>" name="send" id="send2"><span><span><?php echo $this->__('Login') ?></span></span></button>
+  </div>
+  <div class="buttons-set verifyotpstep" style="display: none;float:left;">
+      <button onclick="verify()" type="submit" class="button" title="<?php echo $this->quoteEscape($this->__('Verify OTP')) ?>" name="send" id="send2"><span><span><?php echo $this->__('Verify') ?></span></span></button>
+  </div>
+  <div class="buttons-set resend_button" style="display: none;float:left;">
+  <button type="button" onclick="resend()" class="button "><span><span><?php echo $this->__('Resend') ?></span></span></button>
+  </div>
+
+    <!-- <button type="button" class="btn" onclick="checklogin()">Login</button> -->
+    <input type="hidden" id="login-product-id" value="" />
+  </div>
+	</div>
+</div>
+<div id="bottomcartdetails"></div>
+	<!-- The Modal -->
+	<!-- Trigger/Open The Modal -->
+
+<div id="myModalcombo" class="modal">
+ 
+ </div>
+    <script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
+    <?php endif; ?>
+
+    <div class="toolbar-bottom">
+        <?php echo $this->getToolbarHtml() ?>
+    </div>
+
+<?php endif; ?>
+<?php
+// Provides a block where additional page components may be attached, primarily good for in-page JavaScript
+if ($this->getChild('after')) {
+    $_afterChildren = $this->getChild('after')->getSortedChildren();
+    foreach ($_afterChildren as $_afterChildName) {
+        $_afterChild = $this->getChild('after')->getChild($_afterChildName);
+        //set product collection on after blocks
+        $_afterChild->setProductCollection($_productCollection);
+        echo $_afterChild->toHtml();
+    }
+}
+?>
+  
+<script>
+    function resend(){
+        jQuery('.otp_msg').text();
+        checkdata();
+        jQuery('.otp_msg').text('A New OTP has been send to your number');
+    }
+    function verify(){
+        var newmobile       = jQuery('.getmobilenumber').val();
+        var otp_code = jQuery('#onetimepass').val();
+        var decodedString      = jQuery('#verification').val();
+        var urls            = jQuery('#verifyotpurl').val();
+        var reditts = "dashboard";
+        if(otp_code == decodedString){
+            jQuery('.otp_msg').text();
+            if(newmobile){
+                new Ajax.Request(urls, {
+                       method: 'Post',
+                       dataType: 'json', 
+                       parameters: {phone:newmobile,reditts:reditts},
+                       onComplete: function(response) {
+                        closeForm();
+                       //location.reload();
+                    
+                    }
+                });
+            }
+        } else{ 
+            jQuery('.otp_msg').text('Invalid OTP code'); 
+        }
+    }
+    function checkdata(){
+        newmobile       = jQuery('.getmobilenumber').val();
+        urls            = jQuery('#otpurl').val();
+        decodedString      = jQuery('#verification').val();
+        console.log(decodedString);
+        // return false;
+        // var decodedString = atob(ciphertext);
+
+        if(newmobile.length != 10){
+            jQuery('.mobile_error').text('Please enter 10 digit number');
+            return false;
+        }
+        if(isNaN(newmobile)){
+            jQuery('.mobile_error').text('Please enter 10 digit number');
+            return false;
+        }
+        
+        if(newmobile){
+            new Ajax.Request(urls, {
+                       method: 'Post',
+                       dataType: 'json', 
+                       parameters: {phone:newmobile,otp:decodedString},
+                       onComplete: function(response) {
+                        var data = JSON.parse(response.responseText);
+                        if( data['status'] == 'error'){
+                            jQuery('.otp_msg').text('To login please register with us.');
+                        }else{
+                        jQuery('.otp_verification').show();
+                        jQuery('.getotpstep').hide();
+                        // jQuery('.control').hide();
+                        jQuery('.verifyotpstep').show();
+                        jQuery('.resend_button').show();
+                        jQuery('.mobile_error').text();
+                        jQuery('.otp_msg').text('Please enter the One-Time Password (OTP) that has been sent to your registered mobile number.');
+                        } 
+                    }
+            }); 
+        }
+     }
+    
+
+    
+    function IsEmail(email) {
+        var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if(!regex.test(email)) {
+           return false;
+        }else{
+           return true;
+        }
+    
+    
+    }
+    
+    
+	function openForm() {
+  document.getElementById("myloginForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myloginForm").style.display = "none";
+}
+	
+	jQuery(document).ready(function() { 
+            
+                        jQuery(".wrapper").click(function() { jQuery(".dd-wrpr").html(''); })
+			
+		});
+	
+  	
+  function showhideDeluxCuisine(productId,optionId)
+   {   
+       
+       jQuery.ajax({
+                        url: "<?php echo Mage::getBaseUrl().'override/index/getdeluxoptionitems' ?>",
+                        type: "POST",
+                        data: {
+                                 entityid: productId,
+                                 optionid:optionId
+                              }, 
+                        success: function(response) { //alert(response);
+                          var cuisineDivId = productId+'_Div_'+optionId; 
+                           
+                            jQuery("#"+cuisineDivId).html(response);
+                            
+                        }
+                      }); 
+   }
+   
+   
+   function setDeluxCuisineItem(basePrice,productId,opId,selId,name,price)
+   {
+     
+      var cuisineId = productId+'_'+opId;
+       jQuery("#"+cuisineId).html(name);
+      var likeDislike = 'like-dislike-'+productId;
+      
+      if(jQuery("#"+likeDislike).hasClass("liked"))
+        {
+          jQuery("#"+likeDislike).removeClass("liked");
+          jQuery("#"+likeDislike).addClass("disliked");
+        }
+            
+      var cuisineDivId = productId+'_Div_'+opId; 
+      var SelectedLiId = opId+'_'+selId;
+      var selectedHid = 'h_'+productId+'_'+opId;
+      
+     
+     
+      jQuery('#'+selectedHid).val(opId+','+selId+','+price);
+      jQuery('#'+selectedHid).attr('price',price);
+      jQuery('#'+selectedHid).attr('optionid',opId);
+      jQuery('#'+selectedHid).attr('selectionid',selId);
+      // alert( 'showdata='+jQuery("#"+cuisine+'_h_'+productId).attr('price') ); return false;
+       jQuery('#'+cuisineDivId).html('');
+       jQuery('.class'+opId).removeClass('slctd');
+       jQuery('#'+SelectedLiId).addClass('slctd');
+     
+      var comboPrice =  setPrice(productId,basePrice);
+      jQuery("#price_"+productId).text(comboPrice);
+   }
+   
+   function setPrice(productId,basePrice)
+   {
+       var cuisines = ['riceroti','sabji','salad'];
+       var comboPrice = parseInt(basePrice);
+       jQuery.each(cuisines, function(index,cuisine ) {
+           
+          var cuisinePrice = parseInt(jQuery('#'+cuisine+'_h_'+productId).attr('price'));
+         
+            if( typeof cuisinePrice !== "undefined" && cuisinePrice >0 )
+            {
+                 //alert(cuisine+'-inside setprice--'+cuisinePrice);
+                comboPrice = comboPrice  + parseInt(cuisinePrice);
+            }
+           
+        
+      });
+      return comboPrice;
+       
+   }
+       
+    function checklogin()
+    {
+        
+       // alert('shailesh1');
+       var emailVal = jQuery("#email").val();
+       var passVal  = jQuery("#pass").val();
+       var checkisemail = false;
+       
+       
+       if(emailVal==''){ 
+           jQuery("#emailmsg").html("<b style='text-color:red'>Please enter email/mobile number</b>");
+           return false;  
+       }
+       if(passVal==''){  
+           jQuery("#passmsg").html("<b style='text-color:red'>Please enter your password</b>");
+           return false;  
+       }
+      
+      
+           checkisemail = IsEmail(emailVal);
+       
+        jQuery.ajax({
+                        url: "<?php echo Mage::getBaseUrl().'override/index/customerlogin' ?>",
+                        type: "POST",
+                        data: {
+                                 email: emailVal,
+                                 pass:passVal,
+                                 isemail:checkisemail
+                              }, 
+                        success: function(response)
+                        {
+                              if(response=='loggedin')
+                              {
+                                  
+                                    var productId = jQuery("#login-product-id").val();
+                                    var selectedOptionids = jQuery("#login-product-id").attr('options');
+                                    var customerPreference = jQuery("#login-product-id").attr('customerPreference');
+                                    var productType =  jQuery("#login-product-id").attr('productType');
+                                  
+                                    ////////////////////Start Send email to Dietician ////////////
+                                    jQuery.ajax({
+                                      url: "<?php echo Mage::getBaseUrl().'override/index/deluxsubscription' ?>",
+                                      type: "POST",     
+                                      data: {
+                                              productid: productId,
+                                              selectedoptionids:selectedOptionids,
+                                              customerPreference:customerPreference,
+                                              productType:productType,
+                                              optionType:'checkbox'
+                                            },         
+                                      success: function(response) 
+                                                 { 
+                                                     closeForm();
+                                                     
+                                                                var successId = 'success-'+productId;
+                                                                jQuery('.'+successId).html('<b>Your Option saved</b>');
+                                                                jQuery('.'+successId).show();
+                                                              jQuery('.'+successId).hide( 4000 );
+                                                            
+                                                     
+                                                 }
+                                           });
+                                     ////////////////////End Send email to Dietician ////////////
+
+
+                              }
+                              else
+                              {
+                                 alert('Please enter your correct mobleno.');
+                              }
+                        }
+                    });
+                  
+    }
+    
+   function changeLikeDislike(id)
+   {
+        if(jQuery("#"+id).hasClass("liked"))
+        {
+          jQuery("#"+id).removeClass("liked");
+          jQuery("#"+id).addClass("disliked");
+        }
+        else if(jQuery("#"+id).hasClass("disliked"))
+        {
+          jQuery("#"+id).removeClass("disliked");
+          jQuery("#"+id).addClass("liked");
+        }
+  }
+ function savecombo(likeDislikeId,productId,productType)
+   {   
+        var customerPreference = 'disliked';
+         
+        // alert(customerPreference); return false;
+         var hiddenClass ="hidcls"+productId;
+         var selectedOptionids ='';
+         //////////////////////////////////////////////////////////////////////
+         
+         var checkboxName ='check_'+productId;
+         var countCheckCheckboxes = jQuery("input[name='"+checkboxName+"']:checked").length;
+         if(countCheckCheckboxes>0)
+         {
+             customerPreference='liked';
+         }
+       
+           jQuery.each(jQuery("input[name='"+checkboxName+"']:checked"), function(){            
+                
+                var selectionid =   jQuery(this).attr('selectionid');
+
+                if(selectionid!='')
+                {
+                    var itemoptionid =   jQuery(this).attr('optionid');
+
+                    selectedOptionids+= itemoptionid+'-'+selectionid;
+
+                    if(selectedOptionids!='')
+                    {
+                       selectedOptionids+=","; 
+                    }
+                }
+            });
+          
+            
+            
+        /////////////////////////////////////////////////////////////////////////////////
+           if(productType=='simple') { selectedOptionids ='tmp_simple';}
+           
+           jQuery("#"+likeDislikeId).removeClass("disliked");
+            jQuery("#"+likeDislikeId).addClass("liked");
+            
+            jQuery(".selcted"+productId).attr("selectedoptions",selectedOptionids);
+            jQuery.ajax({
+                        url: "<?php echo Mage::getBaseUrl().'override/index/checkcustomerloginornot' ?>",
+                        type: "POST",
+                        success: function(response) {  //alert(response);
+                           
+                           if(response=='loggedin')
+                           {
+                                
+                                /////////// start send email notification to dietician //////////////
+                                jQuery.ajax({
+                                                url: "<?php echo Mage::getBaseUrl().'override/index/deluxsubscription' ?>",
+                                                type: "POST",     
+                                                data: {
+                                                        productid: productId,
+                                                        selectedoptionids:selectedOptionids,
+                                                        customerPreference:customerPreference,
+                                                        productType:productType,
+                                                        optionType:'checkbox'
+                                                      },         
+                                                success: function(cartresponse) { 
+                                                    if(selectedOptionids=='')
+                                                    { 
+                                                       jQuery("#"+likeDislikeId).removeClass("liked");
+                                                       jQuery("#"+likeDislikeId).addClass("disliked");
+                                                        var successId = 'success-'+productId;
+                                                        jQuery('.'+successId).html('<b>Combo updated</b>');
+                                                        jQuery('.'+successId).show();
+                                                        jQuery('.'+successId).hide(4000 );
+
+                                                    }
+                                                    else
+                                                    {
+                                                        
+                                                       jQuery("#"+likeDislikeId).removeClass("disliked");
+                                                       jQuery("#"+likeDislikeId).addClass("liked");
+                                                        var successId = 'success-'+productId;
+                                                        jQuery('.'+successId).html('<b>Combo saved</b>');
+                                                        jQuery('.'+successId).show();
+                                                        jQuery('.'+successId).hide(4000 );
+                                                       
+                                                    }
+                                                    
+                                                   
+                                                       
+
+                                                   }
+                                    });
+                                /////////// End send email notification to dietician //////////////          
+                                         
+                           }
+                           else
+                           {
+                               //alert(22);
+                               jQuery("#login-product-id").val(productId);
+                               jQuery("#login-product-id").attr('options',selectedOptionids);
+                                jQuery("#login-product-id").attr('customerPreference',customerPreference);
+                                jQuery("#login-product-id").attr('productType',productType);
+                             
+                                openForm();
+                               
+                           }
+                                                     
+                        }
+                      }); 
+                      
+        
+        
+         
+   }
+   function setDeluxSelection(opId,selId)
+   {
+      jQuery(".class"+opId).removeClass('slctd');
+     // jQuery("#"+opId+'_'+selId).removeClass('class'.opId);
+       jQuery("#"+opId+'_'+selId).addClass('slctd');
+   }
+   
+   function unsetDeluxSelection(opId,selId)
+   {
+    //  jQuery("."+cuisine).removeClass('slctd');
+     // jQuery("#"+opId+'_'+selId).removeClass('class'.opId);
+       jQuery("#"+opId+'_'+selId).removeClass('slctd');
+   }
+   
+  function showbottomCartInfo()
+   {
+        jQuery.ajax({
+        url: "<?php echo Mage::getBaseUrl().'checkout/cart/getcartinfo' ?>",
+        type: "POST",                         
+        success: function(cartresponse) {
+               if(cartresponse!='')
+               {
+                    jQuery('#bottomcartdetails').show();
+                     jQuery("#bottomcartdetails").html(cartresponse);
+                    // jQuery('#bottomcartdetails').hide(10000);
+               }
+                }
+             });
+   }
+ 
+</script>
+<?php 
+
+function checkMealDayAvailability($product,$DayToCheck)
+{
+    
+    $favItemAvailableDay=array();
+    if($product->getMonday()==1)
+    {
+        $favItemAvailableDay[] = 'Monday';
+    }
+      if($product->getTuesday()==1)
+    {
+         $favItemAvailableDay[] = 'Tuesday';
+    }
+      if($product->getWednesday()==1)
+    {
+        $favItemAvailableDay[] = 'Wednesday';
+    }
+      if($product->getThursday()==1)
+    {
+         $favItemAvailableDay[] = 'Thursday';
+    }
+      if($product->getFriday()==1)
+    {
+        $favItemAvailableDay[] = 'Friday';
+    }
+      if($product->getSaturday()==1)
+    {
+         $favItemAvailableDay[] = 'Saturday';
+    }
+      if($product->getSunday()==1)
+    {
+         $favItemAvailableDay[] = 'Sunday';
+    }
+    
+  // echo '<pre>'; print_r($favItemAvailableDay); echo $DayToCheck; die;
+    
+    if(in_array($DayToCheck,$favItemAvailableDay) )
+    {  //echo $product->getSku(); echo '<br>';
+      return true;
+    }else
+    { return false;}
+
+}
+function getSelectedOptionDetails($bundled_product,$optionIdParam,$optionsCollection)
+    {
+       // $optionsCollection = $bundled_product->getTypeInstance(true)->getOptionsCollection($bundled_product);
+           foreach ($optionsCollection as $options) 
+           { 
+               $optionId =  $options->getOptionId();
+             
+               if($optionId== $optionIdParam ) 
+                {
+                     
+                      
+                      $selectionCollection = $bundled_product->getTypeInstance()->getSelectionsCollection(array($optionId));
+
+                      
+                        foreach($selectionCollection as $option) 
+                        {
+                            
+                            if($option->is_default==1)
+                            {
+                               $optionIdSelecIdPrice =  $optionId.','.$option->selection_id.','.round($option->selection_price_value,4);
+                               $selectPrice = round($option->selection_price_value,4);
+                                return array($optionId,$option->selection_id,$selectPrice,$optionIdSelecIdPrice,$option->name);
+                            }
+                        }
+
+                 
+                  }
+             }
+  }
+
+?>
+

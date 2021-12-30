@@ -1,0 +1,26 @@
+<?php
+if(Mage::getSingleton('customer/session')->isLoggedIn()){
+	$LoggedIncustomer = Mage::helper('customer')->getCustomer();
+    $customerId = $LoggedIncustomer->getId();
+    $customerName = $LoggedIncustomer->getFirstname();
+    $mobileno = $LoggedIncustomer->getPrimarymobileno();
+	?>
+<!-- Success Start -->
+	<div class="sign-in-success">
+		<div class="sign-in-success-container">
+			<div class="sign-in-success-detail-wrapper">
+				<div class="sign-in-success-detail">
+					<img src="<?php echo $this->getSkinUrl("images/check.png")?>">
+					<h2>Thank You <?php $customerName;?>!</h2>
+					<p>Your account has been created successfully. You&nbsp;can&nbsp;now continue using links below.</p>
+					<a href="<?php echo $this->getUrl('webinar') ?>" class="primary">Join Free Webinar</a>
+					<a href="https://lifeheal.zohobookings.in/#/customer/healthreview">Book a paid consultation</a>
+					<a href="<?php echo $this->getUrl('meal-plan-coaching') ?>">Shop our Meal plans</a>
+					<a href="<?php echo Mage::getBaseUrl();?>customer/account/login">Check your Account</a>
+				</div>
+			</div>
+		</div>
+		<?php } else { echo '<div class="pleae-login">please login</div>'; } ?>
+	</div>
+	<!-- Success End -->
+

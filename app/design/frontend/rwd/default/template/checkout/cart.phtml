@@ -1,0 +1,184 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Shopping cart template
+ *
+ * @var $this Mage_Checkout_Block_Cart
+ */
+?>
+
+
+
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/normalize.css') ?>" type="text/css"/>
+          		<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/style.css') ?>" type="text/css"/>
+		        <link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/aos.css')?>" type="text/css"/>
+	
+	<!-- Shopping Cart Start -->
+	 <?php echo $this->getMessagesBlock()->toHtml() ?>
+    <?php echo $this->getChildHtml('form_before') ?>
+    <form action="<?php echo $this->getFormActionUrl() ?>" method="post">
+        <?php echo $this->getBlockHtml('formkey'); ?>
+	<div class="shopping-cart">
+		<div class="shopping-cart-container">
+			<div class="shopping-cart-wrapper">
+				<!-- Cart Detail -->
+				<div class="shopping-cart-detail">
+					<div class="shopping-cart-detail-wrapper">
+						<h2>Your shopping cart. <br>Let’s complete your order, shall&nbsp;we?</h2>
+						<div class="shopping-cart-products">
+							<div class="shopping-cart-products-header">
+								<p class="shopping-cart-products-header-product">Products</p>
+								<p class="shopping-cart-products-header-price">Price</p>
+							</div>
+							
+							<!--[if lt IE 8]>
+                        <input type="hidden" id="update_cart_action_container" data-cart-item-update />
+                        <script type="text/javascript">
+                        //<![CDATA[
+                            Event.observe(window, 'load', function()
+                            {
+                                // Internet Explorer (lt 8) does not support value attribute in button elements
+                                $emptyCartButton = $('empty_cart_button');
+                                $cartActionContainer = $('update_cart_action_container');
+                                if ($emptyCartButton && $cartActionContainer) {
+                                    Event.observe($emptyCartButton, 'click', function()
+                                    {
+                                        $emptyCartButton.setAttribute('name', 'update_cart_action_temp');
+                                        $cartActionContainer.setAttribute('name', 'update_cart_action');
+                                        $cartActionContainer.setValue('empty_cart');
+                                    });
+                                }
+
+                            });
+                        //]]>
+                        </script>
+                        <![endif]-->
+							<!-- Product Start -->
+							 <?php foreach($this->getItems() as $_item): ?>
+                                 <?php echo $this->getItemHtml($_item) ?>
+                              <?php endforeach ?>
+						<script type="text/javascript">decorateTable('shopping-cart-table')</script>
+                    </form>	
+							
+						</div>
+						<div class="shopping-cart-actions">
+							<a href="javascript:void(0)" onclick="setLocation('<?php echo Mage::helper('core')->quoteEscape($this->getContinueShoppingUrl()) ?>')" class="shopping-cart-actions-continue-shopping"><i class="fa fa-arrow-left" aria-hidden="true"></i> Continue Shopping</a>
+						
+							
+							 <button type="submit" name="update_cart_action" data-cart-empty value="empty_cart" title="<?php echo $this->quoteEscape($this->__('Remove All')); ?>" class="shopping-cart-actions-remove-all-products" id="empty_cart_button"><span><span><?php echo $this->__('Remove All'); ?></span></span></button>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Cart Summary -->
+				<div class="shopping-cart-summary">
+					<div class="shopping-cart-summary-wrapper">
+						<h2>Cart Summary</h2>
+						<div class="shopping-cart-summary-detail">
+							<!--<div class="shopping-cart-summary-subtotal">
+								<p>Subtotal</p>
+								<h3>Rs. XXXXX</h3>
+							</div>
+							<div class="shopping-cart-summary-tax">
+								<p>Tax</p>
+								<h3>Rs. XXXXX</h3>
+							</div>
+							
+								<p>Grand Total</p>
+								<h3>Rs. XXXXX</h3>
+							-->
+							
+							    <?php echo $this->getChildHtml('shopping.cart.table.after'); ?>
+    <div class="cart-forms">
+        <?php /* Extensions placeholder */ ?>
+        <?php echo $this->getChildHtml('checkout_cart_widget') ?>
+        <?php //echo $this->getChildHtml('coupon') ?>
+        <?php echo $this->getChildHtml('checkout.cart.extra') ?>
+        <?php if (!$this->getIsVirtual()): echo $this->getChildHtml('shipping'); endif; ?>
+    </div>
+    <div class="cart-totals-wrapper">
+        <div class="cart-totals">
+          <?php echo $this->getChildHtml('totals'); ?>
+            <?php if(!$this->hasError()): ?>
+            
+            
+            
+            <?php endif; ?>
+			 
+        </div>
+		
+    </div>
+							
+							
+						</div>
+						<?php foreach ($this->getMethods('methods') as $method): ?>
+                <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
+                <span class="method-<?php echo preg_replace("/[^_a-zA-Z0-9-]/", '-', $method); ?>"><?php echo $methodHtml; ?></span>
+                <?php endif; ?>
+            <?php endforeach; ?>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Shopping Cart End -->	
+		<!-- Remove Product Modal Start -->
+	<div class="checkout-remove-product" id="checkout-remove-product">
+		<div class="checkout-remove-product-container">
+			<h3>Removing Product?</h3>
+			<p>Are you sure you would like to remove this item from your shopping cart?</p>
+			<div class="checkout-remove-product-actions">
+				<button type="button" class="checkout-remove-product-actions-cancel" onclick="cancel()">CANCEL</button>
+				<button type="button" class="checkout-remove-product-actions-remove" onclick="remove()">REMOVE</button>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+	
+	
+		function removeProduct() {
+		  var element = document.getElementById("checkout-remove-product");
+		  element.classList.add("checkout-remove-product-active");
+		}
+		
+		function cancel() {
+		  var element = document.getElementById("checkout-remove-product");
+		  element.classList.remove("checkout-remove-product-active");
+		}
+		
+		function remove() {
+		  var element = document.getElementById("checkout-remove-product");
+		  element.classList.remove("checkout-remove-product-active");
+		}
+	</script>
+	<!-- Remove Product Modal End -->
+
+<script src="<?php // echo $this->getSkinUrl('js/jquery-min.js') ?>"></script>
+	

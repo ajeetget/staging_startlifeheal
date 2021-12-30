@@ -1,0 +1,139 @@
+
+<style>
+	
+	input[type="text"] {
+    width: 100%;
+    max-width: 100%;
+    background: #edf3f3;
+	}
+	.formbluebox{margin: auto;width: 100%;background: #269a9b;padding: 40px;float: left;margin-top: 4%;}
+	.formbluebox tbody tr th p{padding: 5px 10px;background: #269a9b;font-size: 1.4em;font-weight:bold;color: #fff;text-transform: uppercase;}
+	.formbluebox tbody{padding: 40px;float: left;width: 100%; padding-bottom:0px;}
+	.formbluebox tbody tr{width: 100%;float: left;}
+	.formbluebox .inputclient{width: 23%;float: left;margin: auto 10px;}
+	.formbluebox tbody tr td p{background:#40b8b9;color: #fff;text-align: center;padding: 5px 10px;font-size: 1.5em;text-transform: uppercase;font-weight: bold;}
+	.suggestionbox tbody{padding-bottom:40px;}
+	.suggestionbox tbody tr .ths1{width:20%; float:left;margin: 10px auto;text-align:left;}
+	.suggestionbox tbody tr .ths2{width:28%; float:left;margin:10px;text-align:center;}
+	.suggestionbox tbody tr .ths3{width:30%; float:left;margin:10px;text-align:center;}
+	.suggestionbox tbody tr .ths4{width:15%; float:left;margin:10px;text-align:center;}
+	.suggestionbox th {font-weight: bold;font-style: normal;font-size: 15px;text-transform: capitalize;}
+	.suggestionbox textarea{background: #edf3f3 !important;
+box-shadow: none;
+resize: initial;}
+	@media screen and (min-width:260px) and (max-width:767px)
+	{
+		input[type="text"] {
+    width: 100%;
+    max-width: 100%;
+    background: #edf3f3;
+	}
+	.formbluebox{margin: auto;width: 100%;background: #269a9b;padding:20px;float: left;margin-top: 4%;}
+		.formbluebox img{display:none;}
+	.formbluebox tbody tr th p{padding: 5px 10px;background: #269a9b;font-size: 18px;font-weight:bold;color: #fff;text-transform: uppercase;text-align:center;}
+	.formbluebox tbody{padding:20px;float: left;width: 100%; padding-bottom:0px;}
+	.formbluebox tbody tr{width: 100%;float: left;}
+	.formbluebox .inputclient{width:100%;float: left;margin: auto 0px;}
+	.formbluebox tbody tr td p{background: #40b8b9;
+color: #fff;
+text-align: center;
+padding: 5px 10px;
+font-size: 1em;
+text-transform: uppercase;
+font-weight: bold;}
+	.suggestionbox tbody{padding-bottom:40px;}
+	.suggestionbox tbody tr .ths1{width:100%; float:left;margin: 10px auto;text-align:left;}
+	.suggestionbox tbody tr .ths2{width:100%; float:left;margin:10px;text-align:center;}
+	.suggestionbox tbody tr .ths3{width:100%; float:left;margin:10px;text-align:center;}
+	.suggestionbox tbody tr .ths4{width:100%; float:left;margin:10px;text-align:center;}
+	.suggestionbox th {font-weight: bold;font-style: normal;font-size: 15px;text-transform: capitalize;}
+	.suggestionbox textarea{background: #edf3f3 !important;
+box-shadow: none;
+resize: initial;}
+	}
+</style>
+
+<form name="contactform" method="post" action="<?php echo Mage::getBaseUrl();?>thankyou">
+	<div class="container">
+		<div class="formbluebox">
+			<div class="table-responsive">  
+<table style="background: #fff;width: 100%;">
+	<tr style="margin-bottom:20px;">
+	
+		<th><p>Nutritionist Call Recorder</p></td>
+	<th><img src="https://lifeheal.in/skin/frontend/rwd/default/images/logo.png" style="width:70%;float: right;"></td>
+	
+	</tr>
+<tr>
+	<td valign="top" style="float: left">
+  <label for="client_called" style="margin: 5px auto;">Client Name</label>
+ </td>
+	<td valign="top"  class="inputclient">
+  <input  type="text" name="client_called" maxlength="50" size="30">
+ </td>
+
+	<td valign="top" style="float: left;">
+  <label for="client_date" style="margin: 5px auto;">Date</label>
+ </td>
+	<td valign="top"  class="inputclient">
+  <input  type="text" name="client_date" maxlength="50" size="30" value="<?php echo date("d-m-Y");?>" readonly>
+ </td>
+
+<td valign="top" style="float: left;">
+  <label for="client_time" style="margin: 5px auto;">Time</label>
+ </td>
+<td valign="top" class="inputclient">
+  <input  type="text" name="client_time" maxlength="50" size="30" value="<?php echo date("h:i:sa");?>" readonly>
+ </td>
+</tr>
+<tr>
+<td style="margin: auto;float: left;text-align: center;width: 100%;margin-top: 5%;" colspan="6"><p>What were changes suggested in :</p></td>
+</tr>
+		
+<table style="background: #fff;width: 100%;" class="suggestionbox">
+<tr>
+<th class="ths1">Choice</th>
+	<th class="ths2">Change Suggested</th>
+<th class="ths3">Why were these changes suggested</th>
+<th class="ths4">Any other notes</th>
+</tr>
+	<tr>
+		<td class="ths1"><label for="food_meal" style="margin: 5px auto;">Food items / Meal Balancing</label></td>
+		<td class="ths2"> <textarea name="food_meal_change" rows="4" cols="50"></textarea></td>
+		<td class="ths3"> <textarea name="food_meal_why" rows="4" cols="50"></textarea></td>
+		<td class="ths4"> <textarea name="food_meal_any" rows="4" cols="50"></textarea></td>
+	</tr>
+	<tr>
+		<td class="ths1"><label for="eating_timing" style="margin: 5px auto;">Eating Timing / Fasting</label></td>
+		<td class="ths2"> <textarea name="eating_timing_change" rows="4" cols="50"></textarea></td>
+		<td class="ths3"> <textarea name="eating_timing_why" rows="4" cols="50"></textarea></td>
+		<td class="ths4"> <textarea name="eating_timing_any" rows="4" cols="50"></textarea></td>
+	</tr>
+	<tr>
+		<td class="ths1"><label for="exercise" style="margin: 5px auto;">Exercise</label></td>
+		<td class="ths2"> <textarea name="exercise_change" rows="4" cols="50"></textarea></td>
+		<td class="ths3"> <textarea name="exercise_why" rows="4" cols="50"></textarea></td>
+		<td class="ths4"> <textarea name="exercise_any" rows="4" cols="50"></textarea></td>
+	</tr>
+	
+	<tr>
+		<td class="ths1"><label for="stress" style="margin: 5px auto;">Sleep/Stress</label></td>
+		<td class="ths2"> <textarea name="stress_change" rows="4" cols="50"></textarea></td>
+		<td class="ths3"> <textarea name="stress_why" rows="4" cols="50"></textarea></td>
+		<td class="ths4"> <textarea name="stress_any" rows="4" cols="50"></textarea></td>
+	</tr>
+	
+	
+<tr>
+ <td coslpan="4" style="margin: auto;float: none;width: 150px;text-align: center;" valign="top">
+  <input style="background-color: #f28424;border: none;color: white;padding: 10px 25px;text-align: center;text-decoration: none;font-size: 18px;
+border-radius: 4px;width:100%;" type="submit" name="submit" value="submit" \>
+ </td>
+</tr>
+</table>
+	
+</table>
+		</div>
+	</div>
+		</div>
+</form>

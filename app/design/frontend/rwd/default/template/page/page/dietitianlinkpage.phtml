@@ -1,0 +1,124 @@
+<?php 
+$groupId = Mage::getSingleton('customer/session')->getCustomerGroupId(); 
+if($groupId>=0 && !in_array($groupId,array(4,5)))
+{
+	     	header("Location:".Mage::getBaseUrl()."customer/account/login/"); exit;
+}
+?>
+<style>
+	.dishinfoboth, .printallli, .updaterecipe{background:#f5f5f5;padding:4px;border:1px solid #ccc;}
+	.nonediet ul li{list-style:none;}
+	.nonediet{width: 50rem;
+margin-top: 7rem;
+margin-left: auto;
+margin-right: auto;
+float: none;
+display: block;
+border: 1px solid #ccc;
+background: #f9f9f9;
+margin-bottom: 1.5rem;} 
+	.nonediet a{color:#000;line-height: 1.7;}
+	.colhalf{    width: 48%;
+    flex-direction: column;
+    flex-basis: auto;
+    display: inline-flex;}
+	@media screen and (min-width:220px) and (max-width:768px)
+		{
+			.nonediet {
+    width: 100%;
+    margin-top: 7rem;
+    margin-left: auto;
+    min-width: 20rem;
+    margin-right: auto;
+    float: none;
+    display: block;
+    max-width: 50rem;
+}
+			.colhalf {
+    width: 100%;
+    flex-direction: row;
+    flex-basis: auto;
+    display: inline-flex;
+}
+	}
+</style><!-- Hero Banner Start -->
+	<div class="nonediet">
+		<div class="colhalf">
+			
+	<ul>
+		<h3>Kitchen</h3>
+		<br>
+	<li><a href="<?php echo Mage::getBaseUrl();?>heal/index/qty" target="_blank">Qty Order Report</a></li>
+			<li><a href="<?php echo Mage::getBaseUrl();?>customer-allergy" target="_blank">Customer Allergy And Dislike</a> </li>
+			<li><a href="<?php echo Mage::getBaseUrl();?>heal/index/qtydetails" target="_blank">Qty Details Report</a></li>
+			<li><a href="<?php echo Mage::getBaseUrl();?>dish-qty-details" target="_blank">Breakdown of Ingredients by Item</a></li>
+			<li><a href="<?php echo Mage::getBaseUrl();?>all-dish-base-items" target="_blank">Ingredients Summary for Day</a> </li>
+			<li><a href="<?php echo Mage::getBaseUrl();?>heal/index/meallabel" target="_blank">Meal Labels</a></li>
+			<li><a href="<?php echo Mage::getBaseUrl();?>heal/index/mealdetails" target="_blank">Meal Details Report</a></li>
+			<li><a href="<?php echo Mage::getBaseUrl();?>heal/index/creport" target="_blank">Meals Sent Report</a></li>
+			<li><a href="<?php echo Mage::getBaseUrl();?>heal/index/customerallmeals" target="_blank">Customer Detailed Report</a></li>
+	        <li><a href="<?php echo Mage::getBaseUrl();?>heal/index/customermeals" target="_blank">Customer All Weekly-Meal Report</a></li>
+			<li><a href="<?php echo Mage::getBaseUrl();?>customer-meal-report-of-week" target="_blank">Customer Meal Report Of A Week</a></li>
+			<li class="boxtrack"><a href="<?php echo Mage::getBaseUrl();?>heal/index/deliveryreport" target="_blank">Box Tracking Report</a>	</li>
+		<div class="updaterecipe" style="display:none;">
+	<li><a href="<?php echo Mage::getBaseUrl();?>foodrecipes" target="_blank">Food Recipes</a></li>
+		<li><a href="<?php echo Mage::getBaseUrl();?>foodpdf/index/index" target="_blank">Update Food Recipes</a></li>
+		</div>
+		<br>
+		<h3 class="dishnrecipe"> Dish and Recipes</h3>
+		<div class="dishinfoboth" style="display:none;">
+		<li><a href="<?php echo Mage::getBaseUrl();?>base-dish-info" target="_blank">Database</a></li>
+		<li><a href="<?php echo Mage::getBaseUrl();?>base-dish-items" target="_blank">Costing</a></li>
+			</div>
+		</ul>
+		</div>
+<div class="colhalf">
+	
+	<ul>
+		<h3>Patient</h3>
+		<br>
+		<li class="orderall"><a href="<?php echo Mage::getBaseUrl();?>heal/index" target="_blank">All Orders</a></li>
+		<li class="printallli" style="display:none"><a href="<?php echo Mage::getBaseUrl();?>heal/index/printall" target="_blank">Print All</a></li>
+		<li><a href="<?php echo Mage::getBaseUrl();?>customer-favourite" style="width:100%;" target="_blank">Customer Favourites</a></li>
+		<li><a href="<?php echo Mage::getBaseUrl();?>patientreport" style="width:100%;" target="_blank">Patient Report</a></li>
+		<li><a href="<?php echo Mage::getBaseUrl();?>newcustomer" style="width:100%;" target="_blank">Create New Customer</a></li>
+		
+	
+		</ul>
+</div>
+	</div>
+	<!-- Hero Banner End -->
+	
+
+	<script>
+jQuery(document).ready(function(){
+  jQuery(".orderall").hover(function(){
+    jQuery(".printallli").css("display", "block");
+  
+  });
+		  jQuery(".printallli").hover(function(){
+  jQuery(".printallli").css("display", "block");
+    }, function(){
+    jQuery(this).css("display", "none");
+  });
+	
+	 jQuery(".dishnrecipe").hover(function(){
+    jQuery(".dishinfoboth").css("display", "block");
+    });
+	  jQuery(".dishinfoboth").hover(function(){
+  jQuery(".dishinfoboth").css("display", "block");
+    }, function(){
+    jQuery(this).css("display", "none");
+  });
+	 jQuery(".boxtrack").hover(function(){
+    jQuery(".updaterecipe").css("display", "block");
+    
+  });
+	  jQuery(".updaterecipe").hover(function(){
+  jQuery(".updaterecipe").css("display", "block");
+    }, function(){
+    jQuery(this).css("display", "none");
+  });
+	});
+</script>
+	

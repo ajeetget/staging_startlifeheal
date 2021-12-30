@@ -1,0 +1,387 @@
+<?php
+
+    $pid = $_GET['pid'];
+	
+    if(!isset($pid) )
+	{
+		header("Location:".Mage::getBaseUrl().'patientintake'); 
+		die;
+	}
+    
+	 
+	 if(isset($_POST['submit']))
+    {
+	
+		//echo '<pre>'; print_r($_POST); // die;
+		
+		$pid = base64_decode($_GET['pid']);
+		
+		$config  = Mage::getConfig()->getResourceConnectionConfig("default_setup");
+	$dbinfo = array("host" => $config->host,"user" => $config->username,"pass" => $config->password,"dbname" => $config->dbname);
+	  
+	  $host      = $dbinfo["host"];
+	  $username  = $dbinfo["user"];
+	  $password  = $dbinfo["pass"];
+	  $dbname    = $dbinfo["dbname"]; 
+	  
+	  $con = mysqli_connect($host  , $username,  $password ,$dbname);
+
+	  if ($mysqli -> connect_errno) {
+	     echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
+	  exit();
+	}
+		 
+        $updateFields="";
+		
+		$size= sizeof($_POST);
+$count=0;
+		foreach($_POST as $key=>$value)
+		{
+			$count++;
+			if($key!='submit')
+			{
+				//$key= str_replace("-","_",$key);
+				$updateFields.=$key."='".$value."'";
+				
+				if($count<($size-1) )
+				{
+					$updateFields.=',';   		
+					
+				 }
+				
+				
+			}
+			
+		}
+		$query="update patientintakeform ";
+		$query.="set ".$updateFields." where patientid=".$pid;
+		//echo $query;
+		
+		
+
+				if (mysqli_query($con, $query)) {
+				  // echo "Record updated successfully";
+				} else {
+				   echo "Error: " . $query . "" . mysqli_error($con);
+				}
+    // die;
+		$pid = $_GET['pid'];
+		header("Location:".Mage::getBaseUrl()."patientthankyou"); 
+		die;
+}
+
+?>
+<style>
+	.whitebox{background:#fff; width:100%; padding:40px;float:left;}
+	.callbutton{padding: 5px 10px;background: #269a9b;font-size: 1.4em;font-weight:bold;color: #fff;text-transform: uppercase;margin: 2% 0px;}
+	.whitebox .form-group{float:left; width:50%;}
+	.whitebox .one{float:left; width:75%;border: 1px solid #000;border-right:0px;}
+	.whitebox .two{float:left; width:25%;border: 1px solid #000;height: 2.6em;padding: 0px 1em;}
+	.form-group label{margin:5px 5px;justify-content: left;}
+	.form-inline label{margin: 5px 5px;float: left;
+justify-content: left;
+text-align: left;
+align-items: baseline;} 
+	.form-inline .form-control{border:0;height: 40px;float: left;}
+	input[type="text"] {width: 100%;max-width: 100%;background: none;}
+	.formbluebox{margin: auto;width: 100%;background: #269a9b;padding: 40px;float: left;margin-top: 4%;}
+	.formbluebox tbody tr th p{padding: 5px 10px;background: #269a9b;font-size: 1.4em;font-weight:bold;color: #fff;text-transform: uppercase;}
+	.formbluebox tbody{padding: 40px;float: left;width: 100%; padding-bottom:0px;}
+	.formbluebox tbody tr{width: 100%;float: left;}
+	.formbluebox .inputclient{width: 23%;float: left;margin: auto 10px;}
+.formbluebox tbody tr td p{background:#40b8b9;color: #fff;text-align: center;padding: 5px 10px;font-size: 1.5em;text-transform: uppercase;font-weight: bold;}
+	input[type="email"],  input[type="password"], input[type="text"] {
+    width: auto;
+    max-width: 100%;
+    background: none;
+    height: 36px;
+		border: 1px solid #000;}
+	input[type="number"]{width:100%;    max-width: 100%;
+    background: none;
+    height: 36px;
+		border: 1px solid #000;}
+	.suggestionbox tbody{padding-bottom:40px;}
+	.suggestionbox tbody tr td textarea{border: 1px solid #000 !important;}
+	.suggestionbox tbody tr .ths1{width:30%; float:left;margin: 10px auto;text-align:left;}
+	.suggestionbox tbody tr .ths2{width:30%; float:left;margin:10px;text-align:center;}
+	.suggestionbox tbody tr .ths3{width:30%; float:left;margin:10px;text-align:center;}
+	.suggestionbox th {font-weight: bold;font-style: normal;font-size: 15px;text-transform: capitalize;}
+	.suggestionbox textarea{background: #edf3f3 !important;box-shadow: none;resize: initial;}
+@media screen and (min-width:260px) and (max-width:767px)
+{
+	.formbluebox {
+    margin: auto;
+    width: 100%;
+    background: #269a9b;
+    padding: 40px;
+    float: left;
+    margin-top: 24%;
+}
+	
+	.whitebox {
+    background: #fff;
+    width: 100%;
+    padding: 10px;
+    float: left;
+}
+	.whitebox .form-group {
+    float: left;margin:0;
+    width: 100%;
+}
+	.whitebox .form-group img{display:none;}
+	.callbutton {
+    padding: 5px 10px;
+    background: #269a9b;
+    font-size: 1em;
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+    margin: 0% 0px;
+}
+	.formbluebox tbody {
+    padding: 10px;
+        padding-bottom: 10px;
+    float: left;
+    width: 100%;
+}
+	.formbluebox tbody tr td p {
+    background: #40b8b9;
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+	
+	.suggestionbox tbody tr .ths1 {
+    width: 100%;
+    float: left;
+    margin: 10px auto;
+    text-align: left;
+}
+	.suggestionbox tbody tr .ths2 {
+    width: 100%;
+    float: left;
+    margin: 10px auto;
+    text-align: left;
+}
+	.suggestionbox tbody tr .ths3 {
+    width: 100%;
+    float: left;
+    margin: 10px auto;
+    text-align: left;
+}
+	.form-inline label {
+    margin: 5px 5px;
+    float: left;
+    justify-content: left;
+    text-align: left;
+    align-items: baseline;
+    font-size: 12px;
+}
+	}
+	
+	@media screen and (min-width:768px) and (max-width:999px)
+{
+	.form-inline {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -ms-flex-align: center;
+    align-items: center;
+    margin-top: 10%;
+}
+	.callbutton {
+    padding: 5px 10px;
+    background: #269a9b;
+    font-size: 1em;
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+    margin: 2% 0px;
+}
+	}
+</style>
+
+<form name="contactform" method="post" action="<?php echo Mage::getBaseUrl();?>patientintake-3?pid=<?php echo $pid;?>" class="form-inline" >
+	<div class="container">
+		<div class="formbluebox">
+			<div class="whitebox">
+			 <div class="form-group">
+		<p class="callbutton">BODY MEDICAL DATA STEP 3</p>
+				</div>
+				<div class="form-group">
+	<p><img src="https://lifeheal.in/skin/frontend/rwd/default/images/logo.png" style="width:60%;float: right;"></p>	
+	</div>
+			</div>
+			
+<div class="table-responsive"> 
+
+		
+<table style="background: #fff;width: 100%;" class="suggestionbox">
+
+	<tr>
+<td style="margin: auto;float: left;text-align: center;width: 100%;" colspan="6"><p>Wellness</p></td>
+</tr>
+	<tr>
+		<td class="ths1"><label for="systolic">BP - Systolic </label><input type="number" name="bp_systolic" step="0.01">
+</td>
+		<td class="ths2"> <label for="Diastolic">BP - Diastolic </label><input type="number" name="bp_diastolic" step="0.01">
+			
+</td>
+		<td class="ths3"> <label for="vitD">Vitamin D </label><input type="number" name="vitamin_d" step="0.01">
+			
+</td>
+	</tr>
+		<tr>
+		<td class="ths1"> 
+			<label for="B12">B12</label><input type="number" name="b12">
+			
+</td>
+		<td class="ths2"> <label for="Iron">Iron</label><input type="number" name="iron" step="0.01">
+</td>
+		<td class="ths3"> 
+			<label for="cal">Calcium</label><input type="number" name="calcium" step="0.01">
+		
+</td>
+	</tr>
+	
+	
+	<tr>
+<td style="margin: auto;float: left;text-align: center;width: 100%;" colspan="6"><p>Heart Health</p></td>
+</tr>
+
+<tr>
+	
+		<td class="ths1"> 
+			<label for="HSCRP">HSCRP</label><input type="number" name="hscrp" step="0.01">
+		</td>
+		<td class="ths2">  	<label for="TriGlycerides">TriGlycerides</label><input type="number" name="triglycerides" step="0.01">
+		
+</td>
+		<td class="ths3">  <label for="HDL">HDL</label><input type="number" name="hdl" step="0.01">
+		
+</td>
+	</tr>	
+	
+	<tr>
+		<td class="ths1"> <label for="LDL">LDL</label><input type="number" name="ldl" step="0.01">
+		
+</td>	
+		<td class="ths2">   <label for="Homocysteine">Homocysteine</label><input type="number" name="homocysteine" step="0.01">
+			
+</td>
+	</tr>	
+	
+	
+		<tr>
+<td style="margin: auto;float: left;text-align: center;width: 100%;" colspan="6"><p>Liver</p></td>
+</tr>
+
+<tr>
+		<td class="ths1">  <label for="SGOT">SGOT</label><input type="number" name="sgot" step="0.01">
+			
+</td>
+		<td class="ths2">   <label for="SGPT">SGPT</label><input type="number" name="sgpt" step="0.01">
+			
+</td>
+		<td class="ths3">  <label for="Bilirubin">Bilirubin</label><input type="number" name="bilirubin" step="0.01">
+		
+</td>
+	</tr>	
+	
+	<tr>
+		<td class="ths1">
+			<label for="Bilirubin">Fatty Liver Ultra Sound Stage</label><input type="number" name="fattyliverultrasound" step="0.01">
+			
+</td>	
+		<td class="ths2">  
+			<label for="Bilirubin">Fatty Liver Firbscan CAP score</label><input type="number" name="fattyliverfirbscan" step="0.01">
+		
+</td>
+			<td class="ths3">  <label for="Bilirubin">Fatty Liver Firbscan E score</label><input type="number" name="fattyliverescore" step="0.01">
+				
+</td>
+	</tr>
+	
+	
+
+	<tr>
+<td style="margin: auto;float: left;text-align: center;width: 100%;" colspan="6"><p>Kidney</p></td>
+</tr>
+
+<tr>
+		<td class="ths1"> <label for="Creatinine">Creatinine</label><input type="number" name="creatinine" step="0.01">
+			
+</td>
+		<td class="ths2"> <label for="Urea">Urea</label><input type="number" name="urea" step="0.01">
+			
+</td>
+		<td class="ths3">  <label for="Sodium">Sodium</label><input type="number" name="sodium" step="0.01">
+		
+</td>
+	</tr>	
+	
+	<tr>
+		<td class="ths1"> 
+			<label for="Potassium">Potassium</label><input type="number" name="potassium" step="0.01">
+		
+</td>	
+		<td class="ths2"> <label for="UA">Uric Acid</label><input type="number" name="uricacid" step="0.01">
+			
+	</tr>
+	
+	
+	<tr>
+<td style="margin: auto;float: left;text-align: center;width: 100%;" colspan="6"><p>Thyroid</p></td>
+</tr>
+
+<tr>
+		<td class="ths1"> <label for="TSH">TSH</label><input type="number" name="tsh"  step="0.01">
+			
+</td>
+		<td class="ths2">  <label for="T3">T3</label><input type="number" name="t3"  step="0.01">
+		
+</td>
+		<td class="ths3">  <label for="T4">T4</label><input type="number" name="t4"  step="0.01">
+		
+</td>
+	</tr>	
+	<tr>
+<td style="margin: auto;float: left;text-align: center;width: 100%;" colspan="6"><p>what were changes suggested in :</p></td>
+</tr>
+	<tr>
+		<td class="ths1"><label for="foodmeal">Food / Meals</label><input type="text" name="foodmeal" value="<?php echo $row['foodmeal'];?>">
+</td>
+		<td class="ths2"> <label for="timefasting">Timing / Fasting</label><input type="text" name="timefasting" value="<?php echo $row['timefasting'];?>">
+			
+			</td>
+		<td class="ths3"> <label for="exercise">Exercise</label><input type="text" name="exercise" value="<?php echo $row['exercise'];?>">
+			
+</td>
+	</tr>
+	<tr>
+		
+		<td class="ths1"> <label for="sleepstress">Sleep/Stres</label><input type="text" name="sleepstress" value="<?php echo $row['sleepstress'];?>">
+			
+</td>
+	</tr>
+	
+	
+	<!--submit-->
+<tr>
+
+ 
+ <td coslpan="4" style="margin: auto;float: none;width: 150px;text-align: center;" valign="top">
+  <input style="background-color: #f28424;border: none;color: white;padding: 10px 25px;text-align: center;text-decoration: none;font-size: 18px;
+border-radius: 4px;width:100%;" type="submit" name="submit" value="Submit" \>
+ </td>
+</tr>
+</table>
+		</div>
+	</div>
+		</div>
+</form>
+

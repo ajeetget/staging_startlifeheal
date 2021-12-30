@@ -1,0 +1,40 @@
+<section>
+<div class="container">
+<div class="banner sharevideos">
+ <img src="<?php echo $this->getSkinUrl('images/sharevideos.jpg') ?>"  alt="Diabetes">
+  <div class="product-form">
+ 
+  <div class="producttext">
+  <h4>Welcome to cure my diabetes</h4>
+  <p>Join CMD to watch and learn more about our innovative</p>
+    <p>Diabetes Treatment Program</p></td>
+    <button class="read-more myModal">Watch Our Intro</button>
+             <div class="linewhite">
+             <a href="javascript:AddPackTOCart(1);" title="Add To Cart"> <button class="read-more myModal" style="margin-bottom:0px;">Watch 6 Videos</button></a>
+              <p>with any credit card or select debit cards</p>
+             <a href="javascript:AddPackTOCart(2);" title="Add To Cart"> <button class="read-more myModal" style="margin-bottom:0px;">Watch 12 Videos</button></a>
+              <p>with any credit card or select debit cards</p>
+              </div>
+           </div>
+            <div class="productimage">
+<img src="<?php echo $this->getSkinUrl('images/sharevideos1.png') ?>"  alt="Diabetes">
+
+ </div>
+ </div>
+
+ </div>
+</div>
+</div>
+</section>
+
+
+<script type="text/javascript">
+function AddPackTOCart(id)
+{
+	
+	  var url = "<?php echo Mage::getBaseUrl();?>checkout/cart/custom/id"+id;
+		//alert(url);
+		window.location.href = "<?php echo Mage::getBaseUrl();?>checkout/cart/custom/id/"+id;
+	
+}
+</script>

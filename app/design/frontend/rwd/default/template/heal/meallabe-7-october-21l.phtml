@@ -1,0 +1,520 @@
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
+  <script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+  </script>
+	<style>
+	.col1-layout {
+    width: 100%;
+    margin-top: 7rem;
+    height: 100%;
+    margin-bottom: 1.5rem;
+}
+		#hero{position: relative;
+float: none;
+width: 1000px;
+margin: auto;}
+* {box-sizing: border-box}
+		.pritnbtn{text-align: right;margin-top: -30px !important;}
+		.headerprint{width: 50%;
+    float: none;
+    margin: auto;}
+	.hero_header{    text-align: center;
+    width: 100%;max-width:100%;
+    float: none;
+    margin-bottom: 10px !important;}	
+	.mealtable{}
+		.meallable h4{margin-bottom:0px; font-size: 11px;line-height: 1.2;}
+		.meallable{ width: 5.25cm;
+    height: auto;
+    font-size: 10px;
+    float: left;
+    margin: 4px 0px 0px 0px;
+    display: block;
+    border: 0px solid #000;
+    padding: 14px;
+    text-align: center;
+
+    }
+		.meallable p{float: left;
+    text-align: center;
+    width: 100%;
+    margin: 0;
+	line-height: 1.2;
+    display: inline-block;
+    white-space: unset;
+    }
+.ui-datepicker td {
+    border: 0;
+    padding: 1px;
+    width: 10%;
+}
+
+.hasDatepicker{width: 78% !important;
+max-width: 100%;
+background: #f6fcfc;
+height: 35px;
+box-shadow: 0px 0px 2px rgba(0,0,0,0.3);
+border: 0px;
+float: left;
+margin:10px;
+margin-right: 15px;
+}
+		
+
+
+@media all {
+	 .breaking{ display: none;page-break-inside: avoid; page-break-before: always; page-break-after: always;}
+}
+
+
+
+@page {
+  size: A4;
+  margin: 0;
+	padding:0;
+ }
+@media print {
+	.header-wrapper, .footer-container, .breadcrumbs{display:none;}
+	header, footer, .bck-btn{display:none;}
+	 div.print-content article.node .node-blog .clearfix div.item-body p a {
+    display: none;}
+	.noprint {
+  display:none;
+}
+ 
+  html, body {
+      width: 210mm;
+      height: 297mm;        
+  }
+.page {
+	width: 210mm;
+  height: 297mm;    
+  margin: 0px 0px 20px 0px;
+	padding:0;
+  border: initial;
+  border-radius: initial;
+  width: initial;
+  min-height: initial;
+  box-shadow: initial;
+  background: initial;
+  page-break-after: always;
+}
+.breaking {  
+  display: block; 
+  page-break-after: always;
+  page-break-inside: avoid; 
+  page-break-before: always;
+}
+.noprint {
+  display:none;
+}
+}
+.table {
+    width: 100%;
+    margin-bottom: 0 !important;
+    background-color: transparent;
+}
+.table-borderless tr{
+  height:20mm !important;
+  min-height:20mm !important;
+  max-height:20mm !important;
+  }
+.table-borderless td{
+  min-height:20mm!important;
+  max-height:20mm !important;
+  vertical-align: middle !important;
+  /*border:1px solid #ccc;*/
+  width: 24%;
+  }
+.table-borderless td .dinner::before{
+  width: 24px;
+height: 24px;
+background:blue;
+color:white;
+font-weight: bold;
+border-radius: 50%;
+content: 'D';
+/*position: relative;
+margin-top: -5px;
+right: -100px;
+padding: 5px 7px;
+top: 30px;*/
+box-shadow: 0px 0px 6px rgba(0,0,0,0.4);
+position: absolute;
+bottom: 10px;
+right: 10px;
+line-height: 24px;
+}
+
+.table-borderless td .breakfast::before{
+  width: 24px;
+height: 24px;
+background:green;
+color:white;
+content: 'B';
+font-weight: bold;
+border-radius: 50%;
+/*position: relative;
+padding: 5px 7px;
+top: 30px;
+right: -100px;*/
+box-shadow: 0px 0px 6px rgba(0,0,0,0.4);
+position: absolute;
+bottom: 10px;
+right: 10px;
+line-height: 24px;
+}
+
+.table-borderless td .lunch::before{
+  width: 24px;
+height: 24px;
+background: yellow;
+color:black;
+font-weight: bold;
+border-radius: 50%;
+content: 'L';
+/*position: relative;
+padding: 6px 8px;
+top: 30px;
+right: -100px;*/
+box-shadow: 0px 0px 6px rgba(0,0,0,0.4);
+position: absolute;
+bottom: 10px;
+right: 10px;
+line-height: 24px;
+}
+
+.table-borderless td .hightea::before{
+  width: 24px;
+height: 24px;
+background:skyblue;
+color:white;
+font-weight: bold;
+border-radius: 50%;
+content: 'H';
+/*position: relative;
+padding: 6px 8px;
+top: 30px;
+right: -100px;*/
+box-shadow: 0px 0px 6px rgba(0,0,0,0.4);
+position: absolute;
+bottom: 10px;
+right: 10px;
+line-height: 24px;
+}
+
+.table-borderless td span{
+  text-align: center;
+  width:100%;
+  float:left;
+  font-size:12px;
+  line-height: 1;
+}
+.table-borderless td span.label_top{
+    position: absolute;    
+    left: 0;
+    width: 100%;
+    bottom: 0;
+  }
+.label{
+  width:100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.label-inner{
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  width:48mm !important;
+  height:20mm !important;
+  align-content: center;
+  /*border: 1px solid #000;*/
+}
+.table.table-borderless{
+  width:210px;
+  margin:0 auto;
+}
+	</style>
+	<?php  
+	$orderdate='';
+ if(isset($_POST))
+ {
+	 $orderdate   = $_POST['datepicker'];
+ }
+	 ?>
+<div class="noprint">
+ <div class="container"> 
+<form method="POST" action="<?php echo Mage::getBaseUrl();?>heal/index/meallabel" style="margin-bottom: 20px;" autocomplete="off">
+<div class="loader" style="display: none;"></div>
+<table width="800" style="border:0px; margin: auto;width: 100%;" border="1" align="center" style="padding-left: 20px;padding-top:10px;margin: 25px;margin-right: 50px" class="noprint">
+  <tbody>
+  <tr  class="noprint">   
+    <td style="margin:3px; padding:4px;  border: 1px solid #dddddd;">
+        <span class="select_label">Select City:</span>
+        <select id="city" name="city">
+		      <option value="Delhi"  >Delhi</option>
+		      <option value="Gurgaon"  >Gurgaon</option>
+		      <option value="Pune"  >Pune</option>
+		    </select>
+ 	  </td>
+    </tr>
+    <tr >
+     
+     <td style="margin:3px"> <p style="margin-bottom: 0px;float: left;width: 100%;padding: 5px;">
+      <span style="width:auto;float: left;height: 35px;line-height: 35px;margin:10px auto;">Order Date:</span>
+      <input type="text" id="datepicker" name="datepicker" value="<?php echo $orderdate;?>">
+      <input type="submit" name="submit" value="Get Label Details"  style="margin: 10px auto;padding: 0px 10px;background: #0EB58F;border: 1px solid #0EB58F;color: #fff;font-size: 14px;height: 35px;width:auto;line-height: 35px;float: left;"> </button></p></td>
+	  
+    </tr>
+   
+   
+   
+  </tbody>
+</table>
+</form>
+         </div> 
+</div>
+<?php 
+ if(isset($_POST['submit']))
+ {
+	 $orderdate   = $_POST['datepicker'];
+	 $city   = $_POST['city'];
+     $dateInfo    = explode("/",$orderdate);
+       
+       $tmpOrderdateToShow = $dateInfo[2]."-".$dateInfo[0]."-".$dateInfo[1];
+       $month = date("M",strtotime($tmpOrderdateToShow));
+       $orderdateToShow = $dateInfo[1]."-".$month."-".$dateInfo[2];
+	 ?>
+   
+  <div class="book"> 
+	   <div class="headerprint">
+   <h2 class="hero_header noprint">City: <?php echo $city;?>, Label Details Of <?php echo $orderdateToShow;?> 
+   <div class="noprint pritnbtn"><input type="button" onclick="javascript:print()" style="margin: 10px auto;padding: 0px 10px;background: #0EB58F;border: 1px solid #0EB58F;color: #fff;font-size: 14px;height: 35px;width:auto;line-height: 35px;float: none;margin:auto;" value="Print" /></div></h2>     
+		   </div>
+    <div class="page">
+      
+	 <?php
+	   
+       
+       
+       $dbRead      = Mage::getSingleton('core/resource')->getConnection('core_read');
+       
+       $QueryGetItems = "select distinct(hid.productid) as itemid from healitemdetails hid join healorder ho on hid.orderid=ho.id and  ho.orderdate= '$orderdate'";
+       $itemResult = $dbRead->fetchAll($QueryGetItems);
+       
+       
+       $selectDatewiseOrders= "select * from healorder where status =0 and city='".ucfirst($city)."' and orderdate='$orderdate'";
+       $cuisineResult = $dbRead->fetchAll($selectDatewiseOrders);
+       
+       $orderResult = '';
+       $result = '';
+       
+       if(count($itemResult)>0)
+       {
+		  
+		   
+           $mealItemCount=0;
+           $finalProductName ='';
+
+           $countItemRecords=0;
+           $finalOutputArray = array();
+           foreach($itemResult as $itemInfo)
+          {             
+                $mealItemInfo = array();
+                $mealItemQtyArray = array();
+		$finalQty =0;
+		++$countItemRecords;
+                
+            if(count($cuisineResult)>0)
+            {
+            $mealItemInfo['itemId']=$itemInfo['itemid'];
+			
+			 $itemid = $itemInfo['itemid'];
+                         $mealItemsInfo = array();
+               	         $cuisineItemsDesc = array();
+            
+			
+               foreach($cuisineResult as $row)
+              {
+               
+               
+               $orderId               =     $row['id'];
+               $breakfast_items_desc  = 	$row['breakfast_items_desc']; $cuisineItemsDesc['breakfast'] = $breakfast_items_desc;
+               $lunch_items_desc      = 	$row['lunch_items_desc'];     $cuisineItemsDesc['lunch'] = $lunch_items_desc;
+               $hightea_items_desc    = 	$row['hightea_items_desc'];	  $cuisineItemsDesc['hightea'] = $hightea_items_desc;
+               $dinner_items_desc     = 	$row['dinner_items_desc'];    $cuisineItemsDesc['dinner'] = $dinner_items_desc;
+              
+               $customerEmail = $row['email'];
+               
+               $customer='';
+               $customer = Mage::getModel("customer/customer");
+               $customer->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
+               $customer->loadByEmail($customerEmail);
+               $customerName = 	$customer->getFirstname();
+               
+               foreach($cuisineItemsDesc as $cuisine=>$itemDesc)
+               {
+				 $orderItemsArray = array();
+				 $cuisineDescItems = explode(",",$itemDesc);
+				  
+				 if(count($cuisineDescItems)>0)
+				 {	 
+				   foreach($cuisineDescItems as $singleItem)
+					{
+					  $singleItemInfo = explode("_",$singleItem);
+					
+					  if($singleItemInfo[1]==$itemid)
+					  {       
+						   
+					    $productid = $singleItemInfo[1]; 
+
+					    $QgetOrderItemsDetails = "select * from  healitemdetails where orderid='$orderId' and cuisine='$cuisine' and productid='$productid'" ;
+					
+					    $orderItems = $dbRead->fetchAll($QgetOrderItemsDetails) ;
+					    if(count($orderItems) >0)
+					    {
+                                                  $countQtyOfCuisineItem =0; 
+						  foreach($orderItems as $orderdetailitem)
+						  {
+							  
+							  $itemId   =  trim($orderdetailitem['productid']);
+							  $qty      =  trim($orderdetailitem['qty']);
+							  $mealItemInfo['itemName'] =  trim($orderdetailitem['itemname']);
+                                                          $mealItemInfo['cuisine'] =  trim($cuisine);
+                                                          
+							
+							  $productIdValue = array();
+							  
+							     
+								  
+									if(!array_key_exists($qty,$mealItemQtyArray) ) 
+									{
+									   
+									   $mealItemQtyArray[$qty] = 1;
+									   $finalQty+=$qty;
+									}
+									else 
+									{  
+										if(array_key_exists($qty,$mealItemQtyArray) )
+										{  
+									
+									
+											$alreadyCountedQty                     = $mealItemQtyArray[$qty];
+
+										    $newQtyCount                           = $alreadyCountedQty + 1;
+										    $mealItemQtyArray[$qty]  = $newQtyCount;
+											$finalQty+=$qty;
+									    }
+										else
+										{
+										  $mealItemQtyArray[$qty] = 1;
+										  $finalQty+=$qty;
+										}
+										
+
+									}
+							
+							  
+							 
+
+						  }
+						  
+
+					    }
+					 
+					}
+				}
+			}
+				
+			 
+               }
+               
+           }
+         }  
+		   $mealItemInfo['mealDate'] = $orderdateToShow;
+		   $mealItemInfo['finalQty'] = $finalQty;
+		   $mealItemInfo['mealItemQtyArray'] = $mealItemQtyArray;
+                          
+                        
+                   ksort($mealItemInfo['mealItemQtyArray']);
+			
+                   $finalOutputArray[] = $mealItemInfo;
+            
+       }
+       
+  //  echo "<pre>"; print_r($finalOutputArray); //die;
+       
+       ?>
+          
+             <table class="table table-borderless"> 
+              
+          
+       <?php $countLabel =0;$definedvalue = 1;
+       $extraLabels=1;
+          foreach( $finalOutputArray as $mealinformationArray){
+              foreach($mealinformationArray['mealItemQtyArray'] as $gram=>$quantityofgram ){
+                  if($gram>0){   
+                      for($i=0;$i< ($quantityofgram+$extraLabels);$i++) { 
+                          ++$countLabel; 
+                        if($definedvalue == 1 ){ ?>
+                          <tr <?php if($countLabel%56==0){ ?> class="breaking" <?php } ?> >
+                              <?php   $definedvalue = 0; }
+                            if($i < $quantityofgram) { ?>
+
+                              <td>
+                                <div class="label">
+                                  <div class="label-inner">
+										                <span class="label_top <?php echo $mealinformationArray['cuisine'];?>"></span>
+                                    <span style="font-weight: bold;">  <?php echo $mealinformationArray['itemName'];?></span> 
+                                    <span>  <?php echo $gram.' gm';?></span>
+                                    <span>  <?php echo $mealinformationArray['mealDate'];?></span>
+                                  </div>
+                                </div>
+                              </td>
+                                  <?php } else { ?> 
+
+                              <td>
+                                <div class="label">
+                                  <div class="label-inner">
+									                  <span class="label_top <?php echo $mealinformationArray['cuisine'];?>"></span>
+                                    <span style="font-weight: bold;">  <?php echo $mealinformationArray['itemName'];?></span> 
+                                    <span>  &nbsp; </span>
+                                    <span>  <?php echo $mealinformationArray['mealDate'];?></span>
+                                  </div>
+                                </div>
+                              </td>
+
+
+                                <?php }  
+
+                                  if($countLabel%4==0){ $definedvalue = 1; ?>
+                                          </tr>
+                                 <?php }
+                  }
+                  
+                 
+                 }
+              } 
+              
+          }
+          
+    ?>
+               
+	 	
+		</table>
+              
+     <?php  } ?>             
+</div>
+</div>
+	 
+ <?php } ?>
+
+
